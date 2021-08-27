@@ -11,7 +11,7 @@ import javafx.scene.layout.Pane;
 
 public class ClinicApp extends Application {
 	private static final String GUI_FXML = "view/ClinicAppGui.fxml";
-	private static final String WINDOW_TITLE = "Title";
+	private static final String WINDOW_TITLE = "Clinic";
 
 	/**
 	 * Constructs a new Application object for Image program.
