@@ -1,4 +1,4 @@
-package edu.westga.cs4985.clinicApp.view;
+package edu.westga.cs4985.clinicApp.view.login;
 
 import java.io.IOException;
 
@@ -14,7 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class ClinicAppCodeBehind {
+public class LoginCodeBehind {
 
 	@FXML
 	private TextField usernameTextField;
@@ -26,11 +26,13 @@ public class ClinicAppCodeBehind {
 	private Button loginButton;
 
 	private ClinicAppViewModel viewmodel;
+	
+	private static final String LOGIN_GUI = "edu/westga/cs4985/clinicApp/view/dashboard/DashboardGui.fxml";
 
 	/**
 	 * Instantiates a new code behind
 	 */
-	public ClinicAppCodeBehind() {
+	public LoginCodeBehind() {
 		this.viewmodel = new ClinicAppViewModel();
 	}
 
@@ -50,7 +52,7 @@ public class ClinicAppCodeBehind {
 			Stage stage = (Stage) node.getScene().getWindow();
 			stage.close();
 			try {
-				Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("edu/westga/cs4985/clinicApp/view/DashboardGui.fxml"));
+				Parent root = FXMLLoader.load(getClass().getClassLoader().getResource(LOGIN_GUI));
 				stage.setUserData(u);
 				Scene scene = new Scene(root);
 				stage.setScene(scene);

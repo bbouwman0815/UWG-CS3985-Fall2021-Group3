@@ -10,7 +10,7 @@ import javafx.scene.layout.Pane;
 
 
 public class ClinicApp extends Application {
-	private static final String GUI_FXML = "view/ClinicAppGui.fxml";
+	private static final String GUI_FXML = "view/login/LoginGui.fxml";
 	private static final String WINDOW_TITLE = "Clinic";
 
 	/**
