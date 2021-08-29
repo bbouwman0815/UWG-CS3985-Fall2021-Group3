@@ -48,5 +48,6 @@
             </Button>
          </children>
       </GridPane>
+      <AnchorPane fx:id="anchorPaneViewer" layoutX="264.0" layoutY="153.0" prefHeight="417.0" prefWidth="718.0" />
    </children>
 </AnchorPane>

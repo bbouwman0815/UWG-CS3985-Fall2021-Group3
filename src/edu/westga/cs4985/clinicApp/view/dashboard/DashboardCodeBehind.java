@@ -1,12 +1,13 @@
 package edu.westga.cs4985.clinicApp.view.dashboard;
 
-import edu.westga.cs4985.clinicApp.model.User;
+import java.io.IOException;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
 
 public class DashboardCodeBehind {
 
@@ -24,6 +25,9 @@ public class DashboardCodeBehind {
 
 	@FXML
 	private Button appointmentNavButton;
+	
+    @FXML
+    private AnchorPane anchorPaneViewer;
 
 	public DashboardCodeBehind() {
 
@@ -45,8 +49,9 @@ public class DashboardCodeBehind {
 	}
 
 	@FXML
-	void handleNavigateToGeneralInfo(ActionEvent event) {
-
+	void handleNavigateToGeneralInfo(ActionEvent event) throws IOException {
+		AnchorPane pane = FXMLLoader.load(getClass().getResource("../generalInfor/PatientGeneralInfoGui.fxml"));
+		this.anchorPaneViewer.getChildren().setAll(pane);
 	}
 
 }
