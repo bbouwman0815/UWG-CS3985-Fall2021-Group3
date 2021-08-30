@@ -3,6 +3,8 @@ package edu.westga.cs4985.clinicApp.view.generalInfor;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
@@ -51,6 +53,27 @@ public class PatientGeneralInfoCodeBehind {
     private Button saveButton;
     
     @FXML
+    private ChoiceBox<?> raceChoiceBox;
+
+    @FXML
+    private ChoiceBox<?> sexChoiceBox;
+
+    @FXML
+    private ChoiceBox<?> ethnicityChoiceBox;
+    
+    @FXML
+    private TextField insuranceInput;
+
+    @FXML
+    private ChoiceBox<?> stateChoiceBox;
+
+    @FXML
+    private ChoiceBox<?> countryChoiceBox;
+
+    @FXML
+    private DatePicker birthdayPicker;
+    
+    @FXML
     public void initialize() {
     	this.saveButton.setVisible(false);
     	this.cancelButton.setVisible(false);
@@ -90,11 +113,6 @@ public class PatientGeneralInfoCodeBehind {
     }
 
     @FXML
-    void getCountry(ActionEvent event) {
-
-    }
-
-    @FXML
     void getEmail(ActionEvent event) {
 
     }
@@ -113,11 +131,12 @@ public class PatientGeneralInfoCodeBehind {
     void getPhone(ActionEvent event) {
 
     }
-
+    
     @FXML
-    void getState(ActionEvent event) {
+    void getInsurance(ActionEvent event) {
 
     }
+
 
     @FXML
     void saveGeneralInfo(ActionEvent event) {
