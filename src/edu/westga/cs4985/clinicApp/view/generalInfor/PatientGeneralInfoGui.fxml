@@ -119,8 +119,8 @@
       <ChoiceBox fx:id="sexChoiceBox" layoutX="144.0" layoutY="83.0" prefHeight="27.0" prefWidth="161.0" />
       <ChoiceBox fx:id="ethnicityChoiceBox" layoutX="451.0" layoutY="406.0" prefHeight="36.0" prefWidth="161.0" />
       <TextField fx:id="insuranceInput" layoutX="451.0" layoutY="455.0" onAction="#getInsurance" prefHeight="36.0" prefWidth="161.0" />
-      <ChoiceBox fx:id="stateChoiceBox" layoutX="250.0" layoutY="346.0" prefHeight="36.0" prefWidth="83.0" />
       <ChoiceBox fx:id="countryChoiceBox" layoutX="451.0" layoutY="346.0" prefHeight="36.0" prefWidth="161.0" />
       <DatePicker fx:id="birthdayPicker" layoutX="454.0" layoutY="83.0" prefHeight="27.0" prefWidth="161.0" />
+      <TextField fx:id="stateInput" layoutX="249.0" layoutY="346.0" onAction="#getState" prefHeight="36.0" prefWidth="83.0" />
    </children>
 </AnchorPane>
