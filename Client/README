@@ -1,0 +1,11 @@
+SETUP
+run setup.sh to install the JeroMQ jar into your local Maven repository.
+
+COMPILE
+run 'mvn compile'
+
+TEST
+run 'mvn test'
+
+EXECUTE
+run 'mvn javafx:run' to execute the sample
