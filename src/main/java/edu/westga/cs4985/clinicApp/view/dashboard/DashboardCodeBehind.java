@@ -34,7 +34,9 @@ public class DashboardCodeBehind {
 	}
 
 	@FXML
-	void handleNavigateAppointment(ActionEvent event) {
+	void handleNavigateAppointment(ActionEvent event) throws IOException {
+		AnchorPane pane = FXMLLoader.load(getClass().getResource("../appointment/AppointmentGui.fxml"));
+		this.anchorPaneViewer.getChildren().setAll(pane);
 
 	}
 
