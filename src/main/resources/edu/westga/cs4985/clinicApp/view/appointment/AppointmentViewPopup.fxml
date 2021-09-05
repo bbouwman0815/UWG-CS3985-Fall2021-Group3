@@ -13,10 +13,10 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="38.0" layoutY="59.0" prefHeight="17.0" prefWidth="422.0" text="Medical Personnel:" />
-      <Label layoutX="38.0" layoutY="97.0" prefHeight="17.0" prefWidth="422.0" text="Patient:" />
-      <Label layoutX="38.0" layoutY="134.0" prefHeight="17.0" prefWidth="422.0" text="Time:" />
-      <Label layoutX="38.0" layoutY="172.0" prefHeight="17.0" prefWidth="422.0" text="Location:" />
+      <Label fx:id="medicalPersonnelLabel" layoutX="38.0" layoutY="59.0" prefHeight="17.0" prefWidth="422.0" text="Medical Personnel:" />
+      <Label fx:id="patientLabel" layoutX="38.0" layoutY="97.0" prefHeight="17.0" prefWidth="422.0" text="Patient:" />
+      <Label fx:id="timeLabel" layoutX="38.0" layoutY="134.0" prefHeight="17.0" prefWidth="422.0" text="Time:" />
+      <Label fx:id="locationLabel" layoutX="38.0" layoutY="172.0" prefHeight="17.0" prefWidth="422.0" text="Location:" />
       <Label layoutX="38.0" layoutY="214.0" prefHeight="17.0" prefWidth="60.0" text="Notes:" />
       <TextArea fx:id="appointmentNotes" layoutX="38.0" layoutY="237.0" prefHeight="168.0" prefWidth="394.0" />
       <Button fx:id="editButton" layoutX="83.0" layoutY="209.0" mnemonicParsing="false" onAction="#onEditNotes" text="Edit" />
