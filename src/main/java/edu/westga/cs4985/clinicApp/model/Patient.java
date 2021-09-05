@@ -68,6 +68,9 @@ public class Patient extends Person {
 		if (email.isEmpty()) {
 			throw new IllegalArgumentException(UI.ExceptionMessages.EMPTY_DATEOFBIRTH);
 		}
+		this.insurance = insurance;
+		this.phoneNumber = phoneNumber;
+		this.email = email;
 	}
 
 	/**

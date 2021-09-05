@@ -19,7 +19,7 @@ public class Person {
 
 	private String lastName;
 
-	private Gender gender;
+	private String gender;
 
 	private String dateOfBirth;
 
@@ -74,6 +74,17 @@ public class Person {
 		nameDOBCheck(firstName, lastName, dateOfBirth);
 		addressCheck(address1, address2, city, state);
 		demographicCheck(gender, country, race, ethnicity);
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.gender = gender;
+		this.dateOfBirth = dateOfBirth;
+		this.address1 = address1;
+		this.address2 = address2;
+		this.city = city;
+		this.state = state;
+		this.country = country;
+		this.race = race;
+		this.ethnicity = ethnicity;
 	}
 
 	private void nameDOBCheck(String firstName, String lastName, String dateOfBirth) {
@@ -189,7 +200,7 @@ public class Person {
 	 *
 	 * @return the gender
 	 */
-	public Gender getGender() {
+	public String getGender() {
 		return gender;
 	}
 
@@ -198,7 +209,7 @@ public class Person {
 	 *
 	 * @param gender the new gender
 	 */
-	public void setGender(Gender gender) {
+	public void setGender(String gender) {
 		this.gender = gender;
 	}
 
