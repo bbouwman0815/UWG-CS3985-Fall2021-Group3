@@ -30,9 +30,13 @@ public class PatientViewModel {
 	private StringProperty seletedMedicalPersonnel;
 	private ObjectProperty<LocalDateTime> selectedAvailabilityProperty;
 	private ListProperty<LocalDateTime> availabilityListProperty;
-	private ObjectProperty<Appointment> selectedAppointmentProperty;
-	private ListProperty<Appointment> appointmentListProperty;
+	private ObjectProperty<Appointment> selectedFutureAppointmentProperty;
+	private ObjectProperty<Appointment> selectedPastAppointmentProperty;
+	private ListProperty<Appointment> futureAppointmentListProperty;
+	private ListProperty<Appointment> pastAppointmentListProperty;
+	private List<Appointment> FutureppointmentList;
 	private StringProperty notesProperty;
+	private List<Appointment> pastAppointmentList;
 	
 	/**
 	 * Create view model for patient general information.
@@ -43,19 +47,46 @@ public class PatientViewModel {
 	 */
 	public PatientViewModel() {
 		
-		this.selectedAppointmentProperty = new SimpleObjectProperty<Appointment>();
+		this.selectedFutureAppointmentProperty = new SimpleObjectProperty<Appointment>();
+		this.selectedPastAppointmentProperty = new SimpleObjectProperty<Appointment>();
 		this.selectedAvailabilityProperty = new SimpleObjectProperty<LocalDateTime>();
-		this.appointmentListProperty = new SimpleListProperty<Appointment>();
+		this.futureAppointmentListProperty = new SimpleListProperty<Appointment>();
+		this.pastAppointmentListProperty = new SimpleListProperty<Appointment>();
 		this.availabilityListProperty = new SimpleListProperty<LocalDateTime>();
 		this.notesProperty = new SimpleStringProperty("");
 		this.seletedMedicalPersonnel = new SimpleStringProperty("");
+		this.FutureppointmentList = new ArrayList<Appointment>();
+		this.pastAppointmentList = new ArrayList<Appointment>();
 		
 	}
 	
 	public void bookAppointment() {
 		Patient patient = new Patient("Jimmy", "Bob", new Gender(), "1990-09-09", "new", "new", "nwe", "new", new Country(), new Race(), new Ethnicity(), "new", "new", "new");
 		Appointment appointment = new Appointment(this.selectedAvailabilityProperty.get(), patient, this.seletedMedicalPersonnel.get(), "TLC", this.notesProperty.get());
-		
+		this.FutureppointmentList.add(appointment);
+		this.futureAppointmentListProperty.set(FXCollections.observableArrayList(this.FutureppointmentList));
+	}
+	
+	public boolean isBookedAppointment() {
+		for (Appointment appointment : this.FutureppointmentList){
+			if (appointment.getMedicalPersonnel().equals(this.seletedMedicalPersonnel.get()) &&
+					appointment.getDateTime().equals(this.selectedAvailabilityProperty.get())) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public void cancelAppointment() {
+		this.FutureppointmentList.remove(this.selectedFutureAppointmentProperty.get());
+		this.futureAppointmentListProperty.set(FXCollections.observableArrayList(this.FutureppointmentList));
+	}
+	
+	public void togglePastAppointment(Appointment appointment) {
+		this.FutureppointmentList.remove(appointment);
+		this.futureAppointmentListProperty.set(FXCollections.observableArrayList(this.FutureppointmentList));
+		this.pastAppointmentList.add(appointment);
+		this.pastAppointmentListProperty.set(FXCollections.observableArrayList(this.pastAppointmentList));
 	}
 	
 	public StringProperty seletedMedicalPersonnel() {
@@ -70,15 +101,25 @@ public class PatientViewModel {
 		return this.availabilityListProperty;
 	}
 	
-	public ObjectProperty<Appointment> selectedAppointmentProperty() {
-		return this.selectedAppointmentProperty;
+	public ObjectProperty<Appointment> selectedFutureAppointmentProperty() {
+		return this.selectedFutureAppointmentProperty;
 	}
 	
-	public ListProperty<Appointment> appointmentListProperty() {
-		return this.appointmentListProperty;
+	public ObjectProperty<Appointment> selectedPastAppointmentProperty() {
+		return this.selectedPastAppointmentProperty;
+	}
+	
+	public ListProperty<Appointment> futureAppointmentListProperty() {
+		return this.futureAppointmentListProperty;
+	}
+	
+	public ListProperty<Appointment> pastAppointmentListProperty() {
+		return this.pastAppointmentListProperty;
 	}
 	
 	public StringProperty notesProperty() {
 		return this.notesProperty;
 	}
+	
+	
 }

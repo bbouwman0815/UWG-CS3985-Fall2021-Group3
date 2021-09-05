@@ -192,16 +192,6 @@ public class Appointment {
 	}
 
 	@Override
-	public boolean equals(Object appointment) {
-		if (appointment instanceof Appointment) {
-			return  this.getDateTime().equals(((Appointment) appointment).getDateTime())
-					&& this.getPatient().getFirstName().equals(((Appointment) appointment).getPatient().getFirstName())
-					&& this.getPatient().getLastName().equals(((Appointment) appointment).getPatient().getLastName());
-		}
-		return false;
-	}
-
-	@Override
 	public int hashCode() {
 		String hashString = this.getDateTime().toString() + this.getPatient().getFirstName()
 				+ this.getPatient().getLastName();
