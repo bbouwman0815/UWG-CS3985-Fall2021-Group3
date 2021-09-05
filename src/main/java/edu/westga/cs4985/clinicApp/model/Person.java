@@ -1,10 +1,6 @@
 package edu.westga.cs4985.clinicApp.model;
 
 import edu.westga.cs4985.clinicApp.resources.UI;
-import edu.westga.cs4985.clinicApp.utils.Country;
-import edu.westga.cs4985.clinicApp.utils.Ethnicity;
-import edu.westga.cs4985.clinicApp.utils.Gender;
-import edu.westga.cs4985.clinicApp.utils.Race;
 
 /**
  * The Person class.
@@ -19,7 +15,7 @@ public class Person {
 
 	private String lastName;
 
-	private Gender gender;
+	private String gender;
 
 	private String dateOfBirth;
 
@@ -31,11 +27,11 @@ public class Person {
 
 	private String state;
 
-	private Country country;
+	private String country;
 
-	private Race race;
+	private String race;
 
-	private Ethnicity ethnicity;
+	private String ethnicity;
 
 	public Person() {
 
@@ -59,21 +55,31 @@ public class Person {
 	 * @precondition firstName != null && !firstName.isEmpty() && lastName != null
 	 *               && !lastName.isEmpty() && gender != null && dateOfBirth != null
 	 *               && !dateOfBirth.isEmpty() && address1 != null &&
-	 *               !address1.isEmpty() && address2 != null && !address2.isEmpty()
-	 *               && city != null && !city.isEmpty() && state != null &&
-	 *               !state.isEmpty() && country != null && race =! null &&
-	 *               ethnicity != null
+	 *               !address1.isEmpty() && address2 != null && city != null &&
+	 *               !city.isEmpty() && state != null && !state.isEmpty() && country
+	 *               != null && race =! null && ethnicity != null
 	 * @postcondition firstName = getFirstName() && lastName == getLastName() &&
 	 *                gender == getGender() && dateOfBirth = getDateOfBirth() &&
 	 *                address1 = getAddress1() && address2 == getAddress2() && city
 	 *                == getCity() state == getState() && country == getCountry() &&
 	 *                race == getRace() && ethnicity == getEthnicity
 	 */
-	public Person(String firstName, String lastName, Gender gender, String dateOfBirth, String address1,
-			String address2, String city, String state, Country country, Race race, Ethnicity ethnicity) {
+	public Person(String firstName, String lastName, String gender, String dateOfBirth, String address1,
+			String address2, String city, String state, String country, String race, String ethnicity) {
 		nameDOBCheck(firstName, lastName, dateOfBirth);
 		addressCheck(address1, address2, city, state);
 		demographicCheck(gender, country, race, ethnicity);
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.gender = gender;
+		this.dateOfBirth = dateOfBirth;
+		this.address1 = address1;
+		this.address2 = address2;
+		this.city = city;
+		this.state = state;
+		this.country = country;
+		this.race = race;
+		this.ethnicity = ethnicity;
 	}
 
 	private void nameDOBCheck(String firstName, String lastName, String dateOfBirth) {
@@ -107,9 +113,6 @@ public class Person {
 		if (address2 == null) {
 			throw new IllegalArgumentException(UI.ExceptionMessages.NULL_ADDRESS2);
 		}
-		if (address2.isEmpty()) {
-			throw new IllegalArgumentException(UI.ExceptionMessages.EMPTY_ADDRESS2);
-		}
 		if (city == null) {
 			throw new IllegalArgumentException(UI.ExceptionMessages.NULL_CITY);
 		}
@@ -124,18 +127,30 @@ public class Person {
 		}
 	}
 
-	private void demographicCheck(Gender gender, Country country, Race race, Ethnicity ethnicity) {
+	private void demographicCheck(String gender, String country, String race, String ethnicity) {
 		if (gender == null) {
 			throw new IllegalArgumentException(UI.ExceptionMessages.NULL_GENDER);
+		}
+		if (gender.isEmpty()) {
+			throw new IllegalArgumentException(UI.ExceptionMessages.EMPTY_GENDER);
 		}
 		if (country == null) {
 			throw new IllegalArgumentException(UI.ExceptionMessages.NULL_COUNTRY);
 		}
+		if (country.isEmpty()) {
+			throw new IllegalArgumentException(UI.ExceptionMessages.EMPTY_COUNTRY);
+		}
 		if (race == null) {
 			throw new IllegalArgumentException(UI.ExceptionMessages.NULL_RACE);
 		}
+		if (race.isEmpty()) {
+			throw new IllegalArgumentException(UI.ExceptionMessages.EMPTY_RACE);
+		}
 		if (ethnicity == null) {
 			throw new IllegalArgumentException(UI.ExceptionMessages.NULL_ETHNICITY);
+		}
+		if (ethnicity.isEmpty()) {
+			throw new IllegalArgumentException(UI.ExceptionMessages.EMPTY_ETHNICITY);
 		}
 	}
 
@@ -180,7 +195,7 @@ public class Person {
 	 *
 	 * @return the gender
 	 */
-	public Gender getGender() {
+	public String getGender() {
 		return gender;
 	}
 
@@ -189,7 +204,7 @@ public class Person {
 	 *
 	 * @param gender the new gender
 	 */
-	public void setGender(Gender gender) {
+	public void setGender(String gender) {
 		this.gender = gender;
 	}
 
@@ -288,7 +303,7 @@ public class Person {
 	 *
 	 * @return the country
 	 */
-	public Country getCountry() {
+	public String getCountry() {
 		return country;
 	}
 
@@ -297,7 +312,7 @@ public class Person {
 	 *
 	 * @param country the new country
 	 */
-	public void setCountry(Country country) {
+	public void setCountry(String country) {
 		this.country = country;
 	}
 
@@ -306,7 +321,7 @@ public class Person {
 	 *
 	 * @return the race
 	 */
-	public Race getRace() {
+	public String getRace() {
 		return race;
 	}
 
@@ -315,7 +330,7 @@ public class Person {
 	 *
 	 * @param race the new race
 	 */
-	public void setRace(Race race) {
+	public void setRace(String race) {
 		this.race = race;
 	}
 
@@ -324,7 +339,7 @@ public class Person {
 	 *
 	 * @return the ethnicity
 	 */
-	public Ethnicity getEthnicity() {
+	public String getEthnicity() {
 		return ethnicity;
 	}
 
@@ -333,7 +348,7 @@ public class Person {
 	 *
 	 * @param ethnicity the new ethnicity
 	 */
-	public void setEthnicity(Ethnicity ethnicity) {
+	public void setEthnicity(String ethnicity) {
 		this.ethnicity = ethnicity;
 	}
 }

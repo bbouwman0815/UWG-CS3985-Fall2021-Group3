@@ -46,8 +46,8 @@ public class Patient extends Person {
 	 * @postcondition insurance == getInsurance() && phoneNumber == getPhoneNumber()
 	 *                && email == getEmail()
 	 */
-	public Patient(String firstName, String lastName, Gender gender, String dateOfBirth, String address1,
-			String address2, String city, String state, Country country, Race race, Ethnicity ethnicity,
+	public Patient(String firstName, String lastName, String gender, String dateOfBirth, String address1,
+			String address2, String city, String state, String country, String race, String ethnicity,
 			String phoneNumber, String email, String insurance) {
 		super(firstName, lastName, gender, dateOfBirth, address1, address2, city, state, country, race, ethnicity);
 		if (insurance == null) {
@@ -68,6 +68,9 @@ public class Patient extends Person {
 		if (email.isEmpty()) {
 			throw new IllegalArgumentException(UI.ExceptionMessages.EMPTY_DATEOFBIRTH);
 		}
+		this.insurance = insurance;
+		this.phoneNumber = phoneNumber;
+		this.email = email;
 	}
 
 	/**

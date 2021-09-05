@@ -40,6 +40,10 @@ public class UI {
 		public static final String NULL_ETHNICITY = "Ethnicity cannot be null";
 		public static final String NULL_RACE = "Race cannot be null";
 		public static final String NULL_GENDER = "Gender cannot be null";
+		public static final String EMPTY_GENDER = "Gender cannot be empty";
+		public static final String EMPTY_COUNTRY = "Country cannot be empty";
+		public static final String EMPTY_RACE = "Race cannot be empty";
+		public static final String EMPTY_ETHNICITY = "Ethnicity cannot be empty";
 	}
 
 }
