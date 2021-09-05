@@ -61,7 +61,7 @@ public class PatientViewModel {
 	}
 	
 	public void bookAppointment() {
-		Patient patient = new Patient("Jimmy", "Bob", new Gender(), "1990-09-09", "new", "new", "nwe", "new", new Country(), new Race(), new Ethnicity(), "new", "new", "new");
+		Patient patient = new Patient("Jimmy", "Bob", "male", "1990-09-09", "new", "new", "nwe", "new", "USA", "New", "new", "new", "new", "new");
 		Appointment appointment = new Appointment(this.selectedAvailabilityProperty.get(), patient, this.seletedMedicalPersonnel.get(), "TLC", this.notesProperty.get());
 		this.FutureppointmentList.add(appointment);
 		this.futureAppointmentListProperty.set(FXCollections.observableArrayList(this.FutureppointmentList));
