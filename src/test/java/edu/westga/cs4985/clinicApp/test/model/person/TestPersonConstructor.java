@@ -99,7 +99,7 @@ class TestPersonConstructor {
 		Country country = new Country();
 		Race race = new Race();
 		Ethnicity ethnicity = new Ethnicity();
-		assertThrows(IllegalArgumentException.class, () -> new Person("Jameson", "John", "", "08-08-2008",
+		assertThrows(IllegalArgumentException.class, () -> new Person("Jameson", "John", null, "08-08-2008",
 				"912 Maple Street", "", "Carrollton", "GA", country.country[0], race.race[2], ethnicity.ethnicity[1]));
 	}
 

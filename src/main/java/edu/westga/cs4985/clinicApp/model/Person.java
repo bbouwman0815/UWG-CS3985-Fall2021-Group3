@@ -1,10 +1,6 @@
 package edu.westga.cs4985.clinicApp.model;
 
 import edu.westga.cs4985.clinicApp.resources.UI;
-import edu.westga.cs4985.clinicApp.utils.Country;
-import edu.westga.cs4985.clinicApp.utils.Ethnicity;
-import edu.westga.cs4985.clinicApp.utils.Gender;
-import edu.westga.cs4985.clinicApp.utils.Race;
 
 /**
  * The Person class.
@@ -59,10 +55,9 @@ public class Person {
 	 * @precondition firstName != null && !firstName.isEmpty() && lastName != null
 	 *               && !lastName.isEmpty() && gender != null && dateOfBirth != null
 	 *               && !dateOfBirth.isEmpty() && address1 != null &&
-	 *               !address1.isEmpty() && address2 != null
-	 *               && city != null && !city.isEmpty() && state != null &&
-	 *               !state.isEmpty() && country != null && race =! null &&
-	 *               ethnicity != null
+	 *               !address1.isEmpty() && address2 != null && city != null &&
+	 *               !city.isEmpty() && state != null && !state.isEmpty() && country
+	 *               != null && race =! null && ethnicity != null
 	 * @postcondition firstName = getFirstName() && lastName == getLastName() &&
 	 *                gender == getGender() && dateOfBirth = getDateOfBirth() &&
 	 *                address1 = getAddress1() && address2 == getAddress2() && city

@@ -35,22 +35,19 @@ class TestPatientConstructor {
 	@Test
 	void testCorrectConstructor() {
 		Patient patient = patientDummy();
-		assertAll(
-			    () -> assertEquals("Xavier", patient.getFirstName()),
-			    () -> assertEquals("Jameson", patient.getLastName()),
-			    () -> assertEquals(new Gender().sex[0], patient.getGender()),
-			    () -> assertEquals("08-08-2008", patient.getDateOfBirth()),
-			    () -> assertEquals("912 Maple Street", patient.getAddress1()),
-			    () -> assertEquals("East Maple Building 2B", patient.getAddress2()),
-			    () -> assertEquals("Carrollton", patient.getCity()),
-			    () -> assertEquals("GA", patient.getState()),
-			    () -> assertEquals(new Country().country[0], patient.getCountry()),
-			    () -> assertEquals(new Race().race[1], patient.getRace()),
-			    () -> assertEquals(new Ethnicity().ethnicity[1], patient.getEthnicity()),
-			    () -> assertEquals("770-111-222", patient.getPhoneNumber()),
-			    () -> assertEquals("email@email.com", patient.getEmail()),
-			    () -> assertEquals("United Healthcare", patient.getInsurance())
-				);
+		assertAll(() -> assertEquals("Xavier", patient.getFirstName()),
+				() -> assertEquals("Jameson", patient.getLastName()),
+				() -> assertEquals(new Gender().sex[0], patient.getGender()),
+				() -> assertEquals("08-08-2008", patient.getDateOfBirth()),
+				() -> assertEquals("912 Maple Street", patient.getAddress1()),
+				() -> assertEquals("East Maple Building 2B", patient.getAddress2()),
+				() -> assertEquals("Carrollton", patient.getCity()), () -> assertEquals("GA", patient.getState()),
+				() -> assertEquals(new Country().country[0], patient.getCountry()),
+				() -> assertEquals(new Race().race[1], patient.getRace()),
+				() -> assertEquals(new Ethnicity().ethnicity[1], patient.getEthnicity()),
+				() -> assertEquals("770-111-222", patient.getPhoneNumber()),
+				() -> assertEquals("email@email.com", patient.getEmail()),
+				() -> assertEquals("United Healthcare", patient.getInsurance()));
 	}
 
 	@Test

@@ -3,13 +3,7 @@ package edu.westga.cs4985.clinicApp.test.model.user;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
-
-import edu.westga.cs4985.clinicApp.model.Person;
 import edu.westga.cs4985.clinicApp.model.User;
-import edu.westga.cs4985.clinicApp.utils.Country;
-import edu.westga.cs4985.clinicApp.utils.Ethnicity;
-import edu.westga.cs4985.clinicApp.utils.Gender;
-import edu.westga.cs4985.clinicApp.utils.Race;
 
 /**
  * JUnit Test Case for User Constructor
@@ -19,6 +13,12 @@ import edu.westga.cs4985.clinicApp.utils.Race;
  *
  */
 class TestUserConstructor {
+
+	@Test
+	void testUser() {
+		User user = new User("Admin", "123");
+		assertAll(() -> assertEquals("Admin", user.getUsername()), () -> assertEquals("123", user.getPassword()));
+	}
 
 	@Test
 	void testEmptyUsername() {
