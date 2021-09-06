@@ -1,18 +1,27 @@
 package edu.westga.cs4985.clinicApp.view.generalInfor;
 
+import java.io.IOException;
+
+import edu.westga.cs4985.clinicApp.model.Patient;
+import edu.westga.cs4985.clinicApp.resources.WindowGenerator;
 import edu.westga.cs4985.clinicApp.utils.Country;
 import edu.westga.cs4985.clinicApp.utils.Ethnicity;
 import edu.westga.cs4985.clinicApp.utils.Gender;
 import edu.westga.cs4985.clinicApp.utils.Race;
+import edu.westga.cs4985.clinicApp.utils.login.UToken;
 import edu.westga.cs4985.clinicApp.viewmodel.PatientViewModel;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 
 /**
@@ -87,10 +96,23 @@ public class PatientGeneralInfoCodeBehind {
     @FXML
     private DatePicker birthdayPicker;
     
+	@FXML
+	private Button dashboardNavButton;
+
+	@FXML
+	private Button medicationsNavButton;
+
+	@FXML
+	private Button medicalConditionsNavButton;
+
+	@FXML
+	private Button appointmentNavButton;
+    
     private Race race;
     private Gender gender;
     private Ethnicity ethnicity;
     private Country country;
+    private UToken userToken;
     
     private PatientViewModel viewModel;
 
@@ -101,12 +123,13 @@ public class PatientGeneralInfoCodeBehind {
 	 * 
 	 * @postcondition none
 	 */
-    public PatientGeneralInfoCodeBehind() {
+    public PatientGeneralInfoCodeBehind(UToken token) {
     	this.race = new Race();
     	this.gender = new Gender();
     	this.ethnicity = new Ethnicity();
     	this.country = new Country();
     	this.viewModel = new PatientViewModel();
+    	this.userToken = token;
     }
     
     @FXML
@@ -116,6 +139,7 @@ public class PatientGeneralInfoCodeBehind {
     	this.setUpChoiceBoxes();
     	this.setupBindings();
     	this.formActivation(true);
+    	this.setForm();
     }
     
     private void formActivation(boolean action) {
@@ -162,6 +186,46 @@ public class PatientGeneralInfoCodeBehind {
     void cancel(ActionEvent event) {
 
     }
+    
+    private void setForm() {
+		try {
+			// code to communicate with server to retrieve patient object to fill out
+			// general info form
+			int adminHash = new String("Admin" + "123").hashCode() * 66;
+			//instead of if statement, replace with class that communicates w/ server
+			if (this.userToken.tokenId == adminHash) {
+				// fill form -- still need all fields
+				Patient patient = this.samplePatient();
+				this.firstNameInput.setText(patient.getFirstName());
+				this.lastNameInput.setText(patient.getLastName());
+				this.descriptionInput.setText("Sample");
+				this.phoneInput.setText(patient.getPhoneNumber());
+				this.emailInput.setText(patient.getEmail());
+				this.address1Input.setText(patient.getAddress1());
+				this.address2Input.setText(patient.getAddress2());
+				this.cityInput.setText(patient.getCity());
+				this.stateInput.setText(patient.getState());
+				this.ethnicityChoiceBox.setValue(patient.getEthnicity());
+				this.countryChoiceBox.setValue(patient.getCountry());
+				this.raceChoiceBox.setValue(patient.getRace());
+				this.sexChoiceBox.setValue(patient.getGender());
+				this.insuranceInput.setText(patient.getInsurance());
+			}
+		} catch (IllegalArgumentException e) {
+
+		}
+	}
+    
+    private Patient samplePatient() {
+		Gender gender = new Gender();
+		Country country = new Country();
+		Race race = new Race();
+		Ethnicity ethnicity = new Ethnicity();
+		Patient patientDummy = new Patient("Xavier", "Jameson", gender.sex[0], "08-08-2008", "912 Maple Street",
+				"East Maple Building 2B", "Carrollton", "GA", country.country[0], race.race[1], ethnicity.ethnicity[1],
+				"770-111-222", "email@email.com", "United Healthcare");
+		return patientDummy;
+	}
 
     @FXML
     void editGeneralInfo(ActionEvent event) {
@@ -225,6 +289,27 @@ public class PatientGeneralInfoCodeBehind {
     	this.cancelButton.setVisible(false);
     	this.formActivation(true);
     }
+    
+	@FXML
+	void handleNavigateAppointment(ActionEvent event) throws IOException {
+	}
+
+	@FXML
+	void handleNavigateMedicalConditions(ActionEvent event) {
+
+	}
+
+	@FXML
+	void handleNavigateMedications(ActionEvent event) {
+
+	}
+
+	@FXML
+	void handleNavigateToDashboard(ActionEvent event) throws IOException {
+		Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		currentStage.close();
+		WindowGenerator.setupDashboardWindow(this.userToken);
+	}
 
 }
 

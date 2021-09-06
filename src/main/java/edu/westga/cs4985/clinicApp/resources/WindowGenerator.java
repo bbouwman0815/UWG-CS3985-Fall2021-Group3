@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import edu.westga.cs4985.clinicApp.utils.login.UToken;
 import edu.westga.cs4985.clinicApp.view.dashboard.DashboardCodeBehind;
+import edu.westga.cs4985.clinicApp.view.generalInfor.PatientGeneralInfoCodeBehind;
 import edu.westga.cs4985.clinicApp.view.login.LoginCodeBehind;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,6 +16,7 @@ public class WindowGenerator {
 	private static final String PATIENT_PROFILE_TITLE = "Patient Profile";
 	private static final String DASHBOARD_GUI = "DashboardGui.fxml";
 	private static final String LOGIN_GUI = "LoginGui";
+	private static final String PATIENT_GENERAL_INFO = "GeneralInfoGui.fxml";
 
 	/**
 	 * Sets up the Scene by using the window root and scene title
@@ -50,6 +52,14 @@ public class WindowGenerator {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setController(loginCodeBehind);
 		loader.setLocation(loginCodeBehind.getClass().getResource(LOGIN_GUI));
+		WindowGenerator.setupScene((Parent) loader.load(), PATIENT_PROFILE_TITLE);
+	}
+	
+	public static void setupGeneralInfoWindow(UToken token) throws IOException {
+		PatientGeneralInfoCodeBehind patientGeneralInfoCodeBehind = new PatientGeneralInfoCodeBehind(token);
+		FXMLLoader loader = new FXMLLoader();
+		loader.setController(patientGeneralInfoCodeBehind);
+		loader.setLocation(patientGeneralInfoCodeBehind.getClass().getResource(PATIENT_GENERAL_INFO));
 		WindowGenerator.setupScene((Parent) loader.load(), PATIENT_PROFILE_TITLE);
 	}
 
