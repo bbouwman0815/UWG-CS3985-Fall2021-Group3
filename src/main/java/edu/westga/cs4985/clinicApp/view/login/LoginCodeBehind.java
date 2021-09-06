@@ -3,6 +3,10 @@ package edu.westga.cs4985.clinicApp.view.login;
 import java.io.IOException;
 
 import edu.westga.cs4985.clinicApp.model.User;
+import edu.westga.cs4985.clinicApp.resources.WindowGenerator;
+import edu.westga.cs4985.clinicApp.utils.login.LoginVerifier;
+import edu.westga.cs4985.clinicApp.utils.login.TokenGenerator;
+import edu.westga.cs4985.clinicApp.utils.login.UToken;
 import edu.westga.cs4985.clinicApp.viewmodel.ClinicAppViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -24,16 +28,22 @@ public class LoginCodeBehind {
 
 	@FXML
 	private Button loginButton;
+	
+	private UToken userToken;
 
 	private ClinicAppViewModel viewmodel;
 	
-	private static final String LOGIN_GUI = "edu/westga/cs4985/clinicApp/view/dashboard/DashboardGui.fxml";
+	private LoginVerifier login;
+	
+	private TokenGenerator tokenGenerator;
 
 	/**
 	 * Instantiates a new code behind
 	 */
 	public LoginCodeBehind() {
 		this.viewmodel = new ClinicAppViewModel();
+		this.login = new LoginVerifier();
+		this.tokenGenerator = new TokenGenerator();
 	}
 
 	@FXML
@@ -46,31 +56,22 @@ public class LoginCodeBehind {
 
 	@FXML
 	void handleLogin(ActionEvent event) {
-		if (verifyLogin()) {
-			User u = new User("Admin", "123");
-			Node node = (Node) event.getSource();
-			Stage stage = (Stage) node.getScene().getWindow();
-			stage.close();
+		if (this.verifyLogin()) {
 			try {
-				Parent root = FXMLLoader.load(getClass().getClassLoader().getResource(LOGIN_GUI));
-				stage.setUserData(u);
-				Scene scene = new Scene(root);
-				stage.setScene(scene);
-				stage.show();
+				WindowGenerator.setupDashboardWindow(this.userToken);
 			} catch (IOException e) {
-				System.err.println(String.format("Error: %s",  e.getMessage()));
+				e.printStackTrace();
 			}
 		}
+			
 	}
 	
 	private boolean verifyLogin() {
-		User user = new User("Admin","123");
 		String loggingUserName = this.usernameTextField.getText();
 		String loggingUserPW = this.passwordTextField.getText();
+		this.tokenGenerator = new TokenGenerator(loggingUserName, loggingUserPW);
+		this.userToken = this.tokenGenerator.getToken();
 		
-		if (user.getUsername().equals(loggingUserName) && user.getPassword().equals(loggingUserPW)) {
-			return true;
-		}
-		return false;
+		return this.login.validateCredentials(loggingUserName, loggingUserPW);
 	}
 }

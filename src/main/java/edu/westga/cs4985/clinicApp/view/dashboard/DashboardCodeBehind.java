@@ -2,6 +2,7 @@ package edu.westga.cs4985.clinicApp.view.dashboard;
 
 import java.io.IOException;
 
+import edu.westga.cs4985.clinicApp.utils.login.UToken;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,9 +29,11 @@ public class DashboardCodeBehind {
 	
     @FXML
     private AnchorPane anchorPaneViewer;
+    
+    private UToken userToken;
 
-	public DashboardCodeBehind() {
-
+	public DashboardCodeBehind(UToken userToken) {
+		this.userToken = userToken;
 	}
 
 	@FXML
