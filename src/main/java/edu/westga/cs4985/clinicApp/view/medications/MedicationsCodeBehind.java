@@ -39,6 +39,10 @@ public class MedicationsCodeBehind {
 
 	@FXML
 	private Button addMedicaitonButton;
+	
+	@FXML
+    private Button deleteMedicationButton;
+
 
 	/**
 	 * Instantiates a new medications code behind
@@ -57,6 +61,7 @@ public class MedicationsCodeBehind {
 		this.instructionsTableColumn.setCellValueFactory(new PropertyValueFactory<Medication, String>("specialInstructionString"));
 		this.refillsTableColumn.setCellValueFactory(new PropertyValueFactory<Medication, String>("refills"));
 		
+		this.deleteMedicationButton.disableProperty().bind(this.medicationTableView.getSelectionModel().selectedItemProperty().isNull());
 	}
 
 	@FXML
@@ -64,4 +69,10 @@ public class MedicationsCodeBehind {
 		Medication inputMedication = AddMedicationDialog.display();
 		this.medicationTableView.itemsProperty().get().add(inputMedication);
 	}
+	
+	@FXML
+    void handleDeleteMedication(ActionEvent event) {
+		Medication selectedMedication = this.medicationTableView.getSelectionModel().getSelectedItem();
+		this.medicationTableView.getItems().remove(selectedMedication);
+    }
 }
