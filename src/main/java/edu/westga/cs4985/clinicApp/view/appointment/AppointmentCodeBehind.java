@@ -258,6 +258,8 @@ public class AppointmentCodeBehind {
         			this.viewModel.selectedFutureAppointmentProperty().get().hasPassed()) {
         		this.cancelAppointmentButton.setVisible(false);
         		this.editButton.setVisible(true);
+        	} else if (this.viewModel.selectedFutureAppointmentProperty().get() == null) {
+        		this.cancelAppointmentButton.setVisible(false);
         	}
         	if (this.viewModel.selectedPastAppointmentProperty().get() != null) {
         		this.cancelAppointmentButton.setVisible(false);
