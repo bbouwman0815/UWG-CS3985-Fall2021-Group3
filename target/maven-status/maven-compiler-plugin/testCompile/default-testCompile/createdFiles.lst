@@ -1,0 +1,12 @@
+edu\westga\cs4985\clinicApp\test\AppointmentViewModel\TestTogglePastAppointment.class
+edu\westga\cs4985\clinicApp\test\model\appointment\TestSetDateTime.class
+edu\westga\cs4985\clinicApp\test\model\appointment\TestSetLocation.class
+edu\westga\cs4985\clinicApp\test\model\appointment\TestSetNotes.class
+edu\westga\cs4985\clinicApp\test\AppointmentViewModel\TestBookAppointment.class
+edu\westga\cs4985\clinicApp\test\model\appointment\TestAppointmentConstructor.class
+edu\westga\cs4985\clinicApp\test\model\appointment\TestHasPass.class
+edu\westga\cs4985\clinicApp\test\model\appointment\TestToString.class
+edu\westga\cs4985\clinicApp\test\model\appointment\TestHashCode.class
+edu\westga\cs4985\clinicApp\test\AppointmentViewModel\TestIsBookedAppointment.class
+edu\westga\cs4985\clinicApp\test\AppointmentViewModel\TestCancelAppointment.class
+edu\westga\cs4985\clinicApp\test\AppointmentViewModel\TestConstructor.class

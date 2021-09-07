@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="edu.westga.cs4985.clinicApp.test.model.person.TestPersonConstructor" time="0.015" tests="22" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="edu.westga.cs4985.clinicApp.test.model.appointment.TestHashCode" time="0" tests="1" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="15"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -55,26 +55,5 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="59.0"/>
   </properties>
-  <testcase name="testEmptyState" classname="edu.westga.cs4985.clinicApp.test.model.person.TestPersonConstructor" time="0"/>
-  <testcase name="testNullEthnicity" classname="edu.westga.cs4985.clinicApp.test.model.person.TestPersonConstructor" time="0"/>
-  <testcase name="testNullCity" classname="edu.westga.cs4985.clinicApp.test.model.person.TestPersonConstructor" time="0"/>
-  <testcase name="testNullRace" classname="edu.westga.cs4985.clinicApp.test.model.person.TestPersonConstructor" time="0"/>
-  <testcase name="testNullFirstName" classname="edu.westga.cs4985.clinicApp.test.model.person.TestPersonConstructor" time="0.001"/>
-  <testcase name="testEmptyCity" classname="edu.westga.cs4985.clinicApp.test.model.person.TestPersonConstructor" time="0"/>
-  <testcase name="testEmptyRace" classname="edu.westga.cs4985.clinicApp.test.model.person.TestPersonConstructor" time="0.001"/>
-  <testcase name="testEmptyDateOfBirth" classname="edu.westga.cs4985.clinicApp.test.model.person.TestPersonConstructor" time="0"/>
-  <testcase name="testNullLastName" classname="edu.westga.cs4985.clinicApp.test.model.person.TestPersonConstructor" time="0.001"/>
-  <testcase name="testCorrectConstructor" classname="edu.westga.cs4985.clinicApp.test.model.person.TestPersonConstructor" time="0.002"/>
-  <testcase name="testNullAddress1" classname="edu.westga.cs4985.clinicApp.test.model.person.TestPersonConstructor" time="0.001"/>
-  <testcase name="testNullAddress2" classname="edu.westga.cs4985.clinicApp.test.model.person.TestPersonConstructor" time="0"/>
-  <testcase name="testEmptyEthnicity" classname="edu.westga.cs4985.clinicApp.test.model.person.TestPersonConstructor" time="0"/>
-  <testcase name="testNullDateOfBirth" classname="edu.westga.cs4985.clinicApp.test.model.person.TestPersonConstructor" time="0.001"/>
-  <testcase name="testEmptyGender" classname="edu.westga.cs4985.clinicApp.test.model.person.TestPersonConstructor" time="0.001"/>
-  <testcase name="testEmptyFirstName" classname="edu.westga.cs4985.clinicApp.test.model.person.TestPersonConstructor" time="0.001"/>
-  <testcase name="testNullGender" classname="edu.westga.cs4985.clinicApp.test.model.person.TestPersonConstructor" time="0"/>
-  <testcase name="testNullState" classname="edu.westga.cs4985.clinicApp.test.model.person.TestPersonConstructor" time="0"/>
-  <testcase name="testEmptyLastName" classname="edu.westga.cs4985.clinicApp.test.model.person.TestPersonConstructor" time="0.001"/>
-  <testcase name="testEmptyCountry" classname="edu.westga.cs4985.clinicApp.test.model.person.TestPersonConstructor" time="0"/>
-  <testcase name="testNullCountry" classname="edu.westga.cs4985.clinicApp.test.model.person.TestPersonConstructor" time="0"/>
-  <testcase name="testEmptyAddress1" classname="edu.westga.cs4985.clinicApp.test.model.person.TestPersonConstructor" time="0.001"/>
+  <testcase name="testHashCode" classname="edu.westga.cs4985.clinicApp.test.model.appointment.TestHashCode" time="0"/>
 </testsuite>
