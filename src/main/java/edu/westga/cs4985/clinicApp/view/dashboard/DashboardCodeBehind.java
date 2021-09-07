@@ -44,8 +44,9 @@ public class DashboardCodeBehind {
 	}
 
 	@FXML
-	void handleNavigateMedications(ActionEvent event) {
-
+	void handleNavigateMedications(ActionEvent event) throws IOException {
+		AnchorPane pane = FXMLLoader.load(getClass().getResource("../medications/MedicationsGUI.fxml"));
+		this.anchorPaneViewer.getChildren().setAll(pane);
 	}
 
 	@FXML
