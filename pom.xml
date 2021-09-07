@@ -33,13 +33,13 @@
 			<scope>test</scope>
 		</dependency>
 		<!-- adding external jars into the project src and linking into the project -->
-		<!--dependency>
+		<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx.controls</artifactId>
 			<scope>system</scope>
 			<version>15.0.1</version>
 			<systemPath>${basedir}\src\lib\javafx.controls.jar</systemPath>
-		</dependency-->
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>        
