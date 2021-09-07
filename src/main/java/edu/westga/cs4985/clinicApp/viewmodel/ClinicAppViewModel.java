@@ -4,6 +4,7 @@ public class ClinicAppViewModel {
 
 	public ClinicAppViewModel() {
 		
+		
 	}
 
 }

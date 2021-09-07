@@ -2,12 +2,16 @@ package edu.westga.cs4985.clinicApp.view.dashboard;
 
 import java.io.IOException;
 
+import edu.westga.cs4985.clinicApp.resources.WindowGenerator;
+import edu.westga.cs4985.clinicApp.utils.login.UToken;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 
 public class DashboardCodeBehind {
 
@@ -28,13 +32,17 @@ public class DashboardCodeBehind {
 	
     @FXML
     private AnchorPane anchorPaneViewer;
+    
+    private UToken userToken;
 
-	public DashboardCodeBehind() {
-
+	public DashboardCodeBehind(UToken userToken) {
+		this.userToken = userToken;
 	}
 
 	@FXML
-	void handleNavigateAppointment(ActionEvent event) {
+	void handleNavigateAppointment(ActionEvent event) throws IOException {
+		AnchorPane pane = FXMLLoader.load(getClass().getResource("../appointment/AppointmentGui.fxml"));
+		this.anchorPaneViewer.getChildren().setAll(pane);
 
 	}
 
@@ -51,8 +59,9 @@ public class DashboardCodeBehind {
 
 	@FXML
 	void handleNavigateToGeneralInfo(ActionEvent event) throws IOException {
-		AnchorPane pane = FXMLLoader.load(getClass().getResource("../generalInfor/PatientGeneralInfoGui.fxml"));
-		this.anchorPaneViewer.getChildren().setAll(pane);
+		Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		currentStage.close();
+		WindowGenerator.setupGeneralInfoWindow(this.userToken);
 	}
 
 }
