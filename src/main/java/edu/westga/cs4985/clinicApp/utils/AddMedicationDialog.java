@@ -6,6 +6,8 @@ import java.time.ZoneId;
 import java.util.Date;
 
 import edu.westga.cs4985.clinicApp.model.Medication;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -51,6 +53,12 @@ public class AddMedicationDialog {
              stage.close();
         });
         
+        BooleanBinding buttonDisablingBinding = Bindings.and(brandTextField.textProperty().isEmpty(), dosageTextField.textProperty().isEmpty())
+        		.and(frequencyTextField.textProperty().isEmpty()).and(refillDatePicker.valueProperty().isNull()).and(specialInstructionsTextField.textProperty().isEmpty())
+        		.and(refillsTextField.textProperty().isEmpty()).and(formTextField.textProperty().isEmpty());
+        
+        addButton.disableProperty().bind(buttonDisablingBinding);
+        
         Button closeButton = new Button("Cancel");
         closeButton.setOnAction(e -> {
         	stage.close();
@@ -93,7 +101,11 @@ public class AddMedicationDialog {
         stage.setTitle("Dialog");
         stage.setScene(scene);
         stage.showAndWait();
-         
+        
+        if (brandTextField.getText().isEmpty()) {
+        	return null;
+        }
+        
         return new Medication(brandString, formString, dosageString, frequeString, refilDate, specialInstricString, refills);
 	}
 }
