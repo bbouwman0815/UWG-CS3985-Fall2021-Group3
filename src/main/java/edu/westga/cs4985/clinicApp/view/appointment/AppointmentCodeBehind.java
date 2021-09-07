@@ -3,7 +3,7 @@ package edu.westga.cs4985.clinicApp.view.appointment;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import edu.westga.cs4985.clinicApp.model.Appointment;
-import edu.westga.cs4985.clinicApp.viewmodel.PatientViewModel;
+import edu.westga.cs4985.clinicApp.viewmodel.PatientAppointmentViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -37,10 +37,10 @@ public class AppointmentCodeBehind {
     @FXML
     private ListView<Appointment> pastAppointmentList;
     
-    private PatientViewModel viewModel;
+    private PatientAppointmentViewModel viewModel;
     
     public AppointmentCodeBehind() {
-    	this.viewModel = new PatientViewModel();
+    	this.viewModel = new PatientAppointmentViewModel();
     }
     
     @FXML
@@ -147,9 +147,9 @@ public class AppointmentCodeBehind {
         @FXML
         private TextArea noteTextBox;
         
-        private PatientViewModel viewModel;
+        private PatientAppointmentViewModel viewModel;
         
-        public BookAppointmentPopupCodeBehind(PatientViewModel viewModel) {
+        public BookAppointmentPopupCodeBehind(PatientAppointmentViewModel viewModel) {
         	this.viewModel = viewModel;
         }
         
@@ -240,9 +240,9 @@ public class AppointmentCodeBehind {
         @FXML
         private Label locationLabel;
         
-        private PatientViewModel viewModel;
+        private PatientAppointmentViewModel viewModel;
         
-        public AppointmentViewPopupCodeBehind(PatientViewModel viewModel) {
+        public AppointmentViewPopupCodeBehind(PatientAppointmentViewModel viewModel) {
         	this.viewModel = viewModel;
         }
         

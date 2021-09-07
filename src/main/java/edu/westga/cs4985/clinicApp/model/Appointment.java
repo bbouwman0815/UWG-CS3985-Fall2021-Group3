@@ -163,9 +163,6 @@ public class Appointment {
 		if (notes == null) {
 			throw new IllegalArgumentException("Notes cannot be null");
 		}
-		if (notes.isEmpty()) {
-			throw new IllegalArgumentException("Notes cannot be empty");
-		}
 
 		this.notes = notes;
 	}
