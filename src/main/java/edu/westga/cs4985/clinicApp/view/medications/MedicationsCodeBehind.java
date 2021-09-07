@@ -1,12 +1,14 @@
 package edu.westga.cs4985.clinicApp.view.medications;
 
 import java.util.Date;
-
 import edu.westga.cs4985.clinicApp.model.Medication;
 import edu.westga.cs4985.clinicApp.utils.AddMedicationDialog;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -39,6 +41,10 @@ public class MedicationsCodeBehind {
 
 	@FXML
 	private Button addMedicaitonButton;
+	
+	@FXML
+    private Button deleteMedicationButton;
+
 
 	/**
 	 * Instantiates a new medications code behind
@@ -57,11 +63,26 @@ public class MedicationsCodeBehind {
 		this.instructionsTableColumn.setCellValueFactory(new PropertyValueFactory<Medication, String>("specialInstructionString"));
 		this.refillsTableColumn.setCellValueFactory(new PropertyValueFactory<Medication, String>("refills"));
 		
+		this.deleteMedicationButton.disableProperty().bind(this.medicationTableView.getSelectionModel().selectedItemProperty().isNull());
 	}
 
 	@FXML
 	void handleAddMedication(ActionEvent event) {
 		Medication inputMedication = AddMedicationDialog.display();
-		this.medicationTableView.itemsProperty().get().add(inputMedication);
+		if (inputMedication != null) {
+			this.medicationTableView.itemsProperty().get().add(inputMedication);
+		}
 	}
+	
+	@FXML
+    void handleDeleteMedication(ActionEvent event) {
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.contentTextProperty().set("Are you sure you want to remove this medication?");
+		alert.showAndWait().ifPresent(respone -> {
+			if (respone == ButtonType.OK) {
+				Medication selectedMedication = this.medicationTableView.getSelectionModel().getSelectedItem();
+				this.medicationTableView.getItems().remove(selectedMedication);
+			}
+		});
+    }
 }
