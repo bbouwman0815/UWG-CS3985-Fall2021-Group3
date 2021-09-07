@@ -9,7 +9,7 @@ import edu.westga.cs4985.clinicApp.utils.Ethnicity;
 import edu.westga.cs4985.clinicApp.utils.Gender;
 import edu.westga.cs4985.clinicApp.utils.Race;
 import edu.westga.cs4985.clinicApp.utils.login.UToken;
-import edu.westga.cs4985.clinicApp.viewmodel.PatientViewModel;
+import edu.westga.cs4985.clinicApp.viewmodel.PatientAppointmentViewModel;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -114,7 +114,7 @@ public class PatientGeneralInfoCodeBehind {
     private Country country;
     private UToken userToken;
     
-    private PatientViewModel viewModel;
+    private PatientAppointmentViewModel viewModel;
 
 	/**
 	 * Initialize Construct.
@@ -128,7 +128,7 @@ public class PatientGeneralInfoCodeBehind {
     	this.gender = new Gender();
     	this.ethnicity = new Ethnicity();
     	this.country = new Country();
-    	this.viewModel = new PatientViewModel();
+    	this.viewModel = new PatientAppointmentViewModel();
     	this.userToken = token;
     }
     

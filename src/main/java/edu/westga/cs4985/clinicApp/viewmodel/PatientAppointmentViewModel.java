@@ -6,10 +6,6 @@ import java.util.List;
 
 import edu.westga.cs4985.clinicApp.model.Appointment;
 import edu.westga.cs4985.clinicApp.model.Patient;
-import edu.westga.cs4985.clinicApp.utils.Country;
-import edu.westga.cs4985.clinicApp.utils.Ethnicity;
-import edu.westga.cs4985.clinicApp.utils.Gender;
-import edu.westga.cs4985.clinicApp.utils.Race;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleListProperty;
@@ -25,7 +21,7 @@ import javafx.collections.FXCollections;
  * @version Fall 2021
  *
  */
-public class PatientViewModel {
+public class PatientAppointmentViewModel {
 	
 	private StringProperty seletedMedicalPersonnel;
 	private ObjectProperty<LocalDateTime> selectedAvailabilityProperty;
@@ -45,7 +41,7 @@ public class PatientViewModel {
 	 * 
 	 * @postcondition none
 	 */
-	public PatientViewModel() {
+	public PatientAppointmentViewModel() {
 		
 		this.selectedFutureAppointmentProperty = new SimpleObjectProperty<Appointment>();
 		this.selectedPastAppointmentProperty = new SimpleObjectProperty<Appointment>();
@@ -121,5 +117,12 @@ public class PatientViewModel {
 		return this.notesProperty;
 	}
 	
+	public List<Appointment> FutureppointmentList() {
+		return this.FutureppointmentList;
+	}
+	
+	public List<Appointment> pastAppointmentList() {
+		return this.pastAppointmentList;
+	}
 	
 }
