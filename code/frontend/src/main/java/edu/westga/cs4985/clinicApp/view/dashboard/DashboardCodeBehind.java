@@ -8,12 +8,16 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class DashboardCodeBehind {
 
+	@FXML
+    private Label pageLabel;
+	
 	@FXML
 	private GridPane navbarGridPane;
 
@@ -39,11 +43,12 @@ public class DashboardCodeBehind {
 	void handleNavigateAppointment(ActionEvent event) throws IOException {
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("../appointment/AppointmentGui.fxml"));
 		this.anchorPaneViewer.getChildren().setAll(pane);
-
+		this.pageLabel.textProperty().set("Patient's Appointments");
 	}
 
 	@FXML
 	void handleNavigateMedicalConditions(ActionEvent event) {
+		this.pageLabel.textProperty().set("Patient's Medical Conditions");
 
 	}
 
@@ -51,12 +56,14 @@ public class DashboardCodeBehind {
 	void handleNavigateMedications(ActionEvent event) throws IOException {
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("../medications/MedicationsGUI.fxml"));
 		this.anchorPaneViewer.getChildren().setAll(pane);
+		this.pageLabel.textProperty().set("Patient's Medications");
 	}
 
 	@FXML
 	void handleNavigateToGeneralInfo(ActionEvent event) throws IOException {
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("../generalInfor/GeneralInfoGui.fxml"));
 		this.anchorPaneViewer.getChildren().setAll(pane);
+		this.pageLabel.textProperty().set("Patient's General Inforamtion");
 	}
 
 }

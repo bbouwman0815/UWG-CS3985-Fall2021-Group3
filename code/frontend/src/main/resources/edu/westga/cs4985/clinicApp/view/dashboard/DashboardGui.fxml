@@ -10,7 +10,7 @@
 
 <AnchorPane prefHeight="690.0" prefWidth="1012.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label layoutX="355.0" layoutY="58.0" text="Patient Dashboard">
+      <Label fx:id="pageLabel" alignment="CENTER" layoutX="307.0" layoutY="56.0" prefHeight="48.0" prefWidth="605.0" text="Patient Dashboard" textAlignment="CENTER">
          <font>
             <Font name="Corbel" size="39.0" />
          </font>
