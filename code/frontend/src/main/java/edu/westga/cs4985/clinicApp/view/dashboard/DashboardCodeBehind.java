@@ -55,9 +55,8 @@ public class DashboardCodeBehind {
 
 	@FXML
 	void handleNavigateToGeneralInfo(ActionEvent event) throws IOException {
-		Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-		currentStage.close();
-		WindowGenerator.setupGeneralInfoWindow();
+		AnchorPane pane = FXMLLoader.load(getClass().getResource("../generalInfor/GeneralInfoGui.fxml"));
+		this.anchorPaneViewer.getChildren().setAll(pane);
 	}
 
 }

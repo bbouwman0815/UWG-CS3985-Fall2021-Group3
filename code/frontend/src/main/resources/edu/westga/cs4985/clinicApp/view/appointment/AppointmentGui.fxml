@@ -6,21 +6,23 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="359.0" prefWidth="504.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/15.0.1" fx:controller="edu.westga.cs4985.clinicApp.view.appointment.AppointmentCodeBehind">
+<AnchorPane prefHeight="501.0" prefWidth="607.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.westga.cs4985.clinicApp.view.appointment.AppointmentCodeBehind">
    <children>
-      <Button layoutX="363.0" layoutY="24.0" mnemonicParsing="false" onAction="#bookAppointment" text="Book Appointment" />
-      <Label layoutX="38.0" layoutY="58.0" text="Future Appointmnet:" wrapText="true">
+      <Button layoutX="363.0" layoutY="24.0" mnemonicParsing="false" onAction="#bookAppointment" prefHeight="59.0" prefWidth="189.0" text="Book Appointment">
          <font>
-            <Font size="14.0" />
+            <Font size="18.0" />
+         </font></Button>
+      <Label layoutX="80.0" layoutY="113.0" text="Future Appointmnet:" wrapText="true">
+         <font>
+            <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="44.0" layoutY="188.0" text="Past Appointmnet:" wrapText="true">
+      <Label layoutX="80.0" layoutY="288.0" text="Past Appointmnet:" wrapText="true">
          <font>
-            <Font size="14.0" />
+            <Font size="18.0" />
          </font>
       </Label>
-      <ListView fx:id="futureAppointmentList" layoutX="38.0" layoutY="80.0" prefHeight="99.0" prefWidth="448.0" />
-      <ListView fx:id="pastAppointmentList" layoutX="38.0" layoutY="219.0" prefHeight="99.0" prefWidth="448.0" />
+      <ListView fx:id="futureAppointmentList" layoutX="80.0" layoutY="141.0" prefHeight="140.0" prefWidth="448.0" />
+      <ListView fx:id="pastAppointmentList" layoutX="80.0" layoutY="319.0" prefHeight="140.0" prefWidth="448.0" />
    </children>
 </AnchorPane>

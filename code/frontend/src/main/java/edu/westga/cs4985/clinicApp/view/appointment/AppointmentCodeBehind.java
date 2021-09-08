@@ -176,23 +176,34 @@ public class AppointmentCodeBehind {
             	
     			alert.showAndWait();
         	} else {
-        		this.viewModel.bookAppointment();
-    			this.viewModel.notesProperty().set(this.noteTextBox.getText());
-    			FXMLLoader loader = new FXMLLoader();
-            	loader.setLocation(getClass().getResource("../appointment/AppointmentViewPopup.fxml"));
-            	loader.setController(new AppointmentViewPopupCodeBehind(this.viewModel));
-            	Pane pane = (Pane) loader.load();
-            	Stage popup = new Stage();
-            	Scene scene = new Scene(pane);
-            	popup.setScene(scene);
-            	popup.setResizable(false);
-            	popup.setTitle("Appointment View Window");
-            	popup.initModality(Modality.APPLICATION_MODAL);
-            	popup.show();
-            	
-            	Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            	currentStage.fireEvent(new WindowEvent(currentStage, WindowEvent.WINDOW_CLOSE_REQUEST));
-            	currentStage.close();
+        		Alert bookAlert = new Alert(AlertType.CONFIRMATION, "Are you sure want to book this appointment?", ButtonType.CANCEL, ButtonType.YES);
+            	bookAlert.setOnCloseRequest((action) -> {
+            		if (bookAlert.getResult().getButtonData().equals(ButtonData.YES)) {
+            			this.viewModel.bookAppointment();
+            			this.viewModel.notesProperty().set(this.noteTextBox.getText());
+            			FXMLLoader loader = new FXMLLoader();
+                    	loader.setLocation(getClass().getResource("../appointment/AppointmentViewPopup.fxml"));
+                    	loader.setController(new AppointmentViewPopupCodeBehind(this.viewModel));
+                    	Pane pane;
+						try {
+							pane = (Pane) loader.load();
+							Stage popup = new Stage();
+	                    	Scene scene = new Scene(pane);
+	                    	popup.setScene(scene);
+	                    	popup.setResizable(false);
+	                    	popup.setTitle("Appointment View Window");
+	                    	popup.initModality(Modality.APPLICATION_MODAL);
+	                    	popup.show();
+	                    	
+	                    	Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+	                    	currentStage.fireEvent(new WindowEvent(currentStage, WindowEvent.WINDOW_CLOSE_REQUEST));
+	                    	currentStage.close();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+            		}
+            	});
+        		bookAlert.show();
         	}
         	
         }
