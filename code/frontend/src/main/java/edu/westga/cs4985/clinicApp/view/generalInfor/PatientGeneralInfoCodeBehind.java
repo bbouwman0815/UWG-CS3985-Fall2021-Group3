@@ -3,6 +3,7 @@ package edu.westga.cs4985.clinicApp.view.generalInfor;
 import java.io.IOException;
 
 import edu.westga.cs4985.clinicApp.model.Patient;
+import edu.westga.cs4985.clinicApp.model.User;
 import edu.westga.cs4985.clinicApp.resources.WindowGenerator;
 import edu.westga.cs4985.clinicApp.utils.Country;
 import edu.westga.cs4985.clinicApp.utils.Ethnicity;
@@ -112,7 +113,6 @@ public class PatientGeneralInfoCodeBehind {
     private Gender gender;
     private Ethnicity ethnicity;
     private Country country;
-    private UToken userToken;
     
     private PatientAppointmentViewModel viewModel;
 
@@ -123,13 +123,12 @@ public class PatientGeneralInfoCodeBehind {
 	 * 
 	 * @postcondition none
 	 */
-    public PatientGeneralInfoCodeBehind(UToken token) {
+    public PatientGeneralInfoCodeBehind() {
     	this.race = new Race();
     	this.gender = new Gender();
     	this.ethnicity = new Ethnicity();
     	this.country = new Country();
     	this.viewModel = new PatientAppointmentViewModel();
-    	this.userToken = token;
     }
     
     @FXML
@@ -193,7 +192,7 @@ public class PatientGeneralInfoCodeBehind {
 			// general info form
 			int adminHash = new String("Admin" + "123").hashCode() * 66;
 			//instead of if statement, replace with class that communicates w/ server
-			if (this.userToken.tokenId == adminHash) {
+			if (User.user.getUserToken().getTokenId() == adminHash) {
 				// fill form -- still need all fields
 				Patient patient = this.samplePatient();
 				this.firstNameInput.setText(patient.getFirstName());
@@ -308,7 +307,7 @@ public class PatientGeneralInfoCodeBehind {
 	void handleNavigateToDashboard(ActionEvent event) throws IOException {
 		Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		currentStage.close();
-		WindowGenerator.setupDashboardWindow(this.userToken);
+		WindowGenerator.setupDashboardWindow();
 	}
 
 }

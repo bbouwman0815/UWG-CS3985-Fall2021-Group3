@@ -39,8 +39,8 @@ public class WindowGenerator {
 		}
 	}
 
-	public static void setupDashboardWindow(UToken token) throws IOException {
-		DashboardCodeBehind dashboardCodeBehind = new DashboardCodeBehind(token);
+	public static void setupDashboardWindow() throws IOException {
+		DashboardCodeBehind dashboardCodeBehind = new DashboardCodeBehind();
 		FXMLLoader loader = new FXMLLoader();
 		loader.setController(dashboardCodeBehind);
 		loader.setLocation(dashboardCodeBehind.getClass().getResource(DASHBOARD_GUI));
@@ -55,8 +55,8 @@ public class WindowGenerator {
 		WindowGenerator.setupScene((Parent) loader.load(), PATIENT_PROFILE_TITLE);
 	}
 	
-	public static void setupGeneralInfoWindow(UToken token) throws IOException {
-		PatientGeneralInfoCodeBehind patientGeneralInfoCodeBehind = new PatientGeneralInfoCodeBehind(token);
+	public static void setupGeneralInfoWindow() throws IOException {
+		PatientGeneralInfoCodeBehind patientGeneralInfoCodeBehind = new PatientGeneralInfoCodeBehind();
 		FXMLLoader loader = new FXMLLoader();
 		loader.setController(patientGeneralInfoCodeBehind);
 		loader.setLocation(patientGeneralInfoCodeBehind.getClass().getResource(PATIENT_GENERAL_INFO));

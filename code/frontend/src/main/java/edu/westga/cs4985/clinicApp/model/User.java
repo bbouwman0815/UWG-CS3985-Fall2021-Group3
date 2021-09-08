@@ -1,15 +1,20 @@
 package edu.westga.cs4985.clinicApp.model;
 
 import edu.westga.cs4985.clinicApp.resources.UI;
+import edu.westga.cs4985.clinicApp.utils.login.UToken;
 
 /*
  * The User Class
  */
-public class User {
+public abstract class User {
 
-	public String username;
+	public static User user = null;
 
-	public String password;
+	private String username;
+
+	private String password;
+
+	private UToken userToken;
 
 	/**
 	 * Instantiates a new user.
@@ -36,6 +41,11 @@ public class User {
 		}
 		this.username = username;
 		this.password = password;
+		this.setUserToken();
+	}
+	
+	private void setUserToken() {
+		this.userToken = new UToken(this.username, this.password);
 	}
 
 	/**
@@ -47,6 +57,19 @@ public class User {
 		return this.username;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof User) {
+			User user = (User) obj;
+			return this.userToken.getTokenId() == user.getUserToken().getTokenId();
+		}
+		return false;
+	}
+
+	public UToken getUserToken() {
+		return this.userToken;
+	}
+
 	/**
 	 * Gets the password.
 	 *
@@ -54,5 +77,14 @@ public class User {
 	 */
 	public String getPassword() {
 		return this.password;
+	}
+
+	/**
+	 * Sets the user.
+	 *
+	 * @param user the new user
+	 */
+	public static void setUser(User user) {
+		User.user = user;
 	}
 }

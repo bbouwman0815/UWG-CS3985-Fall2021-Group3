@@ -2,21 +2,15 @@ package edu.westga.cs4985.clinicApp.view.login;
 
 import java.io.IOException;
 
+import edu.westga.cs4985.clinicApp.model.LoggedUser;
 import edu.westga.cs4985.clinicApp.model.User;
 import edu.westga.cs4985.clinicApp.resources.WindowGenerator;
 import edu.westga.cs4985.clinicApp.utils.login.LoginVerifier;
-import edu.westga.cs4985.clinicApp.utils.login.TokenGenerator;
-import edu.westga.cs4985.clinicApp.utils.login.UToken;
 import edu.westga.cs4985.clinicApp.viewmodel.ClinicAppViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 public class LoginCodeBehind {
 
@@ -28,22 +22,14 @@ public class LoginCodeBehind {
 
 	@FXML
 	private Button loginButton;
-	
-	private UToken userToken;
 
 	private ClinicAppViewModel viewmodel;
-	
-	private LoginVerifier login;
-	
-	private TokenGenerator tokenGenerator;
 
 	/**
 	 * Instantiates a new code behind
 	 */
 	public LoginCodeBehind() {
 		this.viewmodel = new ClinicAppViewModel();
-		this.login = new LoginVerifier();
-		this.tokenGenerator = new TokenGenerator();
 	}
 
 	@FXML
@@ -56,22 +42,21 @@ public class LoginCodeBehind {
 
 	@FXML
 	void handleLogin(ActionEvent event) {
-		if (this.verifyLogin()) {
+		String loggingUserName = this.usernameTextField.getText();
+		String loggingUserPW = this.passwordTextField.getText();
+		if (verifyLogin(loggingUserName, loggingUserPW)) {
 			try {
-				WindowGenerator.setupDashboardWindow(this.userToken);
+				User.user = new LoggedUser(loggingUserName, loggingUserPW);
+				WindowGenerator.setupDashboardWindow();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
-			
+
 	}
-	
-	private boolean verifyLogin() {
-		String loggingUserName = this.usernameTextField.getText();
-		String loggingUserPW = this.passwordTextField.getText();
-		this.tokenGenerator = new TokenGenerator(loggingUserName, loggingUserPW);
-		this.userToken = this.tokenGenerator.getToken();
-		
-		return this.login.validateCredentials(loggingUserName, loggingUserPW);
+
+	private static boolean verifyLogin(String loggingUserName, String loggingUserPW) {
+		LoginVerifier login = new LoginVerifier();
+		return login.validateCredentials(loggingUserName, loggingUserPW);
 	}
 }
