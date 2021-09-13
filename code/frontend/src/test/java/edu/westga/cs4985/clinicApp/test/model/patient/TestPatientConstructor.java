@@ -27,7 +27,7 @@ class TestPatientConstructor {
 		Ethnicity ethnicity = new Ethnicity();
 		Patient patientDummy = new Patient("Xavier", "Jameson", gender.sex[0], "08-08-2008", "912 Maple Street",
 				"East Maple Building 2B", "Carrollton", "GA", country.country[0], race.race[1], ethnicity.ethnicity[1],
-				"770-111-222", "email@email.com", "United Healthcare");
+				"770-111-222", "email@email.com", "United Healthcare", "New", "New");
 		System.out.println("WHy");
 		return patientDummy;
 	}
@@ -59,7 +59,7 @@ class TestPatientConstructor {
 		assertThrows(IllegalArgumentException.class,
 				() -> new Patient("Xavier", "Jameson", gender.sex[0], "08-08-2008", "912 Maple Street", "",
 						"Carrollton", "GA", country.country[0], race.race[2], ethnicity.ethnicity[1], "",
-						"email@email.com", "United Healthcare"));
+						"email@email.com", "United Healthcare", "New", "New"));
 	}
 
 	@Test
@@ -71,7 +71,7 @@ class TestPatientConstructor {
 		assertThrows(IllegalArgumentException.class,
 				() -> new Patient("Xavier", "Jameson", gender.sex[0], "08-08-2008", "912 Maple Street", "",
 						"Carrollton", "GA", country.country[0], race.race[2], ethnicity.ethnicity[1], null,
-						"email@email.com", "United Healthcare"));
+						"email@email.com", "United Healthcare", "New", "New"));
 	}
 
 	@Test
@@ -83,7 +83,7 @@ class TestPatientConstructor {
 		assertThrows(IllegalArgumentException.class,
 				() -> new Patient("Xavier", "Jameson", gender.sex[0], "08-08-2008", "912 Maple Street", "",
 						"Carrollton", "GA", country.country[0], race.race[2], ethnicity.ethnicity[1], "770-111-222", "",
-						"United Healthcare"));
+						"United Healthcare", "New", "New"));
 	}
 
 	@Test
@@ -95,7 +95,7 @@ class TestPatientConstructor {
 		assertThrows(IllegalArgumentException.class,
 				() -> new Patient("Xavier", "Jameson", gender.sex[0], "08-08-2008", "912 Maple Street", "",
 						"Carrollton", "GA", country.country[0], race.race[2], ethnicity.ethnicity[1], "770-111-222",
-						null, "United Healthcare"));
+						null, "United Healthcare", "New", "New"));
 	}
 
 	@Test
@@ -107,7 +107,7 @@ class TestPatientConstructor {
 		assertThrows(IllegalArgumentException.class,
 				() -> new Patient("Xavier", "Jameson", gender.sex[0], "08-08-2008", "912 Maple Street", "",
 						"Carrollton", "GA", country.country[0], race.race[2], ethnicity.ethnicity[1], "770-111-222",
-						"email@email.com", ""));
+						"email@email.com", "", "New", "New"));
 	}
 
 	@Test
@@ -119,6 +119,6 @@ class TestPatientConstructor {
 		assertThrows(IllegalArgumentException.class,
 				() -> new Patient("Xavier", "Jameson", gender.sex[0], "08-08-2008", "912 Maple Street", "",
 						"Carrollton", "GA", country.country[0], race.race[2], ethnicity.ethnicity[1], "770-111-222",
-						"email@email.com", null));
+						"email@email.com", null, "New", "New"));
 	}
 }

@@ -9,7 +9,7 @@ import edu.westga.cs4985.clinicApp.resources.UI;
  * @version Fall 2021
  *
  */
-public class Person {
+public class Person extends User{
 
 	private String firstName;
 
@@ -33,9 +33,7 @@ public class Person {
 
 	private String ethnicity;
 
-	public Person() {
-
-	}
+	
 
 	/**
 	 * Instantiates a new person.
@@ -65,7 +63,8 @@ public class Person {
 	 *                race == getRace() && ethnicity == getEthnicity
 	 */
 	public Person(String firstName, String lastName, String gender, String dateOfBirth, String address1,
-			String address2, String city, String state, String country, String race, String ethnicity) {
+			String address2, String city, String state, String country, String race, String ethnicity ,String username, String password) {
+		super(username, password);
 		nameDOBCheck(firstName, lastName, dateOfBirth);
 		addressCheck(address1, address2, city, state);
 		demographicCheck(gender, country, race, ethnicity);

@@ -1,0 +1,21 @@
+[
+     {
+        "userName": "jimmy1",
+        "password": "11111",
+        "type": "PATIENT",
+        "firstName": "Jimmy",
+        "lastName": "Bob",
+        "gender": "male",
+        "dateOfBirth": "1990-09-01",
+        "address1": "3433 Atlanta Peachway",
+        "address2": "",
+        "city": "Atlanta",
+        "state": "GA",
+        "country": "USA",
+        "race": "white",
+        "ethnicty": "Hispanic or Latino",
+        "phoneNumber": "123456789",
+        "email": "jimmy@gmail.com",
+        "insurance": "234"
+     }
+]

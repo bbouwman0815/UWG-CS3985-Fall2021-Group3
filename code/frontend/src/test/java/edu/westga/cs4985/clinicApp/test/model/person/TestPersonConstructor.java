@@ -26,7 +26,7 @@ class TestPersonConstructor {
 		Race race = new Race();
 		Ethnicity ethnicity = new Ethnicity();
 		Person personDummy = new Person("Xavier", "Jameson", gender.sex[0], "08-08-2008", "912 Maple Street",
-				"East Maple Building 2B", "Carrollton", "GA", country.country[0], race.race[1], ethnicity.ethnicity[1]);
+				"East Maple Building 2B", "Carrollton", "GA", country.country[0], race.race[1], ethnicity.ethnicity[1], "New", "New");
 		return personDummy;
 	}
 
@@ -52,7 +52,7 @@ class TestPersonConstructor {
 		Race race = new Race();
 		Ethnicity ethnicity = new Ethnicity();
 		assertThrows(IllegalArgumentException.class, () -> new Person("", "Jameson", gender.sex[0], "08-08-2008",
-				"912 Maple Street", "", "Carrollton", "GA", country.country[0], race.race[2], ethnicity.ethnicity[1]));
+				"912 Maple Street", "", "Carrollton", "GA", country.country[0], race.race[2], ethnicity.ethnicity[1], "New", "New"));
 	}
 
 	@Test
@@ -62,7 +62,7 @@ class TestPersonConstructor {
 		Race race = new Race();
 		Ethnicity ethnicity = new Ethnicity();
 		assertThrows(IllegalArgumentException.class, () -> new Person(null, "Jameson", gender.sex[0], "08-08-2008",
-				"912 Maple Street", "", "Carrollton", "GA", country.country[0], race.race[2], ethnicity.ethnicity[1]));
+				"912 Maple Street", "", "Carrollton", "GA", country.country[0], race.race[2], ethnicity.ethnicity[1], "New", "New"));
 	}
 
 	@Test
@@ -72,7 +72,7 @@ class TestPersonConstructor {
 		Race race = new Race();
 		Ethnicity ethnicity = new Ethnicity();
 		assertThrows(IllegalArgumentException.class, () -> new Person("John", "", gender.sex[0], "08-08-2008",
-				"912 Maple Street", "", "Carrollton", "GA", country.country[0], race.race[2], ethnicity.ethnicity[1]));
+				"912 Maple Street", "", "Carrollton", "GA", country.country[0], race.race[2], ethnicity.ethnicity[1], "New", "New"));
 	}
 
 	@Test
@@ -82,7 +82,7 @@ class TestPersonConstructor {
 		Race race = new Race();
 		Ethnicity ethnicity = new Ethnicity();
 		assertThrows(IllegalArgumentException.class, () -> new Person("Jameson", null, gender.sex[0], "08-08-2008",
-				"912 Maple Street", "", "Carrollton", "GA", country.country[0], race.race[2], ethnicity.ethnicity[1]));
+				"912 Maple Street", "", "Carrollton", "GA", country.country[0], race.race[2], ethnicity.ethnicity[1], "New", "New"));
 	}
 
 	@Test
@@ -91,7 +91,7 @@ class TestPersonConstructor {
 		Race race = new Race();
 		Ethnicity ethnicity = new Ethnicity();
 		assertThrows(IllegalArgumentException.class, () -> new Person("John", "Jameson", "", "08-08-2008",
-				"912 Maple Street", "", "Carrollton", "GA", country.country[0], race.race[2], ethnicity.ethnicity[1]));
+				"912 Maple Street", "", "Carrollton", "GA", country.country[0], race.race[2], ethnicity.ethnicity[1], "New", "New"));
 	}
 
 	@Test
@@ -100,7 +100,7 @@ class TestPersonConstructor {
 		Race race = new Race();
 		Ethnicity ethnicity = new Ethnicity();
 		assertThrows(IllegalArgumentException.class, () -> new Person("Jameson", "John", null, "08-08-2008",
-				"912 Maple Street", "", "Carrollton", "GA", country.country[0], race.race[2], ethnicity.ethnicity[1]));
+				"912 Maple Street", "", "Carrollton", "GA", country.country[0], race.race[2], ethnicity.ethnicity[1], "New", "New"));
 	}
 
 	@Test
@@ -110,7 +110,7 @@ class TestPersonConstructor {
 		Race race = new Race();
 		Ethnicity ethnicity = new Ethnicity();
 		assertThrows(IllegalArgumentException.class, () -> new Person("John", "Jameson", gender.sex[0], "",
-				"912 Maple Street", "", "Carrollton", "GA", country.country[0], race.race[2], ethnicity.ethnicity[1]));
+				"912 Maple Street", "", "Carrollton", "GA", country.country[0], race.race[2], ethnicity.ethnicity[1], "New", "New"));
 	}
 
 	@Test
@@ -120,7 +120,7 @@ class TestPersonConstructor {
 		Race race = new Race();
 		Ethnicity ethnicity = new Ethnicity();
 		assertThrows(IllegalArgumentException.class, () -> new Person("Jameson", "John", gender.sex[0], null,
-				"912 Maple Street", "", "Carrollton", "GA", country.country[0], race.race[2], ethnicity.ethnicity[1]));
+				"912 Maple Street", "", "Carrollton", "GA", country.country[0], race.race[2], ethnicity.ethnicity[1], "New", "New"));
 	}
 
 	@Test
@@ -130,7 +130,7 @@ class TestPersonConstructor {
 		Race race = new Race();
 		Ethnicity ethnicity = new Ethnicity();
 		assertThrows(IllegalArgumentException.class, () -> new Person("John", "Jameson", gender.sex[0], "08-08-08", "",
-				"", "Carrollton", "GA", country.country[0], race.race[2], ethnicity.ethnicity[1]));
+				"", "Carrollton", "GA", country.country[0], race.race[2], ethnicity.ethnicity[1], "New", "New"));
 	}
 
 	@Test
@@ -140,7 +140,7 @@ class TestPersonConstructor {
 		Race race = new Race();
 		Ethnicity ethnicity = new Ethnicity();
 		assertThrows(IllegalArgumentException.class, () -> new Person("Jameson", "John", gender.sex[0], "08-08-08",
-				null, "", "Carrollton", "GA", country.country[0], race.race[2], ethnicity.ethnicity[1]));
+				null, "", "Carrollton", "GA", country.country[0], race.race[2], ethnicity.ethnicity[1], "New", "New"));
 	}
 
 	@Test
@@ -151,7 +151,7 @@ class TestPersonConstructor {
 		Ethnicity ethnicity = new Ethnicity();
 		assertThrows(IllegalArgumentException.class,
 				() -> new Person("Jameson", "John", gender.sex[0], "08-08-08", "912 Maple Street", null, "Carrollton",
-						"GA", country.country[0], race.race[2], ethnicity.ethnicity[1]));
+						"GA", country.country[0], race.race[2], ethnicity.ethnicity[1], "New", "New"));
 	}
 
 	@Test
@@ -161,7 +161,7 @@ class TestPersonConstructor {
 		Race race = new Race();
 		Ethnicity ethnicity = new Ethnicity();
 		assertThrows(IllegalArgumentException.class, () -> new Person("John", "Jameson", gender.sex[0], "08-08-08",
-				"912 Maple Street", "", "", "GA", country.country[0], race.race[2], ethnicity.ethnicity[1]));
+				"912 Maple Street", "", "", "GA", country.country[0], race.race[2], ethnicity.ethnicity[1], "New", "New"));
 	}
 
 	@Test
@@ -171,7 +171,7 @@ class TestPersonConstructor {
 		Race race = new Race();
 		Ethnicity ethnicity = new Ethnicity();
 		assertThrows(IllegalArgumentException.class, () -> new Person("Jameson", "John", gender.sex[0], "08-08-08",
-				"912 Maple Street", "", null, "GA", country.country[0], race.race[2], ethnicity.ethnicity[1]));
+				"912 Maple Street", "", null, "GA", country.country[0], race.race[2], ethnicity.ethnicity[1], "New", "New"));
 	}
 
 	@Test
@@ -181,7 +181,7 @@ class TestPersonConstructor {
 		Race race = new Race();
 		Ethnicity ethnicity = new Ethnicity();
 		assertThrows(IllegalArgumentException.class, () -> new Person("John", "Jameson", gender.sex[0], "08-08-08",
-				"912 Maple Street", "", "Carrollton", "", country.country[0], race.race[2], ethnicity.ethnicity[1]));
+				"912 Maple Street", "", "Carrollton", "", country.country[0], race.race[2], ethnicity.ethnicity[1], "New", "New"));
 	}
 
 	@Test
@@ -191,7 +191,7 @@ class TestPersonConstructor {
 		Race race = new Race();
 		Ethnicity ethnicity = new Ethnicity();
 		assertThrows(IllegalArgumentException.class, () -> new Person("Jameson", "John", gender.sex[0], "08-08-08",
-				"912 Maple Street", "", "Carrollton", null, country.country[0], race.race[2], ethnicity.ethnicity[1]));
+				"912 Maple Street", "", "Carrollton", null, country.country[0], race.race[2], ethnicity.ethnicity[1], "New", "New"));
 	}
 
 	@Test
@@ -200,7 +200,7 @@ class TestPersonConstructor {
 		Race race = new Race();
 		Ethnicity ethnicity = new Ethnicity();
 		assertThrows(IllegalArgumentException.class, () -> new Person("Jameson", "John", gender.sex[0], "08-08-08",
-				"912 Maple Street", "", "Carrollton", "GA", "", race.race[2], ethnicity.ethnicity[1]));
+				"912 Maple Street", "", "Carrollton", "GA", "", race.race[2], ethnicity.ethnicity[1], "New", "New"));
 	}
 
 	@Test
@@ -209,7 +209,7 @@ class TestPersonConstructor {
 		Race race = new Race();
 		Ethnicity ethnicity = new Ethnicity();
 		assertThrows(IllegalArgumentException.class, () -> new Person("John", "Jameson", gender.sex[0], "08-08-08",
-				"912 Maple Street", "", "Carrollton", "GA", null, race.race[2], ethnicity.ethnicity[1]));
+				"912 Maple Street", "", "Carrollton", "GA", null, race.race[2], ethnicity.ethnicity[1], "New", "New"));
 	}
 
 	@Test
@@ -218,7 +218,7 @@ class TestPersonConstructor {
 		Country country = new Country();
 		Ethnicity ethnicity = new Ethnicity();
 		assertThrows(IllegalArgumentException.class, () -> new Person("John", "Jameson", gender.sex[0], "08-08-08",
-				"912 Maple Street", "", "Carrollton", "GA", country.country[0], "", ethnicity.ethnicity[1]));
+				"912 Maple Street", "", "Carrollton", "GA", country.country[0], "", ethnicity.ethnicity[1], "New", "New"));
 	}
 
 	@Test
@@ -227,7 +227,7 @@ class TestPersonConstructor {
 		Country country = new Country();
 		Ethnicity ethnicity = new Ethnicity();
 		assertThrows(IllegalArgumentException.class, () -> new Person("John", "Jameson", gender.sex[0], "08-08-08",
-				"912 Maple Street", "", "Carrollton", "GA", country.country[0], null, ethnicity.ethnicity[1]));
+				"912 Maple Street", "", "Carrollton", "GA", country.country[0], null, ethnicity.ethnicity[1], "New", "New"));
 	}
 
 	@Test
@@ -236,7 +236,7 @@ class TestPersonConstructor {
 		Country country = new Country();
 		Race race = new Race();
 		assertThrows(IllegalArgumentException.class, () -> new Person("Jameson", "John", gender.sex[0], "08-08-08",
-				"912 Maple Street", "", "Carrollton", "GA", country.country[0], race.race[2], ""));
+				"912 Maple Street", "", "Carrollton", "GA", country.country[0], race.race[2], "", "New", "New"));
 	}
 
 	@Test
@@ -245,7 +245,7 @@ class TestPersonConstructor {
 		Country country = new Country();
 		Race race = new Race();
 		assertThrows(IllegalArgumentException.class, () -> new Person("Jameson", "John", gender.sex[0], "08-08-08",
-				"912 Maple Street", "", "Carrollton", "GA", country.country[0], race.race[2], null));
+				"912 Maple Street", "", "Carrollton", "GA", country.country[0], race.race[2], null, "New", "New"));
 	}
 
 }

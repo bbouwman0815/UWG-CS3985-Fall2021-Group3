@@ -2,6 +2,7 @@ package edu.westga.cs4985.clinicApp;
 	
 import java.io.IOException;
 
+import edu.westga.cs4985.clinicApp.model.UserManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -12,6 +13,7 @@ import javafx.scene.layout.Pane;
 public class ClinicApp extends Application {
 	private static final String GUI_FXML = "view/login/LoginGui.fxml";
 	private static final String WINDOW_TITLE = "Clinic";
+	public static final String DASHBOARD_GUI = "view/dashboard/DashboardGui.fxml";
 
 	/**
 	 * Constructs a new Application object for Image program.
@@ -48,6 +50,7 @@ public class ClinicApp extends Application {
 	 * @param args not used
 	 */
 	public static void main(String[] args) {
+		UserManager.setUserManager(new UserManager());
 		launch(args);
 	}
 

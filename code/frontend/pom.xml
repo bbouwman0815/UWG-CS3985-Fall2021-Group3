@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	
+    
 	<!-- project info -->
 	<groupId>edu.westga.cs3985.group5</groupId>
 	<artifactId>CLINIC_APP</artifactId>
@@ -32,6 +32,16 @@
 			<version>5.4.0</version>
 			<scope>test</scope>
 		</dependency>
+        <dependency>
+			<groupId>org.zeromq</groupId>
+			<artifactId>jeromq</artifactId>
+			<version>0.5.2</version>
+		</dependency>
+        <dependency>
+			<groupId>com.googlecode.json-simple</groupId>
+            <artifactId>json-simple</artifactId>
+            <version>1.1.1</version>
+		</dependency>
 		<!-- adding external jars into the project src and linking into the project -->
 		<!--dependency>
 			<groupId>org.openjfx</groupId>
@@ -41,6 +51,7 @@
 			<systemPath>${basedir}\src\lib\javafx.controls.jar</systemPath>
 		</dependency-->
 	</dependencies>
+    
 	<build>
 		<plugins>        
 			<plugin> <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->

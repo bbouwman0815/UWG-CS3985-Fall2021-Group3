@@ -9,8 +9,14 @@ import edu.westga.cs4985.clinicApp.utils.login.LoginVerifier;
 import edu.westga.cs4985.clinicApp.viewmodel.ClinicAppViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.input.KeyCode;
+import javafx.stage.Stage;
 
 public class LoginCodeBehind {
 
@@ -38,19 +44,27 @@ public class LoginCodeBehind {
 	}
 
 	private void bindToViewModel() {
+		this.usernameTextField.textProperty().bindBidirectional(this.viewmodel.userNameProperty());
+		this.passwordTextField.textProperty().bindBidirectional(this.viewmodel.passwordTextProperty());
+		this.passwordTextField.setOnKeyPressed(event -> {
+			if (event.getCode() == KeyCode.ENTER) {
+				this.loginButton.fire();
+			}
+		});
 	}
 
 	@FXML
 	void handleLogin(ActionEvent event) {
-		String loggingUserName = this.usernameTextField.getText();
-		String loggingUserPW = this.passwordTextField.getText();
-		if (verifyLogin(loggingUserName, loggingUserPW)) {
-			try {
-				User.user = new LoggedUser(loggingUserName, loggingUserPW);
-				WindowGenerator.setupDashboardWindow();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+		User.setUser(this.viewmodel.login());
+		Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		try {
+		
+			WindowGenerator.setUserView(currentStage);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (IllegalArgumentException exception) {
+			Alert alert = new Alert(AlertType.CONFIRMATION, "User doestn't exist!", ButtonType.OK);
+			alert.showAndWait();
 		}
 
 	}

@@ -48,8 +48,9 @@ public class Patient extends Person {
 	 */
 	public Patient(String firstName, String lastName, String gender, String dateOfBirth, String address1,
 			String address2, String city, String state, String country, String race, String ethnicity,
-			String phoneNumber, String email, String insurance) {
-		super(firstName, lastName, gender, dateOfBirth, address1, address2, city, state, country, race, ethnicity);
+			String phoneNumber, String email, String insurance,
+			String username, String password) {
+		super(firstName, lastName, gender, dateOfBirth, address1, address2, city, state, country, race, ethnicity, username, password);
 		if (insurance == null) {
 			throw new IllegalArgumentException(UI.ExceptionMessages.NULL_FIRSTNAME);
 		}
@@ -116,6 +117,10 @@ public class Patient extends Person {
 	 */
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public String getFullName() {
+		return this.getFirstName() + " " + this.getLastName();
 	}
 
 	/**

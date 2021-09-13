@@ -2,6 +2,8 @@ package edu.westga.cs4985.clinicApp.view.appointment;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import edu.westga.cs4985.clinicApp.model.Appointment;
 import edu.westga.cs4985.clinicApp.viewmodel.PatientAppointmentViewModel;
 import javafx.event.ActionEvent;
@@ -155,11 +157,12 @@ public class AppointmentCodeBehind {
         
         @FXML
         public void initialize() {
+        	
         	this.medicalPersonList.getItems().add("Person A");
         	this.medicalPersonList.getItems().add("Person B");
         	this.availableTimeList.getItems().add(LocalDateTime.of(2021,9,01,13,00));
         	this.availableTimeList.getItems().add(LocalDateTime.of(2021,9,02,14,00));
-        	this.availableTimeList.getItems().add(LocalDateTime.of(2021,10,02,14,00));
+        	this.availableTimeList.getItems().add(LocalDateTime.of(2021,10,01,13,00));
         	this.setBindings();
         }
         
@@ -262,19 +265,26 @@ public class AppointmentCodeBehind {
         	this.editButton.setVisible(false);
         	this.saveButton.setVisible(false);
         	this.appointmentNotes.setEditable(false);
-        	this.medicalPersonnelLabel.textProperty().set("Medical Personnel: " + this.viewModel.seletedMedicalPersonnel().get());
-        	this.timeLabel.textProperty().set("Time: " + this.viewModel.selectedAvailabilityProperty().get());
-        	this.appointmentNotes.textProperty().set(this.viewModel.notesProperty().get());
-        	if (this.viewModel.selectedFutureAppointmentProperty().get() != null &&
-        			this.viewModel.selectedFutureAppointmentProperty().get().hasPassed()) {
+        	if (this.viewModel.selectedFutureAppointmentProperty().get() != null) {
+        		this.medicalPersonnelLabel.textProperty().set("Medical Personnel: " + this.viewModel.selectedFutureAppointmentProperty().get().getMedicalPersonnel());
+            	this.timeLabel.textProperty().set("Time: " + this.viewModel.selectedFutureAppointmentProperty().get().getDateTime());
+            	this.appointmentNotes.textProperty().set(this.viewModel.selectedFutureAppointmentProperty().get().getNotes());
+            	this.patientLabel.textProperty().set("Patient: " + this.viewModel.selectedFutureAppointmentProperty().get().getPatient().getFullName());
+            	this.locationLabel.textProperty().set("Location: " + this.viewModel.selectedFutureAppointmentProperty().get().getLocation());
         		this.cancelAppointmentButton.setVisible(false);
         		this.editButton.setVisible(true);
         	} else if (this.viewModel.selectedFutureAppointmentProperty().get() == null) {
         		this.cancelAppointmentButton.setVisible(false);
+        		
         	}
         	if (this.viewModel.selectedPastAppointmentProperty().get() != null) {
         		this.cancelAppointmentButton.setVisible(false);
         		this.editButton.setVisible(true);
+        		this.medicalPersonnelLabel.textProperty().set("Medical Personnel: " + this.viewModel.selectedPastAppointmentProperty().get().getMedicalPersonnel());
+            	this.timeLabel.textProperty().set("Time: " + this.viewModel.selectedPastAppointmentProperty().get().getDateTime());
+            	this.appointmentNotes.textProperty().set(this.viewModel.selectedPastAppointmentProperty().get().getNotes());
+            	this.patientLabel.textProperty().set("Patient: " + this.viewModel.selectedPastAppointmentProperty().get().getPatient().getFullName());
+            	this.locationLabel.textProperty().set("Location: " + this.viewModel.selectedPastAppointmentProperty().get().getLocation());
         	}
         }
 

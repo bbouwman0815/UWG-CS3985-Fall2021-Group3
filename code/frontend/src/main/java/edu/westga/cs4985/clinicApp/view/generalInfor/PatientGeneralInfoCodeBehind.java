@@ -1,6 +1,9 @@
 package edu.westga.cs4985.clinicApp.view.generalInfor;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import edu.westga.cs4985.clinicApp.model.Patient;
 import edu.westga.cs4985.clinicApp.model.User;
@@ -191,29 +194,24 @@ public class PatientGeneralInfoCodeBehind {
     }
     
     private void setForm() {
+    	DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		try {
-			// code to communicate with server to retrieve patient object to fill out
-			// general info form
-			int adminHash = new String("Admin" + "123").hashCode() * 66;
-			//instead of if statement, replace with class that communicates w/ server
-			if (User.user.getUserToken().getTokenId() == adminHash) {
-				// fill form -- still need all fields
-				Patient patient = this.samplePatient();
-				this.firstNameInput.setText(patient.getFirstName());
-				this.lastNameInput.setText(patient.getLastName());
-				this.descriptionInput.setText("Sample");
-				this.phoneInput.setText(patient.getPhoneNumber());
-				this.emailInput.setText(patient.getEmail());
-				this.address1Input.setText(patient.getAddress1());
-				this.address2Input.setText(patient.getAddress2());
-				this.cityInput.setText(patient.getCity());
-				this.stateInput.setText(patient.getState());
-				this.ethnicityChoiceBox.setValue(patient.getEthnicity());
-				this.countryChoiceBox.setValue(patient.getCountry());
-				this.raceChoiceBox.setValue(patient.getRace());
-				this.sexChoiceBox.setValue(patient.getGender());
-				this.insuranceInput.setText(patient.getInsurance());
-			}
+			LocalDate datetime = LocalDate.parse(this.viewModel.getPatient().getDateOfBirth(), pattern);
+			this.firstNameInput.setText(this.viewModel.getPatient().getFirstName());
+			this.lastNameInput.setText(this.viewModel.getPatient().getLastName());
+			this.descriptionInput.setText("Sample");
+			this.birthdayPicker.setValue(datetime);
+			this.phoneInput.setText(this.viewModel.getPatient().getPhoneNumber());
+			this.emailInput.setText(this.viewModel.getPatient().getEmail());
+			this.address1Input.setText(this.viewModel.getPatient().getAddress1());
+			this.address2Input.setText(this.viewModel.getPatient().getAddress2());
+			this.cityInput.setText(this.viewModel.getPatient().getCity());
+			this.stateInput.setText(this.viewModel.getPatient().getState());
+			this.ethnicityChoiceBox.setValue(this.viewModel.getPatient().getEthnicity());
+			this.countryChoiceBox.setValue(this.viewModel.getPatient().getCountry());
+			this.raceChoiceBox.setValue(this.viewModel.getPatient().getRace());
+			this.sexChoiceBox.setValue(this.viewModel.getPatient().getGender());
+			this.insuranceInput.setText(this.viewModel.getPatient().getInsurance());
 		} catch (IllegalArgumentException e) {
 
 		}
@@ -226,7 +224,7 @@ public class PatientGeneralInfoCodeBehind {
 		Ethnicity ethnicity = new Ethnicity();
 		Patient patientDummy = new Patient("Xavier", "Jameson", gender.sex[0], "08-08-2008", "912 Maple Street",
 				"East Maple Building 2B", "Carrollton", "GA", country.country[0], race.race[1], ethnicity.ethnicity[1],
-				"770-111-222", "email@email.com", "United Healthcare");
+				"770-111-222", "email@email.com", "United Healthcare", "New", "New");
 		return patientDummy;
 	}
 
