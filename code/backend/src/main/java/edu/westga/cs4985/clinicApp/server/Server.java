@@ -28,18 +28,17 @@ public class Server extends Thread {
 	@SuppressWarnings("unchecked")
 	public String bookAppointment(String jsonString) throws IOException, ParseException {
 		JSONParser parser = new JSONParser();
-//		FileReader reader = new FileReader("/Users/pipai/Downloads/appointments.json");
-//    	JSONArray jsonObject = (JSONArray) parser.parse(reader);
-//        
-//		FileWriter writer = new FileWriter("/Users/pipai/Downloads/appointments.json");
-//		
-//		JSONObject data = (JSONObject) parser.parse(jsonString);
-//		
-//		jsonObject.add(data.toJSONString());
-//		System.out.print(data.toJSONString());
-//		writer.write(jsonObject.toJSONString());
-//		writer.flush();
-//		writer.close();
+		FileReader reader = new FileReader("/Users/pipai/Downloads/appointments.json");
+    	JSONArray jsonObject = (JSONArray) parser.parse(reader);
+        
+		FileWriter writer = new FileWriter("/Users/pipai/Downloads/appointments.json");
+		
+		JSONObject data = (JSONObject) parser.parse(jsonString);
+		
+		jsonObject.add(data);
+		writer.write(jsonObject.toJSONString());
+		writer.flush();
+		writer.close();
 		return "ADDED";
 	}
 	
@@ -47,7 +46,7 @@ public class Server extends Thread {
 	public String userLogin(String jsonString) throws FileNotFoundException, IOException {
 		JSONParser parser = new JSONParser();
         try {
-        	FileReader reader = new FileReader("users.json");
+        	FileReader reader = new FileReader("/Users/pipai/Downloads/users.json");
         	JSONArray jsonObject = (JSONArray) parser.parse(reader);
             JSONObject data = (JSONObject) parser.parse(jsonString);
             for (Object aData : jsonObject) {
@@ -57,7 +56,7 @@ public class Server extends Thread {
             	}
             }
         } catch (ParseException e) {
-            e.printStackTrace();
+        	return "ERROR";
         }
         return "ERROR";
 	}
@@ -65,7 +64,7 @@ public class Server extends Thread {
 	public String getUserByUserName(String jsonString) throws IOException {
 		JSONParser parser = new JSONParser();
         try {
-        	FileReader reader = new FileReader("users.json");
+        	FileReader reader = new FileReader("/Users/pipai/Downloads/users.json");
         	JSONArray jsonObject = (JSONArray) parser.parse(reader);
             JSONObject data = (JSONObject) parser.parse(jsonString);
             for (Object aData : jsonObject) {
@@ -85,7 +84,7 @@ public class Server extends Thread {
 		JSONParser parser = new JSONParser();
 		JSONArray appointments = new JSONArray();
         try {
-        	FileReader reader = new FileReader("appointments.json");
+        	FileReader reader = new FileReader("/Users/pipai/Downloads/appointments.json");
         	JSONArray jsonObject = (JSONArray) parser.parse(reader);
             JSONObject data = (JSONObject) parser.parse(jsonString);
             for (Object aData : jsonObject) {
@@ -113,6 +112,8 @@ public class Server extends Thread {
             String[] message = reply.split(",", 2);
             
             String reqest = message[0];
+            
+            System.out.println("Server is running for " + reqest);
             String data = message[1];
             String result = "";
             if (reqest.equals("BOOK_APPOINTMENT")) {

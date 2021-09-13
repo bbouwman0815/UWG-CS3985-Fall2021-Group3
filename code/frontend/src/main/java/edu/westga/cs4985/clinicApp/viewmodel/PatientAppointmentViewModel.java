@@ -67,18 +67,13 @@ public class PatientAppointmentViewModel {
 	public void bookAppointment() {
 		Appointment appointment = new Appointment(this.selectedAvailabilityProperty.get(), this.patient, this.seletedMedicalPersonnel.get(), "TLC", this.notesProperty.get());
 		UserManager.userManager.bookAppointment(appointment);
-		List<Appointment> list = FXCollections.observableArrayList(UserManager.userManager.getAppointments(this.patient.getUsername()));
-		for (Appointment theAppointment : list) {
-			if (theAppointment.hasPassed()) {
-				this.FutureppointmentList.add(theAppointment);
-			}
-		}
-		this.futureAppointmentListProperty.set(FXCollections.observableArrayList(this.FutureppointmentList));
-
+		this.filterAppointment();
 	}
 	
 	public void filterAppointment() {
 		List<Appointment> list = FXCollections.observableArrayList(UserManager.userManager.getAppointments(this.patient.getUsername()));
+		this.FutureppointmentList.clear();
+		this.pastAppointmentList.clear();
 		for (Appointment theAppointment : list) {
 			if (!theAppointment.hasPassed()) {
 				this.FutureppointmentList.add(theAppointment);
@@ -105,13 +100,6 @@ public class PatientAppointmentViewModel {
 	public void cancelAppointment() {
 		this.FutureppointmentList.remove(this.selectedFutureAppointmentProperty.get());
 		this.futureAppointmentListProperty.set(FXCollections.observableArrayList(this.FutureppointmentList));
-	}
-	
-	public void togglePastAppointment(Appointment appointment) {
-		this.FutureppointmentList.remove(appointment);
-		this.futureAppointmentListProperty.set(FXCollections.observableArrayList(this.FutureppointmentList));
-		this.pastAppointmentList.add(appointment);
-		this.pastAppointmentListProperty.set(FXCollections.observableArrayList(this.pastAppointmentList));
 	}
 	
 	public StringProperty seletedMedicalPersonnel() {

@@ -78,7 +78,6 @@ public class AppointmentCodeBehind {
     	        	popup.initModality(Modality.APPLICATION_MODAL);
     	        	
     	        	popup.setOnCloseRequest((event) -> {
-    	        		if (newValue.hasPassed()) this.viewModel.togglePastAppointment(newValue);
     	        		this.futureAppointmentList.getSelectionModel().clearSelection();
     	        	});
     	        	
@@ -182,8 +181,8 @@ public class AppointmentCodeBehind {
         		Alert bookAlert = new Alert(AlertType.CONFIRMATION, "Are you sure want to book this appointment?", ButtonType.CANCEL, ButtonType.YES);
             	bookAlert.setOnCloseRequest((action) -> {
             		if (bookAlert.getResult().getButtonData().equals(ButtonData.YES)) {
-            			this.viewModel.bookAppointment();
             			this.viewModel.notesProperty().set(this.noteTextBox.getText());
+            			this.viewModel.bookAppointment();
             			FXMLLoader loader = new FXMLLoader();
                     	loader.setLocation(getClass().getResource("../appointment/AppointmentViewPopup.fxml"));
                     	loader.setController(new AppointmentViewPopupCodeBehind(this.viewModel));
@@ -271,10 +270,13 @@ public class AppointmentCodeBehind {
             	this.appointmentNotes.textProperty().set(this.viewModel.selectedFutureAppointmentProperty().get().getNotes());
             	this.patientLabel.textProperty().set("Patient: " + this.viewModel.selectedFutureAppointmentProperty().get().getPatient().getFullName());
             	this.locationLabel.textProperty().set("Location: " + this.viewModel.selectedFutureAppointmentProperty().get().getLocation());
-        		this.cancelAppointmentButton.setVisible(false);
-        		this.editButton.setVisible(true);
+        		this.cancelAppointmentButton.setVisible(true);
         	} else if (this.viewModel.selectedFutureAppointmentProperty().get() == null) {
         		this.cancelAppointmentButton.setVisible(false);
+        		this.medicalPersonnelLabel.textProperty().set("Medical Personnel: " + this.viewModel.seletedMedicalPersonnel().get());
+        		this.patientLabel.textProperty().set("Patient: " + this.viewModel.getPatient().getFullName());
+            	this.timeLabel.textProperty().set("Time: " + this.viewModel.selectedAvailabilityProperty().get());
+            	this.appointmentNotes.textProperty().set(this.viewModel.notesProperty().get());
         		
         	}
         	if (this.viewModel.selectedPastAppointmentProperty().get() != null) {

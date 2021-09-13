@@ -55,17 +55,21 @@ public class LoginCodeBehind {
 
 	@FXML
 	void handleLogin(ActionEvent event) {
-		User.setUser(this.viewmodel.login());
-		Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-		try {
-		
-			WindowGenerator.setUserView(currentStage);
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (IllegalArgumentException exception) {
-			Alert alert = new Alert(AlertType.CONFIRMATION, "User doestn't exist!", ButtonType.OK);
+		User user = this.viewmodel.login();
+		if (user == null) {
+			Alert alert = new Alert(AlertType.CONFIRMATION, "UserName or Password is incorrect!", ButtonType.OK);
 			alert.showAndWait();
+		} else {
+			try {
+				User.setUser(this.viewmodel.login());
+				Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+				WindowGenerator.setUserView(currentStage);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
+		
+		
 
 	}
 

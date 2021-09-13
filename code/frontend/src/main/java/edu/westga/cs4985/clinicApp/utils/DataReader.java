@@ -36,7 +36,6 @@ public class DataReader {
 	}
 	
 	public static List<Appointment> convertToAppointments(String reply) {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		List<Appointment> appointments = new ArrayList<Appointment>();
 		JSONParser parser = new JSONParser();
 		try {
