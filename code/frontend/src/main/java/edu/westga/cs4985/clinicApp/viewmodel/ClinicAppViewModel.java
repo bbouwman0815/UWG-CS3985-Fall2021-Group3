@@ -40,14 +40,12 @@ public class ClinicAppViewModel {
 	 * 
 	 * @return the user who logged in; null if user does not exist.
 	 */
-	public User login() {
-		User user = null;
+	public String login() {
+		String user = null;
 		try {
 			String userName = this.userNameProperty.get();
 			String password = this.passwordProperty.get();
-			System.out.println("This is OK");
-			user = UserManager.userManager.login(userName, password);
-			
+			user = ""+ userName + "," + password;
 		} catch (Exception e) {
 			user = null;
 		}

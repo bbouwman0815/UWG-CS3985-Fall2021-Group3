@@ -42,6 +42,30 @@ public class Server extends Thread {
 		return "ADDED";
 	}
 	
+	@SuppressWarnings("unchecked")
+	public String cancleAppointment(String jsonString) throws IOException, ParseException {
+		JSONParser parser = new JSONParser();
+		FileReader reader = new FileReader("/Users/pipai/Downloads/appointments.json");
+    	JSONArray jsonObject = (JSONArray) parser.parse(reader);
+        
+		FileWriter writer = new FileWriter("/Users/pipai/Downloads/appointments.json");
+		
+		JSONObject data = (JSONObject) parser.parse(jsonString);
+		JSONObject result = null;
+		for (Object aData : jsonObject) {
+        	JSONObject parseData = (JSONObject) aData;
+        	if (parseData.get("medicalPersonnel").equals(data.get("medicalPersonnel")) && parseData.get("patient").equals(data.get("patient"))
+        			&& parseData.get("date").equals(data.get("date"))){
+        		result = parseData;
+        	}
+		}
+		jsonObject.remove(result);
+		writer.write(jsonObject.toJSONString());
+		writer.flush();
+		writer.close();
+		return "ADDED";
+	}
+	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public String userLogin(String jsonString) throws FileNotFoundException, IOException {
 		JSONParser parser = new JSONParser();
@@ -104,7 +128,7 @@ public class Server extends Thread {
 	public void run() {
 		Context context = ZMQ.context(1);
 		Socket socket = context.socket(ZMQ.REP);
-		socket.bind("tcp://127.0.0.1:5561");
+		socket.bind("tcp://127.0.0.1:5562");
 		
         while (!Thread.currentThread().isInterrupted()) {
 
@@ -119,6 +143,19 @@ public class Server extends Thread {
             if (reqest.equals("BOOK_APPOINTMENT")) {
             	try {
 					result = this.bookAppointment(data);
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+            }
+            if (reqest.equals("CANCLE_APPOINTMENT")) {
+            	try {
+					result = this.cancleAppointment(data);
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
 				} catch (IOException e) {
@@ -153,7 +190,7 @@ public class Server extends Thread {
 					e.printStackTrace();
 				}
             }
-            this.delay();
+            
             socket.send(result);
         }
 

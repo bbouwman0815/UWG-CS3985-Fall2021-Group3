@@ -32,7 +32,7 @@ public class PatientAppointmentViewModel {
 	private ObjectProperty<Appointment> selectedPastAppointmentProperty;
 	private ListProperty<Appointment> futureAppointmentListProperty;
 	private ListProperty<Appointment> pastAppointmentListProperty;
-	private List<Appointment> FutureppointmentList;
+	private List<Appointment> futureppointmentList;
 	private StringProperty notesProperty;
 	private List<Appointment> pastAppointmentList;
 	private Patient patient;
@@ -54,9 +54,8 @@ public class PatientAppointmentViewModel {
 		this.availabilityListProperty = new SimpleListProperty<LocalDateTime>();
 		this.notesProperty = new SimpleStringProperty("");
 		this.seletedMedicalPersonnel = new SimpleStringProperty("");
-		this.FutureppointmentList = new ArrayList<Appointment>();
+		this.futureppointmentList = new ArrayList<Appointment>();
 		this.pastAppointmentList = new ArrayList<Appointment>();
-		this.filterAppointment();
 		
 	}
 	
@@ -64,31 +63,29 @@ public class PatientAppointmentViewModel {
 		return this.patient;
 	}
 	
-	public void bookAppointment() {
+	public Appointment bookAppointment() {
 		Appointment appointment = new Appointment(this.selectedAvailabilityProperty.get(), this.patient, this.seletedMedicalPersonnel.get(), "TLC", this.notesProperty.get());
-		UserManager.userManager.bookAppointment(appointment);
-		this.filterAppointment();
+		this.futureppointmentList.add(appointment);
+		this.futureAppointmentListProperty.set(FXCollections.observableArrayList(this.futureppointmentList));
+		return appointment;
 	}
 	
-	public void filterAppointment() {
-		List<Appointment> list = FXCollections.observableArrayList(UserManager.userManager.getAppointments(this.patient.getUsername()));
-		this.FutureppointmentList.clear();
-		this.pastAppointmentList.clear();
-		for (Appointment theAppointment : list) {
+	public void filterAppointment(List<Appointment> appointments) {
+		for (Appointment theAppointment : appointments) {
 			if (!theAppointment.hasPassed()) {
-				this.FutureppointmentList.add(theAppointment);
+				this.futureppointmentList.add(theAppointment);
 			}
 			else {
 				this.pastAppointmentList.add(theAppointment);
 			}
 		}
-		this.futureAppointmentListProperty.set(FXCollections.observableArrayList(this.FutureppointmentList));
+		this.futureAppointmentListProperty.set(FXCollections.observableArrayList(this.futureppointmentList));
 		this.pastAppointmentListProperty.set(FXCollections.observableArrayList(this.pastAppointmentList));
 
 	}
 	
 	public boolean isBookedAppointment() {
-		for (Appointment appointment : this.FutureppointmentList){
+		for (Appointment appointment : this.futureppointmentList){
 			if (appointment.getMedicalPersonnel().equals(this.seletedMedicalPersonnel.get()) &&
 					appointment.getDateTime().equals(this.selectedAvailabilityProperty.get())) {
 				return true;
@@ -97,9 +94,11 @@ public class PatientAppointmentViewModel {
 		return false;
 	}
 	
-	public void cancelAppointment() {
-		this.FutureppointmentList.remove(this.selectedFutureAppointmentProperty.get());
-		this.futureAppointmentListProperty.set(FXCollections.observableArrayList(this.FutureppointmentList));
+	public Appointment cancelAppointment() {
+		Appointment appointment = this.selectedFutureAppointmentProperty.get();
+		this.futureppointmentList.remove(appointment);
+		this.futureAppointmentListProperty.set(FXCollections.observableArrayList(this.futureppointmentList));
+		return appointment;
 	}
 	
 	public StringProperty seletedMedicalPersonnel() {
@@ -134,8 +133,8 @@ public class PatientAppointmentViewModel {
 		return this.notesProperty;
 	}
 	
-	public List<Appointment> FutureppointmentList() {
-		return this.FutureppointmentList;
+	public List<Appointment> futureppointmentList() {
+		return this.futureppointmentList;
 	}
 	
 	public List<Appointment> pastAppointmentList() {

@@ -29,9 +29,9 @@ public class TestCancelAppointment {
 		viewModel.seletedMedicalPersonnel().set("PersonA");
 		viewModel.notesProperty().set("Help");
 		viewModel.bookAppointment();
-		viewModel.selectedFutureAppointmentProperty().set(viewModel.FutureppointmentList().get(0));
+		viewModel.selectedFutureAppointmentProperty().set(viewModel.futureppointmentList().get(0));
 		viewModel.cancelAppointment();
 		assertAll(() -> assertEquals(0, viewModel.futureAppointmentListProperty().size()),
-				() -> assertEquals(0, viewModel.FutureppointmentList().size()));
+				() -> assertEquals(0, viewModel.futureppointmentList().size()));
 	}
 }

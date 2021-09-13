@@ -5,8 +5,9 @@
 /Users/pipai/git/UWG-CS3985-Fall2021-Group5/code/frontend/src/test/java/edu/westga/cs4985/clinicApp/test/model/appointment/TestAppointmentConstructor.java
 /Users/pipai/git/UWG-CS3985-Fall2021-Group5/code/frontend/src/test/java/edu/westga/cs4985/clinicApp/test/model/appointment/TestSetLocation.java
 /Users/pipai/git/UWG-CS3985-Fall2021-Group5/code/frontend/src/test/java/edu/westga/cs4985/clinicApp/test/AppointmentViewModel/TestBookAppointment.java
-/Users/pipai/git/UWG-CS3985-Fall2021-Group5/code/frontend/src/test/java/edu/westga/cs4985/clinicApp/test/AppointmentViewModel/TestTogglePastAppointment.java
 /Users/pipai/git/UWG-CS3985-Fall2021-Group5/code/frontend/src/test/java/edu/westga/cs4985/clinicApp/test/model/appointment/TestHashCode.java
+/Users/pipai/git/UWG-CS3985-Fall2021-Group5/code/frontend/src/test/java/edu/westga/cs4985/clinicApp/test/AppointmentViewModel/TestGetPaitent.java
+/Users/pipai/git/UWG-CS3985-Fall2021-Group5/code/frontend/src/test/java/edu/westga/cs4985/clinicApp/test/AppointmentViewModel/TestFilterAppointments.java
 /Users/pipai/git/UWG-CS3985-Fall2021-Group5/code/frontend/src/test/java/edu/westga/cs4985/clinicApp/test/model/user/TestUserConstructor.java
 /Users/pipai/git/UWG-CS3985-Fall2021-Group5/code/frontend/src/test/java/edu/westga/cs4985/clinicApp/test/model/appointment/TestSetDateTime.java
 /Users/pipai/git/UWG-CS3985-Fall2021-Group5/code/frontend/src/test/java/edu/westga/cs4985/clinicApp/test/model/appointment/TestToString.java

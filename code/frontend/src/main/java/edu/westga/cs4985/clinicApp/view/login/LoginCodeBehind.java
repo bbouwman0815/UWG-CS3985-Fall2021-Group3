@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import edu.westga.cs4985.clinicApp.model.LoggedUser;
 import edu.westga.cs4985.clinicApp.model.User;
+import edu.westga.cs4985.clinicApp.model.UserManager;
 import edu.westga.cs4985.clinicApp.resources.WindowGenerator;
 import edu.westga.cs4985.clinicApp.utils.login.LoginVerifier;
 import edu.westga.cs4985.clinicApp.viewmodel.ClinicAppViewModel;
@@ -55,13 +56,15 @@ public class LoginCodeBehind {
 
 	@FXML
 	void handleLogin(ActionEvent event) {
-		User user = this.viewmodel.login();
+		String userString = this.viewmodel.login();
+		String[] userStringList = userString.split(",");
+		User user = UserManager.userManager.login(userStringList[0], userStringList[1]);
 		if (user == null) {
 			Alert alert = new Alert(AlertType.CONFIRMATION, "UserName or Password is incorrect!", ButtonType.OK);
 			alert.showAndWait();
 		} else {
 			try {
-				User.setUser(this.viewmodel.login());
+				User.setUser(user);
 				Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 				WindowGenerator.setUserView(currentStage);
 			} catch (IOException e) {

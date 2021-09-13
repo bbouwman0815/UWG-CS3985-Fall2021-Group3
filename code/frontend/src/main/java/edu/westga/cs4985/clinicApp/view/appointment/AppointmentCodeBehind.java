@@ -3,9 +3,13 @@ package edu.westga.cs4985.clinicApp.view.appointment;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 import edu.westga.cs4985.clinicApp.model.Appointment;
+import edu.westga.cs4985.clinicApp.model.UserManager;
 import edu.westga.cs4985.clinicApp.viewmodel.PatientAppointmentViewModel;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -49,7 +53,8 @@ public class AppointmentCodeBehind {
     public void initialize() {
     	this.setBindings();
     	this.setListeners();
-    
+    	List<Appointment> appointments = FXCollections.observableArrayList(UserManager.userManager.getAppointments(this.viewModel.getPatient().getUsername()));
+    	this.viewModel.filterAppointment(appointments);
     }
     
     public void setBindings() {
@@ -159,9 +164,9 @@ public class AppointmentCodeBehind {
         	
         	this.medicalPersonList.getItems().add("Person A");
         	this.medicalPersonList.getItems().add("Person B");
-        	this.availableTimeList.getItems().add(LocalDateTime.of(2021,9,01,13,00));
-        	this.availableTimeList.getItems().add(LocalDateTime.of(2021,9,02,14,00));
         	this.availableTimeList.getItems().add(LocalDateTime.of(2021,10,01,13,00));
+        	this.availableTimeList.getItems().add(LocalDateTime.of(2021,10,02,14,00));
+        	this.availableTimeList.getItems().add(LocalDateTime.of(2021,11,01,13,00));
         	this.setBindings();
         }
         
@@ -182,7 +187,8 @@ public class AppointmentCodeBehind {
             	bookAlert.setOnCloseRequest((action) -> {
             		if (bookAlert.getResult().getButtonData().equals(ButtonData.YES)) {
             			this.viewModel.notesProperty().set(this.noteTextBox.getText());
-            			this.viewModel.bookAppointment();
+            			Appointment appointment = this.viewModel.bookAppointment();
+            			UserManager.userManager.bookAppointment(appointment);
             			FXMLLoader loader = new FXMLLoader();
                     	loader.setLocation(getClass().getResource("../appointment/AppointmentViewPopup.fxml"));
                     	loader.setController(new AppointmentViewPopupCodeBehind(this.viewModel));
@@ -296,7 +302,8 @@ public class AppointmentCodeBehind {
         	
 			alert.setOnCloseRequest((evt) -> {
 				if (alert.getResult().getButtonData().equals(ButtonData.YES)) {
-					this.viewModel.cancelAppointment();
+					Appointment appointment =  this.viewModel.cancelAppointment();
+					UserManager.userManager.cancelAppointment(appointment);
 					Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 					currentStage.fireEvent(new WindowEvent(currentStage, WindowEvent.WINDOW_CLOSE_REQUEST));
 					currentStage.close();
