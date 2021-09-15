@@ -76,8 +76,8 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label layoutX="87.0" layoutY="431.0" prefHeight="27.0" prefWidth="117.0" />
-            <Button fx:id="addCaregiverButton" layoutY="469.0" mnemonicParsing="false" onAction="#addCaregiver" prefHeight="27.0" prefWidth="117.0" text="Add Caregiver" />
+            <Label fx:id="caregiverLabel" layoutX="87.0" layoutY="431.0" prefHeight="27.0" prefWidth="117.0" />
+            <Button fx:id="addCaregiverButton" layoutY="469.0" mnemonicParsing="false" onAction="#addCaregiver" prefHeight="16.0" prefWidth="129.0" text="Add Caregiver" />
             <Button fx:id="editbutton" layoutX="451.0" layoutY="496.0" mnemonicParsing="false" onAction="#editGeneralInfo" prefHeight="36.0" prefWidth="117.0" text="Edit">
                <font>
                   <Font size="18.0" />
@@ -125,6 +125,7 @@
             <ChoiceBox fx:id="countryChoiceBox" layoutX="417.0" layoutY="318.0" prefHeight="36.0" prefWidth="161.0" />
             <DatePicker fx:id="birthdayPicker" layoutX="420.0" layoutY="55.0" prefHeight="27.0" prefWidth="161.0" />
             <TextField fx:id="stateInput" layoutX="215.0" layoutY="318.0" onAction="#getState" prefHeight="36.0" prefWidth="83.0" />
+            <Button fx:id="removeCaregiverButton" layoutY="469.0" mnemonicParsing="false" onAction="#removerCaregiver" prefHeight="27.0" prefWidth="129.0" text="Remove Caregiver" />
          </children>
       </AnchorPane>
    </children>

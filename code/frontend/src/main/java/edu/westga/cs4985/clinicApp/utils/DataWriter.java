@@ -37,7 +37,6 @@ public class DataWriter {
 		JSONObject json = new JSONObject();
 		json.put("userName", user.getUsername());
 		json.put("password", user.getPassword());
-		loadUserGeneralInfo(json, user);
 		return json.toJSONString();
 	}
 	
@@ -46,6 +45,8 @@ public class DataWriter {
 		if (user instanceof Patient) {
 			Patient patient = (Patient) user;
 			json.put("type", "PATIENT");
+			json.put("userName", patient.getUsername());
+			json.put("password", patient.getPassword());
 			json.put("firstName", patient.getFirstName());
 			json.put("lastName", patient.getLastName());
 			json.put("gender", patient.getGender());
@@ -63,6 +64,30 @@ public class DataWriter {
 			
 			
 		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static String updatePatientGeneralInfor(Patient patient) {
+		JSONObject json = new JSONObject();
+		json.put("type", "PATIENT");
+		json.put("userName", patient.getUsername());
+		json.put("password", patient.getPassword());
+		json.put("firstName", patient.getFirstName());
+		json.put("lastName", patient.getLastName());
+		json.put("gender", patient.getGender());
+		json.put("dateOfBirth", patient.getDateOfBirth());
+		json.put("address1", patient.getAddress1());
+		json.put("address2", patient.getAddress2());
+		json.put("city", patient.getCity());
+		json.put("state", patient.getState());
+		json.put("country", patient.getCountry());
+		json.put("race", patient.getRace());
+		json.put("ethnicty", patient.getEthnicity());
+		json.put("phoneNumber", patient.getPhoneNumber());
+		json.put("email", patient.getEmail());
+		json.put("insurance", patient.getInsurance());
+		json.put("caregiver", patient.getCaregiver());
+		return json.toJSONString();
 	}
 
 	@SuppressWarnings("unchecked")

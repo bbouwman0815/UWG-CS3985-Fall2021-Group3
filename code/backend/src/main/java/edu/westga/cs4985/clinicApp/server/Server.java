@@ -3,20 +3,10 @@ package edu.westga.cs4985.clinicApp.server;
 import org.zeromq.ZMQ;
 import org.zeromq.ZMQ.Context;
 import org.zeromq.ZMQ.Socket;
-
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.Reader;
-import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -60,6 +50,30 @@ public class Server extends Thread {
         	}
 		}
 		jsonObject.remove(result);
+		writer.write(jsonObject.toJSONString());
+		writer.flush();
+		writer.close();
+		return "ADDED";
+	}
+	
+	@SuppressWarnings("unchecked")
+	public String updatePatientGeneralInfo(String jsonString) throws IOException, ParseException {
+		JSONParser parser = new JSONParser();
+		FileReader reader = new FileReader("./jsonFiles/users.json");
+    	JSONArray jsonObject = (JSONArray) parser.parse(reader);
+        
+		FileWriter writer = new FileWriter("./jsonFiles/users.json");
+		
+		JSONObject data = (JSONObject) parser.parse(jsonString);
+		JSONObject result = null;
+		for (Object aData : jsonObject) {
+        	JSONObject parseData = (JSONObject) aData;
+        	if (parseData.get("userName").equals(data.get("userName")) && parseData.get("password").equals(data.get("password"))){
+        		result = parseData;
+        	}
+		}
+		jsonObject.remove(result);
+		jsonObject.add(data);
 		writer.write(jsonObject.toJSONString());
 		writer.flush();
 		writer.close();
@@ -187,6 +201,17 @@ public class Server extends Thread {
             	try {
             		result = this.getUserByUserName(data);
 				} catch (IOException e) {
+					e.printStackTrace();
+				}
+            }
+            
+            if (reqest.equals("UPDATE_GENERAL_INFORMATION")) {
+            	try {
+            		result = this.updatePatientGeneralInfo(data);
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
             }

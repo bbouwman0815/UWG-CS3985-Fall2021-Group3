@@ -63,6 +63,15 @@ public class UserManager {
 		return true;
 	}
 	
+	public boolean updatePatientGeneralInfo(Patient patient) {
+		String requestData = DataWriter.updatePatientGeneralInfor(patient);
+		String reply = this.communicator.request(RequestType.UPDATE_GENERAL_INFORMATION, requestData);
+		if (reply.equals("ERROR")) {
+			return false;
+		}
+		return true;
+	}
+	
 	public boolean cancelAppointment(Appointment appointment) {
 		String requestData = DataWriter.writeAppointmentInfo(appointment);
 		String reply = this.communicator.request(RequestType.CANCLE_APPOINTMENT, requestData);

@@ -1,12 +1,7 @@
 package edu.westga.cs4985.clinicApp.viewmodel;
 
-import edu.westga.cs4985.clinicApp.model.User;
-import edu.westga.cs4985.clinicApp.model.UserManager;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Alert.AlertType;
 
 /**
  * The ClinicAppViewModel class.

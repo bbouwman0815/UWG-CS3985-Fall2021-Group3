@@ -4,29 +4,42 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
+import edu.westga.cs4985.clinicApp.model.Appointment;
 import edu.westga.cs4985.clinicApp.model.Patient;
 import edu.westga.cs4985.clinicApp.model.User;
+import edu.westga.cs4985.clinicApp.model.UserManager;
 import edu.westga.cs4985.clinicApp.resources.WindowGenerator;
 import edu.westga.cs4985.clinicApp.utils.Country;
 import edu.westga.cs4985.clinicApp.utils.Ethnicity;
 import edu.westga.cs4985.clinicApp.utils.Gender;
 import edu.westga.cs4985.clinicApp.utils.Race;
 import edu.westga.cs4985.clinicApp.utils.login.UToken;
+import edu.westga.cs4985.clinicApp.view.appointment.AppointmentCodeBehind.AppointmentViewPopupCodeBehind;
+import edu.westga.cs4985.clinicApp.view.appointment.AppointmentCodeBehind.BookAppointmentPopupCodeBehind;
 import edu.westga.cs4985.clinicApp.viewmodel.PatientAppointmentViewModel;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 
 /**
@@ -84,6 +97,9 @@ public class PatientGeneralInfoCodeBehind {
     private Button saveButton;
     
     @FXML
+    private Button removeCaregiverButton;
+    
+    @FXML
     private ChoiceBox<String> raceChoiceBox;
 
     @FXML
@@ -115,6 +131,9 @@ public class PatientGeneralInfoCodeBehind {
 
 	@FXML
 	private Button appointmentNavButton;
+	
+    @FXML
+    private Label caregiverLabel;
     
     private Race race;
     private Gender gender;
@@ -140,12 +159,24 @@ public class PatientGeneralInfoCodeBehind {
     
     @FXML
     public void initialize() {
+    	
     	this.saveButton.setVisible(false);
     	this.cancelButton.setVisible(false);
     	this.setUpChoiceBoxes();
     	this.setupBindings();
     	this.formActivation(true);
-    	this.setForm();
+    	this.setForm(this.viewModel.getPatient());
+    	if (this.caregiverLabel.textProperty().get() == "") {
+    		this.addCaregiverButton.setVisible(true);
+    		this.addCaregiverButton.setDisable(true);
+    		this.removeCaregiverButton.setVisible(false);
+    		this.removeCaregiverButton.setDisable(false);
+    	} else {
+    		this.removeCaregiverButton.setVisible(true);
+    		this.removeCaregiverButton.setDisable(true);
+    		this.addCaregiverButton.setVisible(false);
+    		this.addCaregiverButton.setDisable(false);
+    	}
     }
     
     private void formActivation(boolean action) {
@@ -165,7 +196,6 @@ public class PatientGeneralInfoCodeBehind {
     	this.sexChoiceBox.setDisable(action);
     	this.ethnicityChoiceBox.setDisable(action);
     	this.countryChoiceBox.setDisable(action);
-    	this.addCaregiverButton.setDisable(action);
     }
     
     private void setUpChoiceBoxes() {
@@ -179,43 +209,79 @@ public class PatientGeneralInfoCodeBehind {
     }
 
     @FXML
-    void addCaregiver(ActionEvent event) {
-    	//the print codes are just testing code to see if I can actually get the choice value 
-    	System.out.println(this.country.country[this.countryChoiceBox.getSelectionModel().selectedIndexProperty().getValue()]);
-    	System.out.println(this.race.race[this.raceChoiceBox.getSelectionModel().selectedIndexProperty().getValue()]);
-    	System.out.println(this.ethnicity.ethnicity[this.ethnicityChoiceBox.getSelectionModel().selectedIndexProperty().getValue()]);
-    	System.out.println(this.gender.sex[this.sexChoiceBox.getSelectionModel().selectedIndexProperty().getValue()]);
-    	System.out.println(this.birthdayPicker.getValue());
+    void addCaregiver(ActionEvent event) throws IOException {
+    	FXMLLoader loader = new FXMLLoader();
+    	loader.setLocation(getClass().getResource("../generalInfor/AddCaregiverPopup.fxml"));
+    	loader.setController(new AddCaregiverPopupCodeBehind(this.viewModel));
+    	Pane pane = (Pane) loader.load();
+    	Stage popup = new Stage();
+    	Scene scene = new Scene(pane);
+    	popup.setScene(scene);
+    	popup.setResizable(false);
+    	popup.setTitle("Add Caregiver Window");
+    	popup.initModality(Modality.APPLICATION_MODAL);
+    	popup.show();
+    }
+    
+    @FXML
+    void removerCaregiver(ActionEvent event) {
+    	this.viewModel.getPatient().setCaregiver("");
+    	this.caregiverLabel.textProperty().set("");
+    	this.addCaregiverButton.setVisible(true);
+		this.removeCaregiverButton.setVisible(false);
     }
 
     @FXML
     void cancel(ActionEvent event) {
-
+    	this.editbutton.setVisible(true);
+    	this.saveButton.setVisible(false);
+    	this.cancelButton.setVisible(false);
+    	this.formActivation(true);
+    	this.setForm((Patient) UserManager.userManager.getUserByUserName(this.viewModel.getPatient().getUsername()));
     }
     
-    private void setForm() {
+    private void setForm(Patient patient) {
     	DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		try {
-			LocalDate datetime = LocalDate.parse(this.viewModel.getPatient().getDateOfBirth(), pattern);
-			this.firstNameInput.setText(this.viewModel.getPatient().getFirstName());
-			this.lastNameInput.setText(this.viewModel.getPatient().getLastName());
+			LocalDate datetime = LocalDate.parse(patient.getDateOfBirth(), pattern);
+			this.firstNameInput.setText(patient.getFirstName());
+			this.lastNameInput.setText(patient.getLastName());
 			this.descriptionInput.setText("Sample");
 			this.birthdayPicker.setValue(datetime);
-			this.phoneInput.setText(this.viewModel.getPatient().getPhoneNumber());
-			this.emailInput.setText(this.viewModel.getPatient().getEmail());
-			this.address1Input.setText(this.viewModel.getPatient().getAddress1());
-			this.address2Input.setText(this.viewModel.getPatient().getAddress2());
-			this.cityInput.setText(this.viewModel.getPatient().getCity());
-			this.stateInput.setText(this.viewModel.getPatient().getState());
-			this.ethnicityChoiceBox.setValue(this.viewModel.getPatient().getEthnicity());
-			this.countryChoiceBox.setValue(this.viewModel.getPatient().getCountry());
-			this.raceChoiceBox.setValue(this.viewModel.getPatient().getRace());
-			this.sexChoiceBox.setValue(this.viewModel.getPatient().getGender());
-			this.insuranceInput.setText(this.viewModel.getPatient().getInsurance());
+			this.phoneInput.setText(patient.getPhoneNumber());
+			this.emailInput.setText(patient.getEmail());
+			this.address1Input.setText(patient.getAddress1());
+			this.address2Input.setText(patient.getAddress2());
+			this.cityInput.setText(patient.getCity());
+			this.stateInput.setText(patient.getState());
+			this.ethnicityChoiceBox.setValue(patient.getEthnicity());
+			this.countryChoiceBox.setValue(patient.getCountry());
+			this.raceChoiceBox.setValue(patient.getRace());
+			this.sexChoiceBox.setValue(patient.getGender());
+			this.insuranceInput.setText(patient.getInsurance());
+			this.caregiverLabel.setText(patient.getCaregiver());
 		} catch (IllegalArgumentException e) {
 
 		}
 	}
+    
+    private void setPatientInfo() {
+    	this.viewModel.getPatient().setFirstName(this.firstNameInput.getText());
+    	this.viewModel.getPatient().setLastName(this.lastNameInput.getText());
+    	this.viewModel.getPatient().setDateOfBirth(this.birthdayPicker.getValue().toString());
+    	this.viewModel.getPatient().setPhoneNumber(this.phoneInput.getText());
+    	this.viewModel.getPatient().setEmail(this.emailInput.getText());
+    	this.viewModel.getPatient().setAddress1(this.address1Input.getText());
+    	this.viewModel.getPatient().setAddress2(this.address2Input.getText());
+    	this.viewModel.getPatient().setCity(this.cityInput.getText());
+    	this.viewModel.getPatient().setState(this.stateInput.getText());
+    	this.viewModel.getPatient().setEthnicity(this.ethnicityChoiceBox.getSelectionModel().getSelectedItem());
+    	this.viewModel.getPatient().setCountry(this.countryChoiceBox.getSelectionModel().getSelectedItem());
+    	this.viewModel.getPatient().setRace(this.raceChoiceBox.getSelectionModel().getSelectedItem());
+    	this.viewModel.getPatient().setGender(this.sexChoiceBox.getSelectionModel().getSelectedItem());
+    	this.viewModel.getPatient().setInsurance(this.insuranceInput.getText());
+    	this.viewModel.getPatient().setCaregiver(this.caregiverLabel.getText());
+    }
     
     private Patient samplePatient() {
 		Gender gender = new Gender();
@@ -234,6 +300,11 @@ public class PatientGeneralInfoCodeBehind {
     	this.saveButton.setVisible(true);
     	this.cancelButton.setVisible(true);
     	this.formActivation(false);
+    	if (this.caregiverLabel.textProperty().get() == "") {
+    		this.addCaregiverButton.setDisable(false);
+    	} else {
+    		this.removeCaregiverButton.setDisable(false);
+    	}
 
     }
 
@@ -289,28 +360,64 @@ public class PatientGeneralInfoCodeBehind {
     	this.saveButton.setVisible(false);
     	this.cancelButton.setVisible(false);
     	this.formActivation(true);
+    	if (this.caregiverLabel.textProperty().get() == "") {
+    		this.addCaregiverButton.setDisable(true);
+    	} else {
+    		this.removeCaregiverButton.setDisable(true);
+    	}
+    	this.setPatientInfo();
+    	UserManager.userManager.updatePatientGeneralInfo(this.viewModel.getPatient());
     }
-    
-	@FXML
-	void handleNavigateAppointment(ActionEvent event) throws IOException {
-	}
 
-	@FXML
-	void handleNavigateMedicalConditions(ActionEvent event) {
+    @FXML
+    void onCancel(ActionEvent event) {
+    	
+    }
 
-	}
+    public class AddCaregiverPopupCodeBehind {
 
-	@FXML
-	void handleNavigateMedications(ActionEvent event) {
+        @FXML
+        private ListView<String> caregiverList;
+        
+        private PatientAppointmentViewModel viewModel;
 
-	}
+        @FXML
+        void onAdd(ActionEvent event) {
+        	if(this.caregiverList.getSelectionModel().getSelectedItem() == null) {
+        		Alert alert = new Alert(AlertType.CONFIRMATION, "Please select your caregiver!", ButtonType.OK);
+            	
+    			alert.showAndWait();
+        	} else {
+            	addCaregiverButton.setVisible(false);
+            	removeCaregiverButton.setVisible(true);
+            	caregiverLabel.textProperty().set(this.caregiverList.getSelectionModel().getSelectedItem());
+            	Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            	currentStage.fireEvent(new WindowEvent(currentStage, WindowEvent.WINDOW_CLOSE_REQUEST));
+            	currentStage.close();
+        	}
+        	
+        }
+        
+        public AddCaregiverPopupCodeBehind(PatientAppointmentViewModel viewModel) {
+        	this.viewModel = viewModel;
+        }
+        
+        @FXML
+        public void initialize() {
+        	this.caregiverList.getItems().add("Caregiver A");
+        	this.caregiverList.getItems().add("Caregiver B");
+        	this.caregiverList.getItems().add("Caregiver C");
+        }
 
-	@FXML
-	void handleNavigateToDashboard(ActionEvent event) throws IOException {
-		Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-		currentStage.close();
-		WindowGenerator.setupDashboardWindow();
-	}
+        @FXML
+        void onCancel(ActionEvent event) {
+        	Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        	currentStage.fireEvent(new WindowEvent(currentStage, WindowEvent.WINDOW_CLOSE_REQUEST));
+        	currentStage.close();
+        }
+
+    }
+	
 
 }
 
