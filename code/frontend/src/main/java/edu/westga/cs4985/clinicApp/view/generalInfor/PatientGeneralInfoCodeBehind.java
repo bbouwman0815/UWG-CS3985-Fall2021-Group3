@@ -18,7 +18,7 @@ import edu.westga.cs4985.clinicApp.utils.Race;
 import edu.westga.cs4985.clinicApp.utils.login.UToken;
 import edu.westga.cs4985.clinicApp.view.appointment.AppointmentCodeBehind.AppointmentViewPopupCodeBehind;
 import edu.westga.cs4985.clinicApp.view.appointment.AppointmentCodeBehind.BookAppointmentPopupCodeBehind;
-import edu.westga.cs4985.clinicApp.viewmodel.PatientAppointmentViewModel;
+import edu.westga.cs4985.clinicApp.viewmodel.PatientViewModel;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -140,7 +140,7 @@ public class PatientGeneralInfoCodeBehind {
     private Ethnicity ethnicity;
     private Country country;
     
-    private PatientAppointmentViewModel viewModel;
+    private PatientViewModel viewModel;
 
 	/**
 	 * Initialize Construct.
@@ -154,7 +154,7 @@ public class PatientGeneralInfoCodeBehind {
     	this.gender = new Gender();
     	this.ethnicity = new Ethnicity();
     	this.country = new Country();
-    	this.viewModel = new PatientAppointmentViewModel();
+    	this.viewModel = new PatientViewModel();
     }
     
     @FXML
@@ -163,7 +163,6 @@ public class PatientGeneralInfoCodeBehind {
     	this.saveButton.setVisible(false);
     	this.cancelButton.setVisible(false);
     	this.setUpChoiceBoxes();
-    	this.setupBindings();
     	this.formActivation(true);
     	this.setForm(this.viewModel.getPatient());
     	if (this.caregiverLabel.textProperty().get() == "") {
@@ -205,8 +204,6 @@ public class PatientGeneralInfoCodeBehind {
     	this.countryChoiceBox.itemsProperty().set(FXCollections.observableArrayList(this.country.country));
     }
     
-    private void setupBindings() {
-    }
 
     @FXML
     void addCaregiver(ActionEvent event) throws IOException {
@@ -282,17 +279,6 @@ public class PatientGeneralInfoCodeBehind {
     	this.viewModel.getPatient().setInsurance(this.insuranceInput.getText());
     	this.viewModel.getPatient().setCaregiver(this.caregiverLabel.getText());
     }
-    
-    private Patient samplePatient() {
-		Gender gender = new Gender();
-		Country country = new Country();
-		Race race = new Race();
-		Ethnicity ethnicity = new Ethnicity();
-		Patient patientDummy = new Patient("Xavier", "Jameson", gender.sex[0], "08-08-2008", "912 Maple Street",
-				"East Maple Building 2B", "Carrollton", "GA", country.country[0], race.race[1], ethnicity.ethnicity[1],
-				"770-111-222", "email@email.com", "United Healthcare", "New", "New");
-		return patientDummy;
-	}
 
     @FXML
     void editGeneralInfo(ActionEvent event) {
@@ -309,52 +295,6 @@ public class PatientGeneralInfoCodeBehind {
     }
 
     @FXML
-    void getAddress1(ActionEvent event) {
-
-    }
-
-    @FXML
-    void getAddress2(ActionEvent event) {
-
-    }
-
-    @FXML
-    void getCity(ActionEvent event) {
-
-    }
-    
-    @FXML
-    void getState(ActionEvent event) {
-    	
-    }
-
-    @FXML
-    void getEmail(ActionEvent event) {
-
-    }
-
-    @FXML
-    void getFirstName(ActionEvent event) {
-
-    }
-
-    @FXML
-    void getLastName(ActionEvent event) {
-
-    }
-
-    @FXML
-    void getPhone(ActionEvent event) {
-
-    }
-    
-    @FXML
-    void getInsurance(ActionEvent event) {
-
-    }
-
-
-    @FXML
     void saveGeneralInfo(ActionEvent event) {
     	this.editbutton.setVisible(true);
     	this.saveButton.setVisible(false);
@@ -369,37 +309,30 @@ public class PatientGeneralInfoCodeBehind {
     	UserManager.userManager.updatePatientGeneralInfo(this.viewModel.getPatient());
     }
 
-    @FXML
-    void onCancel(ActionEvent event) {
-    	
-    }
-
     public class AddCaregiverPopupCodeBehind {
 
         @FXML
         private ListView<String> caregiverList;
         
-        private PatientAppointmentViewModel viewModel;
+        private PatientViewModel viewModel;
+        
+        public AddCaregiverPopupCodeBehind(PatientViewModel viewModel) {
+        	this.viewModel = viewModel;
+        }
 
         @FXML
         void onAdd(ActionEvent event) {
         	if(this.caregiverList.getSelectionModel().getSelectedItem() == null) {
-        		Alert alert = new Alert(AlertType.CONFIRMATION, "Please select your caregiver!", ButtonType.OK);
+        		Alert alert = WindowGenerator.openAlert("Please select your caregiver!");
             	
     			alert.showAndWait();
         	} else {
             	addCaregiverButton.setVisible(false);
             	removeCaregiverButton.setVisible(true);
             	caregiverLabel.textProperty().set(this.caregiverList.getSelectionModel().getSelectedItem());
-            	Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            	currentStage.fireEvent(new WindowEvent(currentStage, WindowEvent.WINDOW_CLOSE_REQUEST));
-            	currentStage.close();
+            	this.returnToPreviousStage(event);
         	}
         	
-        }
-        
-        public AddCaregiverPopupCodeBehind(PatientAppointmentViewModel viewModel) {
-        	this.viewModel = viewModel;
         }
         
         @FXML
@@ -411,6 +344,10 @@ public class PatientGeneralInfoCodeBehind {
 
         @FXML
         void onCancel(ActionEvent event) {
+        	this.returnToPreviousStage(event);
+        }
+        
+        private void returnToPreviousStage(ActionEvent event) {
         	Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         	currentStage.fireEvent(new WindowEvent(currentStage, WindowEvent.WINDOW_CLOSE_REQUEST));
         	currentStage.close();

@@ -1,12 +1,9 @@
 package edu.westga.cs4985.clinicApp.view.login;
 
 import java.io.IOException;
-
-import edu.westga.cs4985.clinicApp.model.LoggedUser;
 import edu.westga.cs4985.clinicApp.model.User;
 import edu.westga.cs4985.clinicApp.model.UserManager;
 import edu.westga.cs4985.clinicApp.resources.WindowGenerator;
-import edu.westga.cs4985.clinicApp.utils.login.LoginVerifier;
 import edu.westga.cs4985.clinicApp.viewmodel.ClinicAppViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -60,7 +57,7 @@ public class LoginCodeBehind {
 		String[] userStringList = userString.split(",");
 		User user = UserManager.userManager.login(userStringList[0], userStringList[1]);
 		if (user == null) {
-			Alert alert = new Alert(AlertType.CONFIRMATION, "UserName or Password is incorrect!", ButtonType.OK);
+			Alert alert = WindowGenerator.openAlert("UserName or Password is incorrect!");
 			alert.showAndWait();
 		} else {
 			try {
@@ -74,10 +71,5 @@ public class LoginCodeBehind {
 		
 		
 
-	}
-
-	private static boolean verifyLogin(String loggingUserName, String loggingUserPW) {
-		LoginVerifier login = new LoginVerifier();
-		return login.validateCredentials(loggingUserName, loggingUserPW);
 	}
 }

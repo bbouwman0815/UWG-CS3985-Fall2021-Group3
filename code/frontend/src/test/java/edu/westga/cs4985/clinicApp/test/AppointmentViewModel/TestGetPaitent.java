@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 import edu.westga.cs4985.clinicApp.model.Patient;
 import edu.westga.cs4985.clinicApp.model.User;
-import edu.westga.cs4985.clinicApp.viewmodel.PatientAppointmentViewModel;
+import edu.westga.cs4985.clinicApp.viewmodel.PatientViewModel;
 
 
 /**
@@ -21,7 +21,7 @@ public class TestGetPaitent {
 	public void testTetPatient() {
 		Patient patient = new Patient("Jimmy", "Bob", "male", "1990-09-09", "new", "new", "nwe", "new", "USA", "New", "new", "new", "new", "new", "new", "new");
 		User.setUser(patient);
-		PatientAppointmentViewModel viewModel = new PatientAppointmentViewModel();
+		PatientViewModel viewModel = new PatientViewModel();
 		assertEquals(true, viewModel.getPatient().equals(patient));
 	}
 }

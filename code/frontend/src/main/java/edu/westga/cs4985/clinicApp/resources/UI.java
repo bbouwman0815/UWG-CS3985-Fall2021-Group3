@@ -44,6 +44,13 @@ public class UI {
 		public static final String EMPTY_COUNTRY = "Country cannot be empty";
 		public static final String EMPTY_RACE = "Race cannot be empty";
 		public static final String EMPTY_ETHNICITY = "Ethnicity cannot be empty";
+		
+		public static final String NULL_DATE = "Datetime cannnot be null";
+		public static final String NULL_PATIENT = "Patient cannnot be null";
+		public static final String NULL_MEDICAL_PERAONNEL = "Medical personnel cannnot be null";
+		public static final String NULL_LOCATION = "Location cannnot be null";
+		public static final String EMPTY_LOATION = "Location cannnot be empty";
+		public static final String NULL_NOTES = "Notes cannnot be null";
 	}
 
 }

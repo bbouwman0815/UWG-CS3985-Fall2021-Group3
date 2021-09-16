@@ -13,8 +13,23 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+/**
+ * The server class
+ * 
+ * @author Jinxiang Zeng
+ * @version Fall 2021
+ *
+ */
 public class Server extends Thread {
 	
+	/**
+	 * Write booked appointment to json file
+	 * 
+	 * @param jsonString the appointment's json string
+	 * @return "Added" if appointment's json string added to json file
+	 * @throws IOException the IO exception
+	 * @throws ParseException the parse exception
+	 */
 	@SuppressWarnings("unchecked")
 	public String bookAppointment(String jsonString) throws IOException, ParseException {
 		JSONParser parser = new JSONParser();
@@ -32,6 +47,14 @@ public class Server extends Thread {
 		return "ADDED";
 	}
 	
+	/**
+	 * Remove booked appointment from json file
+	 * 
+	 * @param jsonString the appointment's json string
+	 * @return "Removed" if appointment's json string removed from json file
+	 * @throws IOException the IO exception
+	 * @throws ParseException the parse exception
+	 */
 	@SuppressWarnings("unchecked")
 	public String cancleAppointment(String jsonString) throws IOException, ParseException {
 		JSONParser parser = new JSONParser();
@@ -53,9 +76,17 @@ public class Server extends Thread {
 		writer.write(jsonObject.toJSONString());
 		writer.flush();
 		writer.close();
-		return "ADDED";
+		return "Removed";
 	}
 	
+	/**
+	 * Update user's general information to json file
+	 * 
+	 * @param jsonString user's general information json string
+	 * @return "Added" if user's general information json string added to json file
+	 * @throws IOException the IO exception
+	 * @throws ParseException the parse exception
+	 */
 	@SuppressWarnings("unchecked")
 	public String updatePatientGeneralInfo(String jsonString) throws IOException, ParseException {
 		JSONParser parser = new JSONParser();
@@ -77,9 +108,17 @@ public class Server extends Thread {
 		writer.write(jsonObject.toJSONString());
 		writer.flush();
 		writer.close();
-		return "ADDED";
+		return "Updated";
 	}
 	
+	/**
+	 * Get user's json string when user login
+	 * 
+	 * @param jsonString the user's login json string
+	 * @return the user's json string if login information is valid; otherwise, "EROOR"
+	 * @throws FileNotFoundException the file not found exception
+	 * @throws IOException the IO exception
+	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public String userLogin(String jsonString) throws FileNotFoundException, IOException {
 		JSONParser parser = new JSONParser();
@@ -99,6 +138,13 @@ public class Server extends Thread {
         return "ERROR";
 	}
 	
+	/**
+	 * Get user json string by given json string as user name
+	 * 
+	 * @param jsonString the json string that contains the user name
+	 * @return the user json string associated with given user name json string
+	 * @throws IOException the IO exception
+	 */
 	public String getUserByUserName(String jsonString) throws IOException {
 		JSONParser parser = new JSONParser();
         try {
@@ -117,6 +163,13 @@ public class Server extends Thread {
         return "ERROR";
 	}
 	
+	/**
+	 * Get appointment list by given user name json string
+	 * 
+	 * @param jsonString the json string of user name
+	 * @return the appointment list json string associated with the json stirng of user name
+	 * @throws IOException the IO exception
+	 */
 	@SuppressWarnings("unchecked")
 	public String getAppointments(String jsonString) throws IOException {
 		JSONParser parser = new JSONParser();
@@ -138,6 +191,9 @@ public class Server extends Thread {
         return appointments.toJSONString();
 	}
 
+	/*
+	 * Run the server
+	 */
 	@SuppressWarnings("deprecation")
 	public void run() {
 		Context context = ZMQ.context(1);
@@ -160,10 +216,8 @@ public class Server extends Thread {
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (ParseException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
             }
@@ -173,10 +227,8 @@ public class Server extends Thread {
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (ParseException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
             }
@@ -211,7 +263,6 @@ public class Server extends Thread {
 				} catch (IOException e) {
 					e.printStackTrace();
 				} catch (ParseException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
             }
@@ -222,14 +273,5 @@ public class Server extends Thread {
         socket.close();
         context.term();
 		
-	}
-
-	private void delay() {
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 }

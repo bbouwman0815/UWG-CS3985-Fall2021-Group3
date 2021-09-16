@@ -25,6 +25,13 @@ import edu.westga.cs4985.clinicApp.model.UserManager;
  */
 public class DataReader {
 	
+	/**
+	 * Convert json string to user
+	 * 
+	 * @param reply the user json string
+	 * 
+	 * @return the user associated with the json string
+	 */
 	public static User convertToUser(String reply) {
 		JSONObject json = null;
 		try {
@@ -35,6 +42,13 @@ public class DataReader {
 		return convertToUser(json);
 	}
 	
+	/**
+	 * Convert json string to list of appointments
+	 * 
+	 * @param reply the appointments json string
+	 * 
+	 * @return the appointments list associated with the json string
+	 */
 	public static List<Appointment> convertToAppointments(String reply) {
 		List<Appointment> appointments = new ArrayList<Appointment>();
 		JSONParser parser = new JSONParser();
@@ -59,6 +73,13 @@ public class DataReader {
 		return appointments;
 	}
 	
+	/**
+	 * Convert json string to user
+	 * 
+	 * @param reply the user json string
+	 * 
+	 * @return the user associated with the json string
+	 */
 	public static User convertToUser(JSONObject json) {
 		User user = null;
 		String type = ((String) json.get("type"));

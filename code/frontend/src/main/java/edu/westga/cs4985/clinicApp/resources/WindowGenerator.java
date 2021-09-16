@@ -12,6 +12,11 @@ import edu.westga.cs4985.clinicApp.view.login.LoginCodeBehind;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
+import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class WindowGenerator {
@@ -42,6 +47,15 @@ public class WindowGenerator {
 		}
 	}
 	
+	/**
+	 * Change the current scene to another scene
+	 * 
+	 * @param currentStage the current scene
+	 * @param fxml the location of destination scene
+	 * @param controller the controller of destination scene
+	 * @param newWindowTitle the title of destination scene
+	 * @throws IOException the IO exception
+	 */
 	public static void changeScene(Stage currentStage, String fxml, Object controller, String newWindowTitle)
 			throws IOException {
 		FXMLLoader loader = new FXMLLoader();
@@ -54,6 +68,13 @@ public class WindowGenerator {
 		currentStage.setTitle(newWindowTitle);
 	}
 	
+	/**
+	 * Set user view for logged user
+	 * 
+	 * @param currentStage the current stage
+	 * 
+	 * @throws IOException the IO exception
+	 */
 	public static void setUserView(Stage currentStage) throws IOException {
 		String fxml = null;
 		Object controller = null;
@@ -64,29 +85,52 @@ public class WindowGenerator {
 		}
 		WindowGenerator.changeScene(currentStage, fxml, controller, PATIENT_PROFILE_TITLE);
 	}
-
-	public static void setupDashboardWindow() throws IOException {
-		DashboardCodeBehind dashboardCodeBehind = new DashboardCodeBehind();
-		FXMLLoader loader = new FXMLLoader();
-		loader.setController(dashboardCodeBehind);
-		loader.setLocation(dashboardCodeBehind.getClass().getResource(DASHBOARD_GUI));
-		WindowGenerator.setupScene((Parent) loader.load(), PATIENT_PROFILE_TITLE);
-	}
-
-	public static void setupLoginWindow() throws IOException {
-		LoginCodeBehind loginCodeBehind = new LoginCodeBehind();
-		FXMLLoader loader = new FXMLLoader();
-		loader.setController(loginCodeBehind);
-		loader.setLocation(loginCodeBehind.getClass().getResource(LOGIN_GUI));
-		WindowGenerator.setupScene((Parent) loader.load(), PATIENT_PROFILE_TITLE);
-	}
 	
-	public static void setupGeneralInfoWindow() throws IOException {
-		PatientGeneralInfoCodeBehind patientGeneralInfoCodeBehind = new PatientGeneralInfoCodeBehind();
+	
+	
+	/**
+	 * Open a popup for user to view
+	 *
+	 * @param fxml       	the fxml location
+	 * @param controller 	the controller
+	 * @return the stage
+	 * @throws IOException  the IO exception
+	 */
+	public static Stage openPopup(String fxml, Object controller, String title) throws IOException {
 		FXMLLoader loader = new FXMLLoader();
-		loader.setController(patientGeneralInfoCodeBehind);
-		loader.setLocation(patientGeneralInfoCodeBehind.getClass().getResource(PATIENT_GENERAL_INFO));
-		WindowGenerator.setupScene((Parent) loader.load(), PATIENT_PROFILE_TITLE);
+		loader.setController(controller);
+		loader.setLocation(controller.getClass().getResource(fxml));
+		Pane pane = (Pane) loader.load();
+		Stage popup = new Stage();
+		Scene scene = new Scene(pane);
+		popup.setScene(scene);
+		popup.setResizable(false);
+		popup.setTitle(title);
+		popup.initModality(Modality.APPLICATION_MODAL);
+		return popup;
+	}
+
+	/**
+	 * Open alert for user
+	 *
+	 * @param errorMessage the error message
+	 * @return the alert
+	 */
+	public static Alert openAlert(String errorMessage) {
+		Alert alert = new Alert(AlertType.WARNING, errorMessage);
+		return alert;
+	}
+
+	/**
+	 * Open confirm for user
+	 *
+	 * @param confirmMessage the confirm message
+	 * @return the alert
+	 */
+	public static Alert openConfirm(String confirmMessage) {
+		Alert alert = new Alert(AlertType.CONFIRMATION, confirmMessage, ButtonType.YES, ButtonType.NO);
+		return alert;
+
 	}
 
 }

@@ -17,6 +17,13 @@ import org.json.simple.JSONObject;
  */
 public class DataWriter {
 	
+	/**
+	 * Write the user's name user name and password as json 
+	 * 
+	 * @param username the user's user name
+	 * @param password the user's password
+	 * @return the json that contains the user's user name and password
+	 */
 	@SuppressWarnings("unchecked")
 	public static String getUserLoginInfo(String username, String password) {
 		JSONObject json = new JSONObject();
@@ -25,6 +32,12 @@ public class DataWriter {
 		return json.toJSONString();
 	}
 	
+	/**
+	 * Write the user's name user name as json 
+	 * 
+	 * @param username the user's user name
+	 * @return the json that contains the user's user name 
+	 */
 	@SuppressWarnings("unchecked")
 	public static String getUserName(String username) {
 		JSONObject json = new JSONObject();
@@ -32,6 +45,12 @@ public class DataWriter {
 		return json.toJSONString();
 	}
 	
+	/**
+	 * Write the user's information as json
+	 * 
+	 * @param user the user
+	 * @return the json that contains the user's information
+	 */
 	@SuppressWarnings("unchecked")
 	public static String getUserGeneralInfo(User user) {
 		JSONObject json = new JSONObject();
@@ -40,32 +59,13 @@ public class DataWriter {
 		return json.toJSONString();
 	}
 	
-	@SuppressWarnings("unchecked")
-	private static void loadUserGeneralInfo(JSONObject json, User user) {
-		if (user instanceof Patient) {
-			Patient patient = (Patient) user;
-			json.put("type", "PATIENT");
-			json.put("userName", patient.getUsername());
-			json.put("password", patient.getPassword());
-			json.put("firstName", patient.getFirstName());
-			json.put("lastName", patient.getLastName());
-			json.put("gender", patient.getGender());
-			json.put("dateOfBirth", patient.getDateOfBirth());
-			json.put("address1", patient.getAddress1());
-			json.put("address2", patient.getAddress2());
-			json.put("city", patient.getCity());
-			json.put("state", patient.getState());
-			json.put("country", patient.getCountry());
-			json.put("race", patient.getRace());
-			json.put("ethnicty", patient.getEthnicity());
-			json.put("phoneNumber", patient.getPhoneNumber());
-			json.put("email", patient.getEmail());
-			json.put("insurance", patient.getInsurance());
-			
-			
-		}
-	}
 	
+	/**
+	 * Write the patient's general information as json
+	 *  
+	 * @param patient the patient
+	 * @return the json that contains patient's general information
+	 */
 	@SuppressWarnings("unchecked")
 	public static String updatePatientGeneralInfor(Patient patient) {
 		JSONObject json = new JSONObject();
@@ -90,6 +90,12 @@ public class DataWriter {
 		return json.toJSONString();
 	}
 
+	/**
+	 * Write the appointment as json
+	 *  
+	 * @param appointment the appointment
+	 * @return the json that contains appointment information
+	 */
 	@SuppressWarnings("unchecked")
 	public static String writeAppointmentInfo(Appointment appointment) {
 		JSONObject json = new JSONObject();

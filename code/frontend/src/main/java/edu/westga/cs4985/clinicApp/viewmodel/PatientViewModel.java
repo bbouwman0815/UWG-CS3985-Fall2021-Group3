@@ -23,7 +23,7 @@ import javafx.collections.FXCollections;
  * @version Fall 2021
  *
  */
-public class PatientAppointmentViewModel {
+public class PatientViewModel {
 	
 	private StringProperty seletedMedicalPersonnel;
 	private ObjectProperty<LocalDateTime> selectedAvailabilityProperty;
@@ -44,7 +44,7 @@ public class PatientAppointmentViewModel {
 	 * 
 	 * @postcondition none
 	 */
-	public PatientAppointmentViewModel() {
+	public PatientViewModel() {
 		this.patient = (Patient) User.user;
 		this.selectedFutureAppointmentProperty = new SimpleObjectProperty<Appointment>();
 		this.selectedPastAppointmentProperty = new SimpleObjectProperty<Appointment>();
@@ -59,10 +59,21 @@ public class PatientAppointmentViewModel {
 		
 	}
 	
+	/**
+	 * Get the patient user
+	 * 
+	 * @return the logged in patient
+	 */
 	public Patient getPatient() {
 		return this.patient;
 	}
 	
+	
+	/**
+	 * Booking an appointment for user
+	 * 
+	 * @return the booked appointment
+	 */
 	public Appointment bookAppointment() {
 		Appointment appointment = new Appointment(this.selectedAvailabilityProperty.get(), this.patient, this.seletedMedicalPersonnel.get(), "TLC", this.notesProperty.get());
 		this.futureppointmentList.add(appointment);
@@ -70,6 +81,11 @@ public class PatientAppointmentViewModel {
 		return appointment;
 	}
 	
+	/**
+	 * Filter appointment list to future and past sections
+	 * 
+	 * @param appointments the appointment list used to filter
+	 */
 	public void filterAppointment(List<Appointment> appointments) {
 		for (Appointment theAppointment : appointments) {
 			if (!theAppointment.hasPassed()) {
@@ -84,6 +100,11 @@ public class PatientAppointmentViewModel {
 
 	}
 	
+	/**
+	 * Check current appointment if is booked
+	 * 
+	 * @return true if current appointment is booked; otherwise false
+	 */
 	public boolean isBookedAppointment() {
 		for (Appointment appointment : this.futureppointmentList){
 			if (appointment.getMedicalPersonnel().equals(this.seletedMedicalPersonnel.get()) &&
@@ -94,6 +115,11 @@ public class PatientAppointmentViewModel {
 		return false;
 	}
 	
+	/**
+	 * Cancel an appointment for user
+	 * 
+	 * @return the canceled appointment
+	 */
 	public Appointment cancelAppointment() {
 		Appointment appointment = this.selectedFutureAppointmentProperty.get();
 		this.futureppointmentList.remove(appointment);
@@ -101,42 +127,92 @@ public class PatientAppointmentViewModel {
 		return appointment;
 	}
 	
+	/**
+	 * Get the selected medical personnel
+	 * 
+	 * @return the selected medical personnel
+	 */
 	public StringProperty seletedMedicalPersonnel() {
 		return this.seletedMedicalPersonnel;
 	}
 	
+	/**
+	 * Get the selected availability property
+	 * 
+	 * @return the selected availability property
+	 */
 	public ObjectProperty<LocalDateTime> selectedAvailabilityProperty() {
 		return this.selectedAvailabilityProperty;
 	}
 	
+	/**
+	 * Get the availability list property
+	 * 
+	 * @return the availability list property
+	 */
 	public ListProperty<LocalDateTime> availabilityListProperty() {
 		return this.availabilityListProperty;
 	}
 	
+	/**
+	 * Get the selected future appointment property
+	 * 
+	 * @return the selected future appointment property
+	 */
 	public ObjectProperty<Appointment> selectedFutureAppointmentProperty() {
 		return this.selectedFutureAppointmentProperty;
 	}
 	
+	/**
+	 * Get the selected past appointment property
+	 * 
+	 * @return the selected past appointment property
+	 */
 	public ObjectProperty<Appointment> selectedPastAppointmentProperty() {
 		return this.selectedPastAppointmentProperty;
 	}
 	
+	/**
+	 * Get the future appointment list property
+	 *  
+	 * @return the future appointment list property
+	 */
 	public ListProperty<Appointment> futureAppointmentListProperty() {
 		return this.futureAppointmentListProperty;
 	}
 	
+	/**
+	 * Get the past appointment list property
+	 *  
+	 * @return the past appointment list property
+	 */
 	public ListProperty<Appointment> pastAppointmentListProperty() {
 		return this.pastAppointmentListProperty;
 	}
 	
+	/**
+	 * Get the notes property
+	 *  
+	 * @return the notes property
+	 */
 	public StringProperty notesProperty() {
 		return this.notesProperty;
 	}
 	
+	/**
+	 * Get the future appointment list
+	 *  
+	 * @return the future appointment list
+	 */
 	public List<Appointment> futureppointmentList() {
 		return this.futureppointmentList;
 	}
 	
+	/**
+	 * Get the past appointment list
+	 *  
+	 * @return the past appointment list
+	 */
 	public List<Appointment> pastAppointmentList() {
 		return this.pastAppointmentList;
 	}

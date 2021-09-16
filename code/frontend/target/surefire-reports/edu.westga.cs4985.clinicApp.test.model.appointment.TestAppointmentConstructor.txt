@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: edu.westga.cs4985.clinicApp.test.model.appointment.TestAppointmentConstructor
 -------------------------------------------------------------------------------
-Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 s - in edu.westga.cs4985.clinicApp.test.model.appointment.TestAppointmentConstructor
+Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.012 s - in edu.westga.cs4985.clinicApp.test.model.appointment.TestAppointmentConstructor

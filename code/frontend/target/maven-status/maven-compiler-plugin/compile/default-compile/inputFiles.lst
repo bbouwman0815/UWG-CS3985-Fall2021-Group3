@@ -1,5 +1,4 @@
 /Users/pipai/git/UWG-CS3985-Fall2021-Group5/code/frontend/src/main/java/edu/westga/cs4985/clinicApp/model/UserManager.java
-/Users/pipai/git/UWG-CS3985-Fall2021-Group5/code/frontend/src/main/java/edu/westga/cs4985/clinicApp/viewmodel/PatientAppointmentViewModel.java
 /Users/pipai/git/UWG-CS3985-Fall2021-Group5/code/frontend/src/main/java/edu/westga/cs4985/clinicApp/ClinicApp.java
 /Users/pipai/git/UWG-CS3985-Fall2021-Group5/code/frontend/src/main/java/edu/westga/cs4985/clinicApp/view/appointment/AppointmentCodeBehind.java
 /Users/pipai/git/UWG-CS3985-Fall2021-Group5/code/frontend/src/main/java/edu/westga/cs4985/clinicApp/utils/login/TokenGenerator.java
@@ -10,20 +9,19 @@
 /Users/pipai/git/UWG-CS3985-Fall2021-Group5/code/frontend/src/main/java/edu/westga/cs4985/clinicApp/resources/UI.java
 /Users/pipai/git/UWG-CS3985-Fall2021-Group5/code/frontend/src/main/java/edu/westga/cs4985/clinicApp/viewmodel/ClinicAppViewModel.java
 /Users/pipai/git/UWG-CS3985-Fall2021-Group5/code/frontend/src/main/java/edu/westga/cs4985/clinicApp/utils/Ethnicity.java
-/Users/pipai/git/UWG-CS3985-Fall2021-Group5/code/frontend/src/main/java/edu/westga/cs4985/clinicApp/model/LoggedUser.java
 /Users/pipai/git/UWG-CS3985-Fall2021-Group5/code/frontend/src/main/java/edu/westga/cs4985/clinicApp/view/medications/MedicationsCodeBehind.java
 /Users/pipai/git/UWG-CS3985-Fall2021-Group5/code/frontend/src/main/java/edu/westga/cs4985/clinicApp/utils/Country.java
 /Users/pipai/git/UWG-CS3985-Fall2021-Group5/code/frontend/src/main/java/edu/westga/cs4985/clinicApp/utils/login/UToken.java
 /Users/pipai/git/UWG-CS3985-Fall2021-Group5/code/frontend/src/main/java/edu/westga/cs4985/clinicApp/model/Appointment.java
 /Users/pipai/git/UWG-CS3985-Fall2021-Group5/code/frontend/src/main/java/edu/westga/cs4985/clinicApp/view/dashboard/DashboardCodeBehind.java
 /Users/pipai/git/UWG-CS3985-Fall2021-Group5/code/frontend/src/main/java/edu/westga/cs4985/clinicApp/client/RequestType.java
+/Users/pipai/git/UWG-CS3985-Fall2021-Group5/code/frontend/src/main/java/edu/westga/cs4985/clinicApp/viewmodel/PatientViewModel.java
 /Users/pipai/git/UWG-CS3985-Fall2021-Group5/code/frontend/src/main/java/edu/westga/cs4985/clinicApp/resources/WindowGenerator.java
 /Users/pipai/git/UWG-CS3985-Fall2021-Group5/code/frontend/src/main/java/edu/westga/cs4985/clinicApp/view/generalInfor/PatientGeneralInfoCodeBehind.java
 /Users/pipai/git/UWG-CS3985-Fall2021-Group5/code/frontend/src/main/java/edu/westga/cs4985/clinicApp/utils/DataReader.java
 /Users/pipai/git/UWG-CS3985-Fall2021-Group5/code/frontend/src/main/java/edu/westga/cs4985/clinicApp/utils/Race.java
 /Users/pipai/git/UWG-CS3985-Fall2021-Group5/code/frontend/src/main/java/edu/westga/cs4985/clinicApp/utils/DataWriter.java
 /Users/pipai/git/UWG-CS3985-Fall2021-Group5/code/frontend/src/main/java/edu/westga/cs4985/clinicApp/utils/AddMedicationDialog.java
-/Users/pipai/git/UWG-CS3985-Fall2021-Group5/code/frontend/src/main/java/edu/westga/cs4985/clinicApp/utils/login/LoginVerifier.java
 /Users/pipai/git/UWG-CS3985-Fall2021-Group5/code/frontend/src/main/java/edu/westga/cs4985/clinicApp/model/User.java
 /Users/pipai/git/UWG-CS3985-Fall2021-Group5/code/frontend/src/main/java/edu/westga/cs4985/clinicApp/model/Patient.java
 /Users/pipai/git/UWG-CS3985-Fall2021-Group5/code/frontend/src/main/java/edu/westga/cs4985/clinicApp/utils/Gender.java

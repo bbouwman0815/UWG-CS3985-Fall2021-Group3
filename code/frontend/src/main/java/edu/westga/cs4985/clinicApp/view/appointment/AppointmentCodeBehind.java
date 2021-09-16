@@ -8,7 +8,9 @@ import java.util.List;
 
 import edu.westga.cs4985.clinicApp.model.Appointment;
 import edu.westga.cs4985.clinicApp.model.UserManager;
-import edu.westga.cs4985.clinicApp.viewmodel.PatientAppointmentViewModel;
+import edu.westga.cs4985.clinicApp.resources.WindowGenerator;
+import edu.westga.cs4985.clinicApp.viewmodel.PatientViewModel;
+import javafx.beans.property.ObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -43,10 +45,14 @@ public class AppointmentCodeBehind {
     @FXML
     private ListView<Appointment> pastAppointmentList;
     
-    private PatientAppointmentViewModel viewModel;
+    private PatientViewModel viewModel;
+    
+    private static final String APPOINTMENT_VIEW_POPUP = "../appointment/AppointmentViewPopup.fxml";
+    
+    private static final String BOOK_APPOINTMENT_POPUP = "../appointment/BookAppointmentPopup.fxml";
     
     public AppointmentCodeBehind() {
-    	this.viewModel = new PatientAppointmentViewModel();
+    	this.viewModel = new PatientViewModel();
     }
     
     @FXML
@@ -69,25 +75,12 @@ public class AppointmentCodeBehind {
     	this.futureAppointmentList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
     		if (newValue != null) {
     			try {
-    				
-    				FXMLLoader loader = new FXMLLoader();
-    	        	loader.setLocation(getClass().getResource("../appointment/AppointmentViewPopup.fxml"));
-    	        	loader.setController(new AppointmentViewPopupCodeBehind(this.viewModel));
-    	        	
-    	        	Pane pane = (Pane) loader.load();
-    	        	Stage popup = new Stage();
-    	        	Scene scene = new Scene(pane);
-    	        	popup.setScene(scene);
-    	        	popup.setResizable(false);
-    	        	popup.setTitle("Appointment View Window");
-    	        	popup.initModality(Modality.APPLICATION_MODAL);
-    	        	
+    				Stage popup = WindowGenerator.openPopup(APPOINTMENT_VIEW_POPUP, new AppointmentViewPopupCodeBehind(this.viewModel), "Appointment View Window");
     	        	popup.setOnCloseRequest((event) -> {
     	        		this.futureAppointmentList.getSelectionModel().clearSelection();
     	        	});
     	        	
     	        	popup.show();
-    	        	
     	        	
     			}
     			catch (IOException e) {
@@ -99,19 +92,7 @@ public class AppointmentCodeBehind {
     	this.pastAppointmentList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
     		if (newValue != null) {
     			try {
-    				
-    				FXMLLoader loader = new FXMLLoader();
-    	        	loader.setLocation(getClass().getResource("../appointment/AppointmentViewPopup.fxml"));
-    	        	loader.setController(new AppointmentViewPopupCodeBehind(this.viewModel));
-    	        	
-    	        	Pane pane = (Pane) loader.load();
-    	        	Stage popup = new Stage();
-    	        	Scene scene = new Scene(pane);
-    	        	popup.setScene(scene);
-    	        	popup.setResizable(false);
-    	        	popup.setTitle("Appointment View Window");
-    	        	popup.initModality(Modality.APPLICATION_MODAL);
-    	        	
+    				Stage popup = WindowGenerator.openPopup(APPOINTMENT_VIEW_POPUP, new AppointmentViewPopupCodeBehind(this.viewModel), "Appointment View Window");
     	        	popup.setOnCloseRequest((event) -> {
     	        		this.pastAppointmentList.getSelectionModel().clearSelection();
     	        	});
@@ -129,16 +110,7 @@ public class AppointmentCodeBehind {
 
     @FXML
     void bookAppointment(ActionEvent event) throws IOException {
-    	FXMLLoader loader = new FXMLLoader();
-    	loader.setLocation(getClass().getResource("../appointment/BookAppointmentPopup.fxml"));
-    	loader.setController(new BookAppointmentPopupCodeBehind(this.viewModel));
-    	Pane pane = (Pane) loader.load();
-    	Stage popup = new Stage();
-    	Scene scene = new Scene(pane);
-    	popup.setScene(scene);
-    	popup.setResizable(false);
-    	popup.setTitle("Booking Appointment Window");
-    	popup.initModality(Modality.APPLICATION_MODAL);
+    	Stage popup = WindowGenerator.openPopup(BOOK_APPOINTMENT_POPUP, new BookAppointmentPopupCodeBehind(this.viewModel), "Booking Appointment Window");
     	popup.show();
     }
 
@@ -153,9 +125,9 @@ public class AppointmentCodeBehind {
         @FXML
         private TextArea noteTextBox;
         
-        private PatientAppointmentViewModel viewModel;
+        private PatientViewModel viewModel;
         
-        public BookAppointmentPopupCodeBehind(PatientAppointmentViewModel viewModel) {
+        public BookAppointmentPopupCodeBehind(PatientViewModel viewModel) {
         	this.viewModel = viewModel;
         }
         
@@ -179,36 +151,27 @@ public class AppointmentCodeBehind {
         @FXML
         void bookTheAppointment(ActionEvent event) throws IOException {
         	if(this.viewModel.isBookedAppointment()) {
-        		Alert alert = new Alert(AlertType.CONFIRMATION, "The appointment already book! Please select another date!", ButtonType.OK);
+        		Alert alert = WindowGenerator.openAlert("The appointment already book! Please select another date!");
             	
     			alert.showAndWait();
         	} else {
-        		Alert bookAlert = new Alert(AlertType.CONFIRMATION, "Are you sure want to book this appointment?", ButtonType.CANCEL, ButtonType.YES);
+        		Alert bookAlert = WindowGenerator.openConfirm("Are you sure want to book this appointment?");
             	bookAlert.setOnCloseRequest((action) -> {
             		if (bookAlert.getResult().getButtonData().equals(ButtonData.YES)) {
             			this.viewModel.notesProperty().set(this.noteTextBox.getText());
             			Appointment appointment = this.viewModel.bookAppointment();
             			UserManager.userManager.bookAppointment(appointment);
-            			FXMLLoader loader = new FXMLLoader();
-                    	loader.setLocation(getClass().getResource("../appointment/AppointmentViewPopup.fxml"));
-                    	loader.setController(new AppointmentViewPopupCodeBehind(this.viewModel));
-                    	Pane pane;
+            			Stage popup;
 						try {
-							pane = (Pane) loader.load();
-							Stage popup = new Stage();
-	                    	Scene scene = new Scene(pane);
-	                    	popup.setScene(scene);
-	                    	popup.setResizable(false);
-	                    	popup.setTitle("Appointment View Window");
-	                    	popup.initModality(Modality.APPLICATION_MODAL);
-	                    	popup.show();
-	                    	
-	                    	Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-	                    	currentStage.fireEvent(new WindowEvent(currentStage, WindowEvent.WINDOW_CLOSE_REQUEST));
-	                    	currentStage.close();
+							popup = WindowGenerator.openPopup(APPOINTMENT_VIEW_POPUP, new AppointmentViewPopupCodeBehind(this.viewModel), "Appointment View Window");
+							popup.show();
 						} catch (IOException e) {
 							e.printStackTrace();
 						}
+						Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+	                    currentStage.fireEvent(new WindowEvent(currentStage, WindowEvent.WINDOW_CLOSE_REQUEST));
+	                    currentStage.close();
+
             		}
             	});
         		bookAlert.show();
@@ -259,9 +222,9 @@ public class AppointmentCodeBehind {
         @FXML
         private Label locationLabel;
         
-        private PatientAppointmentViewModel viewModel;
+        private PatientViewModel viewModel;
         
-        public AppointmentViewPopupCodeBehind(PatientAppointmentViewModel viewModel) {
+        public AppointmentViewPopupCodeBehind(PatientViewModel viewModel) {
         	this.viewModel = viewModel;
         }
         
@@ -298,7 +261,7 @@ public class AppointmentCodeBehind {
 
         @FXML
         void cancelAppointment(ActionEvent event) {
-        	Alert alert = new Alert(AlertType.CONFIRMATION, "Are you sure you want to cancel this appointment?", ButtonType.YES, ButtonType.NO);
+        	Alert alert = WindowGenerator.openConfirm("Are you sure you want to cancel this appointment?");
         	
 			alert.setOnCloseRequest((evt) -> {
 				if (alert.getResult().getButtonData().equals(ButtonData.YES)) {
@@ -340,8 +303,6 @@ public class AppointmentCodeBehind {
         
 
     }
-
-
 
 }
 

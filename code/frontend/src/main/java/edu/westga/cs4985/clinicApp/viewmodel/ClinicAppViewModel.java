@@ -37,13 +37,9 @@ public class ClinicAppViewModel {
 	 */
 	public String login() {
 		String user = null;
-		try {
-			String userName = this.userNameProperty.get();
-			String password = this.passwordProperty.get();
-			user = ""+ userName + "," + password;
-		} catch (Exception e) {
-			user = null;
-		}
+		String userName = this.userNameProperty.get();
+		String password = this.passwordProperty.get();
+		user = ""+ userName + "," + password;
 		return user;
 	}
 

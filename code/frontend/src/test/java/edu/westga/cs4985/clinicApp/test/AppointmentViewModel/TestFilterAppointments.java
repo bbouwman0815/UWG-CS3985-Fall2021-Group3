@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import edu.westga.cs4985.clinicApp.model.Appointment;
 import edu.westga.cs4985.clinicApp.model.Patient;
 import edu.westga.cs4985.clinicApp.model.User;
-import edu.westga.cs4985.clinicApp.viewmodel.PatientAppointmentViewModel;
+import edu.westga.cs4985.clinicApp.viewmodel.PatientViewModel;
 
 
 /**
@@ -27,7 +27,7 @@ public class TestFilterAppointments {
 	public void testFilterAppointment() {
 		Patient patient = new Patient("Jimmy", "Bob", "male", "1990-09-09", "new", "new", "nwe", "new", "USA", "New", "new", "new", "new", "new", "new", "new");
 		User.setUser(patient);
-		PatientAppointmentViewModel viewModel = new PatientAppointmentViewModel();
+		PatientViewModel viewModel = new PatientViewModel();
 		List<Appointment> appointments = new ArrayList<Appointment>();
 		Appointment appointment1 = new Appointment(LocalDateTime.of(2021,10,01,13,00), patient, "Person A", "TLC", "help");
 		Appointment appointment2 = new Appointment(LocalDateTime.of(2021,7,01,13,00), patient, "Person A", "TLC", "help");

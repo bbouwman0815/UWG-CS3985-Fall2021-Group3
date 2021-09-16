@@ -2,6 +2,8 @@ package edu.westga.cs4985.clinicApp.model;
 
 import java.time.LocalDateTime;
 
+import edu.westga.cs4985.clinicApp.resources.UI;
+
 /**
  * The Class Appointment.
  * 
@@ -32,22 +34,22 @@ public class Appointment {
 	 */
 	public Appointment(LocalDateTime dateTime, Patient patient, String medicalPersonnel, String location, String notes) {
 		if (dateTime == null) {
-			throw new IllegalArgumentException("dateTime cannnot be null");
+			throw new IllegalArgumentException(UI.ExceptionMessages.NULL_DATE);
 		}
 		if (patient == null) {
-			throw new IllegalArgumentException("Patient cannnot be null");
+			throw new IllegalArgumentException(UI.ExceptionMessages.NULL_PATIENT);
 		}
 		if (medicalPersonnel == null) {
-			throw new IllegalArgumentException("Medical personnel cannnot be null");
+			throw new IllegalArgumentException(UI.ExceptionMessages.NULL_MEDICAL_PERAONNEL);
 		}
 		if (location == null) {
-			throw new IllegalArgumentException("Location cannnot be null");
+			throw new IllegalArgumentException(UI.ExceptionMessages.NULL_LOCATION);
 		}
 		if (location.isEmpty()) {
-			throw new IllegalArgumentException("Location cannnot be empty");
+			throw new IllegalArgumentException(UI.ExceptionMessages.EMPTY_LOATION);
 		}
 		if (notes == null) {
-			throw new IllegalArgumentException("Notes cannnot be null");
+			throw new IllegalArgumentException(UI.ExceptionMessages.NULL_NOTES);
 		}
 		this.dateTime = dateTime;
 		this.patient = patient;
@@ -78,7 +80,7 @@ public class Appointment {
 	 */
 	public void setDateTime(LocalDateTime dateTime) {
 		if (dateTime == null) {
-			throw new IllegalArgumentException("Date cannot be null");
+			throw new IllegalArgumentException(UI.ExceptionMessages.NULL_DATE);
 		}
 
 		this.dateTime = dateTime;
@@ -130,10 +132,10 @@ public class Appointment {
 	 */
 	public void setLocation(String location) {
 		if (location == null) {
-			throw new IllegalArgumentException("Location cannot be null");
+			throw new IllegalArgumentException(UI.ExceptionMessages.NULL_LOCATION);
 		}
 		if (location.isEmpty()) {
-			throw new IllegalArgumentException("Location cannot be empty");
+			throw new IllegalArgumentException(UI.ExceptionMessages.EMPTY_LOATION);
 		}
 
 		this.location = location;
@@ -161,7 +163,7 @@ public class Appointment {
 	 */
 	public void setNotes(String notes) {
 		if (notes == null) {
-			throw new IllegalArgumentException("Notes cannot be null");
+			throw new IllegalArgumentException(UI.ExceptionMessages.NULL_NOTES);
 		}
 
 		this.notes = notes;
