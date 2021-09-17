@@ -1,7 +1,12 @@
 package edu.westga.cs4985.clinicApp.model;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 import edu.westga.cs4985.clinicApp.client.Communicator;
 import edu.westga.cs4985.clinicApp.client.RequestType;
@@ -25,6 +30,15 @@ public class UserManager {
 	 */
 	public UserManager() {
 		this.communicator = new Communicator();
+	}
+	
+	/**
+	 * Instantiates a new user manager.
+	 *
+	 * @param communicator the communicator
+	 */
+	public UserManager(Communicator communicator) {
+		this.communicator = communicator;
 	}
 	
 	/**
@@ -79,7 +93,7 @@ public class UserManager {
 		if (reply.equals("ERROR")) {
 			return new ArrayList<Appointment>();
 		}
-		return DataReader.convertToAppointments(reply);
+		return this.convertToAppointments(reply);
 	}
 	
 	/**
@@ -125,6 +139,37 @@ public class UserManager {
 			return false;
 		}
 		return true;
+	}
+	
+	/**
+	 * Convert json string to list of appointments
+	 * 
+	 * @param reply the appointments json string
+	 * 
+	 * @return the appointments list associated with the json string
+	 */
+	public List<Appointment> convertToAppointments(String reply) {
+		List<Appointment> appointments = new ArrayList<Appointment>();
+		JSONParser parser = new JSONParser();
+		try {
+			
+			JSONArray data = (JSONArray) parser.parse(reply.toString());
+            for (Object aData : data) {
+            	
+            	JSONObject parseData = (JSONObject) aData;
+            	LocalDateTime datetime = LocalDateTime.parse(parseData.get("date").toString());
+            	String notes = (String) parseData.get("notes");
+            	Patient patient = (Patient) this.getUserByUserName(parseData.get("patient").toString());
+            	String medicalPersonnel = (String) parseData.get("medicalPersonnel");
+            	String location = (String) parseData.get("location");
+            	
+            	Appointment  appointment = new Appointment(datetime, patient, medicalPersonnel, location, notes);
+            	appointments.add(appointment);
+            }
+		} catch (org.json.simple.parser.ParseException e) {
+			e.printStackTrace();
+		}
+		return appointments;
 	}
 	
 
