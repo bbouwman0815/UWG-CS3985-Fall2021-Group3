@@ -98,6 +98,9 @@ public class DataWriter {
 	 */
 	@SuppressWarnings("unchecked")
 	public static String writeAppointmentInfo(Appointment appointment) {
+		if (appointment == null) {
+			return "Error";
+		}
 		JSONObject json = new JSONObject();
 		json.put("medicalPersonnel", appointment.getMedicalPersonnel());
 		json.put("patient", appointment.getPatient().getUsername());
