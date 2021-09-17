@@ -203,4 +203,14 @@ class TestPatientConstructor {
 						"Carrollton", "GA", country.country[0], race.race[2], ethnicity.ethnicity[1], "770-111-222",
 						"email@email.com", null, "New", "New"));
 	}
+	
+	@Test
+	void testGetFullName() {
+		Patient patient = patientDummy();
+		Gender gender = new Gender();
+		Country country = new Country();
+		Race race = new Race();
+		Ethnicity ethnicity = new Ethnicity();
+		assertEquals("Xavier Jameson", patient.getFullName());
+	}
 }

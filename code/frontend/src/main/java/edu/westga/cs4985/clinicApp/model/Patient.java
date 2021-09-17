@@ -143,6 +143,11 @@ public class Patient extends Person {
 		this.email = email;
 	}
 	
+	/**
+	 * Gets the full name.
+	 *
+	 * @return the full name
+	 */
 	public String getFullName() {
 		return this.getFirstName() + " " + this.getLastName();
 	}

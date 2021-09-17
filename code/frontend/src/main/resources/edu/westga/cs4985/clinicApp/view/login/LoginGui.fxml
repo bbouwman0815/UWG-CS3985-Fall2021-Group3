@@ -25,5 +25,6 @@
             <Font name="Bodoni MT Italic" size="72.0" />
          </font>
       </Label>
+      <Button fx:id="addPatientButton" layoutX="548.0" layoutY="24.0" mnemonicParsing="false" onAction="#addPatient" text="Add" />
    </children>
 </AnchorPane>

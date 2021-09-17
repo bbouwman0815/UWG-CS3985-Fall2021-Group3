@@ -12,7 +12,14 @@ import edu.westga.cs4985.clinicApp.model.Appointment;
 import edu.westga.cs4985.clinicApp.model.Patient;
 import edu.westga.cs4985.clinicApp.model.UserManager;
 
-class testGetAppointments {
+/**
+ * JUnit Test Case for Get Appointments
+ * 
+ * @author Brian Bouwman
+ * @version Fall 2021
+ *
+ */
+class TestGetAppointments {
 
 	private class ServerFake extends Communicator {
 

@@ -5,10 +5,8 @@ import java.io.IOException;
 import edu.westga.cs4985.clinicApp.ClinicApp;
 import edu.westga.cs4985.clinicApp.model.Patient;
 import edu.westga.cs4985.clinicApp.model.User;
-import edu.westga.cs4985.clinicApp.utils.login.UToken;
 import edu.westga.cs4985.clinicApp.view.dashboard.DashboardCodeBehind;
-import edu.westga.cs4985.clinicApp.view.generalInfor.PatientGeneralInfoCodeBehind;
-import edu.westga.cs4985.clinicApp.view.login.LoginCodeBehind;
+import edu.westga.cs4985.clinicApp.view.login.NewPatientCodeBehind;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -22,6 +20,8 @@ import javafx.stage.Stage;
 public class WindowGenerator {
 
 	private static final String PATIENT_PROFILE_TITLE = "Patient Profile";
+	private static final String ADMIN_PROFILE_TITLE = "Admin";
+	private static final String NEW_PATIENT_GUI = "NewPatientGui.fxml";
 	private static final String DASHBOARD_GUI = "../view/dashboard/DashboardGui.fxml";
 	private static final String LOGIN_GUI = "LoginGui";
 	private static final String PATIENT_GENERAL_INFO = "GeneralInfoGui.fxml";
@@ -46,13 +46,13 @@ public class WindowGenerator {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Change the current scene to another scene
 	 * 
-	 * @param currentStage the current scene
-	 * @param fxml the location of destination scene
-	 * @param controller the controller of destination scene
+	 * @param currentStage   the current scene
+	 * @param fxml           the location of destination scene
+	 * @param controller     the controller of destination scene
 	 * @param newWindowTitle the title of destination scene
 	 * @throws IOException the IO exception
 	 */
@@ -67,7 +67,7 @@ public class WindowGenerator {
 		currentStage.setScene(scene);
 		currentStage.setTitle(newWindowTitle);
 	}
-	
+
 	/**
 	 * Set user view for logged user
 	 * 
@@ -85,16 +85,14 @@ public class WindowGenerator {
 		}
 		WindowGenerator.changeScene(currentStage, fxml, controller, PATIENT_PROFILE_TITLE);
 	}
-	
-	
-	
+
 	/**
 	 * Open a popup for user to view
 	 *
-	 * @param fxml       	the fxml location
-	 * @param controller 	the controller
+	 * @param fxml       the fxml location
+	 * @param controller the controller
 	 * @return the stage
-	 * @throws IOException  the IO exception
+	 * @throws IOException the IO exception
 	 */
 	public static Stage openPopup(String fxml, Object controller, String title) throws IOException {
 		FXMLLoader loader = new FXMLLoader();
@@ -132,5 +130,13 @@ public class WindowGenerator {
 		return alert;
 
 	}
-
+	
+	public static void setupAddNewPatient()
+			throws IOException {
+		NewPatientCodeBehind codebehind = new NewPatientCodeBehind();
+		FXMLLoader loader = new FXMLLoader();
+		loader.setController(codebehind);
+		loader.setLocation(codebehind.getClass().getResource(NEW_PATIENT_GUI));
+		WindowGenerator.setupScene((Parent) loader.load(), ADMIN_PROFILE_TITLE);
+	}
 }

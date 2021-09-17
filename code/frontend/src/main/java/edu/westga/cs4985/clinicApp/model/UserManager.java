@@ -112,6 +112,21 @@ public class UserManager {
 	}
 	
 	/**
+	 * Adds the patient.
+	 *
+	 * @param patient the patient to add
+	 * @return true if successful, false otherwise
+	 */
+	public boolean addPatient(Patient patient) {
+		String requestData = DataWriter.updatePatientGeneralInfor(patient);
+		String reply = this.communicator.request(RequestType.ADD_PATIENT, requestData);
+		if (reply.equals("ERROR")) {
+			return false;
+		}
+		return true;
+	}
+	
+	/**
 	 * Update patient's general information
 	 * 
 	 * @param patient the patient

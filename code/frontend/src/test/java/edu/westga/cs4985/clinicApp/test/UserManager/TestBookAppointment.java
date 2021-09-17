@@ -17,15 +17,27 @@ import edu.westga.cs4985.clinicApp.utils.Ethnicity;
 import edu.westga.cs4985.clinicApp.utils.Gender;
 import edu.westga.cs4985.clinicApp.utils.Race;
 
-class testCancelAppointment {
+/**
+ * JUnit Test Case for Book Valid Appointment
+ * 
+ * @author Brian Bouwman
+ * @version Fall 2021
+ *
+ */
+class TestBookAppointment {
 
 	private class ServerFake extends Communicator {
 
 		@Override
 		public String request(RequestType requestType, String data) {
 			String request = requestType + "," + data;
-			if (request.equals("CANCLE_APPOINTMENT,{\"date\":\"2021-09-01T14:00\",\"notes\":\"help\",\"patient\":\"New\",\"location\":\"TCL\",\"medicalPersonnel\":\"Person A\"}")) {
-				return "Removed";
+
+			if (request.equals(
+					"BOOK_APPOINTMENT,{\"date\":\"2021-09-01T14:00\",\"notes\":\"help\",\"patient\":\"New\",\"location\":\"TCL\",\"medicalPersonnel\":\"Person A\"}")) {
+				return "ADDED";
+			}
+			if (request.equals("GET_USER_BY_USERNAME,{\"patient\":\"jimmy1\"}")) {
+				return "{\"insurance\":\"8888888888\",\"lastName\":\"Bob\",\"country\":\"USA\",\"gender\":\"male\",\"race\":\"American Indian or Alaska Native\",\"address2\":\"\",\"city\":\"Carrollton\",\"address1\":\"3433 Atlanta Peachway\",\"dateOfBirth\":\"1990-09-29\",\"type\":\"PATIENT\",\"userName\":\"jimmy1\",\"firstName\":\"Jimmy\",\"password\":\"11111\",\"phoneNumber\":\"123456789\",\"ethnicty\":\"Not Hispanic or Latino\",\"caregiver\":\"Caregiver C\",\"state\":\"GA\",\"email\":\"jimmy12334@gmail.com\"}";
 			} else {
 				return "ERROR";
 			}
@@ -44,23 +56,21 @@ class testCancelAppointment {
 	}
 
 	@Test
-	void testCancelValidAppointment() {
+	void testBookValidAppointment() {
 		LocalDateTime dateTime = LocalDateTime.of(2021, 9, 01, 14, 00);
 		Patient patient = this.patientDummy();
 		Appointment appointment = new Appointment(dateTime, patient, "Person A", "TCL", "help");
 		UserManager userManager = new UserManager(new ServerFake());
-		boolean removed = userManager.cancelAppointment(appointment);
-		assertEquals(true, removed);
+		boolean added = userManager.bookAppointment(appointment);
+		assertEquals(true, added);
 	}
 
 	@Test
-	void testCancelInvalidAppointment() {
-		LocalDateTime dateTime = LocalDateTime.of(2021, 9, 01, 14, 00);
-		Patient patient = this.patientDummy();
-		Appointment appointment = new Appointment(dateTime, patient, "Person B", "TCL", "help");
+	void testBookInvalidAppointment() {
+		Appointment appointment = null;
 		UserManager userManager = new UserManager(new ServerFake());
-		boolean removed = userManager.cancelAppointment(appointment);
-		assertEquals(false, removed);
+		boolean added = userManager.bookAppointment(appointment);
+		assertEquals(false, added);
 	}
 
 }

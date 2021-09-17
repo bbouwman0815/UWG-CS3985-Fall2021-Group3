@@ -10,9 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
@@ -26,6 +24,10 @@ public class LoginCodeBehind {
 
 	@FXML
 	private Button loginButton;
+	
+    @FXML
+    private Button addPatientButton;
+    
 
 	private ClinicAppViewModel viewmodel;
 
@@ -64,12 +66,15 @@ public class LoginCodeBehind {
 				User.setUser(user);
 				Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 				WindowGenerator.setUserView(currentStage);
+
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
-		
-		
-
 	}
+	
+	@FXML
+    void addPatient(ActionEvent event) throws IOException {
+		WindowGenerator.setupAddNewPatient();
+    }
 }

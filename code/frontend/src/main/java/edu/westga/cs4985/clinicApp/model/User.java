@@ -78,6 +78,24 @@ public abstract class User {
 	public String getPassword() {
 		return this.password;
 	}
+	
+	/**
+	 * Sets the username.
+	 *
+	 * @param username the new username
+	 */
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	
+	/**
+	 * Sets the password.
+	 *
+	 * @param password the new password
+	 */
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
 	/**
 	 * Sets the user.
