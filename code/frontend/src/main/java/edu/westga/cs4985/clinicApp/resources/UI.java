@@ -51,6 +51,13 @@ public class UI {
 		public static final String NULL_LOCATION = "Location cannnot be null";
 		public static final String EMPTY_LOATION = "Location cannnot be empty";
 		public static final String NULL_NOTES = "Notes cannnot be null";
+		
+		public static final String NULL_MEDCON_NAME = "Medical condition name cannot be null";
+		public static final String EMPTY_MEDCON_NAME = "Medical condition name cannot be empty";
+		public static final String NULL_DIAGNOSIS_DATE = "Medical condition diagnosis date cannot be null";
+		public static final String EMPTY_DIAGNOSIS_DATE = "Medical condition diagnosis cannot be empty";
+		public static final String NULL_TERMINATION_DATE = "Medical condition termination date cannot be null";
+		public static final String NULL_MEDCON_SPECIAL_NOTES = "Medical special notes cannot be null";
 	}
 
 }
