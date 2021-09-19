@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="707.0" prefWidth="844.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="707.0" prefWidth="844.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Button fx:id="addNewPatient" layoutX="721.0" layoutY="668.0" mnemonicParsing="false" onAction="#addPatient" prefHeight="25.0" prefWidth="109.0" text="Create Patient" />
       <AnchorPane layoutX="132.0" layoutY="152.0" prefWidth="581.0">
