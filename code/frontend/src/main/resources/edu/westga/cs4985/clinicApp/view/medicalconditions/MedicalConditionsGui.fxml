@@ -3,12 +3,11 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/15.0.1" fx:controller="edu.westga.cs4985.clinicApp.view.medicalconditions.MedicalConditionsCodeBehind">
+<AnchorPane prefHeight="637.0" prefWidth="758.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.westga.cs4985.clinicApp.view.medicalconditions.MedicalConditionsCodeBehind">
    <children>
-      <AnchorPane layoutX="-239.0" layoutY="-83.0" prefHeight="608.0" prefWidth="887.0">
+      <AnchorPane layoutX="43.0" layoutY="23.0" prefHeight="592.0" prefWidth="654.0">
          <children>
-            <Button fx:id="addMedicalConditionButton" layoutX="821.0" layoutY="93.0" mnemonicParsing="false" onAction="#handleAddMedicalCondition" text="Add" />
+            <Button fx:id="addMedicalConditionButton" layoutX="588.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleAddMedicalCondition" prefHeight="25.0" prefWidth="74.0" text="Add" />
          </children>
       </AnchorPane>
    </children>

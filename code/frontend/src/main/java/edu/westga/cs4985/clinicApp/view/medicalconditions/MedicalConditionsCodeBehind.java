@@ -6,6 +6,7 @@ import edu.westga.cs4985.clinicApp.model.MedicalCondition;
 import edu.westga.cs4985.clinicApp.model.Patient;
 import edu.westga.cs4985.clinicApp.model.User;
 import edu.westga.cs4985.clinicApp.model.UserManager;
+import edu.westga.cs4985.clinicApp.viewmodel.PatientViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,8 +27,22 @@ public class MedicalConditionsCodeBehind {
 	@FXML
 	private Button addMedicalConditionButton;
 
-	public MedicalConditionsCodeBehind() {
+	@FXML
+	private Button dashboardNavButton;
 
+	@FXML
+	private Button medicationsNavButton;
+
+	@FXML
+	private Button medicalConditionsNavButton;
+
+	@FXML
+	private Button appointmentNavButton;
+
+	private PatientViewModel viewModel;
+
+	public MedicalConditionsCodeBehind() {
+		this.viewModel = new PatientViewModel();
 	}
 
 	@FXML
@@ -69,7 +84,7 @@ public class MedicalConditionsCodeBehind {
 
 		@FXML
 		private RadioButton conditionRadioButton;
-		
+
 		@FXML
 		private TextArea notesTextArea;
 
