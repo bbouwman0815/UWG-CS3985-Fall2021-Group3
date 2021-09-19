@@ -1,4 +1,5 @@
 edu\westga\cs4985\clinicApp\resources\UI.class
+edu\westga\cs4985\clinicApp\view\medicalConditions\MedicalConditionsCodeBehind.class
 edu\westga\cs4985\clinicApp\utils\Country.class
 edu\westga\cs4985\clinicApp\utils\login\UToken.class
 edu\westga\cs4985\clinicApp\model\Patient.class
@@ -24,8 +25,7 @@ edu\westga\cs4985\clinicApp\utils\Ethnicity.class
 edu\westga\cs4985\clinicApp\model\UserManager.class
 edu\westga\cs4985\clinicApp\ClinicApp.class
 edu\westga\cs4985\clinicApp\view\login\LoginCodeBehind.class
-edu\westga\cs4985\clinicApp\view\medicalconditions\MedicalConditionsCodeBehind.class
-edu\westga\cs4985\clinicApp\view\medicalconditions\MedicalConditionsCodeBehind$AddMedicalConditionPopupCodeBehind.class
+edu\westga\cs4985\clinicApp\view\medicalConditions\MedicalConditionsCodeBehind$AddMedicalConditionPopupCodeBehind.class
 edu\westga\cs4985\clinicApp\view\dashboard\DashboardCodeBehind.class
 edu\westga\cs4985\clinicApp\view\appointment\AppointmentCodeBehind.class
 edu\westga\cs4985\clinicApp\utils\DataReader.class
