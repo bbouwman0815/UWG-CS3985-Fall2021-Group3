@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 
+import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.Test;
 
 import edu.westga.cs4985.clinicApp.client.Communicator;
@@ -39,7 +40,7 @@ class TestGetAppointments {
 	}
 
 	@Test
-	void testValidGetAppointments() {
+	void testValidGetAppointments() throws ParseException {
 		String username = "jimmy1";
 		UserManager userManager = new UserManager(new ServerFake());
 		List<Appointment> appointments = userManager.getAppointments(username);
@@ -47,7 +48,7 @@ class TestGetAppointments {
 	}
 
 	@Test
-	void testInvalidGetAppointments() {
+	void testInvalidGetAppointments() throws ParseException {
 		String username = "jimm1";
 		UserManager userManager = new UserManager(new ServerFake());
 		List<Appointment> appointments = userManager.getAppointments(username);

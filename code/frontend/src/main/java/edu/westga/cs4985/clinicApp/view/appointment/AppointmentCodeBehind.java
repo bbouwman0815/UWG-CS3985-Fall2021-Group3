@@ -6,6 +6,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.simple.parser.ParseException;
+
 import edu.westga.cs4985.clinicApp.model.Appointment;
 import edu.westga.cs4985.clinicApp.model.UserManager;
 import edu.westga.cs4985.clinicApp.resources.WindowGenerator;
@@ -56,7 +58,7 @@ public class AppointmentCodeBehind {
     }
     
     @FXML
-    public void initialize() {
+    public void initialize() throws ParseException {
     	this.setBindings();
     	this.setListeners();
     	List<Appointment> appointments = FXCollections.observableArrayList(UserManager.userManager.getAppointments(this.viewModel.getPatient().getUsername()));

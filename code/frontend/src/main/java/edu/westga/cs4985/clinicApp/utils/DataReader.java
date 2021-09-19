@@ -31,46 +31,12 @@ public class DataReader {
 	 * @param reply the user json string
 	 * 
 	 * @return the user associated with the json string
+	 * @throws org.json.simple.parser.ParseException 
 	 */
-	public static User convertToUser(String reply) {
+	public static User convertToUser(String reply) throws org.json.simple.parser.ParseException {
 		JSONObject json = null;
-		try {
-			json = (JSONObject) (new JSONParser()).parse(reply);
-		} catch (org.json.simple.parser.ParseException e) {
-			e.printStackTrace();
-		}
+		json = (JSONObject) (new JSONParser()).parse(reply);
 		return convertToUser(json);
-	}
-	
-	/**
-	 * Convert json string to list of appointments
-	 * 
-	 * @param reply the appointments json string
-	 * 
-	 * @return the appointments list associated with the json string
-	 */
-	public static List<Appointment> convertToAppointments(String reply) {
-		List<Appointment> appointments = new ArrayList<Appointment>();
-		JSONParser parser = new JSONParser();
-		try {
-			
-			JSONArray data = (JSONArray) parser.parse(reply.toString());
-            for (Object aData : data) {
-            	
-            	JSONObject parseData = (JSONObject) aData;
-            	LocalDateTime datetime = LocalDateTime.parse(parseData.get("date").toString());
-            	String notes = (String) parseData.get("notes");
-            	Patient patient = (Patient) UserManager.userManager.getUserByUserName(parseData.get("patient").toString());
-            	String medicalPersonnel = (String) parseData.get("medicalPersonnel");
-            	String location = (String) parseData.get("location");
-            	
-            	Appointment  appointment = new Appointment(datetime, patient, medicalPersonnel, location, notes);
-            	appointments.add(appointment);
-            }
-		} catch (org.json.simple.parser.ParseException e) {
-			e.printStackTrace();
-		}
-		return appointments;
 	}
 	
 	/**

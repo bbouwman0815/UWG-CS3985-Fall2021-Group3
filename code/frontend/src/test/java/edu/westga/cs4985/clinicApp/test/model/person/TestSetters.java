@@ -98,4 +98,18 @@ public class TestSetters {
 		person.setEthnicity("new");
 		assertEquals("new", person.getEthnicity());
 	}
+	
+	@Test
+	void testSetUsername() {
+		Person person = personDummy();
+		person.setUsername("new");
+		assertEquals("new", person.getUsername());
+	}
+	
+	@Test
+	void testSetPassword() {
+		Person person = personDummy();
+		person.setPassword("new");
+		assertEquals("new", person.getPassword());
+	}
 }

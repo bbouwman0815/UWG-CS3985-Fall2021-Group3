@@ -10,6 +10,8 @@ import edu.westga.cs4985.clinicApp.model.MedicalCondition;
 import edu.westga.cs4985.clinicApp.model.Patient;
 import edu.westga.cs4985.clinicApp.model.UserManager;
 import edu.westga.cs4985.clinicApp.utils.Country;
+import edu.westga.cs4985.clinicApp.utils.DataReader;
+import edu.westga.cs4985.clinicApp.utils.DataWriter;
 import edu.westga.cs4985.clinicApp.utils.Ethnicity;
 import edu.westga.cs4985.clinicApp.utils.Gender;
 import edu.westga.cs4985.clinicApp.utils.Race;
@@ -20,6 +22,9 @@ class TestAddMedicalCondition {
 
 		@Override
 		public String request(RequestType requestType, String data) {
+			UserManager manager = new UserManager();
+			DataWriter writer = new DataWriter();
+			DataReader reader = new DataReader();
 			String request = requestType + "," + data;
 
 			if (request.equals(
@@ -89,6 +94,15 @@ class TestAddMedicalCondition {
 		boolean added = userManager.addMedicalCondition(medicalCondition());
 		assertEquals(true, added);
 		boolean duplicate = userManager.addMedicalCondition(medicalCondition2());
+		assertEquals(false, duplicate);
+	}
+	
+	@Test
+	void testAddNullMedicalCondition() {
+		UserManager userManager = new UserManager(new ServerFake());
+		boolean added = userManager.addMedicalCondition(medicalCondition());
+		assertEquals(true, added);
+		boolean duplicate = userManager.addMedicalCondition(null);
 		assertEquals(false, duplicate);
 	}
 

@@ -16,7 +16,6 @@
 /Users/pipai/Documents/GitHub/UWG-CS3985-Fall2021-Group5/code/frontend/src/test/java/edu/westga/cs4985/clinicApp/test/UserManager/TestGetAppointments.java
 /Users/pipai/Documents/GitHub/UWG-CS3985-Fall2021-Group5/code/frontend/src/test/java/edu/westga/cd4985/clinicApp/test/ClinicAppViewModel/TestConstructor.java
 /Users/pipai/Documents/GitHub/UWG-CS3985-Fall2021-Group5/code/frontend/src/test/java/edu/westga/cs4985/clinicApp/test/model/appointment/TestToString.java
-/Users/pipai/Documents/GitHub/UWG-CS3985-Fall2021-Group5/code/frontend/src/test/java/edu/westga/cs4985/clinicApp/test/model/user/TestUserConstructor.java
 /Users/pipai/Documents/GitHub/UWG-CS3985-Fall2021-Group5/code/frontend/src/test/java/edu/westga/cs4985/clinicApp/test/model/patient/TestPatientConstructor.java
 /Users/pipai/Documents/GitHub/UWG-CS3985-Fall2021-Group5/code/frontend/src/test/java/edu/westga/cs4985/clinicApp/test/AppointmentViewModel/TestConstructor.java
 /Users/pipai/Documents/GitHub/UWG-CS3985-Fall2021-Group5/code/frontend/src/test/java/edu/westga/cs4985/clinicApp/test/UserManager/TestGetUserByName.java

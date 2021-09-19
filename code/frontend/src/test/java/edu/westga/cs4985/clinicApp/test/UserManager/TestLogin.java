@@ -1,6 +1,8 @@
 package edu.westga.cs4985.clinicApp.test.UserManager;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.Test;
 import edu.westga.cs4985.clinicApp.client.Communicator;
 import edu.westga.cs4985.clinicApp.client.RequestType;
@@ -32,7 +34,7 @@ class TestLogin {
 	}
 
 	@Test
-	void testValidLogin() {
+	void testValidLogin() throws ParseException {
 		String username = "jimmy1";
 		String password = "11111";
 		UserManager userManager = new UserManager(new ServerFake());
@@ -45,7 +47,7 @@ class TestLogin {
 	}
 
 	@Test
-	void testInvalidLogin() {
+	void testInvalidLogin() throws ParseException {
 		String username = "jimm1";
 		String password = "11111";
 		UserManager userManager = new UserManager(new ServerFake());

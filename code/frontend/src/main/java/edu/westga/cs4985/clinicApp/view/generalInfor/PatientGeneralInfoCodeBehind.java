@@ -6,6 +6,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import org.json.simple.parser.ParseException;
+
 import edu.westga.cs4985.clinicApp.model.Appointment;
 import edu.westga.cs4985.clinicApp.model.Patient;
 import edu.westga.cs4985.clinicApp.model.User;
@@ -229,7 +231,7 @@ public class PatientGeneralInfoCodeBehind {
     }
 
     @FXML
-    void cancel(ActionEvent event) {
+    void cancel(ActionEvent event) throws ParseException {
     	this.editbutton.setVisible(true);
     	this.saveButton.setVisible(false);
     	this.cancelButton.setVisible(false);

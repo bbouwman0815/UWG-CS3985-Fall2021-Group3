@@ -121,23 +121,20 @@ public class Server extends Thread {
 	 *         "EROOR"
 	 * @throws FileNotFoundException the file not found exception
 	 * @throws IOException           the IO exception
+	 * @throws ParseException 
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public String userLogin(String jsonString) throws FileNotFoundException, IOException {
+	public String userLogin(String jsonString) throws FileNotFoundException, IOException, ParseException {
 		JSONParser parser = new JSONParser();
-		try {
-			FileReader reader = new FileReader("./jsonFiles/users.json");
-			JSONArray jsonObject = (JSONArray) parser.parse(reader);
-			JSONObject data = (JSONObject) parser.parse(jsonString);
-			for (Object aData : jsonObject) {
-				JSONObject parseData = (JSONObject) aData;
-				if (parseData.get("userName").equals(data.get("userName"))
-						&& parseData.get("password").equals(data.get("password"))) {
-					return parseData.toJSONString();
-				}
+		FileReader reader = new FileReader("./jsonFiles/users.json");
+		JSONArray jsonObject = (JSONArray) parser.parse(reader);
+		JSONObject data = (JSONObject) parser.parse(jsonString);
+		for (Object aData : jsonObject) {
+			JSONObject parseData = (JSONObject) aData;
+			if (parseData.get("userName").equals(data.get("userName"))
+					&& parseData.get("password").equals(data.get("password"))) {
+				return parseData.toJSONString();
 			}
-		} catch (ParseException e) {
-			return "ERROR";
 		}
 		return "ERROR";
 	}
@@ -148,21 +145,19 @@ public class Server extends Thread {
 	 * @param jsonString the json string that contains the user name
 	 * @return the user json string associated with given user name json string
 	 * @throws IOException the IO exception
+	 * @throws ParseException 
 	 */
-	public String getUserByUserName(String jsonString) throws IOException {
+	public String getUserByUserName(String jsonString) throws IOException, ParseException {
 		JSONParser parser = new JSONParser();
-		try {
-			FileReader reader = new FileReader("./jsonFiles/users.json");
-			JSONArray jsonObject = (JSONArray) parser.parse(reader);
-			JSONObject data = (JSONObject) parser.parse(jsonString);
-			for (Object aData : jsonObject) {
-				JSONObject parseData = (JSONObject) aData;
-				if (parseData.get("userName").equals(data.get("patient"))) {
-					return parseData.toJSONString();
-				}
+
+		FileReader reader = new FileReader("./jsonFiles/users.json");
+		JSONArray jsonObject = (JSONArray) parser.parse(reader);
+		JSONObject data = (JSONObject) parser.parse(jsonString);
+		for (Object aData : jsonObject) {
+			JSONObject parseData = (JSONObject) aData;
+			if (parseData.get("userName").equals(data.get("patient"))) {
+				return parseData.toJSONString();
 			}
-		} catch (ParseException e) {
-			e.printStackTrace();
 		}
 		return "ERROR";
 	}
@@ -174,23 +169,20 @@ public class Server extends Thread {
 	 * @return the appointment list json string associated with the json stirng of
 	 *         user name
 	 * @throws IOException the IO exception
+	 * @throws ParseException 
 	 */
 	@SuppressWarnings("unchecked")
-	public String getAppointments(String jsonString) throws IOException {
+	public String getAppointments(String jsonString) throws IOException, ParseException {
 		JSONParser parser = new JSONParser();
 		JSONArray appointments = new JSONArray();
-		try {
-			FileReader reader = new FileReader("./jsonFiles/appointments.json");
-			JSONArray jsonObject = (JSONArray) parser.parse(reader);
-			JSONObject data = (JSONObject) parser.parse(jsonString);
-			for (Object aData : jsonObject) {
-				JSONObject parseData = (JSONObject) aData;
-				if (parseData.get("patient").equals(data.get("patient"))) {
-					appointments.add(parseData);
-				}
+		FileReader reader = new FileReader("./jsonFiles/appointments.json");
+		JSONArray jsonObject = (JSONArray) parser.parse(reader);
+		JSONObject data = (JSONObject) parser.parse(jsonString);
+		for (Object aData : jsonObject) {
+			JSONObject parseData = (JSONObject) aData;
+			if (parseData.get("patient").equals(data.get("patient"))) {
+				appointments.add(parseData);
 			}
-		} catch (ParseException e) {
-			e.printStackTrace();
 		}
 
 		return appointments.toJSONString();
@@ -326,6 +318,8 @@ public class Server extends Thread {
 					e.printStackTrace();
 				} catch (IOException e) {
 					e.printStackTrace();
+				} catch (ParseException e) {
+					e.printStackTrace();
 				}
 
 			}
@@ -334,12 +328,16 @@ public class Server extends Thread {
 					result = this.getAppointments(data);
 				} catch (IOException e) {
 					e.printStackTrace();
+				} catch (ParseException e) {
+					e.printStackTrace();
 				}
 			}
 			if (reqest.equals("GET_USER_BY_USERNAME")) {
 				try {
 					result = this.getUserByUserName(data);
 				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (ParseException e) {
 					e.printStackTrace();
 				}
 			}

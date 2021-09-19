@@ -1,6 +1,9 @@
 package edu.westga.cs4985.clinicApp.view.login;
 
 import java.io.IOException;
+
+import org.json.simple.parser.ParseException;
+
 import edu.westga.cs4985.clinicApp.model.User;
 import edu.westga.cs4985.clinicApp.model.UserManager;
 import edu.westga.cs4985.clinicApp.resources.WindowGenerator;
@@ -54,7 +57,7 @@ public class LoginCodeBehind {
 	}
 
 	@FXML
-	void handleLogin(ActionEvent event) {
+	void handleLogin(ActionEvent event) throws ParseException {
 		String userString = this.viewmodel.login();
 		String[] userStringList = userString.split(",");
 		User user = UserManager.userManager.login(userStringList[0], userStringList[1]);

@@ -47,21 +47,6 @@ public class DataWriter {
 	}
 	
 	/**
-	 * Write the user's information as json
-	 * 
-	 * @param user the user
-	 * @return the json that contains the user's information
-	 */
-	@SuppressWarnings("unchecked")
-	public static String getUserGeneralInfo(User user) {
-		JSONObject json = new JSONObject();
-		json.put("userName", user.getUsername());
-		json.put("password", user.getPassword());
-		return json.toJSONString();
-	}
-	
-	
-	/**
 	 * Write the patient's general information as json
 	 *  
 	 * @param patient the patient

@@ -7,6 +7,7 @@ import java.util.List;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import edu.westga.cs4985.clinicApp.client.Communicator;
 import edu.westga.cs4985.clinicApp.client.RequestType;
@@ -47,8 +48,9 @@ public class UserManager {
 	 * @param username the user's user name
 	 * @param password the user's password
 	 * @return the verified user
+	 * @throws ParseException 
 	 */
-	public User login(String username, String password) {
+	public User login(String username, String password) throws ParseException {
 		String requestData = DataWriter.getUserLoginInfo(username, password);
 		String reply = this.communicator.request(RequestType.USER_LOGIN, requestData);
 		if (reply.equals("ERROR")) {
@@ -71,8 +73,9 @@ public class UserManager {
 	 * 
 	 * @param userName the user's user name
 	 * @return the user associated with the user name
+	 * @throws ParseException 
 	 */
-	public User getUserByUserName(String userName) {
+	public User getUserByUserName(String userName) throws ParseException {
 		String request = DataWriter.getUserName(userName);
 		String reply = this.communicator.request(RequestType.GET_USER_BY_USERNAME, request);
 		if (reply.equals("ERROR")) {
@@ -86,8 +89,9 @@ public class UserManager {
 	 * 
 	 * @param userName the user name
 	 * @return the appointment list associated with the given user name
+	 * @throws ParseException 
 	 */
-	public List<Appointment> getAppointments(String userName) {
+	public List<Appointment> getAppointments(String userName) throws ParseException {
 		String request = DataWriter.getUserName(userName);
 		String reply = this.communicator.request(RequestType.GET_APPOINTMENTS, request);
 		if (reply.equals("ERROR")) {
@@ -193,27 +197,23 @@ public class UserManager {
 	 * @param reply the appointments json string
 	 * 
 	 * @return the appointments list associated with the json string
+	 * @throws ParseException 
 	 */
-	public List<Appointment> convertToAppointments(String reply) {
+	public List<Appointment> convertToAppointments(String reply) throws ParseException {
 		List<Appointment> appointments = new ArrayList<Appointment>();
 		JSONParser parser = new JSONParser();
-		try {
+		JSONArray data = (JSONArray) parser.parse(reply.toString());
+		for (Object aData : data) {
 
-			JSONArray data = (JSONArray) parser.parse(reply.toString());
-			for (Object aData : data) {
+			JSONObject parseData = (JSONObject) aData;
+			LocalDateTime datetime = LocalDateTime.parse(parseData.get("date").toString());
+			String notes = (String) parseData.get("notes");
+			Patient patient = (Patient) this.getUserByUserName(parseData.get("patient").toString());
+			String medicalPersonnel = (String) parseData.get("medicalPersonnel");
+			String location = (String) parseData.get("location");
 
-				JSONObject parseData = (JSONObject) aData;
-				LocalDateTime datetime = LocalDateTime.parse(parseData.get("date").toString());
-				String notes = (String) parseData.get("notes");
-				Patient patient = (Patient) this.getUserByUserName(parseData.get("patient").toString());
-				String medicalPersonnel = (String) parseData.get("medicalPersonnel");
-				String location = (String) parseData.get("location");
-
-				Appointment appointment = new Appointment(datetime, patient, medicalPersonnel, location, notes);
-				appointments.add(appointment);
-			}
-		} catch (org.json.simple.parser.ParseException e) {
-			e.printStackTrace();
+			Appointment appointment = new Appointment(datetime, patient, medicalPersonnel, location, notes);
+			appointments.add(appointment);
 		}
 		return appointments;
 	}

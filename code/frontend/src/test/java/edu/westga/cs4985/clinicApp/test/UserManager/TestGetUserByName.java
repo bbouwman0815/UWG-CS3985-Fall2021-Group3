@@ -2,6 +2,7 @@ package edu.westga.cs4985.clinicApp.test.UserManager;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.Test;
 
 import edu.westga.cs4985.clinicApp.client.Communicator;
@@ -33,7 +34,7 @@ class TestGetUserByName {
 	}
 
 	@Test
-	void testValidUsername() {
+	void testValidUsername() throws ParseException {
 		String username = "jimmy1";
 		UserManager userManager = new UserManager(new ServerFake());
 		Patient user = (Patient) userManager.getUserByUserName(username);
@@ -45,7 +46,7 @@ class TestGetUserByName {
 	}
 
 	@Test
-	void testInvalidUsername() {
+	void testInvalidUsername() throws ParseException {
 		String username = "jimm1";
 		UserManager userManager = new UserManager(new ServerFake());
 		Patient user = (Patient) userManager.getUserByUserName(username);
