@@ -140,6 +140,21 @@ public class UserManager {
 		}
 		return true;
 	}
+	
+	/**
+	 * Removes the medical condition.
+	 *
+	 * @param medicalCondition the medical condition
+	 * @return true, if successful
+	 */
+	public boolean removeMedicalCondition(MedicalCondition medicalCondition) {
+		String requestData = DataWriter.writeMedicalConditionInfo(medicalCondition);
+		String reply = this.communicator.request(RequestType.REMOVE_MEDICAL_CONDITION, requestData);
+		if (reply.equals("ERROR")) {
+			return false;
+		}
+		return true;
+	}
 
 	/**
 	 * Update patient's general information

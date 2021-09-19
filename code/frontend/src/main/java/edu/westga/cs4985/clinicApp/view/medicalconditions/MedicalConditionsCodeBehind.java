@@ -6,6 +6,10 @@ import edu.westga.cs4985.clinicApp.model.MedicalCondition;
 import edu.westga.cs4985.clinicApp.model.Patient;
 import edu.westga.cs4985.clinicApp.model.User;
 import edu.westga.cs4985.clinicApp.model.UserManager;
+import edu.westga.cs4985.clinicApp.utils.Country;
+import edu.westga.cs4985.clinicApp.utils.Ethnicity;
+import edu.westga.cs4985.clinicApp.utils.Gender;
+import edu.westga.cs4985.clinicApp.utils.Race;
 import edu.westga.cs4985.clinicApp.viewmodel.PatientViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -39,6 +43,10 @@ public class MedicalConditionsCodeBehind {
 	@FXML
 	private Button appointmentNavButton;
 
+	@FXML
+	private Button removeButton;
+
+	
 	private PatientViewModel viewModel;
 
 	public MedicalConditionsCodeBehind() {
@@ -51,7 +59,7 @@ public class MedicalConditionsCodeBehind {
 	}
 
 	@FXML
-	void handleAddMedicalCondition(ActionEvent event) throws IOException {
+	void onAdd(ActionEvent event) throws IOException {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("../medicalconditions/AddMedicalConditionPopup.fxml"));
 		loader.setController(new AddMedicalConditionPopupCodeBehind());
@@ -64,6 +72,24 @@ public class MedicalConditionsCodeBehind {
 		popup.initModality(Modality.APPLICATION_MODAL);
 		popup.show();
 	}
+	
+	@FXML
+	void onRemove(ActionEvent event) {
+		onRemovePlaceHolder();
+	}
+	
+	void onRemovePlaceHolder() {
+		String name = "Lyme Disease";
+		String diagnosisDate = "09-08-2012";
+		String terminationDate = "N/A";
+		String notes = "Tick bite";
+		Patient patient = (Patient) User.user;
+		MedicalCondition medicalCondition = new MedicalCondition(patient, name, diagnosisDate, terminationDate,
+				notes);
+		UserManager.userManager.addMedicalCondition(medicalCondition);
+		UserManager.userManager.removeMedicalCondition(medicalCondition);
+	}
+
 
 	public class AddMedicalConditionPopupCodeBehind {
 

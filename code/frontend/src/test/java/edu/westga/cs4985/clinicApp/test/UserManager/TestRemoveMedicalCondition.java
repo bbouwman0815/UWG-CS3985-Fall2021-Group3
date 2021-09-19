@@ -14,8 +14,8 @@ import edu.westga.cs4985.clinicApp.utils.Ethnicity;
 import edu.westga.cs4985.clinicApp.utils.Gender;
 import edu.westga.cs4985.clinicApp.utils.Race;
 
-class TestAddMedicalCondition {
-	
+class TestRemoveMedicalCondition {
+
 	private class ServerFake extends Communicator {
 
 		@Override
@@ -23,7 +23,7 @@ class TestAddMedicalCondition {
 			String request = requestType + "," + data;
 
 			if (request.equals(
-					"ADD_MEDICAL_CONDITION,{\"terminationDate\":\"N\\/A\",\"notes\":\"Tick bite\",\"patient\":\"hhgreg\",\"diagnosisDate\":\"09-08-2012\",\"name\":\"Lyme Disease\"}")) {
+					"REMOVE_MEDICAL_CONDITION,{\"terminationDate\":\"N\\/A\",\"notes\":\"Tick bite\",\"patient\":\"hhgreg\",\"diagnosisDate\":\"09-08-2012\",\"name\":\"Lyme Disease\"}")) {
 				return "ADDED";
 			} else {
 				return "ERROR";
@@ -76,19 +76,18 @@ class TestAddMedicalCondition {
 	}
 
 	@Test
-	void testAddValidMedicalCondition() {
+	void testRemoveValidMedicalCondition() {
 		UserManager userManager = new UserManager(new ServerFake());
-		UserManager.setUserManager(userManager);
-		boolean added = UserManager.userManager.addMedicalCondition(medicalCondition());
-		assertEquals(true, added);
+		boolean removed = userManager.removeMedicalCondition(medicalCondition());
+		assertEquals(true, removed);
 	}
 	
 	@Test
 	void testAddInvalidMedicalCondition() {
 		UserManager userManager = new UserManager(new ServerFake());
-		boolean added = userManager.addMedicalCondition(medicalCondition());
-		assertEquals(true, added);
-		boolean duplicate = userManager.addMedicalCondition(medicalCondition2());
+		boolean removed = userManager.removeMedicalCondition(medicalCondition());
+		assertEquals(true, removed);
+		boolean duplicate = userManager.removeMedicalCondition(medicalCondition2());
 		assertEquals(false, duplicate);
 	}
 
