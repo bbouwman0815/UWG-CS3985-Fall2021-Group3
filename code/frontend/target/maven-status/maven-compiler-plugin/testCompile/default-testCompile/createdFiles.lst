@@ -1,4 +1,6 @@
+edu/westga/cs4985/clinicApp/test/UserManager/TestRemoveMedicalCondition.class
 edu/westga/cs4985/clinicApp/test/model/patient/TestSetInsurance.class
-edu/westga/cs4985/clinicApp/test/model/patient/TestSetCaregiver.class
 edu/westga/cs4985/clinicApp/test/model/patient/TestSetPhoneNumber.class
+edu/westga/cs4985/clinicApp/test/model/patient/TestSetCaregiver.class
+edu/westga/cs4985/clinicApp/test/UserManager/TestRemoveMedicalCondition$ServerFake.class
 edu/westga/cs4985/clinicApp/test/model/patient/TestSetEmail.class
