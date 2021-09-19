@@ -105,8 +105,11 @@ public class Server extends Thread {
 				result = parseData;
 			}
 		}
-		jsonObject.remove(result);
-		jsonObject.add(data);
+		if(result != null) {
+			jsonObject.remove(result);
+			jsonObject.add(data);
+		}
+		
 		writer.write(jsonObject.toJSONString());
 		writer.flush();
 		writer.close();

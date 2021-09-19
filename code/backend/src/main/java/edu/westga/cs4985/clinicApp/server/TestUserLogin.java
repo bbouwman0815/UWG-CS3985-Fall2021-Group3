@@ -16,14 +16,14 @@ public class TestUserLogin {
 		Server server = new Server();
 		JSONObject json = new JSONObject();
 		json.put("type", "PATIENT");
-		json.put("userName", "jimmy1");
+		json.put("userName", "test");
 		json.put("password", "11111");
-		json.put("firstName", "Jimmy");
-		json.put("lastName", "Daniels");
+		json.put("firstName", "test");
+		json.put("lastName", "test");
 		json.put("gender", "male");
 		json.put("dateOfBirth", "1990-09-29");
 		json.put("address1", "3433 Atlanta Peachway");
-		json.put("address2", "");
+		json.put("address2", "New");
 		json.put("city", "Carrollton");
 		json.put("state", "GA");
 		json.put("country", "USA");
@@ -35,7 +35,7 @@ public class TestUserLogin {
 		json.put("caregiver", "Caregiver C");
 		
 		JSONObject json1 = new JSONObject();
-		json1.put("userName", "jimmy1");
+		json1.put("userName", "test");
 		json1.put("password", "11111");
 		assertEquals(json.toJSONString(), server.userLogin(json1.toJSONString()));
 	}
@@ -66,7 +66,7 @@ public class TestUserLogin {
 		Server server = new Server();
 		
 		JSONObject json1 = new JSONObject();
-		json1.put("userName", "jimmy1");
+		json1.put("userName", "test");
 		json1.put("password", "4343");
 		assertEquals("ERROR", server.userLogin(json1.toJSONString()));
 	}
