@@ -1,1 +1,19 @@
-[{"terminationDate":"2021-09-30","notes":"Forever n ever","patient":"jimmy1","diagnosisDate":"2021-09-02","name":"Lyme's Disease"},{"terminationDate":"2021-09-25","notes":"testtest","patient":"jimmy1","diagnosisDate":"2021-09-08","name":"Lyme's Disease"},{"terminationDate":"2021-09-16","notes":"123123132","patient":"bbouwman0815","diagnosisDate":"2021-09-01","name":"123"},{"terminationDate":"N\/A","notes":"Tick bite","patient":"bbouwman0815","diagnosisDate":"09-08-2012","name":"Lyme Disease"},{"terminationDate":"2021-09-06","notes":"","patient":"jimmy1","diagnosisDate":"2021-09-07","name":"fd"},{"terminationDate":"2021-09-06","notes":"","patient":"jimmy1","diagnosisDate":"2021-09-07","name":"fd"},{"terminationDate":"2021-09-16","notes":"Ok","patient":"bbouwman0815","diagnosisDate":"2021-09-14","name":"recentTest"},{"terminationDate":"2021-09-16","notes":"test notes","patient":"bbouwman0815","diagnosisDate":"2021-09-15","name":"thisTest"}]
+[ {
+  "terminationDate" : "2021-09-22",
+  "notes" : "medicalCondition 1 notes",
+  "patient" : "jimmy1",
+  "diagnosisDate" : "2021-09-01",
+  "name" : "medicalCondition1"
+}, {
+  "terminationDate" : "2021-09-22",
+  "notes" : "medicalCondition 1 notes",
+  "patient" : "jimmy1",
+  "diagnosisDate" : "2021-09-01",
+  "name" : "medicalCondition2"
+}, {
+  "terminationDate" : "2021-09-22",
+  "notes" : "medicalCondition 1 notes",
+  "patient" : "jimmy1",
+  "diagnosisDate" : "2021-09-01",
+  "name" : "medicalCondition3"
+} ]

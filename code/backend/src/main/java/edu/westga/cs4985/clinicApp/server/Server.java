@@ -272,6 +272,23 @@ public class Server extends Thread {
 		writer.close();
 		return "Removed";
 	}
+	
+	@SuppressWarnings("unchecked")
+	public String getMedicalConditions(String jsonString) throws IOException, ParseException {
+		JSONParser parser = new JSONParser();
+		JSONArray medicalConditions = new JSONArray();
+		FileReader reader = new FileReader("./jsonFiles/medicalconditions.json");
+		JSONArray jsonObject = (JSONArray) parser.parse(reader);
+		JSONObject data = (JSONObject) parser.parse(jsonString);
+		for (Object aData : jsonObject) {
+			JSONObject parseData = (JSONObject) aData;
+			if (parseData.get("patient").equals(data.get("patient"))) {
+				medicalConditions.add(parseData);
+			}
+		}
+
+		return medicalConditions.toJSONString();
+	}
 
 	/*
 	 * Run the server
@@ -368,6 +385,16 @@ public class Server extends Thread {
 			if (reqest.equals("REMOVE_MEDICAL_CONDITION")) {
 				try {
 					result = this.removeMedicalCondition(data);
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			if (reqest.equals("GET_MEDICAL_CONDITIONS")) {
+				try {
+					result = this.getMedicalConditions(data);
 				} catch (IOException e) {
 					e.printStackTrace();
 				} catch (ParseException e) {

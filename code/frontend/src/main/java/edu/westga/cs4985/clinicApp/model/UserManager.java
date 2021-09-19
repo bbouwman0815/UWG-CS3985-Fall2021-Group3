@@ -159,6 +159,22 @@ public class UserManager {
 		}
 		return true;
 	}
+	
+	/**
+	 * Gets the medical conditions.
+	 *
+	 * @param userName the user name
+	 * @return the medical conditions
+	 * @throws ParseException the parse exception
+	 */
+	public List<MedicalCondition> getMedicalConditions(String userName) throws ParseException {
+		String request = DataWriter.getUserName(userName);
+		String reply = this.communicator.request(RequestType.GET_MEDICAL_CONDITIONS, request);
+		if (reply.equals("ERROR")) {
+			return new ArrayList<MedicalCondition>();
+		}
+		return this.convertToMedicalConditions(reply);
+	}
 
 	/**
 	 * Update patient's general information
@@ -216,6 +232,31 @@ public class UserManager {
 			appointments.add(appointment);
 		}
 		return appointments;
+	}
+	
+
+	/**
+	 * Convert to medical conditions.
+	 *
+	 * @param reply the reply
+	 * @return the list
+	 * @throws ParseException the parse exception
+	 */
+	public List<MedicalCondition> convertToMedicalConditions(String reply) throws ParseException {
+		List<MedicalCondition> medicalConditions = new ArrayList<MedicalCondition>();
+		JSONParser parser = new JSONParser();
+		JSONArray data = (JSONArray) parser.parse(reply.toString());
+		for (Object aData : data) {
+			JSONObject parseData = (JSONObject) aData;
+			String name = (String) parseData.get("name");
+			Patient patient = (Patient) this.getUserByUserName(parseData.get("patient").toString());
+			String diagnosisDate = (String) parseData.get("diagnosisDate");
+			String terminationDate = (String) parseData.get("terminationDate");
+			String notes = (String) parseData.get("notes");
+			MedicalCondition medicalCondition = new MedicalCondition(patient, name, diagnosisDate, terminationDate, notes);
+			medicalConditions.add(medicalCondition);
+		}
+		return medicalConditions;
 	}
 
 }
