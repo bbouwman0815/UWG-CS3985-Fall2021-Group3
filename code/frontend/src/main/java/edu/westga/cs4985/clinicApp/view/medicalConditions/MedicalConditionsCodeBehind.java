@@ -1,4 +1,4 @@
-package edu.westga.cs4985.clinicApp.view.medicalconditions;
+package edu.westga.cs4985.clinicApp.view.medicalConditions;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -47,10 +47,10 @@ public class MedicalConditionsCodeBehind {
 	private Button appointmentNavButton;
 
 	@FXML
-    	private TableView<MedicalCondition> medicalConditionTableView;
+	private TableView<MedicalCondition> medicalConditionTableView;
 
-    	@FXML
-    	private TableColumn<MedicalCondition, String> conditionNameTableColumn;
+	@FXML
+	private TableColumn<MedicalCondition, String> conditionNameTableColumn;
 
 	@FXML
 	private TableColumn<MedicalCondition, String> conditionDiagnosedDateTableColumn;
@@ -67,7 +67,6 @@ public class MedicalConditionsCodeBehind {
 	@FXML
 	private Button deleteConditionButton;
 
-	
 	private PatientViewModel viewModel;
 
 	public MedicalConditionsCodeBehind() {
@@ -77,11 +76,14 @@ public class MedicalConditionsCodeBehind {
 	@FXML
 	public void initialize() {
 		this.conditionNameTableColumn.setCellValueFactory(new PropertyValueFactory<MedicalCondition, String>("name"));
-		this.conditionDiagnosedDateTableColumn.setCellValueFactory(new PropertyValueFactory<MedicalCondition, String>("diagnosisDate"));
-		this.conditionTerminationTableColumn.setCellValueFactory(new PropertyValueFactory<MedicalCondition, String>("terminationDate"));
-		this.conditionNotesColumn.setCellValueFactory(new PropertyValueFactory<MedicalCondition,String>("notes"));
+		this.conditionDiagnosedDateTableColumn
+				.setCellValueFactory(new PropertyValueFactory<MedicalCondition, String>("diagnosisDate"));
+		this.conditionTerminationTableColumn
+				.setCellValueFactory(new PropertyValueFactory<MedicalCondition, String>("terminationDate"));
+		this.conditionNotesColumn.setCellValueFactory(new PropertyValueFactory<MedicalCondition, String>("notes"));
 
-		this.deleteConditionButton.disableProperty().bind(this.medicalConditionTableView.getSelectionModel().selectedItemProperty().isNull());
+		this.deleteConditionButton.disableProperty()
+				.bind(this.medicalConditionTableView.getSelectionModel().selectedItemProperty().isNull());
 	}
 
 	@FXML
@@ -98,24 +100,22 @@ public class MedicalConditionsCodeBehind {
 		popup.initModality(Modality.APPLICATION_MODAL);
 		popup.show();
 	}
-	
+
 	@FXML
 	void handleDeleteMedicalCondition(ActionEvent event) {
 		onRemovePlaceHolder();
 	}
-	
+
 	void onRemovePlaceHolder() {
 		String name = "Lyme Disease";
 		String diagnosisDate = "09-08-2012";
 		String terminationDate = "N/A";
 		String notes = "Tick bite";
 		Patient patient = (Patient) User.user;
-		MedicalCondition medicalCondition = new MedicalCondition(patient, name, diagnosisDate, terminationDate,
-				notes);
+		MedicalCondition medicalCondition = new MedicalCondition(patient, name, diagnosisDate, terminationDate, notes);
 		UserManager.userManager.addMedicalCondition(medicalCondition);
 		UserManager.userManager.removeMedicalCondition(medicalCondition);
 	}
-
 
 	public class AddMedicalConditionPopupCodeBehind {
 
