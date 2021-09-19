@@ -25,11 +25,14 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 public class MedicalConditionsCodeBehind {
-
-	@FXML
-	private Button addMedicalConditionButton;
 
 	@FXML
 	private Button dashboardNavButton;
@@ -44,7 +47,25 @@ public class MedicalConditionsCodeBehind {
 	private Button appointmentNavButton;
 
 	@FXML
-	private Button removeButton;
+    	private TableView<MedicalCondition> medicalConditionTableView;
+
+    	@FXML
+    	private TableColumn<MedicalCondition, String> conditionNameTableColumn;
+
+	@FXML
+	private TableColumn<MedicalCondition, String> conditionDiagnosedDateTableColumn;
+
+	@FXML
+	private TableColumn<MedicalCondition, String> conditionTerminationTableColumn;
+
+	@FXML
+	private TableColumn<MedicalCondition, String> conditionNotesColumn;
+
+	@FXML
+	private Button addMedicationConditionButton;
+
+	@FXML
+	private Button deleteConditionButton;
 
 	
 	private PatientViewModel viewModel;
@@ -55,11 +76,16 @@ public class MedicalConditionsCodeBehind {
 
 	@FXML
 	public void initialize() {
+		this.conditionNameTableColumn.setCellValueFactory(new PropertyValueFactory<MedicalCondition, String>("name"));
+		this.conditionDiagnosedDateTableColumn.setCellValueFactory(new PropertyValueFactory<MedicalCondition, String>("diagnosisDate"));
+		this.conditionTerminationTableColumn.setCellValueFactory(new PropertyValueFactory<MedicalCondition, String>("terminationDate"));
+		this.conditionNotesColumn.setCellValueFactory(new PropertyValueFactory<MedicalCondition,String>("notes"));
 
+		this.deleteConditionButton.disableProperty().bind(this.medicalConditionTableView.getSelectionModel().selectedItemProperty().isNull());
 	}
 
 	@FXML
-	void onAdd(ActionEvent event) throws IOException {
+	void handelAddMedicalCondition(ActionEvent event) throws IOException {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("../medicalconditions/AddMedicalConditionPopup.fxml"));
 		loader.setController(new AddMedicalConditionPopupCodeBehind());
@@ -74,7 +100,7 @@ public class MedicalConditionsCodeBehind {
 	}
 	
 	@FXML
-	void onRemove(ActionEvent event) {
+	void handleDeleteMedicalCondition(ActionEvent event) {
 		onRemovePlaceHolder();
 	}
 	
