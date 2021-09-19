@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="707.0" prefWidth="844.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="707.0" prefWidth="844.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Button fx:id="addNewPatient" layoutX="721.0" layoutY="668.0" mnemonicParsing="false" onAction="#addPatient" prefHeight="25.0" prefWidth="109.0" text="Create Patient" />
       <AnchorPane layoutX="132.0" layoutY="152.0" prefWidth="581.0">
@@ -66,6 +66,8 @@
                   <Font size="18.0" />
                </font>
             </Label>
+            <ChoiceBox fx:id="sexChoiceBox" layoutX="110.0" layoutY="55.0" prefHeight="27.0" prefWidth="161.0" />
+            <DatePicker fx:id="birthdayPicker" layoutX="420.0" layoutY="55.0" prefHeight="27.0" prefWidth="161.0" />
             <TextArea fx:id="descriptionInput" layoutX="4.0" layoutY="122.0" prefHeight="69.0" prefWidth="576.0" />
             <TextField fx:id="phoneInput" layoutX="99.0" layoutY="207.0" prefHeight="36.0" prefWidth="161.0" />
             <TextField fx:id="emailInput" layoutX="417.0" layoutY="207.0" prefHeight="36.0" prefWidth="161.0" />
@@ -98,13 +100,11 @@
                   <Font size="18.0" />
                </font>
             </Label>
+            <TextField fx:id="stateInput" layoutX="215.0" layoutY="318.0" prefHeight="36.0" prefWidth="83.0" />
+            <ChoiceBox fx:id="countryChoiceBox" layoutX="417.0" layoutY="318.0" prefHeight="36.0" prefWidth="161.0" />
             <ChoiceBox fx:id="raceChoiceBox" layoutX="99.0" layoutY="378.0" prefHeight="36.0" prefWidth="161.0" />
-            <ChoiceBox fx:id="sexChoiceBox" layoutX="110.0" layoutY="55.0" prefHeight="27.0" prefWidth="161.0" />
             <ChoiceBox fx:id="ethnicityChoiceBox" layoutX="417.0" layoutY="378.0" prefHeight="36.0" prefWidth="161.0" />
             <TextField fx:id="insuranceInput" layoutX="417.0" layoutY="427.0" prefHeight="36.0" prefWidth="161.0" />
-            <ChoiceBox fx:id="countryChoiceBox" layoutX="417.0" layoutY="318.0" prefHeight="36.0" prefWidth="161.0" />
-            <DatePicker fx:id="birthdayPicker" layoutX="420.0" layoutY="55.0" prefHeight="27.0" prefWidth="161.0" />
-            <TextField fx:id="stateInput" layoutX="215.0" layoutY="318.0" prefHeight="36.0" prefWidth="83.0" />
          </children>
       </AnchorPane>
       <Label layoutX="138.0" layoutY="100.0" text="Username:" />
