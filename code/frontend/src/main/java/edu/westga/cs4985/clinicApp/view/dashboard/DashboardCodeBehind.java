@@ -47,9 +47,10 @@ public class DashboardCodeBehind {
 	}
 
 	@FXML
-	void handleNavigateMedicalConditions(ActionEvent event) {
+	void handleNavigateMedicalConditions(ActionEvent event) throws IOException {
+		AnchorPane pane = FXMLLoader.load(getClass().getResource("../medicalconditions/MedicalConditionsGui.fxml"));
+		this.anchorPaneViewer.getChildren().setAll(pane);
 		this.pageLabel.textProperty().set("Patient's Medical Conditions");
-
 	}
 
 	@FXML

@@ -21,17 +21,17 @@ import edu.westga.cs4985.clinicApp.utils.DataWriter;
  *
  */
 public class UserManager {
-	
+
 	public static UserManager userManager;
 	public Communicator communicator;
-	
+
 	/**
 	 * Initialize constructor
 	 */
 	public UserManager() {
 		this.communicator = new Communicator();
 	}
-	
+
 	/**
 	 * Instantiates a new user manager.
 	 *
@@ -40,7 +40,7 @@ public class UserManager {
 	public UserManager(Communicator communicator) {
 		this.communicator = communicator;
 	}
-	
+
 	/**
 	 * Login the user to system
 	 * 
@@ -56,7 +56,7 @@ public class UserManager {
 		}
 		return DataReader.convertToUser(reply);
 	}
-	
+
 	/**
 	 * Set the user manager as user manager
 	 * 
@@ -65,7 +65,7 @@ public class UserManager {
 	public static void setUserManager(UserManager userManager) {
 		UserManager.userManager = userManager;
 	}
-	
+
 	/**
 	 * Get the user by user name
 	 * 
@@ -80,14 +80,14 @@ public class UserManager {
 		}
 		return DataReader.convertToUser(reply);
 	}
-	
+
 	/**
-	 *  Get the appointment list associated with the given user name
-	 *  
+	 * Get the appointment list associated with the given user name
+	 * 
 	 * @param userName the user name
 	 * @return the appointment list associated with the given user name
 	 */
-	public List<Appointment> getAppointments(String userName){
+	public List<Appointment> getAppointments(String userName) {
 		String request = DataWriter.getUserName(userName);
 		String reply = this.communicator.request(RequestType.GET_APPOINTMENTS, request);
 		if (reply.equals("ERROR")) {
@@ -95,9 +95,9 @@ public class UserManager {
 		}
 		return this.convertToAppointments(reply);
 	}
-	
+
 	/**
-	 * Book an appointment 
+	 * Book an appointment
 	 * 
 	 * @param appointment the appointment to book
 	 * @return true if appointment is booked successful; otherwise false
@@ -110,7 +110,7 @@ public class UserManager {
 		}
 		return true;
 	}
-	
+
 	/**
 	 * Adds the patient.
 	 *
@@ -125,12 +125,28 @@ public class UserManager {
 		}
 		return true;
 	}
-	
+
+	/**
+	 * Adds the medical condition.
+	 *
+	 * @param medicalCondition the medical condition
+	 * @return true, if successful
+	 */
+	public boolean addMedicalCondition(MedicalCondition medicalCondition) {
+		String requestData = DataWriter.writeMedicalConditionInfo(medicalCondition);
+		String reply = this.communicator.request(RequestType.ADD_MEDICAL_CONDITION, requestData);
+		if (reply.equals("ERROR")) {
+			return false;
+		}
+		return true;
+	}
+
 	/**
 	 * Update patient's general information
 	 * 
 	 * @param patient the patient
-	 * @return true if patient's general information is booked successful; otherwise false
+	 * @return true if patient's general information is booked successful; otherwise
+	 *         false
 	 */
 	public boolean updatePatientGeneralInfo(Patient patient) {
 		String requestData = DataWriter.updatePatientGeneralInfor(patient);
@@ -140,9 +156,9 @@ public class UserManager {
 		}
 		return true;
 	}
-	
+
 	/**
-	 * Cancel an appointment 
+	 * Cancel an appointment
 	 * 
 	 * @param appointment the appointment to book
 	 * @return true if appointment is canceled successful; otherwise false
@@ -155,7 +171,7 @@ public class UserManager {
 		}
 		return true;
 	}
-	
+
 	/**
 	 * Convert json string to list of appointments
 	 * 
@@ -167,25 +183,24 @@ public class UserManager {
 		List<Appointment> appointments = new ArrayList<Appointment>();
 		JSONParser parser = new JSONParser();
 		try {
-			
+
 			JSONArray data = (JSONArray) parser.parse(reply.toString());
-            for (Object aData : data) {
-            	
-            	JSONObject parseData = (JSONObject) aData;
-            	LocalDateTime datetime = LocalDateTime.parse(parseData.get("date").toString());
-            	String notes = (String) parseData.get("notes");
-            	Patient patient = (Patient) this.getUserByUserName(parseData.get("patient").toString());
-            	String medicalPersonnel = (String) parseData.get("medicalPersonnel");
-            	String location = (String) parseData.get("location");
-            	
-            	Appointment  appointment = new Appointment(datetime, patient, medicalPersonnel, location, notes);
-            	appointments.add(appointment);
-            }
+			for (Object aData : data) {
+
+				JSONObject parseData = (JSONObject) aData;
+				LocalDateTime datetime = LocalDateTime.parse(parseData.get("date").toString());
+				String notes = (String) parseData.get("notes");
+				Patient patient = (Patient) this.getUserByUserName(parseData.get("patient").toString());
+				String medicalPersonnel = (String) parseData.get("medicalPersonnel");
+				String location = (String) parseData.get("location");
+
+				Appointment appointment = new Appointment(datetime, patient, medicalPersonnel, location, notes);
+				appointments.add(appointment);
+			}
 		} catch (org.json.simple.parser.ParseException e) {
 			e.printStackTrace();
 		}
 		return appointments;
 	}
-	
 
 }

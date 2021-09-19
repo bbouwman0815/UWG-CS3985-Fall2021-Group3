@@ -1,6 +1,7 @@
 package edu.westga.cs4985.clinicApp.utils;
 
 import edu.westga.cs4985.clinicApp.model.Appointment;
+import edu.westga.cs4985.clinicApp.model.MedicalCondition;
 import edu.westga.cs4985.clinicApp.model.Patient;
 import edu.westga.cs4985.clinicApp.model.User;
 
@@ -107,6 +108,27 @@ public class DataWriter {
 		json.put("date", appointment.getDateTime().toString());
 		json.put("location", appointment.getLocation());
 		json.put("notes", appointment.getNotes());
+		return json.toJSONString();
+		
+	}
+	
+	/**
+	 * Write medical condition info.
+	 *
+	 * @param medicalCondition the medical condition
+	 * @return the string
+	 */
+	@SuppressWarnings("unchecked")
+	public static String writeMedicalConditionInfo(MedicalCondition medicalCondition) {
+		if (medicalCondition == null) {
+			return "Error";
+		}
+		JSONObject json = new JSONObject();
+		json.put("patient", medicalCondition.getPatient().getUsername());
+		json.put("name", medicalCondition.getName());
+		json.put("diagnosisDate", medicalCondition.getDiagnosisDate());
+		json.put("terminationDate", medicalCondition.getTerminationDate());
+		json.put("notes", medicalCondition.getNotes());
 		return json.toJSONString();
 		
 	}

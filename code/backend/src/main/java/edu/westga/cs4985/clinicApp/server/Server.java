@@ -220,6 +220,31 @@ public class Server extends Thread {
 		writer.close();
 		return "ADDED";
 	}
+	
+	/**
+	 * Adds the medical condition.
+	 *
+	 * @param jsonString the json string
+	 * @return the string
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws ParseException the parse exception
+	 */
+	@SuppressWarnings({ "unchecked" })
+	public String addMedicalCondition(String jsonString) throws IOException, ParseException {
+		JSONParser parser = new JSONParser();
+		FileReader reader = new FileReader("./jsonFiles/medicalconditions.json");
+		JSONArray jsonObject = (JSONArray) parser.parse(reader);
+
+		FileWriter writer = new FileWriter("./jsonFiles/medicalconditions.json");
+
+		JSONObject data = (JSONObject) parser.parse(jsonString);
+
+		jsonObject.add(data);
+		writer.write(jsonObject.toJSONString());
+		writer.flush();
+		writer.close();
+		return "ADDED";
+	}
 
 	/*
 	 * Run the server
@@ -290,6 +315,16 @@ public class Server extends Thread {
 			if (reqest.equals("ADD_PATIENT")) {
 				try {
 					result = this.addPatientUser(data);
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			if (reqest.equals("ADD_MEDICAL_CONDITION")) {
+				try {
+					result = this.addMedicalCondition(data);
 				} catch (IOException e) {
 					e.printStackTrace();
 				} catch (ParseException e) {
