@@ -2,32 +2,35 @@ package edu.westga.cs4985.clinicApp.view.medicalConditions;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.List;
+
+import org.json.simple.parser.ParseException;
+
+import edu.westga.cs4985.clinicApp.model.Appointment;
 import edu.westga.cs4985.clinicApp.model.MedicalCondition;
 import edu.westga.cs4985.clinicApp.model.Patient;
 import edu.westga.cs4985.clinicApp.model.User;
 import edu.westga.cs4985.clinicApp.model.UserManager;
-import edu.westga.cs4985.clinicApp.utils.Country;
-import edu.westga.cs4985.clinicApp.utils.Ethnicity;
-import edu.westga.cs4985.clinicApp.utils.Gender;
-import edu.westga.cs4985.clinicApp.utils.Race;
 import edu.westga.cs4985.clinicApp.viewmodel.PatientViewModel;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -74,7 +77,7 @@ public class MedicalConditionsCodeBehind {
 	}
 
 	@FXML
-	public void initialize() {
+	public void initialize() throws ParseException {
 		this.conditionNameTableColumn.setCellValueFactory(new PropertyValueFactory<MedicalCondition, String>("name"));
 		this.conditionDiagnosedDateTableColumn
 				.setCellValueFactory(new PropertyValueFactory<MedicalCondition, String>("diagnosisDate"));
@@ -84,10 +87,11 @@ public class MedicalConditionsCodeBehind {
 
 		this.deleteConditionButton.disableProperty()
 				.bind(this.medicalConditionTableView.getSelectionModel().selectedItemProperty().isNull());
+		this.setMedicalConditions();
 	}
 
 	@FXML
-	void handelAddMedicalCondition(ActionEvent event) throws IOException {
+	void handelAddMedicalCondition(ActionEvent event) throws IOException, ParseException {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("../medicalconditions/AddMedicalConditionPopup.fxml"));
 		loader.setController(new AddMedicalConditionPopupCodeBehind());
@@ -99,6 +103,7 @@ public class MedicalConditionsCodeBehind {
 		popup.setTitle("Add Medical Condition Window");
 		popup.initModality(Modality.APPLICATION_MODAL);
 		popup.show();
+		this.setMedicalConditions();
 	}
 
 	@FXML
@@ -107,14 +112,24 @@ public class MedicalConditionsCodeBehind {
 	}
 
 	void onRemovePlaceHolder() {
-		String name = "Lyme Disease";
-		String diagnosisDate = "09-08-2012";
-		String terminationDate = "N/A";
-		String notes = "Tick bite";
-		Patient patient = (Patient) User.user;
-		MedicalCondition medicalCondition = new MedicalCondition(patient, name, diagnosisDate, terminationDate, notes);
-		UserManager.userManager.addMedicalCondition(medicalCondition);
-		UserManager.userManager.removeMedicalCondition(medicalCondition);
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.contentTextProperty().set("Are you sure you want to remove this medication?");
+		alert.showAndWait().ifPresent(respone -> {
+			if (respone == ButtonType.OK) {
+				MedicalCondition selectedMedicalCondition = this.medicalConditionTableView.getSelectionModel()
+						.getSelectedItem();
+				if (selectedMedicalCondition != null) {
+					this.medicalConditionTableView.getItems().remove(selectedMedicalCondition);
+					UserManager.userManager.removeMedicalCondition(selectedMedicalCondition);
+				}
+			}
+		});
+	}
+	
+	void setMedicalConditions() throws ParseException {
+		List<MedicalCondition> medicalConditions = FXCollections.observableArrayList(
+				UserManager.userManager.getMedicalConditions(this.viewModel.getPatient().getUsername()));
+		medicalConditionTableView.itemsProperty().set((ObservableList<MedicalCondition>) medicalConditions);
 	}
 
 	public class AddMedicalConditionPopupCodeBehind {
