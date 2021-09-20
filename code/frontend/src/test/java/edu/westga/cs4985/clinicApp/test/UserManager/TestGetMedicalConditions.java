@@ -30,11 +30,11 @@ class TestGetMedicalConditions {
 
 	@Test
 	void testGetValidMedicalConditions() throws ParseException {
-		String username = "jimmy1";
+		String username = "test";
 		UserManager userManager = new UserManager();
 //		UserManager userManager = new UserManager(new ServerFake());
 		List<MedicalCondition> medicalConditions = userManager.getMedicalConditions(username);
-		assertEquals(medicalConditions.size(), 3);
+		assertEquals(medicalConditions.size(), 1);
 	}
 
 	@Test

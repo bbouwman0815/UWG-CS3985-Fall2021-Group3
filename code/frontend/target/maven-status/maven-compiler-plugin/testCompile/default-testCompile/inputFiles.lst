@@ -10,6 +10,7 @@
 /Users/pipai/Documents/GitHub/UWG-CS3985-Fall2021-Group5/code/frontend/src/test/java/edu/westga/cs4985/clinicApp/test/model/person/TestPersonConstructor.java
 /Users/pipai/Documents/GitHub/UWG-CS3985-Fall2021-Group5/code/frontend/src/test/java/edu/westga/devops/javafx_sample/test/AppTest.java
 /Users/pipai/Documents/GitHub/UWG-CS3985-Fall2021-Group5/code/frontend/src/test/java/edu/westga/cs4985/clinicApp/test/model/appointment/TestSetNotes.java
+/Users/pipai/Documents/GitHub/UWG-CS3985-Fall2021-Group5/code/frontend/src/test/java/edu/westga/cs4985/clinicApp/test/UserManager/TestGetMedicalConditions.java
 /Users/pipai/Documents/GitHub/UWG-CS3985-Fall2021-Group5/code/frontend/src/test/java/edu/westga/cs4985/clinicApp/test/AppointmentViewModel/TestCancelAppointment.java
 /Users/pipai/Documents/GitHub/UWG-CS3985-Fall2021-Group5/code/frontend/src/test/java/edu/westga/cd4985/clinicApp/test/ClinicAppViewModel/TestLogin.java
 /Users/pipai/Documents/GitHub/UWG-CS3985-Fall2021-Group5/code/frontend/src/test/java/edu/westga/cs4985/clinicApp/test/model/appointment/TestHasPass.java

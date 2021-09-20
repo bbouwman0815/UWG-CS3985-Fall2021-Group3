@@ -1,0 +1,8 @@
+-------------------------------------------------------------------------------
+Test set: edu.westga.cs4985.clinicApp.test.UserManager.TestGetMedicalConditions
+-------------------------------------------------------------------------------
+Tests run: 2, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.038 s <<< FAILURE! - in edu.westga.cs4985.clinicApp.test.UserManager.TestGetMedicalConditions
+testGetValidMedicalConditions  Time elapsed: 0.037 s  <<< ERROR!
+java.lang.IllegalArgumentException: Date of birth cannot be null
+	at edu.westga.cs4985.clinicApp.test.UserManager.TestGetMedicalConditions.testGetValidMedicalConditions(TestGetMedicalConditions.java:36)
+
