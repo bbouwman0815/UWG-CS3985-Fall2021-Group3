@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: edu.westga.cd4985.clinicApp.test.ClinicAppViewModel.TestLogin
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.004 s - in edu.westga.cd4985.clinicApp.test.ClinicAppViewModel.TestLogin
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 s - in edu.westga.cd4985.clinicApp.test.ClinicAppViewModel.TestLogin
