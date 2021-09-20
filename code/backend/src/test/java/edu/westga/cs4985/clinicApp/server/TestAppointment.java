@@ -51,6 +51,19 @@ public class TestAppointment {
 	
 	@SuppressWarnings("unchecked")
 	@Test
+	public void testCancelAppointmentMedicalPersonnelDonotMatch() throws IOException, ParseException {
+		Server server = new Server();
+		JSONObject json = new JSONObject();
+		json.put("medicalPersonnel", "A");
+		json.put("patient", "jimmy1");
+		json.put("date", "2021-11-01T13:00");
+		json.put("location", "TCL");
+		json.put("notes", "new");
+		assertEquals("Removed", server.cancleAppointment(json.toJSONString()));
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Test
 	public void testCancelAppointmentDateMatch() throws IOException, ParseException {
 		Server server = new Server();
 		JSONObject json = new JSONObject();

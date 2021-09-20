@@ -297,7 +297,7 @@ public class Server extends Thread {
 	public void run() {
 		Context context = ZMQ.context(1);
 		Socket socket = context.socket(ZMQ.REP);
-		socket.bind("tcp://127.0.0.1:5566");
+		socket.bind("tcp://127.0.0.1:5567");
 
 		while (!Thread.currentThread().isInterrupted()) {
 
