@@ -252,10 +252,10 @@ public class Server extends Thread {
 	@SuppressWarnings({ "unchecked" })
 	public String removeMedicalCondition(String jsonString) throws IOException, ParseException {
 		JSONParser parser = new JSONParser();
-		FileReader reader = new FileReader("./jsonFiles/appointments.json");
+		FileReader reader = new FileReader("./jsonFiles/medicalconditions.json");
 		JSONArray jsonObject = (JSONArray) parser.parse(reader);
 
-		FileWriter writer = new FileWriter("./jsonFiles/appointments.json");
+		FileWriter writer = new FileWriter("./jsonFiles/medicalconditions.json");
 
 		JSONObject data = (JSONObject) parser.parse(jsonString);
 		JSONObject result = null;
