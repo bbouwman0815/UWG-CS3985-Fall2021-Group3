@@ -6,11 +6,11 @@ import java.util.List;
 
 import org.json.simple.parser.ParseException;
 
-import edu.westga.cs4985.clinicApp.model.Appointment;
 import edu.westga.cs4985.clinicApp.model.MedicalCondition;
 import edu.westga.cs4985.clinicApp.model.Patient;
 import edu.westga.cs4985.clinicApp.model.User;
 import edu.westga.cs4985.clinicApp.model.UserManager;
+import edu.westga.cs4985.clinicApp.resources.WindowGenerator;
 import edu.westga.cs4985.clinicApp.viewmodel.PatientViewModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -156,16 +156,26 @@ public class MedicalConditionsCodeBehind {
 		private TextArea notesTextArea;
 
 		@FXML
-		void handleAddCondition(ActionEvent event) {
+		void handleAddCondition(ActionEvent event) throws ParseException {
 			Patient user = (Patient) User.user;
-			String name = this.nameTextField.getText();
-			LocalDate diagnosisDate = this.diagnosisDatePicker.getValue();
-			LocalDate terminationDate = this.terminationDatePicker.getValue();
-			String diagnosis = diagnosisDate.toString();
-			String termination = terminationDate.toString();
-			String notes = this.notesTextArea.getText();
-			MedicalCondition medicalCondition = new MedicalCondition(user, name, diagnosis, termination, notes);
-			UserManager.userManager.addMedicalCondition(medicalCondition);
+			try {
+				String name = this.nameTextField.getText();
+				LocalDate diagnosisDate = this.diagnosisDatePicker.getValue();
+				LocalDate terminationDate = this.terminationDatePicker.getValue();
+				String diagnosis = diagnosisDate.toString();
+				String termination = terminationDate.toString();
+				String notes = this.notesTextArea.getText();
+				MedicalCondition medicalCondition = new MedicalCondition(user, name, diagnosis, termination, notes);
+				UserManager.userManager.addMedicalCondition(medicalCondition);
+				setMedicalConditions();
+				this.returnToPreviousStage(event);
+			} catch(NullPointerException e) {
+				Alert alert = WindowGenerator.openAlert("Please fill out all data!");
+            	
+    			alert.showAndWait();
+			}
+			
+			
 		}
 
 		@FXML
@@ -175,7 +185,7 @@ public class MedicalConditionsCodeBehind {
 
 		@FXML
 		void handleTerminationDate(ActionEvent event) {
-
+		
 		}
 
 		public AddMedicalConditionPopupCodeBehind() {
@@ -183,7 +193,7 @@ public class MedicalConditionsCodeBehind {
 
 		@FXML
 		public void initialize() {
-
+			this.conditionRadioButton.setDisable(true);
 		}
 
 		private void returnToPreviousStage(ActionEvent event) {
