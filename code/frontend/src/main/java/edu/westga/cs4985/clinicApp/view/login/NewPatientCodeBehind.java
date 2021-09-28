@@ -1,8 +1,8 @@
 package edu.westga.cs4985.clinicApp.view.login;
 
 import edu.westga.cs4985.clinicApp.model.Patient;
-import edu.westga.cs4985.clinicApp.model.User;
 import edu.westga.cs4985.clinicApp.model.UserManager;
+import edu.westga.cs4985.clinicApp.resources.InputValidators;
 import edu.westga.cs4985.clinicApp.utils.Country;
 import edu.westga.cs4985.clinicApp.utils.Ethnicity;
 import edu.westga.cs4985.clinicApp.utils.Gender;
@@ -11,13 +11,22 @@ import edu.westga.cs4985.clinicApp.viewmodel.PatientViewModel;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
+/**
+ * The Class NewPatientCodeBehind.
+ * 
+ * @author Brian Bouwman
+ * @version Fall 2021
+ * 
+ */
 public class NewPatientCodeBehind {
 
 	@FXML
@@ -66,7 +75,7 @@ public class NewPatientCodeBehind {
 	private ChoiceBox<String> countryChoiceBox;
 
 	@FXML
-	private DatePicker birthdayPicker;
+	private TextField birthdayTextField;
 
 	@FXML
 	private TextField stateInput;
@@ -76,6 +85,18 @@ public class NewPatientCodeBehind {
 
 	@FXML
 	private TextField passwordTextField;
+	
+    @FXML
+    private Label invalidPhoneNumberLabel;
+
+    @FXML
+    private Label invalidEmailLabel;
+    
+    @FXML
+    private Label usernameExistsLabel;
+    
+    @FXML
+    private Label invalidDateFormat;
 
 	private PatientViewModel viewmodel;
 
@@ -95,6 +116,49 @@ public class NewPatientCodeBehind {
 	@FXML
 	private void initialize() {
 		this.setUpChoiceBoxes();
+		this.setListeners();
+		this.setInputValidationLabels();
+	}
+	
+	private void setInputValidationLabels() {
+		this.invalidEmailLabel.setVisible(false);
+		this.invalidPhoneNumberLabel.setVisible(false);
+		this.usernameExistsLabel.setVisible(false);
+		this.invalidDateFormat.setVisible(false);
+	}
+
+	private void setListeners() {
+		this.phoneInput.textProperty().addListener((observable, oldValue, newValue) -> {
+    		if (newValue != null) {
+    			if (!InputValidators.validatePhoneNumber(newValue)) {
+    				this.invalidPhoneNumberLabel.setVisible(true);
+    			}
+    			else {
+    				this.invalidPhoneNumberLabel.setVisible(false);
+    			}
+    		}
+    	});
+		this.emailInput.textProperty().addListener((observable, oldValue, newValue) -> {
+    		if (newValue != null) {
+    			if (!InputValidators.validateEmail(newValue)) {
+    				this.invalidEmailLabel.setVisible(true);
+    			}
+    			else {
+    				this.invalidEmailLabel.setVisible(false);
+    			}
+    		}
+    	});
+		this.birthdayTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+    		if (newValue != null) {
+    			if (!InputValidators.validateBirthday(newValue)) {
+    				this.invalidDateFormat.setVisible(true);
+    			}
+    			else {
+    				this.invalidDateFormat.setVisible(false);
+    			}
+    		}
+    	});
+		
 	}
 
 	private void setUpChoiceBoxes() {
@@ -110,7 +174,7 @@ public class NewPatientCodeBehind {
 		String password = this.passwordTextField.getText();
 		String firstname = this.firstNameInput.getText();
 		String lastname = this.lastNameInput.getText();
-		String birthday = this.birthdayPicker.getValue().toString();
+		String birthday = this.birthdayTextField.getText();
 		String phone = this.phoneInput.getText();
 		String email = this.emailInput.getText();
 		String address1 = this.address1Input.getText();
@@ -126,6 +190,10 @@ public class NewPatientCodeBehind {
 		Patient patient = new Patient(firstname, lastname, sex, birthday, address1, address2, city, state, country, race,
 				ethnicity, phone, email, insurance, username, password);
 
-		UserManager.userManager.addPatient(patient);
+		if (UserManager.userManager.addPatient(patient)) {
+			Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+	    	currentStage.fireEvent(new WindowEvent(currentStage, WindowEvent.WINDOW_CLOSE_REQUEST));
+	    	currentStage.close();
+		}
 	}
 }
