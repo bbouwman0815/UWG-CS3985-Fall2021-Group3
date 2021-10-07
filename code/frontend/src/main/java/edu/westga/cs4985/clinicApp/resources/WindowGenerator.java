@@ -8,6 +8,7 @@ import edu.westga.cs4985.clinicApp.ClinicApp;
 import edu.westga.cs4985.clinicApp.model.Patient;
 import edu.westga.cs4985.clinicApp.model.User;
 import edu.westga.cs4985.clinicApp.view.dashboard.DashboardCodeBehind;
+import edu.westga.cs4985.clinicApp.view.login.LoginCodeBehind;
 import edu.westga.cs4985.clinicApp.view.login.NewPatientCodeBehind;
 import edu.westga.cs4985.clinicApp.view.medicalPersonnel.MedicalPersonnelCodeBehind;
 import javafx.fxml.FXMLLoader;
@@ -30,6 +31,8 @@ public class WindowGenerator {
 	private static final String PATIENT_GENERAL_INFO = "GeneralInfoGui.fxml";
 	private static final String MEDICAL_PERSONNEL_GUI = "MedicalPersonnelGui.fxml";
 	private static final String MEDICAL_PERSONNEL_PROFILE_TITLE = "Medical Personnel";
+	private static final String LOGIN_GUI_FXML = "view/login/LoginGui.fxml";
+	private static final String LOGIN_TITLE = "Login";
 
 	/**
 	 * Sets up the Scene by using the window root and scene title
@@ -150,6 +153,13 @@ public class WindowGenerator {
 		loader.setController(codebehind);
 		loader.setLocation(codebehind.getClass().getResource(MEDICAL_PERSONNEL_GUI));
 		WindowGenerator.setupScene((Parent) loader.load(), MEDICAL_PERSONNEL_PROFILE_TITLE);
-
+	}
+	
+	public static void setLoginView() throws IOException {		
+		LoginCodeBehind codebehind = new LoginCodeBehind();
+		FXMLLoader loader = new FXMLLoader();
+		loader.setController(codebehind);
+		loader.setLocation(codebehind.getClass().getResource(LOGIN_GUI_FXML));
+		WindowGenerator.setupScene((Parent) loader.load(), LOGIN_TITLE);
 	}
 }
