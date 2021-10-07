@@ -27,10 +27,9 @@ public class LoginCodeBehind {
 
 	@FXML
 	private Button loginButton;
-	
-    @FXML
-    private Button addPatientButton;
-    
+
+	@FXML
+	private Button addPatientButton;
 
 	private ClinicAppViewModel viewmodel;
 
@@ -67,17 +66,21 @@ public class LoginCodeBehind {
 		} else {
 			try {
 				User.setUser(user);
-				Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-				WindowGenerator.setUserView(currentStage);
+				if (User.user.getUsername().equals("admin")) {
+					WindowGenerator.setMedicalPersonnelView();
+				} else {
+					Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+					WindowGenerator.setUserView(currentStage);
+				}
 
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
 	}
-	
+
 	@FXML
-    void addPatient(ActionEvent event) throws IOException {
+	void addPatient(ActionEvent event) throws IOException {
 		WindowGenerator.setupAddNewPatient();
-    }
+	}
 }
