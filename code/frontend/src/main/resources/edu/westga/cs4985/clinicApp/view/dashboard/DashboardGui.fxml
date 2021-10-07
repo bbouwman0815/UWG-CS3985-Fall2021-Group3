@@ -31,11 +31,6 @@
                   <Font name="Corbel" size="22.0" />
                </font>
             </Button>
-            <Button fx:id="medicationsNavButton" mnemonicParsing="false" onAction="#handleNavigateMedications" prefHeight="78.0" prefWidth="215.0" text="Medications" GridPane.rowIndex="1">
-               <font>
-                  <Font name="Corbel" size="22.0" />
-               </font>
-            </Button>
             <Button fx:id="medicalConditionsNavButton" mnemonicParsing="false" onAction="#handleNavigateMedicalConditions" prefHeight="78.0" prefWidth="215.0" text="Medical Conditions" GridPane.rowIndex="2">
                <font>
                   <Font name="Corbel" size="22.0" />

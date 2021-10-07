@@ -54,13 +54,6 @@ public class DashboardCodeBehind {
 	}
 
 	@FXML
-	void handleNavigateMedications(ActionEvent event) throws IOException {
-		AnchorPane pane = FXMLLoader.load(getClass().getResource("../medications/MedicationsGUI.fxml"));
-		this.anchorPaneViewer.getChildren().setAll(pane);
-		this.pageLabel.textProperty().set("Patient's Medications");
-	}
-
-	@FXML
 	void handleNavigateToGeneralInfo(ActionEvent event) throws IOException {
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("../generalInfor/GeneralInfoGui.fxml"));
 		this.anchorPaneViewer.getChildren().setAll(pane);
