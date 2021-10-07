@@ -83,6 +83,22 @@ public class UserManager {
 		}
 		return DataReader.convertToUser(reply);
 	}
+	
+	/**
+	 * Get the user by user name
+	 * 
+	 * @param userName the user's user name
+	 * @return the user associated with the user name
+	 * @throws ParseException 
+	 */
+	public User getUserByMedicalPersonnelUserName(String userName) throws ParseException {
+		String request = DataWriter.getUserByMedicalPersonnelName(userName);
+		String reply = this.communicator.request(RequestType.GET_USER_BY_MEDICAL_PERSONNEL_USERNAME, request);
+		if (reply.equals("ERROR")) {
+			return null;
+		}
+		return DataReader.convertToUser(reply);
+	}
 
 	/**
 	 * Get the appointment list associated with the given user name
@@ -98,6 +114,38 @@ public class UserManager {
 			return new ArrayList<Appointment>();
 		}
 		return this.convertToAppointments(reply);
+	}
+	
+	/**
+	 * Get the appointment list associated with the given user name
+	 * 
+	 * @param userName the user name
+	 * @return the appointment list associated with the given user name
+	 * @throws ParseException 
+	 */
+	public List<Appointment> getAppointmentsForMedicalPersonnel(String userName) throws ParseException {
+		String request = DataWriter.getUserByMedicalPersonnelName(userName);
+		String reply = this.communicator.request(RequestType.GET_APPOINTMENTS_FOR_MEDICAL_PEROSNNEL, request);
+		if (reply.equals("ERROR")) {
+			return new ArrayList<Appointment>();
+		}
+		return this.convertToAppointments(reply);
+	}
+	
+	/**
+	 * Get the appointment list associated with the given user name
+	 * 
+	 * @param userName the user name
+	 * @return the appointment list associated with the given user name
+	 * @throws ParseException 
+	 */
+	public List<LocalDateTime> getAvailabilities(String userName) throws ParseException {
+		String request = DataWriter.getUserByMedicalPersonnelName(userName);
+		String reply = this.communicator.request(RequestType.GET_AVAILABILITIES, request);
+		if (reply.equals("ERROR")) {
+			return new ArrayList<LocalDateTime>();
+		}
+		return this.convertToAvailabilities(reply);
 	}
 
 	/**
@@ -191,6 +239,22 @@ public class UserManager {
 		}
 		return true;
 	}
+	
+	/**
+	 * Update medical personenl's availabilities
+	 * 
+	 * @param person medical personenl's availabilities
+	 * @return true if medical personenl's availabilities is updated successful; otherwise
+	 *         false
+	 */
+	public boolean updateMedicalPersonnelAvaiabilities(MedicalPersonnel person, List<LocalDateTime> availabilityList) {
+		String requestData = DataWriter.updateMedicalPersonnelAvailabilities(person, availabilityList);
+		String reply = this.communicator.request(RequestType.UPDATE_AVAILABILITY, requestData);
+		if (reply.equals("ERROR")) {
+			return false;
+		}
+		return true;
+	}
 
 	/**
 	 * Cancel an appointment
@@ -232,6 +296,27 @@ public class UserManager {
 			appointments.add(appointment);
 		}
 		return appointments;
+	}
+	
+	/**
+	 * Convert json string to list of availabilities
+	 * 
+	 * @param reply the availabilities json string
+	 * 
+	 * @return the availabilities list associated with the json string
+	 * @throws ParseException 
+	 */
+	public List<LocalDateTime> convertToAvailabilities(String reply) throws ParseException {
+		List<LocalDateTime> availabilities = new ArrayList<LocalDateTime>();
+		JSONParser parser = new JSONParser();
+		JSONArray data = (JSONArray) parser.parse(reply.toString());
+		for (Object aData : data) {
+
+			JSONObject parseData = (JSONObject) aData;
+			LocalDateTime datetime = LocalDateTime.parse(parseData.get("date").toString());
+			availabilities.add(datetime);
+		}
+		return availabilities;
 	}
 	
 

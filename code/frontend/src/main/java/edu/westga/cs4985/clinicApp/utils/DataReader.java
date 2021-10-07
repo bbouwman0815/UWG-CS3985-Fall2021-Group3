@@ -12,6 +12,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import edu.westga.cs4985.clinicApp.model.Appointment;
+import edu.westga.cs4985.clinicApp.model.MedicalPersonnel;
 import edu.westga.cs4985.clinicApp.model.Patient;
 import edu.westga.cs4985.clinicApp.model.User;
 import edu.westga.cs4985.clinicApp.model.UserManager;
@@ -55,6 +56,12 @@ public class DataReader {
 					(String) json.get("phoneNumber"), (String) json.get("email"), (String) json.get("insurance"), (String) json.get("userName"), (String) json.get("password"));
 			patient.setCaregiver((String) json.get("caregiver"));
 			user = patient;
+		}
+		if (type.equals("MedicalPersonnel")) {
+			MedicalPersonnel medicalPersonnel = new MedicalPersonnel((String) json.get("firstName"), (String) json.get("lastName"), (String) json.get("gender"), (String) json.get("dateOfBirth"), (String) json.get("address1"),
+					(String) json.get("address2"), (String) json.get("city"), (String) json.get("state"), (String) json.get("country"), (String) json.get("race"),(String) json.get("ethnicty"),
+					(String) json.get("phoneNumber"), (String) json.get("email"), (String) json.get("userName"), (String) json.get("password"));
+			user = medicalPersonnel;
 		}
 		return user;
 	}

@@ -115,6 +115,41 @@ public class Server extends Thread {
 		writer.close();
 		return "Updated";
 	}
+	
+	/**
+	 * Update user's avaiabilities to json file
+	 * 
+	 * @param jsonString user's avaiabilities json string
+	 * @return "Updated" if user's avaiabilities json string ppdated to json file
+	 * @throws IOException    the IO exception
+	 * @throws ParseException the parse exception
+	 */
+	@SuppressWarnings("unchecked")
+	public String updateMedicalPersonnelAvaiabilities(String jsonString) throws IOException, ParseException {
+		JSONParser parser = new JSONParser();
+		FileReader reader = new FileReader("./jsonFiles/availabilities.json");
+		JSONArray jsonObject = (JSONArray) parser.parse(reader);
+
+		FileWriter writer = new FileWriter("./jsonFiles/availabilities.json");
+
+		JSONObject data = (JSONObject) parser.parse(jsonString);
+		JSONObject result = null;
+		for (Object aData : jsonObject) {
+			JSONObject parseData = (JSONObject) aData;
+			if (parseData.get("medicalPersonnel").equals(data.get("medicalPersonnel"))) {
+				result = parseData;
+			}
+		}
+		if(result != null) {
+			jsonObject.remove(result);
+			jsonObject.add(data);
+		}
+		
+		writer.write(jsonObject.toJSONString());
+		writer.flush();
+		writer.close();
+		return "Updated";
+	}
 
 	/**
 	 * Get user's json string when user login
@@ -164,6 +199,29 @@ public class Server extends Thread {
 		}
 		return "ERROR";
 	}
+	
+	/**
+	 * Get user json string by given json string as user name
+	 * 
+	 * @param jsonString the json string that contains the user name
+	 * @return the user json string associated with given user name json string
+	 * @throws IOException the IO exception
+	 * @throws ParseException 
+	 */
+	public String getUserByMedicalPersonnelUserName(String jsonString) throws IOException, ParseException {
+		JSONParser parser = new JSONParser();
+
+		FileReader reader = new FileReader("./jsonFiles/users.json");
+		JSONArray jsonObject = (JSONArray) parser.parse(reader);
+		JSONObject data = (JSONObject) parser.parse(jsonString);
+		for (Object aData : jsonObject) {
+			JSONObject parseData = (JSONObject) aData;
+			if (parseData.get("userName").equals(data.get("medicalPersonnel"))) {
+				return parseData.toJSONString();
+			}
+		}
+		return "ERROR";
+	}
 
 	/**
 	 * Get appointment list by given user name json string
@@ -189,6 +247,57 @@ public class Server extends Thread {
 		}
 
 		return appointments.toJSONString();
+	}
+	
+	/**
+	 * Get appointment list by given user name json string
+	 * 
+	 * @param jsonString the json string of user name
+	 * @return the appointment list json string associated with the json stirng of
+	 *         user name
+	 * @throws IOException the IO exception
+	 * @throws ParseException 
+	 */
+	@SuppressWarnings("unchecked")
+	public String getAppointmentsForMedicalPersonnel(String jsonString) throws IOException, ParseException {
+		JSONParser parser = new JSONParser();
+		JSONArray appointments = new JSONArray();
+		FileReader reader = new FileReader("./jsonFiles/appointments.json");
+		JSONArray jsonObject = (JSONArray) parser.parse(reader);
+		JSONObject data = (JSONObject) parser.parse(jsonString);
+		for (Object aData : jsonObject) {
+			JSONObject parseData = (JSONObject) aData;
+			if (parseData.get("medicalPersonnel").equals(data.get("medicalPersonnel"))) {
+				appointments.add(parseData);
+			}
+		}
+
+		return appointments.toJSONString();
+	}
+	
+	/**
+	 * Get appointment list by given user name json string
+	 * 
+	 * @param jsonString the json string of user name
+	 * @return the appointment list json string associated with the json stirng of
+	 *         user name
+	 * @throws IOException the IO exception
+	 * @throws ParseException 
+	 */
+	@SuppressWarnings("unchecked")
+	public String getAvailabilities(String jsonString) throws IOException, ParseException {
+		JSONParser parser = new JSONParser();
+		FileReader reader = new FileReader("./jsonFiles/availabilities.json");
+		JSONArray jsonObject = (JSONArray) parser.parse(reader);
+		JSONObject data = (JSONObject) parser.parse(jsonString);
+		for (Object aData : jsonObject) {
+			JSONObject parseData = (JSONObject) aData;
+			if (parseData.get("medicalPersonnel").equals(data.get("medicalPersonnel"))) {
+				return parseData.get("availabilityList").toString();
+			}
+		}
+
+		return "ERROR";
 	}
 
 	/**
@@ -411,6 +520,43 @@ public class Server extends Thread {
 					e.printStackTrace();
 				}
 			}
+			if (reqest.equals("GET_USER_BY_MEDICAL_PERSONNEL_USERNAME")) {
+				try {
+					result = this.getUserByMedicalPersonnelUserName(data);
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+			}
+			if (reqest.equals("GET_APPOINTMENTS_FOR_MEDICAL_PEROSNNEL")) {
+				try {
+					result = this.getAppointmentsForMedicalPersonnel(data);
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+			}
+			if (reqest.equals("GET_AVAILABILITIES")) {
+				try {
+					result = this.getAvailabilities(data);
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+			}
+			if (reqest.equals("UPDATE_AVAILABILITY")) {
+				try {
+					result = this.updateMedicalPersonnelAvaiabilities(data);
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+			}
+
 
 			socket.send(result);
 		}

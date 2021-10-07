@@ -2,12 +2,15 @@ package edu.westga.cs4985.clinicApp.utils;
 
 import edu.westga.cs4985.clinicApp.model.Appointment;
 import edu.westga.cs4985.clinicApp.model.MedicalCondition;
+import edu.westga.cs4985.clinicApp.model.MedicalPersonnel;
 import edu.westga.cs4985.clinicApp.model.Patient;
 import edu.westga.cs4985.clinicApp.model.User;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 /**
@@ -43,6 +46,37 @@ public class DataWriter {
 	public static String getUserName(String username) {
 		JSONObject json = new JSONObject();
 		json.put("patient", username);
+		return json.toJSONString();
+	}
+	
+	/**
+	 * Write the user's name user name as json 
+	 * 
+	 * @param username the user's user name
+	 * @return the json that contains the user's user name 
+	 */
+	@SuppressWarnings("unchecked")
+	public static String getUserByMedicalPersonnelName(String username) {
+		JSONObject json = new JSONObject();
+		json.put("medicalPersonnel", username);
+		return json.toJSONString();
+	}
+	
+	/**
+	 * Write the patient's general information as json
+	 *  
+	 * @param patient the patient
+	 * @return the json that contains patient's general information
+	 */
+	@SuppressWarnings("unchecked")
+	public static String updateMedicalPersonnelAvailabilities(MedicalPersonnel person, List<LocalDateTime> availabilityList) {
+		JSONObject json = new JSONObject();
+		json.put("medicalPersonnel", person.getUsername());
+		JSONArray availability = new JSONArray();
+		for (LocalDateTime dayTime : availabilityList) {
+			availability.add(dayTime);
+		}
+		json.put("availabilityList", availability);
 		return json.toJSONString();
 	}
 	
