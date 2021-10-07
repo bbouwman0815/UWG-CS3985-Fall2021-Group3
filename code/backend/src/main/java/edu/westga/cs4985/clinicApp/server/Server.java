@@ -273,6 +273,14 @@ public class Server extends Thread {
 		return "Removed";
 	}
 	
+	/**
+	 * Gets the medical conditions.
+	 *
+	 * @param jsonString the json string
+	 * @return the medical conditions
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws ParseException the parse exception
+	 */
 	@SuppressWarnings("unchecked")
 	public String getMedicalConditions(String jsonString) throws IOException, ParseException {
 		JSONParser parser = new JSONParser();
@@ -289,6 +297,56 @@ public class Server extends Thread {
 
 		return medicalConditions.toJSONString();
 	}
+	
+
+	/**
+	 * Gets the all patients.
+	 *
+	 * @param jsonString the json string
+	 * @return the all patients
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws ParseException the parse exception
+	 */
+	@SuppressWarnings("unchecked")
+	private String getAllPatients() throws IOException, ParseException {
+		JSONParser parser = new JSONParser();
+		JSONArray patients = new JSONArray();
+		FileReader reader = new FileReader("./jsonFiles/users.json");
+		JSONArray jsonObject = (JSONArray) parser.parse(reader);
+		for (Object aData : jsonObject) {
+			JSONObject parseData = (JSONObject) aData;
+			if (parseData.get("type").equals("PATIENT")) {
+				patients.add(parseData);
+			}
+		}
+
+		return patients.toJSONString();
+	}
+	
+	/**
+	 * Gets the all patients.
+	 *
+	 * @param jsonString the json string
+	 * @return the all patients
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws ParseException the parse exception
+	 */
+	@SuppressWarnings("unchecked")
+	private String getPatientsForMedicalPersonnel(String jsonString) throws IOException, ParseException {
+		JSONParser parser = new JSONParser();
+		JSONArray patients = new JSONArray();
+		FileReader reader = new FileReader("./jsonFiles/users.json");
+		JSONArray jsonObject = (JSONArray) parser.parse(reader);
+		JSONObject data = (JSONObject) parser.parse(jsonString);
+		for (Object aData : jsonObject) {
+			JSONObject parseData = (JSONObject) aData;
+			if (parseData.get("type").equals("PATIENT")) {
+				patients.add(parseData);
+			}
+		}
+
+		return patients.toJSONString();
+	}
 
 	/*
 	 * Run the server
@@ -304,12 +362,12 @@ public class Server extends Thread {
 			String reply = socket.recvStr(0);
 			String[] message = reply.split(",", 2);
 
-			String reqest = message[0];
+			String request = message[0];
 
-			System.out.println("Server is running for " + reqest);
+			System.out.println("Server is running for " + request);
 			String data = message[1];
 			String result = "";
-			if (reqest.equals("BOOK_APPOINTMENT")) {
+			if (request.equals("BOOK_APPOINTMENT")) {
 				try {
 					result = this.bookAppointment(data);
 				} catch (FileNotFoundException e) {
@@ -320,7 +378,7 @@ public class Server extends Thread {
 					e.printStackTrace();
 				}
 			}
-			if (reqest.equals("CANCLE_APPOINTMENT")) {
+			if (request.equals("CANCLE_APPOINTMENT")) {
 				try {
 					result = this.cancleAppointment(data);
 				} catch (FileNotFoundException e) {
@@ -331,7 +389,7 @@ public class Server extends Thread {
 					e.printStackTrace();
 				}
 			}
-			if (reqest.equals("USER_LOGIN")) {
+			if (request.equals("USER_LOGIN")) {
 				try {
 					result = this.userLogin(data);
 				} catch (FileNotFoundException e) {
@@ -343,7 +401,7 @@ public class Server extends Thread {
 				}
 
 			}
-			if (reqest.equals("GET_APPOINTMENTS")) {
+			if (request.equals("GET_APPOINTMENTS")) {
 				try {
 					result = this.getAppointments(data);
 				} catch (IOException e) {
@@ -352,7 +410,7 @@ public class Server extends Thread {
 					e.printStackTrace();
 				}
 			}
-			if (reqest.equals("GET_USER_BY_USERNAME")) {
+			if (request.equals("GET_USER_BY_USERNAME")) {
 				try {
 					result = this.getUserByUserName(data);
 				} catch (IOException e) {
@@ -362,7 +420,7 @@ public class Server extends Thread {
 				}
 			}
 
-			if (reqest.equals("ADD_PATIENT")) {
+			if (request.equals("ADD_PATIENT")) {
 				try {
 					result = this.addPatientUser(data);
 				} catch (IOException e) {
@@ -372,7 +430,7 @@ public class Server extends Thread {
 				}
 			}
 
-			if (reqest.equals("ADD_MEDICAL_CONDITION")) {
+			if (request.equals("ADD_MEDICAL_CONDITION")) {
 				try {
 					result = this.addMedicalCondition(data);
 				} catch (IOException e) {
@@ -382,7 +440,7 @@ public class Server extends Thread {
 				}
 			}
 
-			if (reqest.equals("REMOVE_MEDICAL_CONDITION")) {
+			if (request.equals("REMOVE_MEDICAL_CONDITION")) {
 				try {
 					result = this.removeMedicalCondition(data);
 				} catch (IOException e) {
@@ -392,7 +450,7 @@ public class Server extends Thread {
 				}
 			}
 			
-			if (reqest.equals("GET_MEDICAL_CONDITIONS")) {
+			if (request.equals("GET_MEDICAL_CONDITIONS")) {
 				try {
 					result = this.getMedicalConditions(data);
 				} catch (IOException e) {
@@ -402,9 +460,29 @@ public class Server extends Thread {
 				}
 			}
 
-			if (reqest.equals("UPDATE_GENERAL_INFORMATION")) {
+			if (request.equals("UPDATE_GENERAL_INFORMATION")) {
 				try {
 					result = this.updatePatientGeneralInfo(data);
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			if (request.equals("GET_ALL_PATIENTS")) {
+				try {
+					result = this.getAllPatients();
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			if (request.equals("GET_PATIENTS")) {
+				try {
+					result = this.getAllPatients();
 				} catch (IOException e) {
 					e.printStackTrace();
 				} catch (ParseException e) {

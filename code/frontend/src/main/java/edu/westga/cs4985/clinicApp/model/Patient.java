@@ -160,5 +160,12 @@ public class Patient extends Person {
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
+	
+	@Override
+	public String toString() {
+		String patientInformation = this.getFullName() + " ";
+		patientInformation += this.getDateOfBirth();
+		return patientInformation;
+	}
 
 }
