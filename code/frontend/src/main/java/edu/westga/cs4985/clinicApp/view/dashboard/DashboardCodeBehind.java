@@ -16,8 +16,8 @@ import javafx.stage.Stage;
 public class DashboardCodeBehind {
 
 	@FXML
-    private Label pageLabel;
-	
+	private Label pageLabel;
+
 	@FXML
 	private GridPane navbarGridPane;
 
@@ -32,9 +32,12 @@ public class DashboardCodeBehind {
 
 	@FXML
 	private Button appointmentNavButton;
-	
-    @FXML
-    private AnchorPane anchorPaneViewer;
+
+	@FXML
+	private AnchorPane anchorPaneViewer;
+
+	@FXML
+	private Button logoutButton;
 
 	public DashboardCodeBehind() {
 	}
@@ -58,6 +61,18 @@ public class DashboardCodeBehind {
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("../generalInfor/GeneralInfoGui.fxml"));
 		this.anchorPaneViewer.getChildren().setAll(pane);
 		this.pageLabel.textProperty().set("Patient's General Inforamtion");
+	}
+
+	@FXML
+	void handleLogout(ActionEvent event) {
+		Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		currentStage.close();
+		try {
+			WindowGenerator.setLoginView();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 }

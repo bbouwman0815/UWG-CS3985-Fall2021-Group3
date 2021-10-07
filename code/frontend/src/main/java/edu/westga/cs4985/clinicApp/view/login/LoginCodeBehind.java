@@ -56,7 +56,7 @@ public class LoginCodeBehind {
 	}
 
 	@FXML
-	void handleLogin(ActionEvent event) throws ParseException {
+	void handleLogin(ActionEvent event) throws ParseException, IOException{
 		String userString = this.viewmodel.login();
 		String[] userStringList = userString.split(",");
 		User user = UserManager.userManager.login(userStringList[0], userStringList[1]);
@@ -67,10 +67,14 @@ public class LoginCodeBehind {
 			try {
 				User.setUser(user);
 				if (User.user.getUsername().equals("admin")) {
+					Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+					currentStage.close();
 					WindowGenerator.setMedicalPersonnelView();
+					
 				} else {
 					Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-					WindowGenerator.setUserView(currentStage);
+					currentStage.close();
+					WindowGenerator.setPatientView();
 				}
 
 			} catch (IOException e) {

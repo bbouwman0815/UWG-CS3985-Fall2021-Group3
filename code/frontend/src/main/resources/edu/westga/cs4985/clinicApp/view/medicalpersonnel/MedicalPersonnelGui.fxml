@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
@@ -15,14 +16,14 @@
    <children>
       <AnchorPane prefHeight="690.0" prefWidth="1115.0">
          <children>
-            <ListView fx:id="patientListView" layoutX="43.0" layoutY="137.0" prefHeight="513.0" prefWidth="318.0" />
-            <Label layoutX="43.0" layoutY="88.0" prefHeight="36.0" prefWidth="102.0" text="Search Patients">
+            <ListView fx:id="patientListView" layoutX="32.0" layoutY="77.0" prefHeight="513.0" prefWidth="318.0" />
+            <Label layoutX="32.0" layoutY="26.0" prefHeight="36.0" prefWidth="102.0" text="Search Patients">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextField layoutX="145.0" layoutY="88.0" prefHeight="36.0" prefWidth="215.0" />
-            <TabPane fx:id="patientTabPane" layoutX="400.0" layoutY="88.0" prefHeight="577.0" prefWidth="614.0" tabClosingPolicy="UNAVAILABLE">
+            <TextField layoutX="134.0" layoutY="26.0" prefHeight="36.0" prefWidth="215.0" />
+            <TabPane fx:id="patientTabPane" layoutX="442.0" layoutY="26.0" prefHeight="577.0" prefWidth="614.0" tabClosingPolicy="UNAVAILABLE">
               <tabs>
                 <Tab fx:id="generalInfoTab" text="General Information">
                   <content>
@@ -140,5 +141,10 @@
               </tabs>
             </TabPane>
          </children></AnchorPane>
+      <Button fx:id="logoutButton" layoutX="54.0" layoutY="625.0" mnemonicParsing="false" onAction="#handleLogout" prefHeight="48.0" prefWidth="73.0" text="Logout">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

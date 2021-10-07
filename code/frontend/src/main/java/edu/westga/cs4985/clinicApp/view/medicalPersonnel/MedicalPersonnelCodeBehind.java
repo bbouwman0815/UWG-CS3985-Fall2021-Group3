@@ -1,10 +1,15 @@
 package edu.westga.cs4985.clinicApp.view.medicalPersonnel;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import edu.westga.cs4985.clinicApp.model.Patient;
+import edu.westga.cs4985.clinicApp.resources.WindowGenerator;
 import edu.westga.cs4985.clinicApp.viewmodel.MedicalPersonnelViewModel;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -13,6 +18,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 /**
  * The Class MedicalPersonnelCodeBehind.
@@ -79,9 +85,12 @@ public class MedicalPersonnelCodeBehind {
 
 	@FXML
 	private TabPane patientTabPane;
-	
-    @FXML
-    private Tab generalInfoTab;
+
+	@FXML
+	private Tab generalInfoTab;
+
+	@FXML
+	private Button logoutButton;
 
 	private MedicalPersonnelViewModel viewmodel;
 
@@ -134,6 +143,17 @@ public class MedicalPersonnelCodeBehind {
 		this.insuranceInput.setText(selectedPatient.getInsurance());
 		this.birthdayPicker.setValue(datetime);
 		this.caregiverLabel.setText(selectedPatient.getCaregiver());
+	}
+
+	@FXML
+	void handleLogout(ActionEvent event) throws IOException {
+		Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		currentStage.close();
+		try {
+			WindowGenerator.setLoginView();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

@@ -26,12 +26,12 @@ public class WindowGenerator {
 	private static final String PATIENT_PROFILE_TITLE = "Patient Profile";
 	private static final String ADMIN_PROFILE_TITLE = "Admin";
 	private static final String NEW_PATIENT_GUI = "NewPatientGui.fxml";
-	private static final String DASHBOARD_GUI = "../view/dashboard/DashboardGui.fxml";
+	private static final String DASHBOARD_GUI = "DashboardGui.fxml";
 	private static final String LOGIN_GUI = "LoginGui";
 	private static final String PATIENT_GENERAL_INFO = "GeneralInfoGui.fxml";
 	private static final String MEDICAL_PERSONNEL_GUI = "MedicalPersonnelGui.fxml";
 	private static final String MEDICAL_PERSONNEL_PROFILE_TITLE = "Medical Personnel";
-	private static final String LOGIN_GUI_FXML = "view/login/LoginGui.fxml";
+	private static final String LOGIN_GUI_FXML = "LoginGui.fxml";
 	private static final String LOGIN_TITLE = "Login";
 
 	/**
@@ -158,8 +158,15 @@ public class WindowGenerator {
 	public static void setLoginView() throws IOException {		
 		LoginCodeBehind codebehind = new LoginCodeBehind();
 		FXMLLoader loader = new FXMLLoader();
-		loader.setController(codebehind);
 		loader.setLocation(codebehind.getClass().getResource(LOGIN_GUI_FXML));
 		WindowGenerator.setupScene((Parent) loader.load(), LOGIN_TITLE);
+	}
+	
+	public static void setPatientView() throws IOException {		
+		DashboardCodeBehind codebehind = new DashboardCodeBehind();
+		FXMLLoader loader = new FXMLLoader();
+		loader.setController(codebehind);
+		loader.setLocation(codebehind.getClass().getResource(DASHBOARD_GUI));
+		WindowGenerator.setupScene((Parent) loader.load(), PATIENT_PROFILE_TITLE);
 	}
 }
