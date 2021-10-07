@@ -159,7 +159,7 @@ public class Person extends User{
 	 * @return the first name
 	 */
 	public String getFirstName() {
-		return firstName;
+		return this.firstName;
 	}
 
 	/**
@@ -177,7 +177,7 @@ public class Person extends User{
 	 * @return the last name
 	 */
 	public String getLastName() {
-		return lastName;
+		return this.lastName;
 	}
 
 	/**
@@ -195,7 +195,7 @@ public class Person extends User{
 	 * @return the gender
 	 */
 	public String getGender() {
-		return gender;
+		return this.gender;
 	}
 
 	/**
@@ -213,7 +213,7 @@ public class Person extends User{
 	 * @return the date of birth
 	 */
 	public String getDateOfBirth() {
-		return dateOfBirth;
+		return this.dateOfBirth;
 	}
 
 	/**
@@ -231,7 +231,7 @@ public class Person extends User{
 	 * @return the address 1
 	 */
 	public String getAddress1() {
-		return address1;
+		return this.address1;
 	}
 
 	/**
@@ -249,7 +249,7 @@ public class Person extends User{
 	 * @return the address 2
 	 */
 	public String getAddress2() {
-		return address2;
+		return this.address2;
 	}
 
 	/**
@@ -267,7 +267,7 @@ public class Person extends User{
 	 * @return the city
 	 */
 	public String getCity() {
-		return city;
+		return this.city;
 	}
 
 	/**
@@ -285,7 +285,7 @@ public class Person extends User{
 	 * @return the state
 	 */
 	public String getState() {
-		return state;
+		return this.state;
 	}
 
 	/**
@@ -303,7 +303,7 @@ public class Person extends User{
 	 * @return the country
 	 */
 	public String getCountry() {
-		return country;
+		return this.country;
 	}
 
 	/**
@@ -321,7 +321,7 @@ public class Person extends User{
 	 * @return the race
 	 */
 	public String getRace() {
-		return race;
+		return this.race;
 	}
 
 	/**
@@ -339,7 +339,7 @@ public class Person extends User{
 	 * @return the ethnicity
 	 */
 	public String getEthnicity() {
-		return ethnicity;
+		return this.ethnicity;
 	}
 
 	/**

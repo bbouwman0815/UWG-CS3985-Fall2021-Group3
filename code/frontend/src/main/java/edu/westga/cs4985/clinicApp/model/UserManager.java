@@ -48,7 +48,7 @@ public class UserManager {
 	 * @param username the user's user name
 	 * @param password the user's password
 	 * @return the verified user
-	 * @throws ParseException 
+	 * @throws ParseException
 	 */
 	public User login(String username, String password) throws ParseException {
 		String requestData = DataWriter.getUserLoginInfo(username, password);
@@ -73,7 +73,7 @@ public class UserManager {
 	 * 
 	 * @param userName the user's user name
 	 * @return the user associated with the user name
-	 * @throws ParseException 
+	 * @throws ParseException
 	 */
 	public User getUserByUserName(String userName) throws ParseException {
 		String request = DataWriter.getUserName(userName);
@@ -105,7 +105,7 @@ public class UserManager {
 	 * 
 	 * @param userName the user name
 	 * @return the appointment list associated with the given user name
-	 * @throws ParseException 
+	 * @throws ParseException
 	 */
 	public List<Appointment> getAppointments(String userName) throws ParseException {
 		String request = DataWriter.getUserName(userName);
@@ -192,7 +192,7 @@ public class UserManager {
 		}
 		return true;
 	}
-	
+
 	/**
 	 * Removes the medical condition.
 	 *
@@ -207,7 +207,7 @@ public class UserManager {
 		}
 		return true;
 	}
-	
+
 	/**
 	 * Gets the medical conditions.
 	 *
@@ -272,12 +272,27 @@ public class UserManager {
 	}
 
 	/**
+	 * Gets the all patients.
+	 *
+	 * @return the all patients
+	 * @throws ParseException the parse exception
+	 */
+	public List<Patient> getAllPatients() throws ParseException {
+		String request = "GET_ALL_PATIENTS";
+		String reply = this.communicator.request(RequestType.GET_ALL_PATIENTS, request);
+		if (reply.equals("ERROR")) {
+			return new ArrayList<Patient>();
+		}
+		return this.convertToPatient(reply);
+	}
+
+	/**
 	 * Convert json string to list of appointments
 	 * 
 	 * @param reply the appointments json string
 	 * 
 	 * @return the appointments list associated with the json string
-	 * @throws ParseException 
+	 * @throws ParseException
 	 */
 	public List<Appointment> convertToAppointments(String reply) throws ParseException {
 		List<Appointment> appointments = new ArrayList<Appointment>();
@@ -338,10 +353,42 @@ public class UserManager {
 			String diagnosisDate = (String) parseData.get("diagnosisDate");
 			String terminationDate = (String) parseData.get("terminationDate");
 			String notes = (String) parseData.get("notes");
-			MedicalCondition medicalCondition = new MedicalCondition(patient, name, diagnosisDate, terminationDate, notes);
+			MedicalCondition medicalCondition = new MedicalCondition(patient, name, diagnosisDate, terminationDate,
+					notes);
 			medicalConditions.add(medicalCondition);
 		}
 		return medicalConditions;
+	}
+
+	private List<Patient> convertToPatient(String reply) throws ParseException {
+		List<Patient> patients = new ArrayList<Patient>();
+		JSONParser parser = new JSONParser();
+		JSONArray data = (JSONArray) parser.parse(reply.toString());
+		for (Object aData : data) {
+			JSONObject parseData = (JSONObject) aData;
+			String firstName = (String) parseData.get("firstName");
+			String lastName = (String) parseData.get("lastName");
+			String country = (String) parseData.get("country");
+			String gender = (String) parseData.get("gender");
+			String race = (String) parseData.get("race");
+			String address1 = (String) parseData.get("address1");
+			String address2 = (String) parseData.get("address2");
+			String city = (String) parseData.get("city");
+			String dateOfBirth = (String) parseData.get("dateOfBirth");
+			String userName = (String) parseData.get("userName");
+			String password = (String) parseData.get("password");
+			String phoneNumber = (String) parseData.get("phoneNumber");
+			String ethnicity = (String) parseData.get("ethnicty");
+			String state = (String) parseData.get("state");
+			String email = (String) parseData.get("email");
+			String insurance = (String) parseData.get("insurance");
+
+			Patient patient = new Patient(firstName, lastName, gender, dateOfBirth, address1, address2, city, state,
+					country, race, ethnicity, phoneNumber, email, insurance, userName, password);
+			patients.add(patient);
+
+		}
+		return patients;
 	}
 
 }
