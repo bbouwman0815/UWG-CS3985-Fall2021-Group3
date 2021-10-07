@@ -74,7 +74,7 @@ public class DataWriter {
 		json.put("medicalPersonnel", person.getUsername());
 		JSONArray availability = new JSONArray();
 		for (LocalDateTime dayTime : availabilityList) {
-			availability.add(dayTime);
+			availability.add(dayTime.toString());
 		}
 		json.put("availabilityList", availability);
 		return json.toJSONString();

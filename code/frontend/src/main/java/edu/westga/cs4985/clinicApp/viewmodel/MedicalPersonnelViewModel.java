@@ -1,6 +1,7 @@
 package edu.westga.cs4985.clinicApp.viewmodel;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -176,9 +177,9 @@ public class MedicalPersonnelViewModel {
 	 * Add an availability for user
 	 * 
 	 */
-	public void addAvailability() throws ParseException{
-		String dateTime = this.selectedDayProperty.toString() + "T" + this.selectedTimeProperty;
-		LocalDateTime availability = LocalDateTime.parse(dateTime);
+	public void addAvailability(String dateTime) throws ParseException{
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		LocalDateTime availability = LocalDateTime.parse(dateTime, formatter);
 		this.availabilityList.add(availability);
 		this.availabilityListProperty.set(FXCollections.observableArrayList(this.availabilityList));
 	}
@@ -215,14 +216,22 @@ public class MedicalPersonnelViewModel {
 	}
 	
 	/**
+	 * Set up the availability List
+	 * @param dayTimes the value of vailability List
+	 */
+	public void setAvailabilityList(List<LocalDateTime> dayTimes) {
+		this.availabilityList = dayTimes;
+		this.availabilityListProperty.set(FXCollections.observableArrayList(this.availabilityList));
+	}
+	
+	/**
 	 * Check current availability if is added
 	 * 
 	 * @return true if current availability is added; otherwise false
 	 */
-	public boolean isAddedAvailability() {
-
-		String dateTime = this.selectedDayProperty.toString() + "T" + this.selectedTimeProperty;
-		LocalDateTime currentAvailability = LocalDateTime.parse(dateTime);
+	public boolean isAddedAvailability(String dateTime) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		LocalDateTime currentAvailability = LocalDateTime.parse(dateTime, formatter);
 		for (LocalDateTime availability : this.availabilityList){
 			if (availability.equals(currentAvailability)) {
 				return true;

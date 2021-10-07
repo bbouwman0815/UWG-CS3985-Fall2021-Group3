@@ -326,9 +326,7 @@ public class UserManager {
 		JSONParser parser = new JSONParser();
 		JSONArray data = (JSONArray) parser.parse(reply.toString());
 		for (Object aData : data) {
-
-			JSONObject parseData = (JSONObject) aData;
-			LocalDateTime datetime = LocalDateTime.parse(parseData.get("date").toString());
+			LocalDateTime datetime = LocalDateTime.parse(aData.toString());
 			availabilities.add(datetime);
 		}
 		return availabilities;

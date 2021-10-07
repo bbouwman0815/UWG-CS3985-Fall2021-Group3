@@ -1,11 +1,13 @@
 package edu.westga.cs4985.clinicApp.view.medicalPersonnel;
 
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import edu.westga.cs4985.clinicApp.model.Patient;
 import edu.westga.cs4985.clinicApp.viewmodel.MedicalPersonnelViewModel;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -14,6 +16,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 
 /**
  * The Class MedicalPersonnelCodeBehind.
@@ -81,8 +84,14 @@ public class MedicalPersonnelCodeBehind {
 	@FXML
 	private TabPane patientTabPane;
 	
+	@FXML
+	private Tab appointmentTab;
+	
     @FXML
     private Tab generalInfoTab;
+    
+    @FXML
+    private AnchorPane appointmentPane;
 
 	private MedicalPersonnelViewModel viewmodel;
 
@@ -92,9 +101,11 @@ public class MedicalPersonnelCodeBehind {
 	}
 
 	@FXML
-	public void initialize() {
+	public void initialize() throws IOException {
 		this.setBindings();
 		this.setListeners();
+		AnchorPane pane = FXMLLoader.load(getClass().getResource("../appointment/MedicalPersonnelAppointmentGui.fxml"));
+		this.appointmentPane.getChildren().setAll(pane);
 	}
 
 	public void setBindings() {

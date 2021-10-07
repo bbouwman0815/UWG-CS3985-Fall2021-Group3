@@ -1,11 +1,1 @@
-[
-    {
-        "medicalPersonnel":"9999",
-        "availabilityList":[
-            "2021-10-01T13:00",
-            "2021-10-02T15:00",
-            "2021-10-03T11:00",
-            "2021-10-01T10:00"
-        ]
-    }
-]
+[{"availabilityList":["2021-10-05T11:00","2021-10-12T10:00"],"medicalPersonnel":"admin"}]

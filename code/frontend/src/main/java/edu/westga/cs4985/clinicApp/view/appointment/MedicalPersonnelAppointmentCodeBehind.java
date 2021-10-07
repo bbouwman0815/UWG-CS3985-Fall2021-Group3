@@ -2,6 +2,8 @@ package edu.westga.cs4985.clinicApp.view.appointment;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.json.simple.parser.ParseException;
@@ -9,9 +11,7 @@ import org.json.simple.parser.ParseException;
 import edu.westga.cs4985.clinicApp.model.Appointment;
 import edu.westga.cs4985.clinicApp.model.UserManager;
 import edu.westga.cs4985.clinicApp.resources.WindowGenerator;
-import edu.westga.cs4985.clinicApp.view.appointment.AppointmentCodeBehind.AppointmentViewPopupCodeBehind;
 import edu.westga.cs4985.clinicApp.viewmodel.MedicalPersonnelViewModel;
-import edu.westga.cs4985.clinicApp.viewmodel.PatientViewModel;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -31,6 +31,7 @@ import javafx.stage.WindowEvent;
 public class MedicalPersonnelAppointmentCodeBehind {
 	
 	private static final String APPOINTMENT_VIEW_POPUP = "../appointment/AppointmentViewPopup.fxml";
+	private final String[] dateTimes = {"8:00","9:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00",};
 	
 	@FXML
     private ListView<Appointment> futureAppointmentList;
@@ -54,7 +55,7 @@ public class MedicalPersonnelAppointmentCodeBehind {
     private DatePicker datePicker;
 
     @FXML
-    private ChoiceBox<?> timePicker;
+    private ChoiceBox<String> timePicker;
 
     @FXML
     private ListView<Appointment> pastAppointmentList;
@@ -73,16 +74,18 @@ public class MedicalPersonnelAppointmentCodeBehind {
     	this.setBindings();
     	this.setListeners();
     	List<Appointment> appointments = FXCollections.observableArrayList(UserManager.userManager.getAppointmentsForMedicalPersonnel(this.viewModel.getMedicalePersonnel().getUsername()));
-    	this.viewModel.availabilityListProperty().set(FXCollections.observableArrayList(UserManager.userManager.getAvailabilities(this.viewModel.getMedicalePersonnel().getUsername())));
+    	List<LocalDateTime> dayTimes = FXCollections.observableArrayList(UserManager.userManager.getAvailabilities(this.viewModel.getMedicalePersonnel().getUsername()));
     	this.viewModel.filterAppointment(appointments);
+    	this.viewModel.setAvailabilityList(dayTimes);
     	this.showfutureButton.setVisible(false);
     	this.addAvailabilityPane.setVisible(false);
     	this.futureAppointmentList.setVisible(true);
     	this.pastAppointmentList.setVisible(false);
     	this.hideAvailbilityButton.setVisible(false);
+    	this.showPast.setVisible(true);
     	
     	this.showAddAvailbilityButton.setVisible(true);
-    	
+    	this.timePicker.itemsProperty().set(FXCollections.observableArrayList(this.dateTimes));
     	
     }
     
@@ -130,27 +133,51 @@ public class MedicalPersonnelAppointmentCodeBehind {
 				}
     		}
     	});
+    	
+    	this.availabilitiesList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+    		if (newValue != null) {
+    			Alert alert = WindowGenerator.openConfirm("Are you sure want to remove the availability?");
+				alert.setOnCloseRequest((evt) -> {
+					if (alert.getResult().getButtonData().equals(ButtonData.YES)) {
+						try {
+							this.viewModel.deleteAvailability();
+							UserManager.userManager.updateMedicalPersonnelAvaiabilities(this.viewModel.getMedicalePersonnel(),this.viewModel.availabilityList());
+						} catch (ParseException e) {
+							e.printStackTrace();
+						}
+					}
+				});
+				alert.showAndWait();
+    		}
+    	});
     }
 
     @FXML
     void onAddAvailability(ActionEvent event) {
-
-    	if(this.viewModel.isAddedAvailability()) {
+    	if (this.datePicker.getValue() == null) {
+    		Alert alert = WindowGenerator.openAlert("Please select your date!");
+        	
+			alert.showAndWait();
+    	} 
+    	if (this.timePicker.getValue() == null) {
+    		Alert alert = WindowGenerator.openAlert("Please select your time!");
+        	
+			alert.showAndWait();
+    	}
+    	String dateTime = this.datePicker.getValue().toString() + " " + this.timePicker.getValue().toString();
+    	if(this.viewModel.isAddedAvailability(dateTime)) {
     		Alert alert = WindowGenerator.openAlert("The availability already added! Please select another date!");
         	
 			alert.showAndWait();
-    	} else {
+    	}  else {
     		Alert addAlert = WindowGenerator.openConfirm("Are you sure want to addAlert this availability?");
     		addAlert.setOnCloseRequest((action) -> {
         		if (addAlert.getResult().getButtonData().equals(ButtonData.YES)) {
         			try {
-						this.viewModel.addAvailability();
+						this.viewModel.addAvailability(dateTime);
 
 	        			UserManager.userManager.updateMedicalPersonnelAvaiabilities(this.viewModel.getMedicalePersonnel(),this.viewModel.availabilityList());
 
-						Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-	                    currentStage.fireEvent(new WindowEvent(currentStage, WindowEvent.WINDOW_CLOSE_REQUEST));
-	                    currentStage.close();
 					} catch (ParseException e) {
 						e.printStackTrace();
 					}
@@ -181,6 +208,8 @@ public class MedicalPersonnelAppointmentCodeBehind {
     void onShowFuture(ActionEvent event) {
     	this.futureAppointmentList.setVisible(true);
     	this.pastAppointmentList.setVisible(false);
+    	this.showfutureButton.setVisible(false);
+    	this.showPast.setVisible(true);
     }
 
     @FXML
@@ -188,6 +217,8 @@ public class MedicalPersonnelAppointmentCodeBehind {
 
     	this.futureAppointmentList.setVisible(false);
     	this.pastAppointmentList.setVisible(true);
+    	this.showfutureButton.setVisible(true);
+    	this.showPast.setVisible(false);
     }
     
     public class AppointmentViewPopupCodeBehind {

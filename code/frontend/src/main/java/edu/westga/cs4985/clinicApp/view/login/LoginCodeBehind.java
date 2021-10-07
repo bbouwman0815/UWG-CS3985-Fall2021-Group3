@@ -66,12 +66,8 @@ public class LoginCodeBehind {
 		} else {
 			try {
 				User.setUser(user);
-				if (User.user.getUsername().equals("admin")) {
-					WindowGenerator.setMedicalPersonnelView();
-				} else {
-					Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-					WindowGenerator.setUserView(currentStage);
-				}
+				Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+				WindowGenerator.setUserView(currentStage);
 
 			} catch (IOException e) {
 				e.printStackTrace();

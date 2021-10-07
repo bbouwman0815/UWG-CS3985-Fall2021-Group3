@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.json.simple.parser.ParseException;
 
 import edu.westga.cs4985.clinicApp.ClinicApp;
+import edu.westga.cs4985.clinicApp.model.MedicalPersonnel;
 import edu.westga.cs4985.clinicApp.model.Patient;
 import edu.westga.cs4985.clinicApp.model.User;
 import edu.westga.cs4985.clinicApp.view.dashboard.DashboardCodeBehind;
@@ -87,6 +88,9 @@ public class WindowGenerator {
 		if (user instanceof Patient) {
 			fxml = ClinicApp.DASHBOARD_GUI;
 			controller = new DashboardCodeBehind();
+		}
+		if (user instanceof MedicalPersonnel) {
+			setMedicalPersonnelView();
 		}
 		WindowGenerator.changeScene(currentStage, fxml, controller, PATIENT_PROFILE_TITLE);
 	}

@@ -131,7 +131,7 @@ public class Server extends Thread {
 		JSONArray jsonObject = (JSONArray) parser.parse(reader);
 
 		FileWriter writer = new FileWriter("./jsonFiles/availabilities.json");
-
+		System.out.println(jsonString);
 		JSONObject data = (JSONObject) parser.parse(jsonString);
 		JSONObject result = null;
 		for (Object aData : jsonObject) {
@@ -142,6 +142,8 @@ public class Server extends Thread {
 		}
 		if(result != null) {
 			jsonObject.remove(result);
+			jsonObject.add(data);
+		} else {
 			jsonObject.add(data);
 		}
 		
@@ -464,7 +466,7 @@ public class Server extends Thread {
 	public void run() {
 		Context context = ZMQ.context(1);
 		Socket socket = context.socket(ZMQ.REP);
-		socket.bind("tcp://127.0.0.1:5567");
+		socket.bind("tcp://127.0.0.1:5568");
 
 		while (!Thread.currentThread().isInterrupted()) {
 
@@ -626,6 +628,7 @@ public class Server extends Thread {
 			}
 			if (request.equals("UPDATE_AVAILABILITY")) {
 				try {
+					System.out.println(data);
 					result = this.updateMedicalPersonnelAvaiabilities(data);
 				} catch (IOException e) {
 					e.printStackTrace();

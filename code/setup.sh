@@ -10,7 +10,7 @@ then
 		rm -r maven/
 	fi
 	#curl manual - run 'curl --help'
-	curl -o maven.zip https://downloads.apache.org/maven/maven-3/3.8.2/binaries/apache-maven-3.8.2-bin.zip
+	curl -o maven.zip https://downloads.apache.org/maven/maven-3/3.8.3/binaries/apache-maven-3.8.3-bin.zip
 	#unzip manual - run 'unzip --help'
 	unzip maven.zip
 	#mv manual - run 'mv --help'
@@ -19,7 +19,7 @@ then
 	#PWD is the dynamic environment variable storing the current working directory
 	alias mvn=$PWD"/maven/bin/mvn"
     export PATH=../maven/bin:$PATH
-	
+    
 	#SETUP Projects
 	for project in *
 	do
@@ -32,8 +32,11 @@ then
 		fi
 	done
     
-    #Compile projects
-    for project in *
+#Compile projects
+elif [[ $1 == "compile" ]]
+then
+    export PATH=../maven/bin:$PATH
+	for project in *
 	do
 		if [ -f $project"/pom.xml" ] 
 		then 
@@ -43,9 +46,11 @@ then
 			cd ..
 		fi
 	done
-	
-    #Test projects
-    for project in *
+#Test projects
+elif [[ $1 == "test" ]]
+then
+    export PATH=../maven/bin:$PATH
+	for project in *
 	do
 		if [ -f $project"/pom.xml" ] 
 		then 
@@ -55,7 +60,10 @@ then
 			cd ..
 		fi
 	done
-    
+#Run System
+elif [[ $1 == "run" ]]
+then
+    export PATH=../maven/bin:$PATH
     # Launch server
 	echo "Launching server"
 	cd "backend"
