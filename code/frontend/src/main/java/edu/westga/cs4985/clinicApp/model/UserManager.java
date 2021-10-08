@@ -285,6 +285,21 @@ public class UserManager {
 		}
 		return this.convertToPatient(reply);
 	}
+	
+	/**
+	 * Gets the all MedicalPersonnels.
+	 *
+	 * @return the all MedicalPersonnels
+	 * @throws ParseException the parse exception
+	 */
+	public List<MedicalPersonnel> getAllMedicalPersonnels(String zipcode) throws ParseException {
+		String request = DataWriter.getMedicalPersonnels(zipcode);
+		String reply = this.communicator.request(RequestType.GET_ALL_MEDICAL_PERSONNELS, request);
+		if (reply.equals("ERROR")) {
+			return new ArrayList<MedicalPersonnel>();
+		}
+		return this.convertToMedicalPersonnel(reply);
+	}
 
 	/**
 	 * Convert json string to list of appointments
@@ -304,7 +319,7 @@ public class UserManager {
 			LocalDateTime datetime = LocalDateTime.parse(parseData.get("date").toString());
 			String notes = (String) parseData.get("notes");
 			Patient patient = (Patient) this.getUserByUserName(parseData.get("patient").toString());
-			String medicalPersonnel = (String) parseData.get("medicalPersonnel");
+			MedicalPersonnel medicalPersonnel = (MedicalPersonnel) this.getUserByMedicalPersonnelUserName(parseData.get("medicalPersonnel").toString());
 			String location = (String) parseData.get("location");
 
 			Appointment appointment = new Appointment(datetime, patient, medicalPersonnel, location, notes);
@@ -387,6 +402,37 @@ public class UserManager {
 
 		}
 		return patients;
+	}
+	
+	private List<MedicalPersonnel> convertToMedicalPersonnel(String reply) throws ParseException {
+		List<MedicalPersonnel> medicalPersonnels = new ArrayList<MedicalPersonnel>();
+		JSONParser parser = new JSONParser();
+		JSONArray data = (JSONArray) parser.parse(reply.toString());
+		for (Object aData : data) {
+			JSONObject parseData = (JSONObject) aData;
+			String firstName = (String) parseData.get("firstName");
+			String lastName = (String) parseData.get("lastName");
+			String country = (String) parseData.get("country");
+			String gender = (String) parseData.get("gender");
+			String race = (String) parseData.get("race");
+			String address1 = (String) parseData.get("address1");
+			String address2 = (String) parseData.get("address2");
+			String city = (String) parseData.get("city");
+			String dateOfBirth = (String) parseData.get("dateOfBirth");
+			String userName = (String) parseData.get("userName");
+			String password = (String) parseData.get("password");
+			String phoneNumber = (String) parseData.get("phoneNumber");
+			String ethnicity = (String) parseData.get("ethnicty");
+			String state = (String) parseData.get("state");
+			String email = (String) parseData.get("email");
+			String zipcode = (String) parseData.get("zipcode");
+
+			MedicalPersonnel medicalPersonnel = new MedicalPersonnel(firstName, lastName, gender, dateOfBirth, address1, address2, city, state,
+					country, race, ethnicity, phoneNumber, email, userName, password, zipcode);
+			medicalPersonnels.add(medicalPersonnel);
+
+		}
+		return medicalPersonnels;
 	}
 
 }

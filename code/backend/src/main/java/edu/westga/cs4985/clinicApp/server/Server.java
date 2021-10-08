@@ -435,6 +435,31 @@ public class Server extends Thread {
 	}
 	
 	/**
+	 * Gets the all MedicalPersonnels.
+	 *
+	 * @param jsonString the json string
+	 * @return the all MedicalPersonnels
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws ParseException the parse exception
+	 */
+	@SuppressWarnings("unchecked")
+	private String getMedicalPersonnels(String jsonString) throws IOException, ParseException {
+		JSONParser parser = new JSONParser();
+		JSONArray medicalPersonnel = new JSONArray();
+		FileReader reader = new FileReader("./jsonFiles/users.json");
+		JSONArray jsonObject = (JSONArray) parser.parse(reader);
+		JSONObject data = (JSONObject) parser.parse(jsonString);
+		for (Object aData : jsonObject) {
+			JSONObject parseData = (JSONObject) aData;
+			if (parseData.get("zipcode") != null && parseData.get("zipcode").equals(data.get("zipcode"))) {
+				medicalPersonnel.add(parseData);
+			}
+		}
+
+		return medicalPersonnel.toJSONString();
+	}
+	
+	/**
 	 * Gets the all patients.
 	 *
 	 * @param jsonString the json string
@@ -466,7 +491,7 @@ public class Server extends Thread {
 	public void run() {
 		Context context = ZMQ.context(1);
 		Socket socket = context.socket(ZMQ.REP);
-		socket.bind("tcp://127.0.0.1:5568");
+		socket.bind("tcp://127.0.0.1:5570");
 
 		while (!Thread.currentThread().isInterrupted()) {
 
@@ -628,8 +653,17 @@ public class Server extends Thread {
 			}
 			if (request.equals("UPDATE_AVAILABILITY")) {
 				try {
-					System.out.println(data);
 					result = this.updateMedicalPersonnelAvaiabilities(data);
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			if (request.equals("GET_ALL_MEDICAL_PERSONNELS")) {
+				try {
+					result = this.getMedicalPersonnels(data);
 				} catch (IOException e) {
 					e.printStackTrace();
 				} catch (ParseException e) {

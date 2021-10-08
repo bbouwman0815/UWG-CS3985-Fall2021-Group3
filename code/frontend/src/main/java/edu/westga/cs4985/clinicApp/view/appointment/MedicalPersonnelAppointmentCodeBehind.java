@@ -288,6 +288,18 @@ public class MedicalPersonnelAppointmentCodeBehind {
 				if (alert.getResult().getButtonData().equals(ButtonData.YES)) {
 					Appointment appointment =  this.viewModel.cancelAppointment();
 					UserManager.userManager.cancelAppointment(appointment);
+					
+					try {
+						List<LocalDateTime> availabilityList = UserManager.userManager.getAvailabilities(appointment.getMedicalPersonnel().getUsername());
+						availabilityList.add(appointment.getDateTime());
+						UserManager.userManager.updateMedicalPersonnelAvaiabilities(appointment.getMedicalPersonnel(), availabilityList);
+						
+						List<LocalDateTime> dayTimes = FXCollections.observableArrayList(UserManager.userManager.getAvailabilities(this.viewModel.getMedicalePersonnel().getUsername()));
+				    	this.viewModel.setAvailabilityList(dayTimes);
+					} catch (ParseException e1) {
+						e1.printStackTrace();
+					}
+					
 					Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 					currentStage.fireEvent(new WindowEvent(currentStage, WindowEvent.WINDOW_CLOSE_REQUEST));
 					currentStage.close();

@@ -14,7 +14,7 @@ public class Appointment {
 
 	private LocalDateTime dateTime;
 	private Patient patient;
-	private String medicalPersonnel;
+	private MedicalPersonnel medicalPersonnel;
 	private String location;
 	private String notes;
 
@@ -32,7 +32,7 @@ public class Appointment {
 	 * @param location 				the location
 	 * @param notes    				the notes
 	 */
-	public Appointment(LocalDateTime dateTime, Patient patient, String medicalPersonnel, String location, String notes) {
+	public Appointment(LocalDateTime dateTime, Patient patient, MedicalPersonnel medicalPersonnel, String location, String notes) {
 		if (dateTime == null) {
 			throw new IllegalArgumentException(UI.ExceptionMessages.NULL_DATE);
 		}
@@ -106,7 +106,7 @@ public class Appointment {
 	 *
 	 * @return the medicalPersonnel
 	 */
-	public String getMedicalPersonnel() {
+	public MedicalPersonnel getMedicalPersonnel() {
 		return this.medicalPersonnel;
 	}
 

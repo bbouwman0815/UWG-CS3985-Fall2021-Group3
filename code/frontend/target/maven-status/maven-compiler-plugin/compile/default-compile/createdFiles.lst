@@ -3,7 +3,6 @@ edu/westga/cs4985/clinicApp/utils/Race.class
 edu/westga/cs4985/clinicApp/view/appointment/MedicalPersonnelAppointmentCodeBehind$AppointmentViewPopupCodeBehind.class
 edu/westga/cs4985/clinicApp/client/RequestType.class
 edu/westga/cs4985/clinicApp/model/Patient.class
-edu/westga/cs4985/clinicApp/model/Medication.class
 edu/westga/cs4985/clinicApp/viewmodel/PatientViewModel.class
 edu/westga/cs4985/clinicApp/resources/InputValidators.class
 edu/westga/cs4985/clinicApp/utils/Gender.class
@@ -25,7 +24,6 @@ edu/westga/cs4985/clinicApp/view/appointment/AppointmentCodeBehind.class
 edu/westga/cs4985/clinicApp/viewmodel/ClinicAppViewModel.class
 edu/westga/cs4985/clinicApp/model/User.class
 edu/westga/cs4985/clinicApp/ClinicApp.class
-edu/westga/cs4985/clinicApp/utils/AddMedicationDialog.class
 edu/westga/cs4985/clinicApp/client/Communicator.class
 edu/westga/cs4985/clinicApp/model/Person.class
 edu/westga/cs4985/clinicApp/view/generalInfor/PatientGeneralInfoCodeBehind$AddCaregiverPopupCodeBehind.class
@@ -39,4 +37,3 @@ edu/westga/cs4985/clinicApp/model/Appointment.class
 edu/westga/cs4985/clinicApp/view/medicalConditions/MedicalConditionsCodeBehind$AddMedicalConditionPopupCodeBehind.class
 edu/westga/cs4985/clinicApp/utils/Country.class
 edu/westga/cs4985/clinicApp/utils/Ethnicity.class
-edu/westga/cs4985/clinicApp/view/medications/MedicationsCodeBehind.class
