@@ -17,6 +17,8 @@ public class MedicalPersonnel extends Person {
 	private String phoneNumber;
 
 	private String email;
+	
+	private String zipcode;
 
 	/**
 	 * Instantiates a new patient.
@@ -44,7 +46,7 @@ public class MedicalPersonnel extends Person {
 	 */
 	public MedicalPersonnel(String firstName, String lastName, String gender, String dateOfBirth, String address1,
 			String address2, String city, String state, String country, String race, String ethnicity,
-			String phoneNumber, String email, String username, String password) {
+			String phoneNumber, String email, String username, String password, String zipcode) {
 		super(firstName, lastName, gender, dateOfBirth, address1, address2, city, state, country, race, ethnicity, username, password);
 
 		if (phoneNumber == null) {
@@ -61,6 +63,16 @@ public class MedicalPersonnel extends Person {
 		}
 		this.phoneNumber = phoneNumber;
 		this.email = email;
+		this.zipcode = zipcode;
+	}
+	
+	/**
+	 * Gets the zipcode
+	 *
+	 * @return the zipcode
+	 */
+	public String getZipCode() {
+		return this.zipcode;
 	}
 	
 	/**
@@ -69,7 +81,7 @@ public class MedicalPersonnel extends Person {
 	 * @return the phone number
 	 */
 	public String getPhoneNumber() {
-		return phoneNumber;
+		return this.phoneNumber;
 	}
 
 	/**
@@ -96,6 +108,11 @@ public class MedicalPersonnel extends Person {
 	 * @return the full name
 	 */
 	public String getFullName() {
+		return this.getFirstName() + " " + this.getLastName();
+	}
+	
+	@Override
+	public String toString() {
 		return this.getFirstName() + " " + this.getLastName();
 	}
 	

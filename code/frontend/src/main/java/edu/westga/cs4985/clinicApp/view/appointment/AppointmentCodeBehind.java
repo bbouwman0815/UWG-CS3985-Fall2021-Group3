@@ -2,33 +2,26 @@ package edu.westga.cs4985.clinicApp.view.appointment;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.json.simple.parser.ParseException;
 
 import edu.westga.cs4985.clinicApp.model.Appointment;
+import edu.westga.cs4985.clinicApp.model.MedicalPersonnel;
 import edu.westga.cs4985.clinicApp.model.UserManager;
 import edu.westga.cs4985.clinicApp.resources.WindowGenerator;
 import edu.westga.cs4985.clinicApp.viewmodel.PatientViewModel;
-import javafx.beans.property.ObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ButtonBar.ButtonData;
-import javafx.scene.layout.Pane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -117,9 +110,12 @@ public class AppointmentCodeBehind {
     }
 
     public class BookAppointmentPopupCodeBehind {
+    	
+    	@FXML
+    	private TextField zipcodeInput;
 
         @FXML
-        private ListView<String> medicalPersonList;
+        private ListView<MedicalPersonnel> medicalPersonList;
 
         @FXML
         private ListView<LocalDateTime> availableTimeList;
@@ -134,14 +130,28 @@ public class AppointmentCodeBehind {
         }
         
         @FXML
-        public void initialize() {
-        	
-        	this.medicalPersonList.getItems().add("Person A");
-        	this.medicalPersonList.getItems().add("Person B");
-        	this.availableTimeList.getItems().add(LocalDateTime.of(2021,10,01,13,00));
-        	this.availableTimeList.getItems().add(LocalDateTime.of(2021,10,02,14,00));
-        	this.availableTimeList.getItems().add(LocalDateTime.of(2021,11,01,13,00));
+        public void initialize(){
         	this.setBindings();
+        	
+        	this.medicalPersonList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        		if (newValue != null) {
+        			List<LocalDateTime> list;
+					try {
+						list = UserManager.userManager.getAvailabilities(newValue.getUsername());
+						if (list.size() == 0) {
+							Alert alert = WindowGenerator.openAlert("The Medical Personnel not available now. Please choose another one!");
+			            	
+			    			alert.showAndWait();
+	            		} else {
+	            			this.availableTimeList.itemsProperty().set(FXCollections.observableArrayList(list));
+	            		}
+					} catch (ParseException e) {
+						e.printStackTrace();
+					}
+            		
+        			
+        		}
+        	});
         }
         
         public void setBindings() {
@@ -163,6 +173,15 @@ public class AppointmentCodeBehind {
             			this.viewModel.notesProperty().set(this.noteTextBox.getText());
             			Appointment appointment = this.viewModel.bookAppointment();
             			UserManager.userManager.bookAppointment(appointment);
+            			
+            			try {
+							List<LocalDateTime> availabilityList = UserManager.userManager.getAvailabilities(this.viewModel.seletedMedicalPersonnel().getValue().getUsername());
+							availabilityList.remove(appointment.getDateTime());
+							UserManager.userManager.updateMedicalPersonnelAvaiabilities(this.viewModel.seletedMedicalPersonnel().get(), availabilityList);
+						} catch (ParseException e1) {
+							e1.printStackTrace();
+						}
+            			
             			Stage popup;
 						try {
 							popup = WindowGenerator.openPopup(APPOINTMENT_VIEW_POPUP, new AppointmentViewPopupCodeBehind(this.viewModel), "Appointment View Window");
@@ -189,9 +208,34 @@ public class AppointmentCodeBehind {
         }
 
         @FXML
-        void getCityName(ActionEvent event) {
-
-        }
+        void getCityName(ActionEvent event) throws ParseException {
+        	
+        	String zipcode = this.zipcodeInput.getText();
+        	try {
+        		int zip = Integer.parseInt(zipcode);
+        		if (zip > 99999 || zip < 10000) {
+        			Alert alert = WindowGenerator.openAlert("Please entery FIVE digits for zipcode!");
+        			
+        			alert.showAndWait();
+        			return;
+        		}
+        		List<MedicalPersonnel> list = UserManager.userManager.getAllMedicalPersonnels(zipcode);
+        		if (list.size() == 0) {
+        			Alert alert = WindowGenerator.openAlert("There are no any Medical Personnel in this area. Please entry another zipcode!");
+                	
+        			alert.showAndWait();
+        			return;
+        		} else {
+        			this.medicalPersonList.itemsProperty().set(FXCollections.observableArrayList(list));
+        		}
+        		
+        	} catch(NumberFormatException e) {
+        		Alert alert = WindowGenerator.openAlert("Please entery numbers for zipcode!");
+        	
+        		alert.showAndWait();
+        		return;
+        	}
+       }
 
     }
 
@@ -247,12 +291,12 @@ public class AppointmentCodeBehind {
         		this.medicalPersonnelLabel.textProperty().set("Medical Personnel: " + this.viewModel.seletedMedicalPersonnel().get());
         		this.patientLabel.textProperty().set("Patient: " + this.viewModel.getPatient().getFullName());
             	this.timeLabel.textProperty().set("Time: " + this.viewModel.selectedAvailabilityProperty().get());
+            	this.locationLabel.textProperty().set("Location: " + this.viewModel.seletedMedicalPersonnel().get().getFullAddress());
             	this.appointmentNotes.textProperty().set(this.viewModel.notesProperty().get());
         		
         	}
         	if (this.viewModel.selectedPastAppointmentProperty().get() != null) {
         		this.cancelAppointmentButton.setVisible(false);
-        		this.editButton.setVisible(true);
         		this.medicalPersonnelLabel.textProperty().set("Medical Personnel: " + this.viewModel.selectedPastAppointmentProperty().get().getMedicalPersonnel());
             	this.timeLabel.textProperty().set("Time: " + this.viewModel.selectedPastAppointmentProperty().get().getDateTime());
             	this.appointmentNotes.textProperty().set(this.viewModel.selectedPastAppointmentProperty().get().getNotes());
@@ -269,6 +313,15 @@ public class AppointmentCodeBehind {
 				if (alert.getResult().getButtonData().equals(ButtonData.YES)) {
 					Appointment appointment =  this.viewModel.cancelAppointment();
 					UserManager.userManager.cancelAppointment(appointment);
+					
+					try {
+						List<LocalDateTime> availabilityList = UserManager.userManager.getAvailabilities(appointment.getMedicalPersonnel().getUsername());
+						availabilityList.add(appointment.getDateTime());
+						UserManager.userManager.updateMedicalPersonnelAvaiabilities(appointment.getMedicalPersonnel(), availabilityList);
+					} catch (ParseException e1) {
+						e1.printStackTrace();
+					}
+					
 					Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 					currentStage.fireEvent(new WindowEvent(currentStage, WindowEvent.WINDOW_CLOSE_REQUEST));
 					currentStage.close();

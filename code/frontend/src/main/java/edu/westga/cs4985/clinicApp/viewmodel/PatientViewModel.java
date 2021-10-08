@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.westga.cs4985.clinicApp.model.Appointment;
+import edu.westga.cs4985.clinicApp.model.MedicalPersonnel;
 import edu.westga.cs4985.clinicApp.model.Patient;
 import edu.westga.cs4985.clinicApp.model.User;
 import edu.westga.cs4985.clinicApp.model.UserManager;
@@ -25,7 +26,7 @@ import javafx.collections.FXCollections;
  */
 public class PatientViewModel {
 	
-	private StringProperty seletedMedicalPersonnel;
+	private ObjectProperty<MedicalPersonnel> seletedMedicalPersonnel;
 	private ObjectProperty<LocalDateTime> selectedAvailabilityProperty;
 	private ListProperty<LocalDateTime> availabilityListProperty;
 	private ObjectProperty<Appointment> selectedFutureAppointmentProperty;
@@ -46,6 +47,7 @@ public class PatientViewModel {
 	 */
 	public PatientViewModel() {
 		this.patient = (Patient) User.user;
+		this.seletedMedicalPersonnel = new SimpleObjectProperty<MedicalPersonnel>();
 		this.selectedFutureAppointmentProperty = new SimpleObjectProperty<Appointment>();
 		this.selectedPastAppointmentProperty = new SimpleObjectProperty<Appointment>();
 		this.selectedAvailabilityProperty = new SimpleObjectProperty<LocalDateTime>();
@@ -53,7 +55,6 @@ public class PatientViewModel {
 		this.pastAppointmentListProperty = new SimpleListProperty<Appointment>();
 		this.availabilityListProperty = new SimpleListProperty<LocalDateTime>();
 		this.notesProperty = new SimpleStringProperty("");
-		this.seletedMedicalPersonnel = new SimpleStringProperty("");
 		this.futureppointmentList = new ArrayList<Appointment>();
 		this.pastAppointmentList = new ArrayList<Appointment>();
 		
@@ -75,7 +76,7 @@ public class PatientViewModel {
 	 * @return the booked appointment
 	 */
 	public Appointment bookAppointment() {
-		Appointment appointment = new Appointment(this.selectedAvailabilityProperty.get(), this.patient, this.seletedMedicalPersonnel.get(), "TLC", this.notesProperty.get());
+		Appointment appointment = new Appointment(this.selectedAvailabilityProperty.get(), this.patient, this.seletedMedicalPersonnel.get(), this.seletedMedicalPersonnel.get().getFullAddress(), this.notesProperty.get());
 		this.futureppointmentList.add(appointment);
 		this.futureAppointmentListProperty.set(FXCollections.observableArrayList(this.futureppointmentList));
 		return appointment;
@@ -132,7 +133,7 @@ public class PatientViewModel {
 	 * 
 	 * @return the selected medical personnel
 	 */
-	public StringProperty seletedMedicalPersonnel() {
+	public ObjectProperty<MedicalPersonnel> seletedMedicalPersonnel() {
 		return this.seletedMedicalPersonnel;
 	}
 	

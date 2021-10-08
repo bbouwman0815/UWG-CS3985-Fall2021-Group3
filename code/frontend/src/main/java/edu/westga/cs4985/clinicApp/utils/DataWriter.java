@@ -63,6 +63,19 @@ public class DataWriter {
 	}
 	
 	/**
+	 * Write the user's zipcode as json 
+	 * 
+	 * @param zipcode the user's uzipcode
+	 * @return the json that contains the user's zipcode 
+	 */
+	@SuppressWarnings("unchecked")
+	public static String getMedicalPersonnels(String zipcode) {
+		JSONObject json = new JSONObject();
+		json.put("zipcode", zipcode);
+		return json.toJSONString();
+	}
+	
+	/**
 	 * Write the patient's general information as json
 	 *  
 	 * @param patient the patient
@@ -122,7 +135,7 @@ public class DataWriter {
 			return "Error";
 		}
 		JSONObject json = new JSONObject();
-		json.put("medicalPersonnel", appointment.getMedicalPersonnel());
+		json.put("medicalPersonnel", appointment.getMedicalPersonnel().getUsername());
 		json.put("patient", appointment.getPatient().getUsername());
 		json.put("date", appointment.getDateTime().toString());
 		json.put("location", appointment.getLocation());
