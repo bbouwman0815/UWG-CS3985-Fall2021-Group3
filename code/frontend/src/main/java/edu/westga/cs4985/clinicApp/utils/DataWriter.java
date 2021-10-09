@@ -142,7 +142,7 @@ public class DataWriter {
 		json.put("ethnicty", medicalPersonnel.getEthnicity());
 		json.put("phoneNumber", medicalPersonnel.getPhoneNumber());
 		json.put("email", medicalPersonnel.getEmail());
-		json.put("insurance", medicalPersonnel.getZipCode());
+		json.put("zipcode", medicalPersonnel.getZipCode());
 		return json.toJSONString();
 	}
 
