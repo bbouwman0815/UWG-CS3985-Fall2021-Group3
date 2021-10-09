@@ -178,6 +178,12 @@ public class UserManager {
 		return true;
 	}
 	
+	/**
+	 * Adds the medical personnel.
+	 *
+	 * @param medicalPersonnel the medical personnel
+	 * @return true, if successful
+	 */
 	public boolean addMedicalPersonnel(MedicalPersonnel medicalPersonnel) {
 		String requestData = DataWriter.writeMedicalPersonnelInfo(medicalPersonnel);
 		String reply = this.communicator.request(RequestType.ADD_MEDICAL_PERSONNEL, requestData);
@@ -308,6 +314,22 @@ public class UserManager {
 			return new ArrayList<MedicalPersonnel>();
 		}
 		return this.convertToMedicalPersonnel(reply);
+	}
+	
+	/**
+	 * Gets the patients for medical personnel.
+	 *
+	 * @param userName the user name
+	 * @return the patients for medical personnel
+	 * @throws ParseException the parse exception
+	 */
+	public List<Patient> getPatientsForMedicalPersonnel(String userName) throws ParseException {
+		String request = DataWriter.getUserByMedicalPersonnelName(userName);
+		String reply = this.communicator.request(RequestType.GET_PATIENTS_FOR_MEDICAL_PERSONNEL, request);
+		if (reply.equals("ERROR")) {
+			return new ArrayList<Patient>();
+		}
+		return this.convertToPatient(reply);
 	}
 
 	/**

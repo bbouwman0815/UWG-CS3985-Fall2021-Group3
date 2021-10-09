@@ -105,17 +105,17 @@ public class Server extends Thread {
 				result = parseData;
 			}
 		}
-		if(result != null) {
+		if (result != null) {
 			jsonObject.remove(result);
 			jsonObject.add(data);
 		}
-		
+
 		writer.write(jsonObject.toJSONString());
 		writer.flush();
 		writer.close();
 		return "Updated";
 	}
-	
+
 	/**
 	 * Update user's avaiabilities to json file
 	 * 
@@ -140,13 +140,13 @@ public class Server extends Thread {
 				result = parseData;
 			}
 		}
-		if(result != null) {
+		if (result != null) {
 			jsonObject.remove(result);
 			jsonObject.add(data);
 		} else {
 			jsonObject.add(data);
 		}
-		
+
 		writer.write(jsonObject.toJSONString());
 		writer.flush();
 		writer.close();
@@ -161,7 +161,7 @@ public class Server extends Thread {
 	 *         "EROOR"
 	 * @throws FileNotFoundException the file not found exception
 	 * @throws IOException           the IO exception
-	 * @throws ParseException 
+	 * @throws ParseException
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public String userLogin(String jsonString) throws FileNotFoundException, IOException, ParseException {
@@ -184,8 +184,8 @@ public class Server extends Thread {
 	 * 
 	 * @param jsonString the json string that contains the user name
 	 * @return the user json string associated with given user name json string
-	 * @throws IOException the IO exception
-	 * @throws ParseException 
+	 * @throws IOException    the IO exception
+	 * @throws ParseException
 	 */
 	public String getUserByUserName(String jsonString) throws IOException, ParseException {
 		JSONParser parser = new JSONParser();
@@ -201,14 +201,14 @@ public class Server extends Thread {
 		}
 		return "ERROR";
 	}
-	
+
 	/**
 	 * Get user json string by given json string as user name
 	 * 
 	 * @param jsonString the json string that contains the user name
 	 * @return the user json string associated with given user name json string
-	 * @throws IOException the IO exception
-	 * @throws ParseException 
+	 * @throws IOException    the IO exception
+	 * @throws ParseException
 	 */
 	public String getUserByMedicalPersonnelUserName(String jsonString) throws IOException, ParseException {
 		JSONParser parser = new JSONParser();
@@ -231,8 +231,8 @@ public class Server extends Thread {
 	 * @param jsonString the json string of user name
 	 * @return the appointment list json string associated with the json stirng of
 	 *         user name
-	 * @throws IOException the IO exception
-	 * @throws ParseException 
+	 * @throws IOException    the IO exception
+	 * @throws ParseException
 	 */
 	@SuppressWarnings("unchecked")
 	public String getAppointments(String jsonString) throws IOException, ParseException {
@@ -250,15 +250,15 @@ public class Server extends Thread {
 
 		return appointments.toJSONString();
 	}
-	
+
 	/**
 	 * Get appointment list by given user name json string
 	 * 
 	 * @param jsonString the json string of user name
 	 * @return the appointment list json string associated with the json stirng of
 	 *         user name
-	 * @throws IOException the IO exception
-	 * @throws ParseException 
+	 * @throws IOException    the IO exception
+	 * @throws ParseException
 	 */
 	@SuppressWarnings("unchecked")
 	public String getAppointmentsForMedicalPersonnel(String jsonString) throws IOException, ParseException {
@@ -276,15 +276,15 @@ public class Server extends Thread {
 
 		return appointments.toJSONString();
 	}
-	
+
 	/**
 	 * Get appointment list by given user name json string
 	 * 
 	 * @param jsonString the json string of user name
 	 * @return the appointment list json string associated with the json stirng of
 	 *         user name
-	 * @throws IOException the IO exception
-	 * @throws ParseException 
+	 * @throws IOException    the IO exception
+	 * @throws ParseException
 	 */
 	@SuppressWarnings("unchecked")
 	public String getAvailabilities(String jsonString) throws IOException, ParseException {
@@ -383,13 +383,13 @@ public class Server extends Thread {
 		writer.close();
 		return "Removed";
 	}
-	
+
 	/**
 	 * Gets the medical conditions.
 	 *
 	 * @param jsonString the json string
 	 * @return the medical conditions
-	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws IOException    Signals that an I/O exception has occurred.
 	 * @throws ParseException the parse exception
 	 */
 	@SuppressWarnings("unchecked")
@@ -408,14 +408,13 @@ public class Server extends Thread {
 
 		return medicalConditions.toJSONString();
 	}
-	
 
 	/**
 	 * Gets the all patients.
 	 *
 	 * @param jsonString the json string
 	 * @return the all patients
-	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws IOException    Signals that an I/O exception has occurred.
 	 * @throws ParseException the parse exception
 	 */
 	@SuppressWarnings("unchecked")
@@ -433,13 +432,13 @@ public class Server extends Thread {
 
 		return patients.toJSONString();
 	}
-	
+
 	/**
 	 * Gets the all MedicalPersonnels.
 	 *
 	 * @param jsonString the json string
 	 * @return the all MedicalPersonnels
-	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws IOException    Signals that an I/O exception has occurred.
 	 * @throws ParseException the parse exception
 	 */
 	@SuppressWarnings("unchecked")
@@ -458,13 +457,13 @@ public class Server extends Thread {
 
 		return medicalPersonnel.toJSONString();
 	}
-	
+
 	/**
-	 * Gets the all patients.
+	 * Gets the patients for medical personnel.
 	 *
 	 * @param jsonString the json string
-	 * @return the all patients
-	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @return the patients for medical personnel
+	 * @throws IOException    Signals that an I/O exception has occurred.
 	 * @throws ParseException the parse exception
 	 */
 	@SuppressWarnings("unchecked")
@@ -476,20 +475,21 @@ public class Server extends Thread {
 		JSONObject data = (JSONObject) parser.parse(jsonString);
 		for (Object aData : jsonObject) {
 			JSONObject parseData = (JSONObject) aData;
-			if (parseData.get("type").equals("PATIENT")) {
+			if (parseData.get("type").equals("PATIENT") && parseData.get("caregiver") != null
+					&& parseData.get("caregiver").equals(data.get("medicalPersonnel"))) {
 				patients.add(parseData);
 			}
 		}
 
 		return patients.toJSONString();
 	}
-	
+
 	/**
 	 * Adds the new medical personnel.
 	 *
 	 * @param jsonString the json string
 	 * @return the string
-	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws IOException    Signals that an I/O exception has occurred.
 	 * @throws ParseException the parse exception
 	 */
 	@SuppressWarnings({ "unchecked" })
@@ -587,7 +587,7 @@ public class Server extends Thread {
 					e.printStackTrace();
 				}
 			}
-			
+
 			if (request.equals("ADD_MEDICAL_PERSONNEL")) {
 				try {
 					result = this.addMedicalPersonnelUser(data);
@@ -617,7 +617,7 @@ public class Server extends Thread {
 					e.printStackTrace();
 				}
 			}
-			
+
 			if (request.equals("GET_MEDICAL_CONDITIONS")) {
 				try {
 					result = this.getMedicalConditions(data);
@@ -665,6 +665,16 @@ public class Server extends Thread {
 				}
 			}
 
+			if (request.equals("GET_PATIENTS_FOR_MEDICAL_PERSONNEL")) {
+				try {
+					result = this.getPatientsForMedicalPersonnel(data);
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+			}
+
 			if (request.equals("GET_PATIENTS")) {
 				try {
 					result = this.getAllPatients();
@@ -692,7 +702,7 @@ public class Server extends Thread {
 					e.printStackTrace();
 				}
 			}
-			
+
 			if (request.equals("GET_ALL_MEDICAL_PERSONNELS")) {
 				try {
 					result = this.getMedicalPersonnels(data);
@@ -702,7 +712,6 @@ public class Server extends Thread {
 					e.printStackTrace();
 				}
 			}
-
 
 			socket.send(result);
 		}
