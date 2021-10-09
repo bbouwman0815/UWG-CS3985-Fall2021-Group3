@@ -177,6 +177,15 @@ public class UserManager {
 		}
 		return true;
 	}
+	
+	public boolean addMedicalPersonnel(MedicalPersonnel medicalPersonnel) {
+		String requestData = DataWriter.writeMedicalPersonnelInfo(medicalPersonnel);
+		String reply = this.communicator.request(RequestType.ADD_MEDICAL_PERSONNEL, requestData);
+		if (reply.equals("ERROR")) {
+			return false;
+		}
+		return true;
+	}
 
 	/**
 	 * Adds the medical condition.
