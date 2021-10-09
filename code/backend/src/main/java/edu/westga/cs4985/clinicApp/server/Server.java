@@ -131,7 +131,6 @@ public class Server extends Thread {
 		JSONArray jsonObject = (JSONArray) parser.parse(reader);
 
 		FileWriter writer = new FileWriter("./jsonFiles/availabilities.json");
-		System.out.println(jsonString);
 		JSONObject data = (JSONObject) parser.parse(jsonString);
 		JSONObject result = null;
 		for (Object aData : jsonObject) {
@@ -443,7 +442,7 @@ public class Server extends Thread {
 	 * @throws ParseException the parse exception
 	 */
 	@SuppressWarnings("unchecked")
-	private String getMedicalPersonnels(String jsonString) throws IOException, ParseException {
+	public String getMedicalPersonnels(String jsonString) throws IOException, ParseException {
 		JSONParser parser = new JSONParser();
 		JSONArray medicalPersonnel = new JSONArray();
 		FileReader reader = new FileReader("./jsonFiles/users.json");

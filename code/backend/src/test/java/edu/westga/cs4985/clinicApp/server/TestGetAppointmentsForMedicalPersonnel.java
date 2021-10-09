@@ -9,14 +9,14 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.Test;
 
-public class TestGetAppointments {
-	
+public class TestGetAppointmentsForMedicalPersonnel {
+
 	@SuppressWarnings("unchecked")
 	@Test
 	public void testGetAppointments() throws IOException, ParseException {
 		Server server = new Server();
 		JSONObject json = new JSONObject();
-		json.put("medicalPersonnel", "Person A");
+		json.put("medicalPersonnel", "test");
 		json.put("patient", "new");
 		json.put("date", "2021-11-01T13:00");
 		json.put("location", "TCL");
@@ -25,9 +25,9 @@ public class TestGetAppointments {
 		JSONArray list = new JSONArray();
 		list.add(json);
 		JSONObject json1 = new JSONObject();
-		json1.put("patient", "new");
+		json1.put("medicalPersonnel", "test");
 		server.bookAppointment(json.toJSONString());
-		assertEquals(list.toJSONString(), server.getAppointments(json1.toJSONString()));
+		assertEquals(list.toJSONString(), server.getAppointmentsForMedicalPersonnel(json1.toJSONString()));
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -35,7 +35,7 @@ public class TestGetAppointments {
 	public void tesCancelAppointment() throws IOException, ParseException {
 		Server server = new Server();
 		JSONObject json = new JSONObject();
-		json.put("medicalPersonnel", "Person A");
+		json.put("medicalPersonnel", "test");
 		json.put("patient", "new");
 		json.put("date", "2021-11-01T13:00");
 		json.put("location", "TCL");
@@ -49,7 +49,7 @@ public class TestGetAppointments {
 		Server server = new Server();
 
 		JSONObject json1 = new JSONObject();
-		json1.put("patient", "newnew");
-		assertEquals("[]", server.getAppointments(json1.toJSONString()));
+		json1.put("medicalPersonnel", "newnew");
+		assertEquals("[]", server.getAppointmentsForMedicalPersonnel(json1.toJSONString()));
 	}
 }
