@@ -31,6 +31,9 @@ public class LoginCodeBehind {
 	@FXML
 	private Button addPatientButton;
 
+	@FXML
+	private Button addMedicalPersonnel;
+
 	private ClinicAppViewModel viewmodel;
 
 	/**
@@ -78,5 +81,10 @@ public class LoginCodeBehind {
 	@FXML
 	void addPatient(ActionEvent event) throws IOException {
 		WindowGenerator.setupAddNewPatient();
+	}
+
+	@FXML
+	void handleAddMedicalPersonnel(ActionEvent event) throws IOException {
+		WindowGenerator.setupAddNewMedicalPersonnel();
 	}
 }
