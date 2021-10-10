@@ -152,5 +152,6 @@
             <Font size="14.0" />
          </font>
       </Button>
+      <Label fx:id="contactInfoErrorLabel" layoutX="567.0" layoutY="282.0" prefHeight="96.0" prefWidth="117.0" textFill="RED" visible="false" wrapText="true" />
    </children>
 </AnchorPane>

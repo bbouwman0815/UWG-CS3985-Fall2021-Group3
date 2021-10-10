@@ -12,6 +12,7 @@ import edu.westga.cs4985.clinicApp.model.Appointment;
 import edu.westga.cs4985.clinicApp.model.Patient;
 import edu.westga.cs4985.clinicApp.model.User;
 import edu.westga.cs4985.clinicApp.model.UserManager;
+import edu.westga.cs4985.clinicApp.resources.InputValidators;
 import edu.westga.cs4985.clinicApp.resources.WindowGenerator;
 import edu.westga.cs4985.clinicApp.utils.Country;
 import edu.westga.cs4985.clinicApp.utils.Ethnicity;
@@ -52,6 +53,9 @@ import javafx.stage.WindowEvent;
  *
  */
 public class PatientGeneralInfoCodeBehind {
+	
+	private final String PHONE_ERROR = "Please formate phone number as (###)-###-###";
+	private final String EMAIL_ERROR = "Inproper email format";
 	
     @FXML
     private Label patientNameLabel;
@@ -137,6 +141,9 @@ public class PatientGeneralInfoCodeBehind {
     @FXML
     private Label caregiverLabel;
     
+    @FXML
+    private Label contactInfoErrorLabel;
+    
     private Race race;
     private Gender gender;
     private Ethnicity ethnicity;
@@ -164,6 +171,7 @@ public class PatientGeneralInfoCodeBehind {
     	
     	this.saveButton.setVisible(false);
     	this.cancelButton.setVisible(false);
+    	this.setListeners();
     	this.setUpChoiceBoxes();
     	this.formActivation(true);
     	this.setForm(this.viewModel.getPatient());
@@ -197,6 +205,34 @@ public class PatientGeneralInfoCodeBehind {
     	this.sexChoiceBox.setDisable(action);
     	this.ethnicityChoiceBox.setDisable(action);
     	this.countryChoiceBox.setDisable(action);
+    }
+    
+    private void setListeners() {
+    	this.phoneInput.textProperty().addListener((observable, oldValue, newValue) -> {
+    		if (newValue != null) {
+    			if (!InputValidators.validatePhoneNumber(newValue)) {
+    				this.contactInfoErrorLabel.setText(PHONE_ERROR);
+    				this.contactInfoErrorLabel.setVisible(true);
+    			}
+    			else {
+    				this.contactInfoErrorLabel.setVisible(false);
+    			}
+    		}
+    	});
+    	
+    	this.emailInput.textProperty().addListener((observable, oldValue, newValue) -> {
+    		if (newValue != null) {
+    			if (!InputValidators.validateEmail(newValue)) {
+    				this.contactInfoErrorLabel.setText(EMAIL_ERROR);
+    				this.contactInfoErrorLabel.setVisible(true);
+    			}
+    			else {
+    				this.contactInfoErrorLabel.setVisible(false);
+    			}
+    		}
+    	});
+    	
+    	
     }
     
     private void setUpChoiceBoxes() {
