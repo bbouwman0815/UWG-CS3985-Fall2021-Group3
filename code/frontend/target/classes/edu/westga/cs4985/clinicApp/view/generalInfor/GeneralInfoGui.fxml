@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="598.0" prefWidth="702.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.westga.cs4985.clinicApp.view.generalInfor.PatientGeneralInfoCodeBehind">
+<AnchorPane prefHeight="598.0" prefWidth="702.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.westga.cs4985.clinicApp.view.generalInfor.PatientGeneralInfoCodeBehind">
    <children>
       <Label layoutX="20.0" layoutY="15.0" text="Personal Details:">
          <font>
