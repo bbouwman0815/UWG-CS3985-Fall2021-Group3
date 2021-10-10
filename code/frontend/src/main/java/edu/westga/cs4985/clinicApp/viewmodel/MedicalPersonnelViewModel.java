@@ -141,14 +141,6 @@ public class MedicalPersonnelViewModel {
 		this.patients = patients;
 	}
 
-	/**
-	 * Patient list.
-	 *
-	 * @return the list
-	 */
-	public List<Patient> patientList() {
-		return this.patients;
-	}
 
 	public void loadPatients() {
 		List<Patient> patients;

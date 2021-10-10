@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import edu.westga.cs4985.clinicApp.client.Communicator;
 import edu.westga.cs4985.clinicApp.client.RequestType;
 import edu.westga.cs4985.clinicApp.model.Appointment;
+import edu.westga.cs4985.clinicApp.model.MedicalPersonnel;
 import edu.westga.cs4985.clinicApp.model.Patient;
 import edu.westga.cs4985.clinicApp.model.UserManager;
 import edu.westga.cs4985.clinicApp.utils.Country;
@@ -32,13 +33,25 @@ class TestCancelAppointment {
 		public String request(RequestType requestType, String data) {
 			String request = requestType + "," + data;
 			if (request.equals(
-					"CANCLE_APPOINTMENT,{\"date\":\"2021-09-01T14:00\",\"notes\":\"help\",\"patient\":\"New\",\"location\":\"TCL\",\"medicalPersonnel\":\"Person A\"}")) {
+					"CANCLE_APPOINTMENT,{\"date\":\"2024-09-01T14:00\",\"notes\":\"help\",\"patient\":\"New\",\"location\":\"TCL\",\"medicalPersonnel\":\"New\"}")) {
 				return "Removed";
 			} else {
 				return "ERROR";
 			}
 		}
 	}
+	
+	public MedicalPersonnel medicalPersonnelDummy() {
+		Gender gender = new Gender();
+		Country country = new Country();
+		Race race = new Race();
+		Ethnicity ethnicity = new Ethnicity();
+		MedicalPersonnel patientDummy = new MedicalPersonnel("Xavier", "Jameson", gender.sex[0], "08-08-2008", "912 Maple Street",
+				"East Maple Building 2B", "Carrollton", "GA", country.country[0], race.race[1], ethnicity.ethnicity[1],
+				"770-111-222", "email@email.com", "New", "New", "30118");
+		return patientDummy;
+	}
+
 
 	public Patient patientDummy() {
 		Gender gender = new Gender();
@@ -53,9 +66,10 @@ class TestCancelAppointment {
 
 	@Test
 	void testCancelValidAppointment() {
-		LocalDateTime dateTime = LocalDateTime.of(2021, 9, 01, 14, 00);
+		LocalDateTime dateTime = LocalDateTime.of(2024, 9, 01, 14, 00);
 		Patient patient = this.patientDummy();
-		Appointment appointment = new Appointment(dateTime, patient, "Person A", "TCL", "help");
+		MedicalPersonnel medicalPersonnel = medicalPersonnelDummy();
+		Appointment appointment = new Appointment(dateTime, patient, medicalPersonnel, "TCL", "help");
 		UserManager userManager = new UserManager(new ServerFake());
 		boolean removed = userManager.cancelAppointment(appointment);
 		assertEquals(true, removed);
@@ -65,7 +79,8 @@ class TestCancelAppointment {
 	void testCancelInvalidAppointment() {
 		LocalDateTime dateTime = LocalDateTime.of(2021, 9, 01, 14, 00);
 		Patient patient = this.patientDummy();
-		Appointment appointment = new Appointment(dateTime, patient, "Person B", "TCL", "help");
+		MedicalPersonnel medicalPersonnel = medicalPersonnelDummy();
+		Appointment appointment = new Appointment(dateTime, patient, medicalPersonnel, "TCL", "help");
 		UserManager userManager = new UserManager(new ServerFake());
 		boolean removed = userManager.cancelAppointment(appointment);
 		assertEquals(false, removed);

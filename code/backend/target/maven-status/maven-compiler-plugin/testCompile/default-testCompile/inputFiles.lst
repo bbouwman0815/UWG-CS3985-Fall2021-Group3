@@ -1,8 +1,13 @@
 /Users/pipai/Documents/GitHub/UWG-CS3985-Fall2021-Group5/code/backend/src/test/java/edu/westga/cs4985/clinicApp/server/TestUpdatePatientGeneralInfo.java
+/Users/pipai/Documents/GitHub/UWG-CS3985-Fall2021-Group5/code/backend/src/test/java/edu/westga/cs4985/clinicApp/server/TestGetAvailabilities.java
+/Users/pipai/Documents/GitHub/UWG-CS3985-Fall2021-Group5/code/backend/src/test/java/edu/westga/cs4985/clinicApp/server/TestUpdateMedicalPersonnelAvaiabilities.java
 /Users/pipai/Documents/GitHub/UWG-CS3985-Fall2021-Group5/code/backend/src/test/java/edu/westga/cs4985/clinicApp/server/TestGetUserByName.java
-/Users/pipai/Documents/GitHub/UWG-CS3985-Fall2021-Group5/code/backend/src/test/java/edu/westga/cs4985/clinicApp/server/TestMedicalCondition.java
 /Users/pipai/Documents/GitHub/UWG-CS3985-Fall2021-Group5/code/backend/src/test/java/edu/westga/cs4985/clinicApp/server/TestGetMedicalConditions.java
 /Users/pipai/Documents/GitHub/UWG-CS3985-Fall2021-Group5/code/backend/src/test/java/edu/westga/cs4985/clinicApp/server/TestAddPatient.java
 /Users/pipai/Documents/GitHub/UWG-CS3985-Fall2021-Group5/code/backend/src/test/java/edu/westga/cs4985/clinicApp/server/TestGetAppointments.java
-/Users/pipai/Documents/GitHub/UWG-CS3985-Fall2021-Group5/code/backend/src/test/java/edu/westga/cs4985/clinicApp/server/TestAppointment.java
+/Users/pipai/Documents/GitHub/UWG-CS3985-Fall2021-Group5/code/backend/src/test/java/edu/westga/cs4985/clinicApp/server/TesGetUserByMedicalPersonnelUserName.java
 /Users/pipai/Documents/GitHub/UWG-CS3985-Fall2021-Group5/code/backend/src/test/java/edu/westga/cs4985/clinicApp/server/TestUserLogin.java
+/Users/pipai/Documents/GitHub/UWG-CS3985-Fall2021-Group5/code/backend/src/test/java/edu/westga/cs4985/clinicApp/server/TestGetMedicalPersonnels.java
+/Users/pipai/Documents/GitHub/UWG-CS3985-Fall2021-Group5/code/backend/src/test/java/edu/westga/cs4985/clinicApp/server/TestMedicalCondition.java
+/Users/pipai/Documents/GitHub/UWG-CS3985-Fall2021-Group5/code/backend/src/test/java/edu/westga/cs4985/clinicApp/server/TestAppointment.java
+/Users/pipai/Documents/GitHub/UWG-CS3985-Fall2021-Group5/code/backend/src/test/java/edu/westga/cs4985/clinicApp/server/TestGetAppointmentsForMedicalPersonnel.java

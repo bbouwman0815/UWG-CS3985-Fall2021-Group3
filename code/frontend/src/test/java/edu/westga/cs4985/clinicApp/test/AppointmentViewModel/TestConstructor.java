@@ -10,7 +10,7 @@ import edu.westga.cs4985.clinicApp.model.User;
 import edu.westga.cs4985.clinicApp.viewmodel.PatientViewModel;
 
 /**
- * Test AppointmentViewModel Constructor
+ * Test MedicalPersonnelViewModel Constructor
  * 
  * @author Jinxiang Zeng
  * @version Fall 2021
@@ -30,7 +30,7 @@ public class TestConstructor {
 				() -> assertEquals(0, viewModel.pastAppointmentListProperty().size()),
 				() -> assertEquals(0, viewModel.availabilityListProperty().size()),
 				() -> assertEquals("", viewModel.notesProperty().getValue()),
-				() -> assertEquals("", viewModel.seletedMedicalPersonnel().getValue()),
+				() -> assertEquals(null, viewModel.seletedMedicalPersonnel().getValue()),
 				() -> assertEquals(0, viewModel.futureppointmentList().size()),
 				() -> assertEquals(0, viewModel.pastAppointmentList().size()));
 	}

@@ -29,13 +29,17 @@ class TestGetAppointments {
 			String request = requestType + "," + data;
 
 			if (request.equals("GET_APPOINTMENTS,{\"patient\":\"jimmy1\"}")) {
-				return "[{\"date\":\"2021-09-02T14:00\",\"notes\":\"Help\",\"patient\":\"jimmy1\",\"location\":\"TLC\",\"medicalPersonnel\":\"Person B\"},{\"date\":\"2021-09-03T13:00\",\"notes\":\"Help\",\"patient\":\"jimmy1\",\"location\":\"TLC\",\"medicalPersonnel\":\"Person A\"},{\"date\":\"2021-10-01T13:00\",\"notes\":\"sssss\",\"patient\":\"jimmy1\",\"location\":\"TLC\",\"medicalPersonnel\":\"Person A\"}]";
+				return "[{\"date\":\"2021-09-02T14:00\",\"notes\":\"Help\",\"patient\":\"jimmy1\",\"location\":\"TLC\",\"medicalPersonnel\":\"new\"},{\"date\":\"2021-09-03T13:00\",\"notes\":\"Help\",\"patient\":\"jimmy1\",\"location\":\"TLC\",\"medicalPersonnel\":\"new\"},{\"date\":\"2021-10-01T13:00\",\"notes\":\"sssss\",\"patient\":\"jimmy1\",\"location\":\"TLC\",\"medicalPersonnel\":\"new\"}]";
 			}
+			if (request.equals("GET_USER_BY_MEDICAL_PERSONNEL_USERNAME,{\"medicalPersonnel\":\"new\"}")) {
+				return "{\"zipcode\":\"30118\",\"lastName\":\"Bob\",\"country\":\"USA\",\"gender\":\"male\",\"race\":\"American Indian or Alaska Native\",\"address2\":\"\",\"city\":\"Carrollton\",\"address1\":\"3433 Atlanta Peachway\",\"dateOfBirth\":\"1990-09-29\",\"type\":\"MedicalPersonnel\",\"userName\":\"new\",\"firstName\":\"liu\",\"password\":\"11111\",\"phoneNumber\":\"123456789\",\"ethnicty\":\"Not Hispanic or Latino\",\"state\":\"GA\",\"email\":\"jimmy12334@gmail.com\"}";
+			} 
 			if (request.equals("GET_USER_BY_USERNAME,{\"patient\":\"jimmy1\"}")) {
 				return "{\"insurance\":\"8888888888\",\"lastName\":\"Bob\",\"country\":\"USA\",\"gender\":\"male\",\"race\":\"American Indian or Alaska Native\",\"address2\":\"\",\"city\":\"Carrollton\",\"address1\":\"3433 Atlanta Peachway\",\"dateOfBirth\":\"1990-09-29\",\"type\":\"PATIENT\",\"userName\":\"jimmy1\",\"firstName\":\"Jimmy\",\"password\":\"11111\",\"phoneNumber\":\"123456789\",\"ethnicty\":\"Not Hispanic or Latino\",\"caregiver\":\"Caregiver C\",\"state\":\"GA\",\"email\":\"jimmy12334@gmail.com\"}";
 			} else {
 				return "ERROR";
 			}
+			
 		}
 	}
 
