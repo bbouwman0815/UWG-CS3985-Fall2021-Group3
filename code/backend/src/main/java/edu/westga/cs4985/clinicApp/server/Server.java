@@ -467,16 +467,16 @@ public class Server extends Thread {
 	 * @throws ParseException the parse exception
 	 */
 	@SuppressWarnings("unchecked")
-	private String getPatientsForMedicalPersonnel(String jsonString) throws IOException, ParseException {
+	private String getMedicalPersonnelsPatients(String jsonString) throws IOException, ParseException {
 		JSONParser parser = new JSONParser();
 		JSONArray patients = new JSONArray();
-		FileReader reader = new FileReader("./jsonFiles/users.json");
+		FileReader reader = new FileReader("./jsonFiles/medicalpersonnelpatients.json");
 		JSONArray jsonObject = (JSONArray) parser.parse(reader);
 		JSONObject data = (JSONObject) parser.parse(jsonString);
 		for (Object aData : jsonObject) {
 			JSONObject parseData = (JSONObject) aData;
-			if (parseData.get("type").equals("PATIENT")) {
-				patients.add(parseData);
+			if (parseData.get("medicalPersonnel").equals(data.get("medicalPersonnel"))) {
+				return parseData.get("patients").toString();
 			}
 		}
 
@@ -639,6 +639,15 @@ public class Server extends Thread {
 			if (request.equals("GET_USER_BY_MEDICAL_PERSONNEL_USERNAME")) {
 				try {
 					result = this.getUserByMedicalPersonnelUserName(data);
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+			}
+			if (request.equals("GET_MEDICAL_PERSONNELS_PATIENTS")) {
+				try {
+					result = this.getMedicalPersonnelsPatients(data);
 				} catch (IOException e) {
 					e.printStackTrace();
 				} catch (ParseException e) {

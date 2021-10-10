@@ -145,7 +145,7 @@ public class MedicalPersonnelViewModel {
 	public void loadPatients() {
 		List<Patient> patients;
 		try {
-			patients = UserManager.userManager.getAllPatients();
+			patients = UserManager.userManager.getPatientsForMedicalPersonnel(User.user.getUsername());
 			this.patients = patients;
 		} catch (ParseException e) {
 			e.printStackTrace();

@@ -309,6 +309,23 @@ public class UserManager {
 		}
 		return this.convertToMedicalPersonnel(reply);
 	}
+	
+	/**
+	 * Gets the patients for medical personnel.
+	 *
+	 * @param medicalPersonnel the medical personnel
+	 * @return the patients for medical personnel
+	 * @throws ParseException the parse exception
+	 */
+	public List<Patient> getPatientsForMedicalPersonnel(String medicalPersonnel) throws ParseException {
+		String request = DataWriter.getUserByMedicalPersonnelName(medicalPersonnel);
+		String reply = this.communicator.request(RequestType.GET_MEDICAL_PERSONNELS_PATIENTS, request);
+		if (reply.equals("ERROR")) {
+			return new ArrayList<Patient>();
+		}
+		return this.convertToPatients(reply);
+		//return this.convertToPatient(reply);
+	}
 
 	/**
 	 * Convert json string to list of appointments
@@ -409,6 +426,17 @@ public class UserManager {
 					country, race, ethnicity, phoneNumber, email, insurance, userName, password);
 			patients.add(patient);
 
+		}
+		return patients;
+	}
+	
+	private List<Patient> convertToPatients(String reply) throws ParseException {
+		List<Patient> patients = new ArrayList<Patient>();
+		JSONParser parser = new JSONParser();
+		JSONArray data = (JSONArray) parser.parse(reply.toString());
+		for (Object aData : data) {
+			Patient patient = (Patient) UserManager.userManager.getUserByUserName((String) aData);
+			patients.add(patient);
 		}
 		return patients;
 	}
