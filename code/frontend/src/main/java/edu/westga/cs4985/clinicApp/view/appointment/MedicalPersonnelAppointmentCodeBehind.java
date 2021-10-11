@@ -1,11 +1,8 @@
 package edu.westga.cs4985.clinicApp.view.appointment;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.MonthDay;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.json.simple.parser.ParseException;
@@ -16,22 +13,21 @@ import edu.westga.cs4985.clinicApp.resources.WindowGenerator;
 import edu.westga.cs4985.clinicApp.viewmodel.MedicalPersonnelViewModel;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.Tooltip;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import javafx.util.Callback;
 
 public class MedicalPersonnelAppointmentCodeBehind {
 	
@@ -80,6 +76,7 @@ public class MedicalPersonnelAppointmentCodeBehind {
     	this.setListeners();
     	List<Appointment> appointments = FXCollections.observableArrayList(UserManager.userManager.getAppointmentsForMedicalPersonnel(this.viewModel.getMedicalePersonnel().getUsername()));
     	List<LocalDateTime> dayTimes = FXCollections.observableArrayList(UserManager.userManager.getAvailabilities(this.viewModel.getMedicalePersonnel().getUsername()));
+    	
     	this.viewModel.filterAppointment(appointments);
     	this.viewModel.setAvailabilityList(dayTimes);
     	this.showfutureButton.setVisible(false);
@@ -138,22 +135,33 @@ public class MedicalPersonnelAppointmentCodeBehind {
 				}
     		}
     	});
-    	
-    	this.availabilitiesList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-    		if (newValue != null) {
-    			Alert alert = WindowGenerator.openConfirm("Are you sure want to remove the availability?");
-				alert.setOnCloseRequest((evt) -> {
-					if (alert.getResult().getButtonData().equals(ButtonData.YES)) {
-						try {
-							this.viewModel.deleteAvailability();
-							UserManager.userManager.updateMedicalPersonnelAvaiabilities(this.viewModel.getMedicalePersonnel(),this.viewModel.availabilityList());
-						} catch (ParseException e) {
-							e.printStackTrace();
-						}
-					}
-				});
-				alert.showAndWait();
-    		}
+    	this.availabilitiesList.setOnMouseClicked((EventHandler<? super MouseEvent>) new EventHandler<MouseEvent>() {
+
+    	    @Override
+    	    public void handle(MouseEvent click) {
+
+    	        if (click.getClickCount() == 2) {
+    	        	Alert alert = WindowGenerator.openConfirm("Are you sure want to remove the availability?");
+    				alert.setOnCloseRequest((evt) -> {
+    					
+    					if (alert.getResult().getButtonData().equals(ButtonData.YES)) {
+    						try {
+    							viewModel.deleteAvailability();
+    							availabilitiesList.getSelectionModel().clearSelection();
+    							UserManager.userManager.updateMedicalPersonnelAvaiabilities(viewModel.getMedicalePersonnel(),viewModel.availabilityList());
+    							
+    						} catch (ParseException e) {
+    							System.out.println();
+    						}
+    					} 
+    					if (alert.getResult().getButtonData().equals(ButtonData.NO)){
+    						availabilitiesList.getSelectionModel().clearSelection();
+    					}
+    				});
+    				alert.showAndWait();
+    	          
+    	        }
+    	    }
     	});
     }
 
@@ -181,7 +189,7 @@ public class MedicalPersonnelAppointmentCodeBehind {
                 	
         			alert.showAndWait();
         		} else {
-        			Alert addAlert = WindowGenerator.openConfirm("Are you sure want to addAlert this availability?");
+        			Alert addAlert = WindowGenerator.openConfirm("Are you sure want to add this availability?");
             		addAlert.setOnCloseRequest((action) -> {
                 		if (addAlert.getResult().getButtonData().equals(ButtonData.YES)) {
                 			try {
@@ -189,6 +197,9 @@ public class MedicalPersonnelAppointmentCodeBehind {
 
         	        			UserManager.userManager.updateMedicalPersonnelAvaiabilities(this.viewModel.getMedicalePersonnel(),this.viewModel.availabilityList());
 
+        	        			this.timePicker.setValue(null);
+        	        			this.datePicker.setValue(null);
+        	        			
         					} catch (ParseException e) {
         						e.printStackTrace();
         					}
@@ -351,5 +362,5 @@ public class MedicalPersonnelAppointmentCodeBehind {
         
 
     }
-
+    
 }
