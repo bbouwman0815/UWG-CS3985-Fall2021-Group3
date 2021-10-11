@@ -11,122 +11,147 @@
 
 <AnchorPane prefHeight="598.0" prefWidth="702.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.westga.cs4985.clinicApp.view.generalInfor.PatientGeneralInfoCodeBehind">
    <children>
-      <AnchorPane layoutX="61.0" layoutY="26.0">
-         <children>
-            <TextField fx:id="firstNameInput" layoutX="109.0" layoutY="1.0" prefHeight="36.0" prefWidth="161.0" />
-            <Label layoutX="8.0" layoutY="-2.0" prefHeight="43.0" prefWidth="102.0" text="First Name:">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label layoutX="309.0" layoutY="1.0" prefHeight="36.0" prefWidth="91.0" text="Last Name:">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <TextField fx:id="lastNameInput" layoutX="417.0" layoutY="1.0" prefHeight="36.0" prefWidth="161.0" />
-            <Label layoutX="7.0" layoutY="321.0" prefHeight="36.0" prefWidth="50.0" text="City:">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label layoutX="309.0" layoutY="262.0" prefHeight="36.0" prefWidth="91.0" text="Address2:">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label layoutX="4.0" layoutY="262.0" prefHeight="36.0" prefWidth="83.0" text="Address1:">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label layoutX="11.0" layoutY="207.0" prefHeight="36.0" prefWidth="69.0" text="Phone:">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label layoutX="320.0" layoutY="207.0" prefHeight="36.0" prefWidth="69.0" text="Email:">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label layoutX="165.0" layoutY="321.0" prefHeight="36.0" prefWidth="50.0" text="State:">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label layoutX="313.0" layoutY="321.0" prefHeight="36.0" prefWidth="69.0" text="Country:">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label layoutX="6.0" layoutY="92.0" prefHeight="36.0" prefWidth="102.0" text="Description:">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <TextArea fx:id="descriptionInput" layoutX="4.0" layoutY="122.0" prefHeight="69.0" prefWidth="576.0" />
-            <TextField fx:id="phoneInput" layoutX="99.0" layoutY="207.0" prefHeight="36.0" prefWidth="161.0" />
-            <TextField fx:id="emailInput" layoutX="417.0" layoutY="207.0" prefHeight="36.0" prefWidth="161.0" />
-            <TextField fx:id="address1Input" layoutX="99.0" layoutY="262.0" prefHeight="36.0" prefWidth="161.0" />
-            <TextField fx:id="address2Input" layoutX="417.0" layoutY="262.0" prefHeight="36.0" prefWidth="161.0" />
-            <TextField fx:id="cityInput" layoutX="54.0" layoutY="321.0" prefHeight="36.0" prefWidth="102.0" />
-            <Label layoutX="4.0" layoutY="431.0" prefHeight="27.0" prefWidth="83.0" text="Caregiver:">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label fx:id="caregiverLabel" layoutX="87.0" layoutY="431.0" prefHeight="27.0" prefWidth="117.0" />
-            <Button fx:id="addCaregiverButton" layoutY="469.0" mnemonicParsing="false" onAction="#addCaregiver" prefHeight="16.0" prefWidth="129.0" text="Add Caregiver" />
-            <Button fx:id="editbutton" layoutX="451.0" layoutY="496.0" mnemonicParsing="false" onAction="#editGeneralInfo" prefHeight="36.0" prefWidth="117.0" text="Edit">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Button>
-            <Button fx:id="cancelButton" layoutX="320.0" layoutY="496.0" mnemonicParsing="false" onAction="#cancel" prefHeight="36.0" prefWidth="117.0" text="Cancel">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Button>
-            <Button fx:id="saveButton" layoutX="451.0" layoutY="496.0" mnemonicParsing="false" onAction="#saveGeneralInfo" prefHeight="36.0" prefWidth="117.0" text="Save">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Button>
-            <Label layoutX="6.0" layoutY="50.0" prefHeight="36.0" prefWidth="102.0" text="Sex:">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label layoutX="305.0" layoutY="50.0" prefHeight="36.0" prefWidth="102.0" text="Birthday:">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label layoutX="7.0" layoutY="382.0" prefHeight="36.0" prefWidth="50.0" text="Race:">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label layoutX="314.0" layoutY="382.0" prefHeight="36.0" prefWidth="83.0" text="Ethnicity:">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label layoutX="313.0" layoutY="427.0" prefHeight="36.0" prefWidth="83.0" text="Insurance:">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <ChoiceBox fx:id="raceChoiceBox" layoutX="99.0" layoutY="378.0" prefHeight="36.0" prefWidth="161.0" />
-            <ChoiceBox fx:id="sexChoiceBox" layoutX="110.0" layoutY="55.0" prefHeight="27.0" prefWidth="161.0" />
-            <ChoiceBox fx:id="ethnicityChoiceBox" layoutX="417.0" layoutY="378.0" prefHeight="36.0" prefWidth="161.0" />
-            <TextField fx:id="insuranceInput" layoutX="417.0" layoutY="427.0" prefHeight="36.0" prefWidth="161.0" />
-            <ChoiceBox fx:id="countryChoiceBox" layoutX="417.0" layoutY="318.0" prefHeight="36.0" prefWidth="161.0" />
-            <DatePicker fx:id="birthdayPicker" layoutX="420.0" layoutY="55.0" prefHeight="27.0" prefWidth="161.0" />
-            <TextField fx:id="stateInput" layoutX="215.0" layoutY="318.0" prefHeight="36.0" prefWidth="83.0" />
-            <Button fx:id="removeCaregiverButton" layoutY="469.0" mnemonicParsing="false" onAction="#removerCaregiver" prefHeight="27.0" prefWidth="129.0" text="Remove Caregiver" />
-         </children>
-      </AnchorPane>
+      <Label layoutX="20.0" layoutY="15.0" text="Personal Details:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="45.0" layoutY="35.0" prefHeight="30.0" prefWidth="80.0" text="First Name:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="firstNameInput" layoutX="120.0" layoutY="35.0" prefHeight="30.0" prefWidth="160.0" />
+      <Label layoutX="320.0" layoutY="35.0" prefHeight="35.0" prefWidth="80.0" text="Last Name:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="lastNameInput" layoutX="395.0" layoutY="35.0" prefHeight="30.0" prefWidth="160.0" />
+      <Label layoutX="45.0" layoutY="70.0" prefHeight="30.0" prefWidth="80.0" text="Sex:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <ChoiceBox fx:id="sexChoiceBox" layoutX="120.0" layoutY="70.0" prefHeight="30.0" prefWidth="161.0" />
+      <Label layoutX="320.0" layoutY="70.0" prefHeight="30.0" prefWidth="80.0" text="Birthday:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <DatePicker fx:id="birthdayPicker" layoutX="395.0" layoutY="70.0" prefHeight="30.0" prefWidth="160.0" />
+      <Label layoutX="40.0" layoutY="105.0" prefHeight="30.0" prefWidth="80.0" text="Insurance:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="insuranceInput" layoutX="120.0" layoutY="105.0" prefHeight="30.0" prefWidth="160.0" />
+      <Label layoutX="320.0" layoutY="105.0" prefHeight="27.0" prefWidth="83.0" text="Caregiver:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="caregiverLabel" layoutX="395.0" layoutY="105.0" prefHeight="27.0" prefWidth="117.0" />
+      <Button fx:id="addCaregiverButton" layoutX="315.0" layoutY="135.0" mnemonicParsing="false" onAction="#addCaregiver" prefHeight="20.0" prefWidth="130.0" text="Add Caregiver">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="removeCaregiverButton" layoutX="454.0" layoutY="135.0" mnemonicParsing="false" onAction="#removerCaregiver" prefHeight="20.0" prefWidth="140.0" text="Remove Caregiver">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Label layoutX="20.0" layoutY="170.0" text="Living Address:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="45.0" layoutY="190.0" prefHeight="30.0" prefWidth="100.0" text="Address Line 1:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="address1Input" layoutX="145.0" layoutY="190.0" prefHeight="30.0" prefWidth="160.0" />
+      <Label layoutX="330.0" layoutY="190.0" prefHeight="30.0" prefWidth="100.0" text="Address Line 2:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="address2Input" layoutX="430.0" layoutY="190.0" prefHeight="30.0" prefWidth="160.0" />
+      <Label layoutX="45.0" layoutY="225.0" prefHeight="30.0" prefWidth="80.0" text="City:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="cityInput" layoutX="145.0" layoutY="225.0" prefHeight="30.0" prefWidth="160.0" />
+      <Label layoutX="330.0" layoutY="225.0" prefHeight="30.0" prefWidth="80.0" text="State:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="stateInput" layoutX="430.0" layoutY="225.0" prefHeight="30.0" prefWidth="85.0" />
+      <Label layoutX="215.0" layoutY="260.0" prefHeight="30.0" prefWidth="80.0" text="Country:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <ChoiceBox fx:id="countryChoiceBox" layoutX="290.0" layoutY="260.0" prefHeight="30.0" prefWidth="160.0" />
+      <Label layoutX="20.0" layoutY="300.0" prefHeight="20.0" prefWidth="83.0" text="Contact Info:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="45.0" layoutY="320.0" prefHeight="30.0" prefWidth="80.0" text="Phone:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="phoneInput" layoutX="120.0" layoutY="320.0" prefHeight="30.0" prefWidth="160.0" />
+      <Label layoutX="325.0" layoutY="320.0" prefHeight="36.0" prefWidth="69.0" text="Email:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="emailInput" layoutX="395.0" layoutY="320.0" prefHeight="30.0" prefWidth="160.0" />
+      <Label layoutX="20.0" layoutY="370.0" text="Demographics: ">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="45.0" layoutY="390.0" prefHeight="36.0" prefWidth="50.0" text="Race:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <ChoiceBox fx:id="raceChoiceBox" layoutX="120.0" layoutY="390.0" prefHeight="30.0" prefWidth="160.0" />
+      <Label layoutX="320.0" layoutY="390.0" prefHeight="30.0" prefWidth="80.0" text="Ethnicity:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <ChoiceBox fx:id="ethnicityChoiceBox" layoutX="395.0" layoutY="390.0" prefHeight="30.0" prefWidth="160.0" />
+      <Label layoutX="20.0" layoutY="430.0" prefHeight="30.0" prefWidth="102.0" text="Description:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextArea fx:id="descriptionInput" layoutX="45.0" layoutY="455.0" prefHeight="69.0" prefWidth="576.0" />
+      <Button fx:id="editbutton" layoutX="41.0" layoutY="550.0" mnemonicParsing="false" onAction="#editGeneralInfo" prefHeight="30.0" prefWidth="80.0" text="Edit">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="saveButton" layoutX="290.0" layoutY="550.0" mnemonicParsing="false" onAction="#saveGeneralInfo" prefHeight="30.0" prefWidth="80.0" text="Save">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="cancelButton" layoutX="541.0" layoutY="550.0" mnemonicParsing="false" onAction="#cancel" prefHeight="30.0" prefWidth="80.0" text="Cancel">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Label fx:id="contactInfoErrorLabel" layoutX="567.0" layoutY="282.0" prefHeight="96.0" prefWidth="117.0" textFill="RED" visible="false" wrapText="true" />
    </children>
 </AnchorPane>
