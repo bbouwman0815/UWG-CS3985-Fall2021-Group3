@@ -15,7 +15,7 @@ public class TestUpdatePatientGeneralInfo {
 		Server server = new Server();
 		JSONObject json = new JSONObject();
 		json.put("type", "PATIENT");
-		json.put("userName", "test");
+		json.put("userName", "testp");
 		json.put("password", "11111");
 		json.put("firstName", "test");
 		json.put("lastName", "test");

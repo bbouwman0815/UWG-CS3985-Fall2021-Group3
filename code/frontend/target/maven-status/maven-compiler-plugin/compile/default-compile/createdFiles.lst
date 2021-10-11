@@ -25,6 +25,7 @@ edu/westga/cs4985/clinicApp/utils/login/UToken.class
 edu/westga/cs4985/clinicApp/utils/login/ILogin.class
 edu/westga/cs4985/clinicApp/model/MedicalPersonnel.class
 edu/westga/cs4985/clinicApp/view/generalInfor/PatientGeneralInfoCodeBehind.class
+edu/westga/cs4985/clinicApp/view/login/NewMedicalPersonnelCodeBehind.class
 edu/westga/cs4985/clinicApp/utils/DataWriter.class
 edu/westga/cs4985/clinicApp/model/Login.class
 edu/westga/cs4985/clinicApp/model/Appointment.class

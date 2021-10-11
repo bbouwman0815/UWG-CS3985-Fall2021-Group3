@@ -1,7 +1,9 @@
 package edu.westga.cs4985.clinicApp.view.appointment;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.MonthDay;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,19 +21,22 @@ import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import javafx.util.Callback;
 
 public class MedicalPersonnelAppointmentCodeBehind {
 	
 	private static final String APPOINTMENT_VIEW_POPUP = "../appointment/AppointmentViewPopup.fxml";
-	private final String[] dateTimes = {"8:00","9:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00",};
+	private final String[] dateTimes = {"08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00",};
 	
 	@FXML
     private ListView<Appointment> futureAppointmentList;
@@ -158,34 +163,44 @@ public class MedicalPersonnelAppointmentCodeBehind {
     		Alert alert = WindowGenerator.openAlert("Please select your date!");
         	
 			alert.showAndWait();
-    	} 
-    	if (this.timePicker.getValue() == null) {
+    	} else if (this.timePicker.getValue() == null) {
     		Alert alert = WindowGenerator.openAlert("Please select your time!");
         	
 			alert.showAndWait();
-    	}
-    	String dateTime = this.datePicker.getValue().toString() + " " + this.timePicker.getValue().toString();
-    	if(this.viewModel.isAddedAvailability(dateTime)) {
-    		Alert alert = WindowGenerator.openAlert("The availability already added! Please select another date!");
-        	
-			alert.showAndWait();
-    	}  else {
-    		Alert addAlert = WindowGenerator.openConfirm("Are you sure want to addAlert this availability?");
-    		addAlert.setOnCloseRequest((action) -> {
-        		if (addAlert.getResult().getButtonData().equals(ButtonData.YES)) {
-        			try {
-						this.viewModel.addAvailability(dateTime);
+    	} else {
+    		String dateTime = this.datePicker.getValue().toString() + " " + this.timePicker.getValue().toString();
+        	if(this.viewModel.isAddedAvailability(dateTime)) {
+        		Alert alert = WindowGenerator.openAlert("The availability already added! Please select another date!");
+            	
+    			alert.showAndWait();
+        	}  else {
+        		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        		LocalDateTime availability = LocalDateTime.parse(dateTime, formatter);
+        		if (availability.isBefore(LocalDateTime.now())) {
+        			Alert alert = WindowGenerator.openAlert("We are unable to add past availability! Please select another date!");
+                	
+        			alert.showAndWait();
+        		} else {
+        			Alert addAlert = WindowGenerator.openConfirm("Are you sure want to addAlert this availability?");
+            		addAlert.setOnCloseRequest((action) -> {
+                		if (addAlert.getResult().getButtonData().equals(ButtonData.YES)) {
+                			try {
+        						this.viewModel.addAvailability(dateTime);
 
-	        			UserManager.userManager.updateMedicalPersonnelAvaiabilities(this.viewModel.getMedicalePersonnel(),this.viewModel.availabilityList());
+        	        			UserManager.userManager.updateMedicalPersonnelAvaiabilities(this.viewModel.getMedicalePersonnel(),this.viewModel.availabilityList());
 
-					} catch (ParseException e) {
-						e.printStackTrace();
-					}
+        					} catch (ParseException e) {
+        						e.printStackTrace();
+        					}
 
+                		}
+                	});
+            		addAlert.show();
         		}
-        	});
-    		addAlert.show();
+        		
+        	}
     	}
+    	
     }
 
     @FXML
@@ -258,7 +273,7 @@ public class MedicalPersonnelAppointmentCodeBehind {
         
         @FXML
         public void initialize() {
-        	this.editButton.setVisible(false);
+        	this.editButton.setVisible(true);
         	this.saveButton.setVisible(false);
         	this.appointmentNotes.setEditable(false);
         	if (this.viewModel.selectedFutureAppointmentProperty().get() != null) {
@@ -271,7 +286,6 @@ public class MedicalPersonnelAppointmentCodeBehind {
         	} 
         	if (this.viewModel.selectedPastAppointmentProperty().get() != null) {
         		this.cancelAppointmentButton.setVisible(false);
-        		this.editButton.setVisible(true);
         		this.medicalPersonnelLabel.textProperty().set("Medical Personnel: " + this.viewModel.selectedPastAppointmentProperty().get().getMedicalPersonnel());
             	this.timeLabel.textProperty().set("Time: " + this.viewModel.selectedPastAppointmentProperty().get().getDateTime());
             	this.appointmentNotes.textProperty().set(this.viewModel.selectedPastAppointmentProperty().get().getNotes());
@@ -331,7 +345,8 @@ public class MedicalPersonnelAppointmentCodeBehind {
         	this.appointmentNotes.setEditable(false);
         	this.OKButton.setVisible(true);
 
-			this.viewModel.notesProperty().set(this.appointmentNotes.getText());
+			this.viewModel.selectedFutureAppointmentProperty().get().setNotes(this.appointmentNotes.getText());
+			UserManager.userManager.updateAppointment(this.viewModel.selectedFutureAppointmentProperty().get());
         }
         
 

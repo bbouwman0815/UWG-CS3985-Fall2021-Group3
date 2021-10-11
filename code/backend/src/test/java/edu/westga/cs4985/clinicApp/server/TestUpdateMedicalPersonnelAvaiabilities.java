@@ -1,8 +1,6 @@
 package edu.westga.cs4985.clinicApp.server;
 
 import static org.junit.Assert.assertEquals;
-
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -26,7 +24,7 @@ public class TestUpdateMedicalPersonnelAvaiabilities {
 		dayTimes.add(LocalDateTime.of(2024,10,01,14,00));
 		Server server = new Server();
 		JSONObject json = new JSONObject();
-		json.put("medicalPersonnel", "test");
+		json.put("medicalPersonnel", "testm");
 		JSONArray availability = new JSONArray();
 		for (LocalDateTime dayTime : dayTimes) {
 			availability.add(dayTime.toString());
@@ -43,7 +41,7 @@ public class TestUpdateMedicalPersonnelAvaiabilities {
 		dayTimes.add(LocalDateTime.of(2024,9,01,14,00));
 		Server server = new Server();
 		JSONObject json = new JSONObject();
-		json.put("medicalPersonnel", "test");
+		json.put("medicalPersonnel", "testm");
 		JSONArray availability = new JSONArray();
 		for (LocalDateTime dayTime : dayTimes) {
 			availability.add(dayTime.toString());
@@ -60,7 +58,7 @@ public class TestUpdateMedicalPersonnelAvaiabilities {
 		dayTimes.add(LocalDateTime.of(2024,9,01,14,00));
 		Server server = new Server();
 		JSONObject json = new JSONObject();
-		json.put("medicalPersonnel", "test1");
+		json.put("medicalPersonnel", "testm");
 		JSONArray availability = new JSONArray();
 		for (LocalDateTime dayTime : dayTimes) {
 			availability.add(dayTime.toString());
@@ -80,7 +78,7 @@ public class TestUpdateMedicalPersonnelAvaiabilities {
 		JSONObject result = null;
 		for (Object aData : jsonObject) {
 			JSONObject parseData = (JSONObject) aData;
-			if (parseData.get("medicalPersonnel").equals("test1")) {
+			if (parseData.get("medicalPersonnel").equals("testm")) {
 				result = parseData;
 			}
 		}

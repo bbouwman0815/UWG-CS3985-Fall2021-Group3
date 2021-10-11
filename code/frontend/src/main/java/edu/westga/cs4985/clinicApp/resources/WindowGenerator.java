@@ -92,8 +92,8 @@ public class WindowGenerator {
 			controller = new DashboardCodeBehind();
 		}
 		if (user instanceof MedicalPersonnel) {
-			setMedicalPersonnelView();
-			return;
+			fxml = "view/medicalpersonnel/MedicalPersonnelGui.fxml";
+			controller = new MedicalPersonnelCodeBehind();
 		}
 		WindowGenerator.changeScene(currentStage, fxml, controller, PATIENT_PROFILE_TITLE);
 	}

@@ -4,9 +4,6 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
@@ -25,7 +22,7 @@ public class TestGetAvailabilities {
 		
 		json.put("availabilityList", availability);
 		JSONObject json1 = new JSONObject();
-		json1.put("medicalPersonnel", "test");
+		json1.put("medicalPersonnel", "testm1");
 		assertEquals(json.get("availabilityList").toString(), server.getAvailabilities(json1.toJSONString()));
 	}
 	
@@ -40,7 +37,7 @@ public class TestGetAvailabilities {
 		
 		json.put("availabilityList", availability);
 		JSONObject json1 = new JSONObject();
-		json1.put("test", "test");
+		json1.put("test", "testm");
 		assertEquals("ERROR", server.getAvailabilities(json1.toJSONString()));
 	}
 }
