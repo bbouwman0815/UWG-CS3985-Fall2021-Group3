@@ -4,10 +4,18 @@ package edu.westga.cs4985.clinicApp.view.medicalPersonnel;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
+import org.json.simple.parser.ParseException;
+
 import edu.westga.cs4985.clinicApp.model.Patient;
+import edu.westga.cs4985.clinicApp.model.User;
+import edu.westga.cs4985.clinicApp.model.UserManager;
+import edu.westga.cs4985.clinicApp.resources.WindowGenerator;
 import edu.westga.cs4985.clinicApp.viewmodel.MedicalPersonnelViewModel;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -16,6 +24,8 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
 /**
@@ -124,6 +134,30 @@ public class MedicalPersonnelCodeBehind {
 						}
 					}
 				});
+		
+		this.patientListView.setOnMouseClicked((EventHandler<? super MouseEvent>) new EventHandler<MouseEvent>() {
+
+    	    @Override
+    	    public void handle(MouseEvent click) {
+
+    	        if (click.getClickCount() == 2) {
+    	        	Alert alert = WindowGenerator.openConfirm("Are you sure want to remove the patient from your care?");
+    				alert.setOnCloseRequest((evt) -> {
+    					
+    					if (alert.getResult().getButtonData().equals(ButtonData.YES)) {
+    						viewmodel.deletePatient();
+							patientListView.getSelectionModel().clearSelection();
+							UserManager.userManager.updateMedicalPersonnelsPatients(viewmodel.getMedicalePersonnel(), viewmodel.getPatients());
+    					} 
+    					if (alert.getResult().getButtonData().equals(ButtonData.NO)){
+    						patientListView.getSelectionModel().clearSelection();
+    					}
+    				});
+    				alert.showAndWait();
+    	          
+    	        }
+    	    }
+    	});
 	}
 
 	private void loadPatientData() {

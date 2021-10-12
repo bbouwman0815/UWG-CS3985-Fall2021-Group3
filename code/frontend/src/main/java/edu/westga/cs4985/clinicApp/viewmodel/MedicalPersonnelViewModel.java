@@ -246,6 +246,18 @@ public class MedicalPersonnelViewModel {
 	}
 	
 	/**
+	 * Delete patient.
+	 *
+	 * @return the patient
+	 */
+	public Patient deletePatient() {
+		Patient patient = this.selectedPatientProperty.get();
+		this.patients.remove(this.selectedPatientProperty.getValue());
+		this.patientsListProperty.set(FXCollections.observableArrayList(this.patients));
+		return patient;
+	}
+	
+	/**
 	 * Get the selected time
 	 * 
 	 * @return the selected time

@@ -518,6 +518,42 @@ public class Server extends Thread {
 	}
 	
 	/**
+	 * Update medical personnels patients.
+	 *
+	 * @param jsonString the json string
+	 * @return the string
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws ParseException the parse exception
+	 */
+	@SuppressWarnings("unchecked")
+	public String updateMedicalPersonnelsPatients(String jsonString) throws IOException, ParseException {
+		JSONParser parser = new JSONParser();
+		FileReader reader = new FileReader("./jsonFiles/medicalpersonnelpatients.json");
+		JSONArray jsonObject = (JSONArray) parser.parse(reader);
+
+		FileWriter writer = new FileWriter("./jsonFiles/medicalpersonnelpatients.json");
+		JSONObject data = (JSONObject) parser.parse(jsonString);
+		JSONObject result = null;
+		for (Object aData : jsonObject) {
+			JSONObject parseData = (JSONObject) aData;
+			if (parseData.get("medicalPersonnel").equals(data.get("medicalPersonnel"))) {
+				result = parseData;
+			}
+		}
+		if(result != null) {
+			jsonObject.remove(result);
+			jsonObject.add(data);
+		} else {
+			jsonObject.add(data);
+		}
+		
+		writer.write(jsonObject.toJSONString());
+		writer.flush();
+		writer.close();
+		return "Updated";
+	}
+	
+	/**
 	 * Adds the new medical personnel.
 	 *
 	 * @param jsonString the json string
@@ -682,6 +718,15 @@ public class Server extends Thread {
 			if (request.equals("GET_MEDICAL_PERSONNELS_PATIENTS")) {
 				try {
 					result = this.getMedicalPersonnelsPatients(data);
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+			}
+			if (request.equals("UPDATE_MEDICAL_PERSONNELS_PATIENTS")) {
+				try {
+					result = this.updateMedicalPersonnelsPatients(data);
 				} catch (IOException e) {
 					e.printStackTrace();
 				} catch (ParseException e) {
