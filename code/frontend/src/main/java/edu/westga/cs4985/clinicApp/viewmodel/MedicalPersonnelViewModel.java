@@ -181,11 +181,10 @@ public class MedicalPersonnelViewModel {
 	 * 
 	 * @return the added availability
 	 */
-	public LocalDateTime deleteAvailability() throws ParseException{
+	public void deleteAvailability() throws ParseException{
 		LocalDateTime availability = this.selectedAvailabilityProperty.get();
 		this.availabilityList.remove(availability);
 		this.availabilityListProperty.set(FXCollections.observableArrayList(this.availabilityList));
-		return availability;
 	}
 	
 	/**
@@ -212,7 +211,9 @@ public class MedicalPersonnelViewModel {
 	 * @param dayTimes the value of vailability List
 	 */
 	public void setAvailabilityList(List<LocalDateTime> dayTimes) {
-		this.availabilityList = dayTimes;
+		for (LocalDateTime dateTime : dayTimes) {
+			this.availabilityList.add(dateTime);
+		}
 		this.availabilityListProperty.set(FXCollections.observableArrayList(this.availabilityList));
 	}
 	

@@ -8,24 +8,24 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.Test;
 
-public class TestAppointment {
+public class TestUpdateAppointment {
 
 	@SuppressWarnings("unchecked")
 	@Test
-	public void testBookAppointment() throws IOException, ParseException {
+	public void testUpdateAppointment() throws IOException, ParseException {
 		Server server = new Server();
 		JSONObject json = new JSONObject();
 		json.put("medicalPersonnel", "testm");
 		json.put("patient", "testp");
 		json.put("date", "2021-11-01T13:00");
 		json.put("location", "TCL");
-		json.put("notes", "new");
-		assertEquals("ADDED", server.bookAppointment(json.toJSONString()));
+		json.put("notes", "");
+		assertEquals("Updated", server.updateAppointment(json.toJSONString()));
 	}
 	
 	@SuppressWarnings("unchecked")
 	@Test
-	public void testCancelAppointmentDateDonotMatch() throws IOException, ParseException {
+	public void testUpdateAppointmentDateDonotMatch() throws IOException, ParseException {
 		Server server = new Server();
 		JSONObject json = new JSONObject();
 		json.put("medicalPersonnel", "testm");
@@ -33,12 +33,12 @@ public class TestAppointment {
 		json.put("date", "2021-12-01T13:00");
 		json.put("location", "TCL");
 		json.put("notes", "new");
-		assertEquals("Removed", server.cancleAppointment(json.toJSONString()));
+		assertEquals("Updated", server.updateAppointment(json.toJSONString()));
 	}
 	
 	@SuppressWarnings("unchecked")
 	@Test
-	public void testCancelAppointmentPatientDateDonotMatch() throws IOException, ParseException {
+	public void testUpdateAppointmentPatientDateDonotMatch() throws IOException, ParseException {
 		Server server = new Server();
 		JSONObject json = new JSONObject();
 		json.put("medicalPersonnel", "test");
@@ -46,12 +46,12 @@ public class TestAppointment {
 		json.put("date", "2021-12-01T13:00");
 		json.put("location", "TCL");
 		json.put("notes", "new");
-		assertEquals("Removed", server.cancleAppointment(json.toJSONString()));
+		assertEquals("Updated", server.updateAppointment(json.toJSONString()));
 	}
 	
 	@SuppressWarnings("unchecked")
 	@Test
-	public void testCancelAppointmentMedicalPersonnelDonotMatch() throws IOException, ParseException {
+	public void testUpdateAppointmentMedicalPersonnelDonotMatch() throws IOException, ParseException {
 		Server server = new Server();
 		JSONObject json = new JSONObject();
 		json.put("medicalPersonnel", "test");
@@ -59,12 +59,12 @@ public class TestAppointment {
 		json.put("date", "2021-11-01T13:00");
 		json.put("location", "TCL");
 		json.put("notes", "new");
-		assertEquals("Removed", server.cancleAppointment(json.toJSONString()));
+		assertEquals("Updated", server.updateAppointment(json.toJSONString()));
 	}
 	
 	@SuppressWarnings("unchecked")
 	@Test
-	public void testCancelAppointmentDateMatch() throws IOException, ParseException {
+	public void testUpdateAppointmentDateMatch() throws IOException, ParseException {
 		Server server = new Server();
 		JSONObject json = new JSONObject();
 		json.put("medicalPersonnel", "testm");
@@ -72,12 +72,12 @@ public class TestAppointment {
 		json.put("date", "2021-12-01T13:00");
 		json.put("location", "TCL");
 		json.put("notes", "new");
-		assertEquals("Removed", server.cancleAppointment(json.toJSONString()));
+		assertEquals("Updated", server.updateAppointment(json.toJSONString()));
 	}
 	
 	@SuppressWarnings("unchecked")
 	@Test
-	public void testCancelAppointmentDatenoMatch() throws IOException, ParseException {
+	public void testUpdateAppointmentDatenoMatch() throws IOException, ParseException {
 		Server server = new Server();
 		JSONObject json = new JSONObject();
 		json.put("medicalPersonnel", "testm");
@@ -85,12 +85,12 @@ public class TestAppointment {
 		json.put("date", "2021-11-01T13:00");
 		json.put("location", "TCL");
 		json.put("notes", "new");
-		assertEquals("Removed", server.cancleAppointment(json.toJSONString()));
+		assertEquals("Updated", server.updateAppointment(json.toJSONString()));
 	}
 	
 	@SuppressWarnings("unchecked")
 	@Test
-	public void testCancelAppointmentDatenMatch() throws IOException, ParseException {
+	public void testUpdateAppointmentDatenMatch() throws IOException, ParseException {
 		Server server = new Server();
 		JSONObject json = new JSONObject();
 		json.put("medicalPersonnel", "test");
@@ -98,12 +98,12 @@ public class TestAppointment {
 		json.put("date", "2021-11-01T13:00");
 		json.put("location", "TCL");
 		json.put("notes", "new");
-		assertEquals("Removed", server.cancleAppointment(json.toJSONString()));
+		assertEquals("Updated", server.updateAppointment(json.toJSONString()));
 	}
 	
 	@SuppressWarnings("unchecked")
 	@Test
-	public void testCancelAppointmentAllNoMatch() throws IOException, ParseException {
+	public void testUpdateAppointmentAllNoMatch() throws IOException, ParseException {
 		Server server = new Server();
 		JSONObject json = new JSONObject();
 		json.put("medicalPersonnel", "test");
@@ -111,19 +111,8 @@ public class TestAppointment {
 		json.put("date", "2021-12-01T13:00");
 		json.put("location", "TCL");
 		json.put("notes", "new");
-		assertEquals("Removed", server.cancleAppointment(json.toJSONString()));
+		assertEquals("Updated", server.updateAppointment(json.toJSONString()));
 	}	
 	
-	@SuppressWarnings("unchecked")
-	@Test
-	public void testCancelAppointmentExist() throws IOException, ParseException {
-		Server server = new Server();
-		JSONObject json = new JSONObject();
-		json.put("medicalPersonnel", "testm");
-		json.put("patient", "testp");
-		json.put("date", "2021-11-01T13:00");
-		json.put("location", "TCL");
-		json.put("notes", "new");
-		assertEquals("Removed", server.cancleAppointment(json.toJSONString()));
-	}
+
 }

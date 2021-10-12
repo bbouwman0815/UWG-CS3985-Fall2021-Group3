@@ -3,11 +3,6 @@ package edu.westga.cs4985.clinicApp.server;
 import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.Test;
@@ -20,7 +15,7 @@ public class TesGetUserByMedicalPersonnelUserName {
 		Server server = new Server();
 		JSONObject json = new JSONObject();
 		json.put("type", "MedicalPersonnel");
-		json.put("userName", "test001");
+		json.put("userName", "testm");
 		json.put("password", "123");
 		json.put("firstName", "test");
 		json.put("lastName", "test");
@@ -39,7 +34,7 @@ public class TesGetUserByMedicalPersonnelUserName {
 		
 
 		JSONObject json1 = new JSONObject();
-		json1.put("medicalPersonnel", "test001");
+		json1.put("medicalPersonnel", "testm");
 		assertEquals(json.toJSONString(), server.getUserByMedicalPersonnelUserName(json1.toJSONString()));
 	}
 	
@@ -49,7 +44,7 @@ public class TesGetUserByMedicalPersonnelUserName {
 		Server server = new Server();
 		JSONObject json = new JSONObject();
 		json.put("type", "MedicalPersonnel");
-		json.put("userName", "test001");
+		json.put("userName", "testm");
 		json.put("password", "123");
 		json.put("firstName", "test");
 		json.put("lastName", "test");
@@ -68,7 +63,7 @@ public class TesGetUserByMedicalPersonnelUserName {
 		
 
 		JSONObject json1 = new JSONObject();
-		json1.put("MedicalPersonnel", "test001");
+		json1.put("MedicalPersonnel", "testm");
 		assertEquals("ERROR", server.getUserByMedicalPersonnelUserName(json1.toJSONString()));
 	}
 }

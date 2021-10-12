@@ -162,6 +162,21 @@ public class UserManager {
 		}
 		return true;
 	}
+	
+	/**
+	 * Update an appointment
+	 * 
+	 * @param appointment the appointment to Update
+	 * @return true if appointment is updated successful; otherwise false
+	 */
+	public boolean updateAppointment(Appointment appointment) {
+		String requestData = DataWriter.writeAppointmentInfo(appointment);
+		String reply = this.communicator.request(RequestType.UPDATE_APPOINTMENT, requestData);
+		if (reply.equals("ERROR")) {
+			return false;
+		}
+		return true;
+	}
 
 	/**
 	 * Adds the patient.

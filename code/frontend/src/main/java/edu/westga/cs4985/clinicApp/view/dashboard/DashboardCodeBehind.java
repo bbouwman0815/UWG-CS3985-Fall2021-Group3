@@ -3,6 +3,7 @@ package edu.westga.cs4985.clinicApp.view.dashboard;
 import java.io.IOException;
 
 import edu.westga.cs4985.clinicApp.resources.WindowGenerator;
+import edu.westga.cs4985.clinicApp.viewmodel.PatientViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -35,29 +36,38 @@ public class DashboardCodeBehind {
 	
     @FXML
     private AnchorPane anchorPaneViewer;
+    
+    private PatientViewModel viewModel;
 
 	public DashboardCodeBehind() {
+		
+		this.viewModel = new PatientViewModel();
+	}
+	
+	@FXML
+	public void initialize() {
+		this.pageLabel.textProperty().set("" + this.viewModel.getPatient().getFullName() + "'s Dashboard");
 	}
 
 	@FXML
 	void handleNavigateAppointment(ActionEvent event) throws IOException {
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("../appointment/AppointmentGui.fxml"));
 		this.anchorPaneViewer.getChildren().setAll(pane);
-		this.pageLabel.textProperty().set("Patient's Appointments");
+		this.pageLabel.textProperty().set("" + this.viewModel.getPatient().getFullName() + "'s Appointments");
 	}
 
 	@FXML
 	void handleNavigateMedicalConditions(ActionEvent event) throws IOException {
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("../medicalconditions/MedicalConditionsGui.fxml"));
 		this.anchorPaneViewer.getChildren().setAll(pane);
-		this.pageLabel.textProperty().set("Patient's Medical Conditions");
+		this.pageLabel.textProperty().set("" + this.viewModel.getPatient().getFullName() + "'s Medical Conditions");
 	}
 
 	@FXML
 	void handleNavigateToGeneralInfo(ActionEvent event) throws IOException {
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("../generalInfor/GeneralInfoGui.fxml"));
 		this.anchorPaneViewer.getChildren().setAll(pane);
-		this.pageLabel.textProperty().set("Patient's General Inforamtion");
+		this.pageLabel.textProperty().set("" + this.viewModel.getPatient().getFullName() + "'s General Inforamtion");
 	}
 
 }

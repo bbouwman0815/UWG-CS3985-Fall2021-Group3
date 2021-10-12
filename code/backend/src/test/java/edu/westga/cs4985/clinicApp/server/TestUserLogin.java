@@ -16,7 +16,7 @@ public class TestUserLogin {
 		Server server = new Server();
 		JSONObject json = new JSONObject();
 		json.put("type", "PATIENT");
-		json.put("userName", "test");
+		json.put("userName", "testp");
 		json.put("password", "11111");
 		json.put("firstName", "test");
 		json.put("lastName", "test");
@@ -35,7 +35,7 @@ public class TestUserLogin {
 		json.put("caregiver", "Caregiver C");
 		
 		JSONObject json1 = new JSONObject();
-		json1.put("userName", "test");
+		json1.put("userName", "testp");
 		json1.put("password", "11111");
 		assertEquals(json.toJSONString(), server.userLogin(json1.toJSONString()));
 	}

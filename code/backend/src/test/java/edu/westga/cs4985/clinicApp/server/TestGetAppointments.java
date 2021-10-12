@@ -16,7 +16,7 @@ public class TestGetAppointments {
 	public void testGetAppointments() throws IOException, ParseException {
 		Server server = new Server();
 		JSONObject json = new JSONObject();
-		json.put("medicalPersonnel", "Person A");
+		json.put("medicalPersonnel", "new");
 		json.put("patient", "new");
 		json.put("date", "2021-11-01T13:00");
 		json.put("location", "TCL");
@@ -35,7 +35,7 @@ public class TestGetAppointments {
 	public void tesCancelAppointment() throws IOException, ParseException {
 		Server server = new Server();
 		JSONObject json = new JSONObject();
-		json.put("medicalPersonnel", "Person A");
+		json.put("medicalPersonnel", "new");
 		json.put("patient", "new");
 		json.put("date", "2021-11-01T13:00");
 		json.put("location", "TCL");
