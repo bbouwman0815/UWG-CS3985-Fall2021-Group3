@@ -2,16 +2,13 @@ package edu.westga.cs4985.clinicApp.view.dashboard;
 
 import java.io.IOException;
 
-import edu.westga.cs4985.clinicApp.resources.WindowGenerator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
 
 public class DashboardCodeBehind {
 
