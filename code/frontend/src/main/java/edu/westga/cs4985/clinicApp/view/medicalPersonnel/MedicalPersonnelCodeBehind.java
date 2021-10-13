@@ -1,6 +1,5 @@
 package edu.westga.cs4985.clinicApp.view.medicalPersonnel;
 
-
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -12,18 +11,22 @@ import edu.westga.cs4985.clinicApp.model.User;
 import edu.westga.cs4985.clinicApp.model.UserManager;
 import edu.westga.cs4985.clinicApp.resources.WindowGenerator;
 import edu.westga.cs4985.clinicApp.viewmodel.MedicalPersonnelViewModel;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -93,15 +96,21 @@ public class MedicalPersonnelCodeBehind {
 
 	@FXML
 	private TabPane patientTabPane;
-	
+
 	@FXML
 	private Tab appointmentTab;
+
+	@FXML
+	private Tab generalInfoTab;
+
+	@FXML
+	private AnchorPane appointmentPane;
+
+	@FXML
+	private Button addPatientButton;
 	
     @FXML
-    private Tab generalInfoTab;
-    
-    @FXML
-    private AnchorPane appointmentPane;
+    private RadioButton showAllPatientsRadioButton;
 
 	private MedicalPersonnelViewModel viewmodel;
 
@@ -134,30 +143,62 @@ public class MedicalPersonnelCodeBehind {
 						}
 					}
 				});
-		
+
 		this.patientListView.setOnMouseClicked((EventHandler<? super MouseEvent>) new EventHandler<MouseEvent>() {
 
-    	    @Override
-    	    public void handle(MouseEvent click) {
+			@Override
+			public void handle(MouseEvent click) {
 
-    	        if (click.getClickCount() == 2) {
-    	        	Alert alert = WindowGenerator.openConfirm("Are you sure want to remove the patient from your care?");
-    				alert.setOnCloseRequest((evt) -> {
-    					
-    					if (alert.getResult().getButtonData().equals(ButtonData.YES)) {
-    						viewmodel.deletePatient();
+				if (click.getClickCount() == 2) {
+					Alert alert = WindowGenerator
+							.openConfirm("Are you sure want to remove the patient from your care?");
+					alert.setOnCloseRequest((evt) -> {
+
+						if (alert.getResult().getButtonData().equals(ButtonData.YES)) {
+							viewmodel.removePatientFromCare();
 							patientListView.getSelectionModel().clearSelection();
-							UserManager.userManager.updateMedicalPersonnelsPatients(viewmodel.getMedicalePersonnel(), viewmodel.getPatients());
-    					} 
-    					if (alert.getResult().getButtonData().equals(ButtonData.NO)){
-    						patientListView.getSelectionModel().clearSelection();
-    					}
-    				});
-    				alert.showAndWait();
-    	          
-    	        }
-    	    }
-    	});
+							UserManager.userManager.updateMedicalPersonnelsPatients(viewmodel.getMedicalePersonnel(),
+									viewmodel.getPatients());
+							updateDisplay();
+						}
+						if (alert.getResult().getButtonData().equals(ButtonData.NO)) {
+							patientListView.getSelectionModel().clearSelection();
+						}
+					});
+					alert.showAndWait();
+
+				}
+			}
+		});
+		
+		this.showAllPatientsRadioButton.selectedProperty().addListener((observable, oldType, newType) -> {
+			this.updateDisplay();
+		});
+	}
+
+	private void updateDisplay() {
+		if (this.showAllPatientsRadioButton.isSelected()) {
+			this.viewmodel.loadAllPatients();
+		}
+		else {
+			this.viewmodel.loadPatients();
+		}
+		
+	}
+
+	@FXML
+	void handleAddPatient(ActionEvent event) {
+		if (this.viewmodel.checkPatientUnderCare()) {
+			 Alert a = new Alert(AlertType.WARNING);
+			 a.setContentText("Patient is already under your care");
+			 a.show();
+		} else {
+			this.viewmodel.addPatientToCare();
+			this.patientListView.getSelectionModel().clearSelection();
+			UserManager.userManager.updateMedicalPersonnelsPatients(this.viewmodel.getMedicalePersonnel(),
+					this.viewmodel.getPatients());
+			this.updateDisplay();
+		}
 	}
 
 	private void loadPatientData() {
