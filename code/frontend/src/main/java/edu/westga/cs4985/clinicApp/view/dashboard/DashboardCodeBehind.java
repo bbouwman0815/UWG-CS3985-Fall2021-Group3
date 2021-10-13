@@ -2,11 +2,8 @@ package edu.westga.cs4985.clinicApp.view.dashboard;
 
 import java.io.IOException;
 
-<<<<<<< HEAD
-=======
 import edu.westga.cs4985.clinicApp.resources.WindowGenerator;
 import edu.westga.cs4985.clinicApp.viewmodel.PatientViewModel;
->>>>>>> master
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
