@@ -16,7 +16,7 @@ public class TestGetUserByName {
 		Server server = new Server();
 		JSONObject json = new JSONObject();
 		json.put("type", "PATIENT");
-		json.put("userName", "test");
+		json.put("userName", "testp");
 		json.put("password", "11111");
 		json.put("firstName", "test");
 		json.put("lastName", "test");
@@ -36,7 +36,7 @@ public class TestGetUserByName {
 		
 
 		JSONObject json1 = new JSONObject();
-		json1.put("patient", "test");
+		json1.put("patient", "testp");
 		assertEquals(json.toJSONString(), server.getUserByUserName(json1.toJSONString()));
 	}
 	

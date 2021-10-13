@@ -18,7 +18,7 @@ public class TestGetMedicalPersonnels {
 		JSONArray medicalPersonnel = new JSONArray();
 		JSONObject json = new JSONObject();
 		json.put("type", "MedicalPersonnel");
-		json.put("userName", "test001");
+		json.put("userName", "testm");
 		json.put("password", "123");
 		json.put("firstName", "test");
 		json.put("lastName", "test");

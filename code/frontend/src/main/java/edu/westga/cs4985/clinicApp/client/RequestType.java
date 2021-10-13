@@ -9,6 +9,7 @@ package edu.westga.cs4985.clinicApp.client;
  */
 public enum RequestType {
 	UPDATE_GENERAL_INFORMATION,
+	UPDATE_APPOINTMENT,
 	GET_USER_BY_USERNAME,
 	GET_USER_BY_MEDICAL_PERSONNEL_USERNAME,
 	USER_LOGIN,

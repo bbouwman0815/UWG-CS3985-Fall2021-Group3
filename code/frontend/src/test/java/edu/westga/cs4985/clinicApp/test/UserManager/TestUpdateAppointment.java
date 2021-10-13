@@ -1,9 +1,8 @@
 package edu.westga.cs4985.clinicApp.test.UserManager;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -18,14 +17,7 @@ import edu.westga.cs4985.clinicApp.utils.Ethnicity;
 import edu.westga.cs4985.clinicApp.utils.Gender;
 import edu.westga.cs4985.clinicApp.utils.Race;
 
-/**
- * JUnit Test Case for Book Valid Appointment
- * 
- * @author Brian Bouwman
- * @version Fall 2021
- *
- */
-class TestBookAppointment {
+public class TestUpdateAppointment {
 
 	private class ServerFake extends Communicator {
 
@@ -34,7 +26,7 @@ class TestBookAppointment {
 			String request = requestType + "," + data;
 
 			if (request.equals(
-					"BOOK_APPOINTMENT,{\"date\":\"2021-09-01T14:00\",\"notes\":\"help\",\"patient\":\"New\",\"location\":\"TCL\",\"medicalPersonnel\":\"New\"}")) {
+					"UPDATE_APPOINTMENT,{\"date\":\"2021-09-01T14:00\",\"notes\":\"new\",\"patient\":\"New\",\"location\":\"TCL\",\"medicalPersonnel\":\"New\"}")) {
 				return "ADDED";
 			} else {
 				return "ERROR";
@@ -70,9 +62,9 @@ class TestBookAppointment {
 		LocalDateTime dateTime = LocalDateTime.of(2021, 9, 01, 14, 00);
 		Patient patient = this.patientDummy();
 		MedicalPersonnel medicalPersonnel = medicalPersonnelDummy();
-		Appointment appointment = new Appointment(dateTime, patient, medicalPersonnel, "TCL", "help");
+		Appointment appointment = new Appointment(dateTime, patient, medicalPersonnel, "TCL", "new");
 		UserManager userManager = new UserManager(new ServerFake());
-		boolean added = userManager.bookAppointment(appointment);
+		boolean added = userManager.updateAppointment(appointment);
 		assertEquals(true, added);
 	}
 
@@ -80,8 +72,7 @@ class TestBookAppointment {
 	void testBookInvalidAppointment() {
 		Appointment appointment = null;
 		UserManager userManager = new UserManager(new ServerFake());
-		boolean added = userManager.bookAppointment(appointment);
+		boolean added = userManager.updateAppointment(appointment);
 		assertEquals(false, added);
 	}
-
 }

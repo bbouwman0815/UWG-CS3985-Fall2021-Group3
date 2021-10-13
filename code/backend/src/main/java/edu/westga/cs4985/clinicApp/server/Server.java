@@ -46,6 +46,40 @@ public class Server extends Thread {
 		writer.close();
 		return "ADDED";
 	}
+	
+	/**
+	 * Write updateed appointment to json file
+	 * 
+	 * @param jsonString the appointment's json string
+	 * @return "Added" if appointment's json string updateed to json file
+	 * @throws IOException    the IO exception
+	 * @throws ParseException the parse exception
+	 */
+	@SuppressWarnings("unchecked")
+	public String updateAppointment(String jsonString) throws IOException, ParseException {
+		JSONParser parser = new JSONParser();
+		FileReader reader = new FileReader("./jsonFiles/appointments.json");
+		JSONArray jsonObject = (JSONArray) parser.parse(reader);
+
+		FileWriter writer = new FileWriter("./jsonFiles/appointments.json");
+
+		JSONObject data = (JSONObject) parser.parse(jsonString);
+		JSONObject result = null;
+		for (Object aData : jsonObject) {
+			JSONObject parseData = (JSONObject) aData;
+			if (parseData.get("medicalPersonnel").equals(data.get("medicalPersonnel"))
+					&& parseData.get("patient").equals(data.get("patient"))
+					&& parseData.get("date").equals(data.get("date"))) {
+				result = parseData;
+			}
+		}
+		jsonObject.remove(result);
+		jsonObject.add(data);
+		writer.write(jsonObject.toJSONString());
+		writer.flush();
+		writer.close();
+		return "Updated";
+	}
 
 	/**
 	 * Remove booked appointment from json file
@@ -512,7 +546,7 @@ public class Server extends Thread {
 	public void run() {
 		Context context = ZMQ.context(1);
 		Socket socket = context.socket(ZMQ.REP);
-		socket.bind("tcp://127.0.0.1:5570");
+		socket.bind("tcp://127.0.0.1:5573");
 
 		while (!Thread.currentThread().isInterrupted()) {
 
@@ -704,6 +738,15 @@ public class Server extends Thread {
 			if (request.equals("GET_ALL_MEDICAL_PERSONNELS")) {
 				try {
 					result = this.getMedicalPersonnels(data);
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+			}
+			if (request.equals("UPDATE_APPOINTMENT")) {
+				try {
+					result = this.updateAppointment(data);
 				} catch (IOException e) {
 					e.printStackTrace();
 				} catch (ParseException e) {
