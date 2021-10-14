@@ -1,8 +1,11 @@
 package edu.westga.cs4985.clinicApp.view.login;
 
+import org.json.simple.parser.ParseException;
+
 import edu.westga.cs4985.clinicApp.model.Patient;
 import edu.westga.cs4985.clinicApp.model.UserManager;
 import edu.westga.cs4985.clinicApp.resources.InputValidators;
+import edu.westga.cs4985.clinicApp.resources.WindowGenerator;
 import edu.westga.cs4985.clinicApp.utils.Country;
 import edu.westga.cs4985.clinicApp.utils.Ethnicity;
 import edu.westga.cs4985.clinicApp.utils.Gender;
@@ -12,6 +15,7 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -169,31 +173,38 @@ public class NewPatientCodeBehind {
 	}
 
 	@FXML
-	void addPatient(ActionEvent event) {
-		String username = this.usernameTextField.getText();
-		String password = this.passwordTextField.getText();
-		String firstname = this.firstNameInput.getText();
-		String lastname = this.lastNameInput.getText();
-		String birthday = this.birthdayTextField.getText();
-		String phone = this.phoneInput.getText();
-		String email = this.emailInput.getText();
-		String address1 = this.address1Input.getText();
-		String address2 = this.address2Input.getText();
-		String city = this.cityInput.getText();
-		String state = this.stateInput.getText();
-		String ethnicity = this.ethnicityChoiceBox.getSelectionModel().getSelectedItem();
-		String country = this.countryChoiceBox.getSelectionModel().getSelectedItem();
-		String race = this.raceChoiceBox.getSelectionModel().getSelectedItem();
-		String sex = this.sexChoiceBox.getSelectionModel().getSelectedItem();
-		String insurance = this.insuranceInput.getText();
+	void addPatient(ActionEvent event) throws ParseException {
+		if (UserManager.userManager.getUserByUserName(this.usernameTextField.getText()) != null) {
+			Alert alert = WindowGenerator.openAlert("The user name is already exist! Please choose another one!");
+        	
+			alert.showAndWait();
+		} else {
+			String username = this.usernameTextField.getText();
+			String password = this.passwordTextField.getText();
+			String firstname = this.firstNameInput.getText();
+			String lastname = this.lastNameInput.getText();
+			String birthday = this.birthdayTextField.getText();
+			String phone = this.phoneInput.getText();
+			String email = this.emailInput.getText();
+			String address1 = this.address1Input.getText();
+			String address2 = this.address2Input.getText();
+			String city = this.cityInput.getText();
+			String state = this.stateInput.getText();
+			String ethnicity = this.ethnicityChoiceBox.getSelectionModel().getSelectedItem();
+			String country = this.countryChoiceBox.getSelectionModel().getSelectedItem();
+			String race = this.raceChoiceBox.getSelectionModel().getSelectedItem();
+			String sex = this.sexChoiceBox.getSelectionModel().getSelectedItem();
+			String insurance = this.insuranceInput.getText();
 
-		Patient patient = new Patient(firstname, lastname, sex, birthday, address1, address2, city, state, country, race,
-				ethnicity, phone, email, insurance, username, password);
+			Patient patient = new Patient(firstname, lastname, sex, birthday, address1, address2, city, state, country, race,
+					ethnicity, phone, email, insurance, username, password);
 
-		if (UserManager.userManager.addPatient(patient)) {
-			Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-	    	currentStage.fireEvent(new WindowEvent(currentStage, WindowEvent.WINDOW_CLOSE_REQUEST));
-	    	currentStage.close();
+			if (UserManager.userManager.addPatient(patient)) {
+				Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		    	currentStage.fireEvent(new WindowEvent(currentStage, WindowEvent.WINDOW_CLOSE_REQUEST));
+		    	currentStage.close();
+			}
 		}
+		
 	}
 }

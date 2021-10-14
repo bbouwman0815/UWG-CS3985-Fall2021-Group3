@@ -2,15 +2,16 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.SepiaTone?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="690.0" prefWidth="1012.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label fx:id="pageLabel" alignment="CENTER" layoutX="307.0" layoutY="56.0" prefHeight="48.0" prefWidth="605.0" text="Patient Dashboard" textAlignment="CENTER">
+      <Label fx:id="pageLabel" alignment="CENTER" layoutX="254.0" layoutY="56.0" prefHeight="48.0" prefWidth="718.0" text="Patient Dashboard" textAlignment="CENTER" textFill="#1f3b97">
          <font>
-            <Font name="Corbel" size="39.0" />
+            <Font name="Andale Mono" size="39.0" />
          </font>
       </Label>
       <AnchorPane fx:id="anchorPaneViewer" layoutX="264.0" layoutY="104.0" prefHeight="534.0" prefWidth="718.0" />
@@ -20,16 +21,25 @@
                <font>
                   <Font name="Corbel" size="22.0" />
                </font>
+               <effect>
+                  <SepiaTone />
+               </effect>
             </Button>
             <Button fx:id="medicalConditionsNavButton" mnemonicParsing="false" onAction="#handleNavigateMedicalConditions" prefHeight="230.0" prefWidth="220.0" text="Medical Conditions">
                <font>
                   <Font name="Corbel" size="22.0" />
                </font>
+               <effect>
+                  <SepiaTone />
+               </effect>
             </Button>
             <Button fx:id="appointmentNavButton" mnemonicParsing="false" onAction="#handleNavigateAppointment" prefHeight="230.0" prefWidth="220.0" text="Appointments">
                <font>
                   <Font name="Corbel" size="22.0" />
                </font>
+               <effect>
+                  <SepiaTone />
+               </effect>
             </Button>
          </children>
       </VBox>

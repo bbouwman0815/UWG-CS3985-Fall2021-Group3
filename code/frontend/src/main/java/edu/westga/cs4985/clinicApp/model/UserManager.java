@@ -51,7 +51,8 @@ public class UserManager {
 	 * @throws ParseException
 	 */
 	public User login(String username, String password) throws ParseException {
-		String requestData = DataWriter.getUserLoginInfo(username, password);
+		HashPassword hash = new HashPassword();
+		String requestData = DataWriter.getUserLoginInfo(username, hash.generateHash(password));
 		String reply = this.communicator.request(RequestType.USER_LOGIN, requestData);
 		if (reply.equals("ERROR")) {
 			return null;
