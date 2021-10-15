@@ -63,6 +63,22 @@ public class DataWriter {
 	}
 	
 	/**
+	 * Write the medical personnel & patients name as json.
+	 *
+	 * @param mpusername the medical personnels name
+	 * @param pusername the patients name
+	 * 
+	 * @return the json that contains the user's user names
+	 */
+	@SuppressWarnings("unchecked")
+	public static String getUsersByMedicalPersonnelAndPatient(String mpusername, String pusername) {
+		JSONObject json = new JSONObject();
+		json.put("medicalPersonnel", mpusername);
+		json.put("patient", pusername);
+		return json.toJSONString();
+	}
+	
+	/**
 	 * Write the user's zipcode as json 
 	 * 
 	 * @param zipcode the user's uzipcode
@@ -90,6 +106,25 @@ public class DataWriter {
 			availability.add(dayTime.toString());
 		}
 		json.put("availabilityList", availability);
+		return json.toJSONString();
+	}
+
+	/**
+	 * Update medical personnels patients.
+	 *
+	 * @param person the person
+	 * @param patientList the patient list
+	 * @return the string
+	 */
+	@SuppressWarnings("unchecked")
+	public static String updateMedicalPersonnelsPatients(MedicalPersonnel person, List<Patient> patientList) {
+		JSONObject json = new JSONObject();
+		json.put("medicalPersonnel", person.getUsername());
+		JSONArray patients = new JSONArray();
+		for (Patient patient : patientList) {
+			patients.add(patient.getUsername());
+		}
+		json.put("patients", patients);
 		return json.toJSONString();
 	}
 	

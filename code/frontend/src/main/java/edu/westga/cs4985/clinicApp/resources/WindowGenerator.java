@@ -1,9 +1,6 @@
 package edu.westga.cs4985.clinicApp.resources;
 
 import java.io.IOException;
-
-import org.json.simple.parser.ParseException;
-
 import edu.westga.cs4985.clinicApp.ClinicApp;
 import edu.westga.cs4985.clinicApp.model.MedicalPersonnel;
 import edu.westga.cs4985.clinicApp.model.Patient;
@@ -166,6 +163,5 @@ public class WindowGenerator {
 		loader.setController(codebehind);
 		loader.setLocation(codebehind.getClass().getResource(NEW_MEDICAL_PERSONNEL_GUI));
 		WindowGenerator.setupScene((Parent) loader.load(), ADMIN_PROFILE_TITLE);
-		
 	}
 }

@@ -305,9 +305,6 @@ public class UserManager {
 	public List<Patient> getAllPatients() throws ParseException {
 		String request = "GET_ALL_PATIENTS";
 		String reply = this.communicator.request(RequestType.GET_ALL_PATIENTS, request);
-		if (reply.equals("ERROR")) {
-			return new ArrayList<Patient>();
-		}
 		return this.convertToPatient(reply);
 	}
 	
@@ -340,7 +337,22 @@ public class UserManager {
 			return new ArrayList<Patient>();
 		}
 		return this.convertToPatients(reply);
-		//return this.convertToPatient(reply);
+	}
+	
+	/**
+	 * Removes the medical personnels patient.
+	 *
+	 * @param username the username
+	 * @param username2 the username 2
+	 * @return true, if successful
+	 */
+	public boolean updateMedicalPersonnelsPatients(MedicalPersonnel medicalPersonnel,  List<Patient> patients) {
+		String request = DataWriter.updateMedicalPersonnelsPatients(medicalPersonnel, patients);
+		String reply = this.communicator.request(RequestType.UPDATE_MEDICAL_PERSONNELS_PATIENTS, request);
+		if (reply.equals("ERROR")) {
+			return false;
+		}
+		return true;
 	}
 
 	/**

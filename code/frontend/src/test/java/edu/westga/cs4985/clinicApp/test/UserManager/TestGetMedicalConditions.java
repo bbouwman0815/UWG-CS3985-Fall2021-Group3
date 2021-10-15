@@ -22,6 +22,9 @@ class TestGetMedicalConditions {
 
 			if (request.equals("GET_MEDICAL_CONDITIONS,{\"patient\":\"jimmy1\"}")) {
 				return "[{\"terminationDate\":\"2021-09-22\",\"notes\":\"medicalCondition 1 notes\",\"patient\":\"jimmy1\",\"diagnosisDate\":\"2021-09-01\",\"name\":\"medicalCondition1\"},{\"terminationDate\":\"2021-09-22\",\"notes\":\"medicalCondition 1 notes\",\"patient\":\"jimmy1\",\"diagnosisDate\":\"2021-09-01\",\"name\":\"medicalCondition2\"},{\"terminationDate\":\"2021-09-22\",\"notes\":\"medicalCondition 1 notes\",\"patient\":\"jimmy1\",\"diagnosisDate\":\"2021-09-01\",\"name\":\"medicalCondition3\"}]";
+			}
+			if (request.equals("GET_USER_BY_USERNAME,{\"patient\":\"jimmy1\"}")) {
+				return "{\"insurance\":\"8888888888\",\"lastName\":\"Bob\",\"country\":\"USA\",\"gender\":\"male\",\"race\":\"American Indian or Alaska Native\",\"address2\":\"\",\"city\":\"Carrollton\",\"address1\":\"3433 Atlanta Peachway\",\"dateOfBirth\":\"1990-09-29\",\"type\":\"PATIENT\",\"userName\":\"jimmy1\",\"firstName\":\"Jimmy\",\"password\":\"11111\",\"phoneNumber\":\"123456789\",\"ethnicty\":\"Not Hispanic or Latino\",\"caregiver\":\"Caregiver C\",\"state\":\"GA\",\"email\":\"jimmy12334@gmail.com\"}";
 			} else {
 				return "ERROR";
 			}
@@ -30,11 +33,11 @@ class TestGetMedicalConditions {
 
 	@Test
 	void testGetValidMedicalConditions() throws ParseException {
-		String username = "test";
-		//UserManager userManager = new UserManager();
+		String username = "jimmy1";
+		// UserManager userManager = new UserManager();
 		UserManager userManager = new UserManager(new ServerFake());
 		List<MedicalCondition> medicalConditions = userManager.getMedicalConditions(username);
-		assertEquals(medicalConditions.size(), 0);
+		assertEquals(medicalConditions.size(), 3);
 	}
 
 	@Test

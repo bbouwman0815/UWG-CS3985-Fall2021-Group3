@@ -45,10 +45,12 @@ public class MedicalPersonnelViewModel {
 	private ObjectProperty<String> selectedTimeProperty;
 
 	private ListProperty<Patient> patientsListProperty;
+	private ListProperty<Patient> allPatientsListProperty;
 
 	private ObjectProperty<Patient> selectedPatientProperty;
 
 	private List<Patient> patients;
+	private List<Patient> allPatients;
 	
 	/**
 	 * Create view model for patient general information.
@@ -74,7 +76,9 @@ public class MedicalPersonnelViewModel {
 		this.availabilityList = new ArrayList<LocalDateTime>();
 		
 		this.patients = new ArrayList<Patient>();
+		this.allPatients = new ArrayList<Patient>();
 		this.patientsListProperty = new SimpleListProperty<Patient>(FXCollections.observableArrayList(this.patients));
+		this.allPatientsListProperty = new SimpleListProperty<Patient>(FXCollections.observableArrayList(this.patients));
 		this.selectedPatientProperty = new SimpleObjectProperty<Patient>();
 	}
 
@@ -85,6 +89,15 @@ public class MedicalPersonnelViewModel {
 	 */
 	public ListProperty<Patient> patientsListProperty() {
 		return this.patientsListProperty;
+	}
+	
+	/**
+	 * Gets the patients.
+	 *
+	 * @return the patients
+	 */
+	public ListProperty<Patient> allPatientsListProperty() {
+		return this.allPatientsListProperty;
 	}
 
 	/**
@@ -140,7 +153,16 @@ public class MedicalPersonnelViewModel {
 	public void setPatients(List<Patient> patients) {
 		this.patients = patients;
 	}
+	
 
+	/**
+	 * Gets all of the patients.
+	 *
+	 * @return all the patients
+	 */
+	public List<Patient> getAllPatients() {
+		return this.allPatients;
+	}
 
 	public void loadPatients() {
 		List<Patient> patients;
@@ -153,6 +175,18 @@ public class MedicalPersonnelViewModel {
 		
 		this.patientsListProperty.set(FXCollections.observableArrayList(this.patients));
 
+	}
+	
+	public void loadAllPatients() {
+		List<Patient> patients;
+		try {
+			patients = UserManager.userManager.getAllPatients();
+			this.allPatients = patients;
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		this.patientsListProperty.set(FXCollections.observableArrayList(this.allPatients));
 	}
 	
 	/**
@@ -243,6 +277,43 @@ public class MedicalPersonnelViewModel {
 		this.futureppointmentList.remove(appointment);
 		this.futureAppointmentListProperty.set(FXCollections.observableArrayList(this.futureppointmentList));
 		return appointment;
+	}
+	
+	/**
+	 * Delete patient.
+	 *
+	 * @return the patient
+	 */
+	public Patient removePatientFromCare() {
+		Patient patient = this.selectedPatientProperty.get();
+		this.patients.remove(this.selectedPatientProperty.getValue());
+		//this.patientsListProperty.set(FXCollections.observableArrayList(this.patients));
+		return patient;
+	}
+
+	/**
+	 * Adds the patient to care.
+	 *
+	 * @return the patient
+	 */
+	public Patient addPatientToCare() {
+		Patient patient = this.selectedPatientProperty.get();
+		this.patients.add(this.selectedPatientProperty.getValue());
+		//this.patientsListProperty.set(FXCollections.observableArrayList(this.patients));
+		return patient;
+	}
+	
+	/**
+	 * Checks if the selected patient is under the care of the logged medical personnel
+	 *
+	 * @return true if under care, false otherwise
+	 */
+	public boolean checkPatientUnderCare() {
+		Patient patient = this.selectedPatientProperty.get();
+		if (this.patients.contains(patient)) {
+			return true;
+		}
+		return false;
 	}
 	
 	/**
@@ -352,4 +423,5 @@ public class MedicalPersonnelViewModel {
 	public List<LocalDateTime> availabilityList() {
 		return this.availabilityList;
 	}
+
 }
