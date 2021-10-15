@@ -10,7 +10,9 @@ import edu.westga.cs4985.clinicApp.resources.WindowGenerator;
 import edu.westga.cs4985.clinicApp.viewmodel.ClinicAppViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -77,14 +79,14 @@ public class LoginCodeBehind {
 			}
 		}
 	}
+	
 
-	@FXML
-	void addPatient(ActionEvent event) throws IOException {
-		WindowGenerator.setupAddNewPatient();
-	}
-
-	@FXML
-	void handleAddMedicalPersonnel(ActionEvent event) throws IOException {
-		WindowGenerator.setupAddNewMedicalPersonnel();
-	}
+    @FXML
+    void onRegister(ActionEvent event) throws IOException {
+    	RegisterCodeBehind codebehind = new RegisterCodeBehind();
+		FXMLLoader loader = new FXMLLoader();
+		loader.setController(codebehind);
+		loader.setLocation(codebehind.getClass().getResource("Registration.fxml"));
+		WindowGenerator.setupScene((Parent) loader.load(), "Registration Window");
+    }
 }

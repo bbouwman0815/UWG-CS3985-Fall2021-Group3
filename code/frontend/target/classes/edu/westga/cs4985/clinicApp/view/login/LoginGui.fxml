@@ -25,7 +25,10 @@
             <Font name="Bodoni MT Italic" size="72.0" />
          </font>
       </Label>
-      <Button fx:id="addPatientButton" layoutX="520.0" layoutY="361.0" mnemonicParsing="false" onAction="#addPatient" prefHeight="25.0" prefWidth="94.0" text="Add Patient" />
-      <Button fx:id="addMedicalPersonnel" layoutX="520.0" layoutY="326.0" mnemonicParsing="false" onAction="#handleAddMedicalPersonnel" text="Add Personnel" />
+      <Button layoutX="535.0" layoutY="14.0" mnemonicParsing="false" onAction="#onRegister" prefHeight="31.0" prefWidth="79.0" text="Regitster" textFill="#c30d0d">
+         <font>
+            <Font name="Chalkboard SE Light" size="13.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

@@ -166,6 +166,14 @@ public class AppointmentCodeBehind {
         		Alert alert = WindowGenerator.openAlert("The appointment already book! Please select another date!");
             	
     			alert.showAndWait();
+        	} else if (this.viewModel.seletedMedicalPersonnel().get() == null) {
+        		Alert alert = WindowGenerator.openAlert("Please select your medical personnel!");
+            	
+    			alert.showAndWait();
+        	} else if (this.viewModel.selectedAvailabilityProperty().get() == null) {
+        		Alert alert = WindowGenerator.openAlert("Please select your time!");
+            	
+    			alert.showAndWait();
         	} else {
         		Alert bookAlert = WindowGenerator.openConfirm("Are you sure want to book this appointment?");
             	bookAlert.setOnCloseRequest((action) -> {
