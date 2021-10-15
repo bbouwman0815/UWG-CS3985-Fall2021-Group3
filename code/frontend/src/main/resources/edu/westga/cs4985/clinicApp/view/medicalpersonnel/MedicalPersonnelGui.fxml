@@ -6,6 +6,8 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -134,7 +136,17 @@
                 </Tab>
                 <Tab fx:id="medicalConditionsTab" text="Medical Conditions">
                   <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="516.0" prefWidth="614.0" />
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="515.0" prefWidth="615.0">
+                           <children>
+                              <TableView fx:id="medicalConditionTableView" layoutX="20.0" layoutY="20.0" prefHeight="515.0" prefWidth="575.0">
+                                <columns>
+                                  <TableColumn fx:id="conditionNameColumn" minWidth="144.0" prefWidth="75.0" style="-fx-border-color: black;" text="Condition Name" />
+                                  <TableColumn fx:id="diagnosedDateColumn" minWidth="143.0" prefWidth="75.0" style="-fx-border-color: black;" text="Diagnosed Date" />
+                                    <TableColumn fx:id="terminationDateColumn" minWidth="143.0" prefWidth="75.0" style="-fx-border-color: black;" text="Termination Date" />
+                                    <TableColumn fx:id="notesColumn" minWidth="143.0" prefWidth="75.0" style="-fx-border-color: black;" text="Notes" />
+                                </columns>
+                              </TableView>
+                           </children></AnchorPane>
                   </content>
                 </Tab>
                   <Tab fx:id="appointmentTab" text="Appointments">

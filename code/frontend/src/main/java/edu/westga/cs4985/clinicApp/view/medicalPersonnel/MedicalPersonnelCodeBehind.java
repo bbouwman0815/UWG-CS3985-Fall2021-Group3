@@ -4,6 +4,8 @@ package edu.westga.cs4985.clinicApp.view.medicalPersonnel;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
+import edu.westga.cs4985.clinicApp.model.MedicalCondition;
 import edu.westga.cs4985.clinicApp.model.Patient;
 import edu.westga.cs4985.clinicApp.viewmodel.MedicalPersonnelViewModel;
 import javafx.fxml.FXML;
@@ -14,6 +16,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -80,6 +84,21 @@ public class MedicalPersonnelCodeBehind {
 
 	@FXML
 	private Tab medicalConditionsTab;
+	
+	@FXML
+    private TableView<MedicalCondition> medicalConditionTableView;
+
+    @FXML
+    private TableColumn<MedicalCondition, String> conditionNameColumn;
+
+    @FXML
+    private TableColumn<MedicalCondition, String> diagnosedDateColumn;
+
+    @FXML
+    private TableColumn<MedicalCondition, String> terminationDateColumn;
+
+    @FXML
+    private TableColumn<MedicalCondition, String> notesColumn;
 
 	@FXML
 	private TabPane patientTabPane;
