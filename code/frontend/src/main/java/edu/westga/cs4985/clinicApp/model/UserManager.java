@@ -305,9 +305,6 @@ public class UserManager {
 	public List<Patient> getAllPatients() throws ParseException {
 		String request = "GET_ALL_PATIENTS";
 		String reply = this.communicator.request(RequestType.GET_ALL_PATIENTS, request);
-		if (reply.equals("ERROR")) {
-			return new ArrayList<Patient>();
-		}
 		return this.convertToPatient(reply);
 	}
 	
