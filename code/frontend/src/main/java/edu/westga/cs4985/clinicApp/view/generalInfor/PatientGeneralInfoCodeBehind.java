@@ -57,8 +57,6 @@ public class PatientGeneralInfoCodeBehind {
 	private final String PHONE_ERROR = "Please formate phone number as (###)-###-###";
 	private final String EMAIL_ERROR = "Inproper email format";
 	
-    @FXML
-    private Label patientNameLabel;
 
     @FXML
     private TextField firstNameInput;
@@ -67,13 +65,22 @@ public class PatientGeneralInfoCodeBehind {
     private TextField lastNameInput;
 
     @FXML
-    private TextArea descriptionInput;
+    private ChoiceBox<String> sexChoiceBox;
 
     @FXML
-    private TextField phoneInput;
+    private DatePicker birthdayPicker;
 
     @FXML
-    private TextField emailInput;
+    private TextField insuranceInput;
+
+    @FXML
+    private Label caregiverLabel;
+
+    @FXML
+    private Button addCaregiverButton;
+
+    @FXML
+    private Button removeCaregiverButton;
 
     @FXML
     private TextField address1Input;
@@ -88,61 +95,71 @@ public class PatientGeneralInfoCodeBehind {
     private TextField stateInput;
 
     @FXML
-    private TextField countryInput;
+    private ChoiceBox<String> countryChoiceBox;
 
     @FXML
-    private Button addCaregiverButton;
+    private TextField phoneInput;
+
+    @FXML
+    private TextField emailInput;
+
+    @FXML
+    private ChoiceBox<String> raceChoiceBox;
+
+    @FXML
+    private ChoiceBox<String> ethnicityChoiceBox;
+
+    @FXML
+    private TextArea descriptionInput;
 
     @FXML
     private Button editbutton;
 
     @FXML
+    private Button saveButton;
+
+    @FXML
     private Button cancelButton;
 
     @FXML
-    private Button saveButton;
-    
-    @FXML
-    private Button removeCaregiverButton;
-    
-    @FXML
-    private ChoiceBox<String> raceChoiceBox;
-
-    @FXML
-    private ChoiceBox<String> sexChoiceBox;
-
-    @FXML
-    private ChoiceBox<String> ethnicityChoiceBox;
-    
-    @FXML
-    private TextField insuranceInput;
-
-    @FXML
-    private ChoiceBox<?> stateChoiceBox;
-
-    @FXML
-    private ChoiceBox<String> countryChoiceBox;
-
-    @FXML
-    private DatePicker birthdayPicker;
-    
-	@FXML
-	private Button dashboardNavButton;
-
-	@FXML
-	private Button medicationsNavButton;
-
-	@FXML
-	private Button medicalConditionsNavButton;
-
-	@FXML
-	private Button appointmentNavButton;
-	
-    @FXML
-    private Label caregiverLabel;
-    
-    @FXML
     private Label contactInfoErrorLabel;
+
+    @FXML
+    private Label invalidPhoneNumberLabel;
+
+    @FXML
+    private Label invalidEmailLabel;
+
+    @FXML
+    private Label invalidFirstName;
+
+    @FXML
+    private Label invalidLastName;
+
+    @FXML
+    private Label invalidSex;
+
+    @FXML
+    private Label invaildEthnicity;
+
+    @FXML
+    private Label invalidRace;
+
+    @FXML
+    private Label invalidAddress1;
+
+    @FXML
+    private Label invalidCity;
+
+    @FXML
+    private Label invalidState;
+
+    @FXML
+    private Label invalidCountry;
+
+    @FXML
+    private Label invalidInsurance;
+
     
     private Race race;
     private Gender gender;
@@ -186,7 +203,24 @@ public class PatientGeneralInfoCodeBehind {
     		this.addCaregiverButton.setVisible(false);
     		this.addCaregiverButton.setDisable(false);
     	}
+    	this.setInputValidationLabels();
     }
+    
+    private void setInputValidationLabels() {
+		this.invalidEmailLabel.setVisible(false);
+		this.invalidPhoneNumberLabel.setVisible(false);
+		
+		this.invalidFirstName.setVisible(false);
+		this.invalidLastName.setVisible(false);
+		this.invalidSex.setVisible(false);
+		this.invaildEthnicity.setVisible(false);
+		this.invalidRace.setVisible(false);
+		this.invalidAddress1.setVisible(false);
+		this.invalidCity.setVisible(false);
+		this.invalidState.setVisible(false);
+		this.invalidCountry.setVisible(false);
+		this.invalidInsurance.setVisible(false);
+	}
     
     private void formActivation(boolean action) {
     	this.firstNameInput.setDisable(action);
@@ -229,6 +263,59 @@ public class PatientGeneralInfoCodeBehind {
     			else {
     				this.contactInfoErrorLabel.setVisible(false);
     			}
+    		}
+    	});
+    	
+    	this.firstNameInput.textProperty().addListener((observable, oldValue, newValue) -> {
+    		if (newValue != null) {
+    			this.invalidFirstName.setVisible(false);
+    		}
+    	});
+		this.lastNameInput.textProperty().addListener((observable, oldValue, newValue) -> {
+    		if (newValue != null) {
+    			this.invalidLastName.setVisible(false);
+    		}
+    	});
+		this.address1Input.textProperty().addListener((observable, oldValue, newValue) -> {
+    		if (newValue != null) {
+    			this.invalidAddress1.setVisible(false);
+    		}
+    	});
+		
+		this.cityInput.textProperty().addListener((observable, oldValue, newValue) -> {
+    		if (newValue != null) {
+    			this.invalidCity.setVisible(false);
+    		}
+    	});
+		this.stateInput.textProperty().addListener((observable, oldValue, newValue) -> {
+    		if (newValue != null) {
+    			this.invalidState.setVisible(false);
+    		}
+    	});
+		this.insuranceInput.textProperty().addListener((observable, oldValue, newValue) -> {
+    		if (newValue != null) {
+    			this.invalidInsurance.setVisible(false);
+    		}
+    	});
+
+		this.countryChoiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+    		if (newValue != null) {
+    			this.invalidCountry.setVisible(false);
+    		}
+    	});
+		this.raceChoiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+    		if (newValue != null) {
+    			this.invalidRace.setVisible(false);
+    		}
+    	});
+		this.ethnicityChoiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+    		if (newValue != null) {
+    			this.invaildEthnicity.setVisible(false);
+    		}
+    	});
+		this.sexChoiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+    		if (newValue != null) {
+    			this.invalidSex.setVisible(false);
     		}
     	});
     	
@@ -301,21 +388,83 @@ public class PatientGeneralInfoCodeBehind {
 	}
     
     private void setPatientInfo() {
-    	this.viewModel.getPatient().setFirstName(this.firstNameInput.getText());
-    	this.viewModel.getPatient().setLastName(this.lastNameInput.getText());
-    	this.viewModel.getPatient().setDateOfBirth(this.birthdayPicker.getValue().toString());
-    	this.viewModel.getPatient().setPhoneNumber(this.phoneInput.getText());
-    	this.viewModel.getPatient().setEmail(this.emailInput.getText());
-    	this.viewModel.getPatient().setAddress1(this.address1Input.getText());
-    	this.viewModel.getPatient().setAddress2(this.address2Input.getText());
-    	this.viewModel.getPatient().setCity(this.cityInput.getText());
-    	this.viewModel.getPatient().setState(this.stateInput.getText());
-    	this.viewModel.getPatient().setEthnicity(this.ethnicityChoiceBox.getSelectionModel().getSelectedItem());
-    	this.viewModel.getPatient().setCountry(this.countryChoiceBox.getSelectionModel().getSelectedItem());
-    	this.viewModel.getPatient().setRace(this.raceChoiceBox.getSelectionModel().getSelectedItem());
-    	this.viewModel.getPatient().setGender(this.sexChoiceBox.getSelectionModel().getSelectedItem());
-    	this.viewModel.getPatient().setInsurance(this.insuranceInput.getText());
-    	this.viewModel.getPatient().setCaregiver(this.caregiverLabel.getText());
+    	boolean valid = true;
+		if (this.firstNameInput.getText() == null || this.firstNameInput.getText() == "") {
+    		this.invalidFirstName.setVisible(true);
+    		valid = false;
+    	} 
+		if (this.lastNameInput.getText() == null || this.lastNameInput.getText() == "") {
+    		this.invalidLastName.setVisible(true);
+    		valid = false;
+    	} 
+		if (this.phoneInput.getText() == null || this.phoneInput.getText() == "") {
+    		this.invalidPhoneNumberLabel.setVisible(true);
+    		valid = false;
+    	} 
+		if (this.emailInput.getText() == null || this.emailInput.getText() == "") {
+    		this.invalidEmailLabel.setVisible(true);
+    		valid = false;
+    	} 
+		if (this.address1Input.getText() == null || this.address1Input.getText() == "") {
+    		this.invalidAddress1.setVisible(true);
+    		valid = false;
+    	} 
+    	if (this.cityInput.getText() == null || this.cityInput.getText() == "") {
+    		this.invalidCity.setVisible(true);
+    		valid = false;
+    	} 
+    	if (this.stateInput.getText() == null || this.stateInput.getText() == "") {
+    		this.invalidState.setVisible(true);
+    		valid = false;
+    	} 
+    	if (this.ethnicityChoiceBox.getSelectionModel().getSelectedItem() == null) {
+    		this.invaildEthnicity.setVisible(true);
+    		valid = false;
+    	} 
+    	if (this.countryChoiceBox.getSelectionModel().getSelectedItem() == null) {
+    		this.invalidCountry.setVisible(true);
+    		valid = false;
+    	} 
+    	if (this.raceChoiceBox.getSelectionModel().getSelectedItem() == null) {
+    		this.invalidRace.setVisible(true);
+    		valid = false;
+    	} 
+    	if (this.sexChoiceBox.getSelectionModel().getSelectedItem() == null) {
+    		this.invalidSex.setVisible(true);
+    		valid = false;
+    	} 
+    	if (this.insuranceInput.getText() == null || this.insuranceInput.getText() == "") {
+    		this.invalidInsurance.setVisible(true);
+    		valid = false;
+    	}
+    	if (valid) {
+    		this.viewModel.getPatient().setFirstName(this.firstNameInput.getText());
+        	this.viewModel.getPatient().setLastName(this.lastNameInput.getText());
+        	this.viewModel.getPatient().setDateOfBirth(this.birthdayPicker.getValue().toString());
+        	this.viewModel.getPatient().setPhoneNumber(this.phoneInput.getText());
+        	this.viewModel.getPatient().setEmail(this.emailInput.getText());
+        	this.viewModel.getPatient().setAddress1(this.address1Input.getText());
+        	this.viewModel.getPatient().setAddress2(this.address2Input.getText());
+        	this.viewModel.getPatient().setCity(this.cityInput.getText());
+        	this.viewModel.getPatient().setState(this.stateInput.getText());
+        	this.viewModel.getPatient().setEthnicity(this.ethnicityChoiceBox.getSelectionModel().getSelectedItem());
+        	this.viewModel.getPatient().setCountry(this.countryChoiceBox.getSelectionModel().getSelectedItem());
+        	this.viewModel.getPatient().setRace(this.raceChoiceBox.getSelectionModel().getSelectedItem());
+        	this.viewModel.getPatient().setGender(this.sexChoiceBox.getSelectionModel().getSelectedItem());
+        	this.viewModel.getPatient().setInsurance(this.insuranceInput.getText());
+        	this.viewModel.getPatient().setCaregiver(this.caregiverLabel.getText());
+        	
+        	this.editbutton.setVisible(true);
+        	this.saveButton.setVisible(false);
+        	this.cancelButton.setVisible(false);
+        	this.formActivation(true);
+        	if (this.caregiverLabel.textProperty().get() == "") {
+        		this.addCaregiverButton.setDisable(true);
+        	} else {
+        		this.removeCaregiverButton.setDisable(true);
+        	}
+    	}
+    	
     }
 
     @FXML
@@ -334,15 +483,7 @@ public class PatientGeneralInfoCodeBehind {
 
     @FXML
     void saveGeneralInfo(ActionEvent event) {
-    	this.editbutton.setVisible(true);
-    	this.saveButton.setVisible(false);
-    	this.cancelButton.setVisible(false);
-    	this.formActivation(true);
-    	if (this.caregiverLabel.textProperty().get() == "") {
-    		this.addCaregiverButton.setDisable(true);
-    	} else {
-    		this.removeCaregiverButton.setDisable(true);
-    	}
+    	
     	this.setPatientInfo();
     	UserManager.userManager.updatePatientGeneralInfo(this.viewModel.getPatient());
     }
