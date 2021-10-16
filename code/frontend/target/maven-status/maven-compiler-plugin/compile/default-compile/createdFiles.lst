@@ -33,6 +33,7 @@ edu/westga/cs4985/clinicApp/view/generalInfor/PatientGeneralInfoCodeBehind$AddCa
 edu/westga/cs4985/clinicApp/view/appointment/AppointmentCodeBehind$AppointmentViewPopupCodeBehind.class
 edu/westga/cs4985/clinicApp/view/login/LoginCodeBehind.class
 edu/westga/cs4985/clinicApp/view/dashboard/DashboardCodeBehind.class
+edu/westga/cs4985/clinicApp/view/medicalpersonnel/MedicalPersonnelCodeBehind$1.class
 edu/westga/cs4985/clinicApp/model/MedicalCondition.class
 edu/westga/cs4985/clinicApp/utils/login/UToken.class
 edu/westga/cs4985/clinicApp/utils/login/ILogin.class
