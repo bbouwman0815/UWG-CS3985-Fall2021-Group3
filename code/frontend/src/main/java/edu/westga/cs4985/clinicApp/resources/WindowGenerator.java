@@ -6,6 +6,7 @@ import edu.westga.cs4985.clinicApp.model.MedicalPersonnel;
 import edu.westga.cs4985.clinicApp.model.Patient;
 import edu.westga.cs4985.clinicApp.model.User;
 import edu.westga.cs4985.clinicApp.view.dashboard.DashboardCodeBehind;
+import edu.westga.cs4985.clinicApp.view.login.LoginCodeBehind;
 import edu.westga.cs4985.clinicApp.view.login.NewMedicalPersonnelCodeBehind;
 import edu.westga.cs4985.clinicApp.view.login.NewPatientCodeBehind;
 import edu.westga.cs4985.clinicApp.view.medicalPersonnel.MedicalPersonnelCodeBehind;
@@ -25,7 +26,7 @@ public class WindowGenerator {
 	private static final String ADMIN_PROFILE_TITLE = "Admin";
 	private static final String NEW_PATIENT_GUI = "NewPatientGui.fxml";
 	private static final String DASHBOARD_GUI = "../view/dashboard/DashboardGui.fxml";
-	private static final String LOGIN_GUI = "LoginGui";
+	private static final String LOGIN_GUI = "LoginGui.fxml";
 	private static final String PATIENT_GENERAL_INFO = "GeneralInfoGui.fxml";
 	private static final String MEDICAL_PERSONNEL_GUI = "MedicalPersonnelGui.fxml";
 	private static final String MEDICAL_PERSONNEL_PROFILE_TITLE = "Medical Personnel";
@@ -163,5 +164,15 @@ public class WindowGenerator {
 		loader.setController(codebehind);
 		loader.setLocation(codebehind.getClass().getResource(NEW_MEDICAL_PERSONNEL_GUI));
 		WindowGenerator.setupScene((Parent) loader.load(), ADMIN_PROFILE_TITLE);
+	}
+	
+	public static void setUpLogin(Stage currentStage) throws IOException {
+		LoginCodeBehind codebehind = new LoginCodeBehind();
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(codebehind.getClass().getResource(LOGIN_GUI));
+		loader.load();
+		Scene scene = new Scene(loader.getRoot());
+		currentStage.setScene(scene);
+		currentStage.setTitle(ClinicApp.WINDOW_TITLE);
 	}
 }

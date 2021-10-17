@@ -3,6 +3,7 @@ package edu.westga.cs4985.clinicApp.view.medicalPersonnel;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import org.json.simple.parser.ParseException;
 import edu.westga.cs4985.clinicApp.model.MedicalCondition;
@@ -11,10 +12,13 @@ import edu.westga.cs4985.clinicApp.model.User;
 import edu.westga.cs4985.clinicApp.model.UserManager;
 import edu.westga.cs4985.clinicApp.resources.WindowGenerator;
 import edu.westga.cs4985.clinicApp.viewmodel.MedicalPersonnelViewModel;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -30,8 +34,10 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 /**
  * The Class MedicalPersonnelCodeBehind.
@@ -95,21 +101,21 @@ public class MedicalPersonnelCodeBehind {
 
 	@FXML
 	private Tab medicalConditionsTab;
-	
+
 	@FXML
-    private TableView<MedicalCondition> medicalConditionTableView;
+	private TableView<MedicalCondition> medicalConditionTableView;
 
-    @FXML
-    private TableColumn<MedicalCondition, String> conditionNameColumn;
+	@FXML
+	private TableColumn<MedicalCondition, String> conditionNameColumn;
 
-    @FXML
-    private TableColumn<MedicalCondition, String> diagnosedDateColumn;
+	@FXML
+	private TableColumn<MedicalCondition, String> diagnosedDateColumn;
 
-    @FXML
-    private TableColumn<MedicalCondition, String> terminationDateColumn;
+	@FXML
+	private TableColumn<MedicalCondition, String> terminationDateColumn;
 
-    @FXML
-    private TableColumn<MedicalCondition, String> notesColumn;
+	@FXML
+	private TableColumn<MedicalCondition, String> notesColumn;
 
 	@FXML
 	private TabPane patientTabPane;
@@ -125,9 +131,12 @@ public class MedicalPersonnelCodeBehind {
 
 	@FXML
 	private Button addPatientButton;
-	
-    @FXML
-    private RadioButton showAllPatientsRadioButton;
+
+	@FXML
+	private RadioButton showAllPatientsRadioButton;
+
+	@FXML
+	private Button logoutButton;
 
 	private MedicalPersonnelViewModel viewmodel;
 
@@ -140,8 +149,18 @@ public class MedicalPersonnelCodeBehind {
 	public void initialize() throws IOException {
 		this.setBindings();
 		this.setListeners();
+		this.setMedicalConditionsTable();
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("../appointment/MedicalPersonnelAppointmentGui.fxml"));
 		this.appointmentPane.getChildren().setAll(pane);
+	}
+
+	private void setMedicalConditionsTable() {
+		this.conditionNameColumn.setCellValueFactory(new PropertyValueFactory<MedicalCondition, String>("name"));
+		this.diagnosedDateColumn
+				.setCellValueFactory(new PropertyValueFactory<MedicalCondition, String>("diagnosisDate"));
+		this.terminationDateColumn
+				.setCellValueFactory(new PropertyValueFactory<MedicalCondition, String>("terminationDate"));
+		this.notesColumn.setCellValueFactory(new PropertyValueFactory<MedicalCondition, String>("notes"));
 	}
 
 	public void setBindings() {
@@ -187,7 +206,7 @@ public class MedicalPersonnelCodeBehind {
 				}
 			}
 		});
-		
+
 		this.showAllPatientsRadioButton.selectedProperty().addListener((observable, oldType, newType) -> {
 			this.updateDisplay();
 		});
@@ -196,19 +215,18 @@ public class MedicalPersonnelCodeBehind {
 	private void updateDisplay() {
 		if (this.showAllPatientsRadioButton.isSelected()) {
 			this.viewmodel.loadAllPatients();
-		}
-		else {
+		} else {
 			this.viewmodel.loadPatients();
 		}
-		
+
 	}
 
 	@FXML
 	void handleAddPatient(ActionEvent event) {
 		if (this.viewmodel.checkPatientUnderCare()) {
-			 Alert a = new Alert(AlertType.WARNING);
-			 a.setContentText("Patient is already under your care");
-			 a.show();
+			Alert a = new Alert(AlertType.WARNING);
+			a.setContentText("Patient is already under your care");
+			a.show();
 		} else {
 			this.viewmodel.addPatientToCare();
 			this.patientListView.getSelectionModel().clearSelection();
@@ -238,6 +256,30 @@ public class MedicalPersonnelCodeBehind {
 		this.insuranceInput.setText(selectedPatient.getInsurance());
 		this.birthdayPicker.setValue(datetime);
 		this.caregiverLabel.setText(selectedPatient.getCaregiver());
+		
+		this.setMedicalConditions();
+	}
+	
+	void setMedicalConditions() {
+		List<MedicalCondition> medicalConditions;
+		try {
+			medicalConditions = FXCollections.observableArrayList(
+					UserManager.userManager.getMedicalConditions(this.viewmodel.selectedPatient().getUsername()));
+			this.medicalConditionTableView.itemsProperty().set((ObservableList<MedicalCondition>) medicalConditions);
+		} catch (ParseException e) {
+		
+			e.printStackTrace();
+		}
+	}
+
+	@FXML
+	void handleLogout(ActionEvent event) {
+		Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		try {
+			WindowGenerator.setUpLogin(currentStage);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
