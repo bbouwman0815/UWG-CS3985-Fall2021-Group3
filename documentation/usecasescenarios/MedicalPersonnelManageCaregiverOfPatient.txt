@@ -1,0 +1,12 @@
+Use Case Scenario :: Medical Personnel Manage patient caregiver
+
+Primary Flow:
+1) Medical Personnel logs in
+2) Medical Personnel select patient from patient list view
+3) Medical Personnel navigates from tap bar to general info
+4) Medical Personnel selects "Add Caregiver" or "Remove Caregiver" button
+5) Medical Personnel general information is updated
+
+Alternate Flow:
+4b) Medical Personnel declines edit to add caregiver
+5b) Patient caregiver is not updated

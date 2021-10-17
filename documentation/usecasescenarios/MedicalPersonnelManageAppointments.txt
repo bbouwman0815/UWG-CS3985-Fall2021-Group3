@@ -1,0 +1,11 @@
+Use Case Scenario :: Medical Personnel Manage Appointments
+
+Primary Flow:
+1) Medical Personnel logs in
+2) Medical Personnel navigates from tap bar to appointment 
+3) Medical Personnel views upcoming and pasted appointments, and availabilities
+
+Alternate Flow:
+3a) Medical Personnel selects create availability
+3b) Medical Personnel selects available to remove
+3c) Medical Personnel selects appointment to cancel

@@ -1,0 +1,10 @@
+Use Case Scenario :: Medical Personnel manage medical conditions in history/record
+
+Primary Flow:
+1) Medical Personnel logs in
+2) Medical Personnel select patient from patient list view
+3) Medical Personnel uses tap bar to medical conditions history/record
+4) Medical Personnel can view medical conditions
+
+Alternate Flow:
+4a) Medical Personnel can add suggestion for medical condition
