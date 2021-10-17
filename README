@@ -1,11 +1,14 @@
+BEGIN
+	Download the project and point to 'code' fold, then git bash 'code' folder
+
 SETUP
-run setup.sh to install the JeroMQ jar into your local Maven repository.
+	run 'bash setup.sh setup' to set up and install the JeroMQ jar into your local Maven repository.
 
 COMPILE
-run 'mvn compile'
+	run 'bash setup.sh compile' to compile your project
 
 TEST
-run 'mvn test'
+	run 'bash setup.sh test' to test all your project tests
 
 EXECUTE
-run 'mvn javafx:run' to execute the sample
+	`run 'bash setup.sh run' to execute the project and bring you to login window

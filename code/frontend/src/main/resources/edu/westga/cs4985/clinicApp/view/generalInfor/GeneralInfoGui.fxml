@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.SepiaTone?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -56,11 +57,17 @@
          <font>
             <Font size="14.0" />
          </font>
+         <effect>
+            <SepiaTone />
+         </effect>
       </Button>
       <Button fx:id="removeCaregiverButton" layoutX="454.0" layoutY="171.0" mnemonicParsing="false" onAction="#removerCaregiver" prefHeight="20.0" prefWidth="140.0" text="Remove Caregiver">
          <font>
             <Font size="14.0" />
          </font>
+         <effect>
+            <SepiaTone />
+         </effect>
       </Button>
       <Label layoutX="17.0" layoutY="189.0" text="Living Address:">
          <font>
@@ -141,16 +148,25 @@
          <font>
             <Font size="14.0" />
          </font>
+         <effect>
+            <SepiaTone />
+         </effect>
       </Button>
       <Button fx:id="saveButton" layoutX="266.0" layoutY="565.0" mnemonicParsing="false" onAction="#saveGeneralInfo" prefHeight="30.0" prefWidth="80.0" text="Save">
          <font>
             <Font size="14.0" />
          </font>
+         <effect>
+            <SepiaTone />
+         </effect>
       </Button>
       <Button fx:id="cancelButton" layoutX="503.0" layoutY="565.0" mnemonicParsing="false" onAction="#cancel" prefHeight="30.0" prefWidth="80.0" text="Cancel">
          <font>
             <Font size="14.0" />
          </font>
+         <effect>
+            <SepiaTone />
+         </effect>
       </Button>
       <Label fx:id="contactInfoErrorLabel" layoutX="567.0" layoutY="282.0" prefHeight="96.0" prefWidth="117.0" textFill="RED" visible="false" wrapText="true" />
       <Label fx:id="invalidPhoneNumberLabel" layoutX="120.0" layoutY="370.0" prefHeight="17.0" prefWidth="161.0" text="Invalid Phone Number" textFill="#e41414" />
