@@ -42,3 +42,4 @@ edu/westga/cs4985/clinicApp/view/appointment/AppointmentCodeBehind.class
 edu/westga/cs4985/clinicApp/viewmodel/ClinicAppViewModel.class
 edu/westga/cs4985/clinicApp/model/User.class
 edu/westga/cs4985/clinicApp/ClinicApp.class
+edu/westga/cs4985/clinicApp/view/medicalpersonnel/MedicalPersonnelCodeBehind$AddCaregiverPopupCodeBehind.class

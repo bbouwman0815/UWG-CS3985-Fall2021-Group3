@@ -1,0 +1,6 @@
+Use Case Scenario :: Medical Personnel view General Info
+
+Primary Flow:
+1) Medical Personnel logs in
+2) Medical Personnel select patient from patient list view
+3) Medical Personnel navigates from tap bar to general info

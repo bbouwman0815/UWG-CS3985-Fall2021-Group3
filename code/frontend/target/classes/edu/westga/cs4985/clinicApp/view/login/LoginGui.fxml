@@ -21,7 +21,7 @@
             <Font name="Bodoni MT" size="18.0" />
          </font>
       </Button>
-      <Button layoutX="535.0" layoutY="14.0" mnemonicParsing="false" onAction="#onRegister" prefHeight="31.0" prefWidth="79.0" text="Regitster" textFill="#c30d0d">
+      <Button layoutX="535.0" layoutY="14.0" mnemonicParsing="false" onAction="#onRegister" prefHeight="31.0" prefWidth="79.0" text="Regitster" textFill="#126b4cfa">
          <font>
             <Font name="Chalkboard SE Light" size="13.0" />
          </font>
