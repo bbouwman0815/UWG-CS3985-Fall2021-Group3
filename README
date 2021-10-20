@@ -1,3 +1,9 @@
+Title: Medical Management System
+Purpose: This application is used for medical personel to manage their patients. The application have three roles - Medical Personnel, Patient, and Caregiver;
+they share patient's data to care the patient and give suggestion on medical conditions for patient.
+
+SETUP:
+
 BEGIN
 	Download the project and point to 'code' fold, then git bash 'code' folder
 
