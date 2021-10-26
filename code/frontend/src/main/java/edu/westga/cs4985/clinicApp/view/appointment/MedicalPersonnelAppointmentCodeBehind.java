@@ -318,7 +318,7 @@ public class MedicalPersonnelAppointmentCodeBehind {
 						List<LocalDateTime> availabilityList = UserManager.userManager.getAvailabilities(appointment.getMedicalPersonnel().getUsername());
 						availabilityList.add(appointment.getDateTime());
 						UserManager.userManager.updateMedicalPersonnelAvaiabilities(appointment.getMedicalPersonnel(), availabilityList);
-						
+						this.viewModel.availabilityList().clear();
 						List<LocalDateTime> dayTimes = FXCollections.observableArrayList(UserManager.userManager.getAvailabilities(this.viewModel.getMedicalePersonnel().getUsername()));
 				    	this.viewModel.setAvailabilityList(dayTimes);
 					} catch (ParseException e1) {

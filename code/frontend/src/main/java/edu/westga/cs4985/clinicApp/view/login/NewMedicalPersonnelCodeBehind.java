@@ -2,6 +2,7 @@ package edu.westga.cs4985.clinicApp.view.login;
 
 import org.json.simple.parser.ParseException;
 
+import edu.westga.cs4985.clinicApp.model.HashPassword;
 import edu.westga.cs4985.clinicApp.model.MedicalPersonnel;
 import edu.westga.cs4985.clinicApp.model.UserManager;
 import edu.westga.cs4985.clinicApp.resources.InputValidators;
@@ -334,8 +335,9 @@ public class NewMedicalPersonnelCodeBehind {
 	    		valid = false;
 	    	} 
 	    	if (valid) {
+	    		HashPassword hash = new HashPassword();
 	    		String username = this.usernameTextField.getText();
-				String password = this.passwordTextField.getText();
+				String password = hash.generateHash(this.passwordTextField.getText());
 				String firstname = this.firstNameInput.getText();
 				String lastname = this.lastNameInput.getText();
 				String birthday = this.birthdayTextField.getText();
