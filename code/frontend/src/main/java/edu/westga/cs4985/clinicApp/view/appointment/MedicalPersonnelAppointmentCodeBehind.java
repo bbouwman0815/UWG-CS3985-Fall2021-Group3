@@ -39,6 +39,9 @@ public class MedicalPersonnelAppointmentCodeBehind {
 
     @FXML
     private Button showPast;
+    
+    @FXML
+    private Button addAvailability;
 
     @FXML
     private Button showfutureButton;

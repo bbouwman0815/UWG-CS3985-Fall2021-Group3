@@ -14,7 +14,8 @@ public class ClinicApp extends Application {
 	public static final String GUI_FXML = "view/login/LoginGui.fxml";
 	public static final String WINDOW_TITLE = "Clinic";
 	public static final String DASHBOARD_GUI = "view/dashboard/DashboardGui.fxml";
-
+	
+	public UserManager user;
 	/**
 	 * Constructs a new Application object for Image program.
 	 * 
@@ -23,10 +24,12 @@ public class ClinicApp extends Application {
 	 */
 	public ClinicApp() {
 		super();
+		this.user = new UserManager();
 	}
 
 	@Override
 	public void start(Stage primaryStage) {
+		UserManager.setUserManager(this.user);
 		try {
 			Pane pane = this.loadGui();
 			Scene scene = new Scene(pane);
@@ -50,7 +53,7 @@ public class ClinicApp extends Application {
 	 * @param args not used
 	 */
 	public static void main(String[] args) {
-		UserManager.setUserManager(new UserManager());
+		
 		launch(args);
 	}
 
