@@ -40,7 +40,6 @@ public class TestAddAvailabiltiy extends ApplicationTest {
 		
 	}
 	
-	@SuppressWarnings("deprecation")
 	@Test
 	public void testAddAvailability() throws InterruptedException {
 		this.clickOn("#usernameTextField");
@@ -65,6 +64,8 @@ public class TestAddAvailabiltiy extends ApplicationTest {
 		
 		this.clickOn("#appointmentTab");
 		this.clickOn("#showAddAvailbilityButton");
+		this.clickOn("#addAvailability");
+		this.type(KeyCode.ENTER);
 		this.clickOn("#datePicker").scroll(HorizontalDirection.RIGHT);
 		this.type(KeyCode.DIGIT1);
 		this.type(KeyCode.DIGIT1);
@@ -75,6 +76,119 @@ public class TestAddAvailabiltiy extends ApplicationTest {
 		this.type(KeyCode.DIGIT0);
 		this.type(KeyCode.DIGIT2);
 		this.type(KeyCode.DIGIT2);
+		this.type(KeyCode.ENTER);
+		this.clickOn("#addAvailability");
+		this.type(KeyCode.ENTER);
+		this.clickOn("#timePicker");
+		this.type(KeyCode.ENTER);
+		this.clickOn("#addAvailability");
+		this.type(KeyCode.ENTER);
+		
+		this.clickOn("#hideAvailbilityButton");
+	}
+	
+	@Test
+	public void testPastAddAvailability() throws InterruptedException {
+		this.clickOn("#usernameTextField");
+		this.type(KeyCode.J);
+		this.type(KeyCode.I);
+		this.type(KeyCode.M);
+		this.type(KeyCode.M);
+		this.type(KeyCode.Y);
+		this.type(KeyCode.DIGIT1);
+		this.type(KeyCode.DIGIT2);
+		this.type(KeyCode.DIGIT3);
+		this.clickOn("#passwordTextField");
+		this.type(KeyCode.P);
+		this.type(KeyCode.A);
+		this.type(KeyCode.S);
+		this.type(KeyCode.S);
+		this.type(KeyCode.W);
+		this.type(KeyCode.O);
+		this.type(KeyCode.R);
+		this.type(KeyCode.D);
+		this.clickOn("#loginButton");
+		
+		this.clickOn("#appointmentTab");
+		this.clickOn("#showAddAvailbilityButton");
+		this.clickOn("#addAvailability");
+		this.type(KeyCode.ENTER);
+		this.clickOn("#datePicker").scroll(HorizontalDirection.RIGHT);
+		this.type(KeyCode.DIGIT1);
+		this.type(KeyCode.DIGIT1);
+		this.type(KeyCode.SLASH);
+		this.type(KeyCode.DIGIT1);
+		this.type(KeyCode.SLASH);
+		this.type(KeyCode.DIGIT2);
+		this.type(KeyCode.DIGIT0);
+		this.type(KeyCode.DIGIT2);
+		this.type(KeyCode.DIGIT0);
+		this.type(KeyCode.ENTER);
+		this.clickOn("#addAvailability");
+		this.type(KeyCode.ENTER);
+		this.clickOn("#timePicker");
+		this.type(KeyCode.ENTER);
+		this.clickOn("#addAvailability");
+		this.type(KeyCode.ENTER);
+	}
+	
+	@Test
+	public void testAddAvailabilityExist() throws InterruptedException {
+		this.clickOn("#usernameTextField");
+		this.type(KeyCode.J);
+		this.type(KeyCode.I);
+		this.type(KeyCode.M);
+		this.type(KeyCode.M);
+		this.type(KeyCode.Y);
+		this.type(KeyCode.DIGIT1);
+		this.type(KeyCode.DIGIT2);
+		this.type(KeyCode.DIGIT3);
+		this.clickOn("#passwordTextField");
+		this.type(KeyCode.P);
+		this.type(KeyCode.A);
+		this.type(KeyCode.S);
+		this.type(KeyCode.S);
+		this.type(KeyCode.W);
+		this.type(KeyCode.O);
+		this.type(KeyCode.R);
+		this.type(KeyCode.D);
+		this.clickOn("#loginButton");
+		
+		this.clickOn("#appointmentTab");
+		this.clickOn("#showAddAvailbilityButton");
+		this.clickOn("#addAvailability");
+		this.type(KeyCode.ENTER);
+		this.clickOn("#datePicker").scroll(HorizontalDirection.RIGHT);
+		this.type(KeyCode.DIGIT1);
+		this.type(KeyCode.DIGIT1);
+		this.type(KeyCode.SLASH);
+		this.type(KeyCode.DIGIT1);
+		this.type(KeyCode.SLASH);
+		this.type(KeyCode.DIGIT2);
+		this.type(KeyCode.DIGIT0);
+		this.type(KeyCode.DIGIT2);
+		this.type(KeyCode.DIGIT2);
+		this.type(KeyCode.ENTER);
+		this.clickOn("#addAvailability");
+		this.type(KeyCode.ENTER);
+		this.clickOn("#timePicker");
+		this.type(KeyCode.ENTER);
+		this.clickOn("#addAvailability");
+		this.type(KeyCode.ENTER);
+		this.clickOn("#addAvailability");
+		this.type(KeyCode.ENTER);
+		this.clickOn("#datePicker").scroll(HorizontalDirection.RIGHT);
+		this.type(KeyCode.DIGIT1);
+		this.type(KeyCode.DIGIT1);
+		this.type(KeyCode.SLASH);
+		this.type(KeyCode.DIGIT1);
+		this.type(KeyCode.SLASH);
+		this.type(KeyCode.DIGIT2);
+		this.type(KeyCode.DIGIT0);
+		this.type(KeyCode.DIGIT2);
+		this.type(KeyCode.DIGIT2);
+		this.type(KeyCode.ENTER);
+		this.clickOn("#addAvailability");
 		this.type(KeyCode.ENTER);
 		this.clickOn("#timePicker");
 		this.type(KeyCode.ENTER);

@@ -10,7 +10,7 @@
 
 <AnchorPane prefHeight="501.0" prefWidth="607.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.westga.cs4985.clinicApp.view.appointment.AppointmentCodeBehind">
    <children>
-      <Button layoutX="363.0" layoutY="24.0" mnemonicParsing="false" onAction="#bookAppointment" prefHeight="59.0" prefWidth="189.0" text="Book Appointment">
+      <Button fx:id="bookAppointment" layoutX="363.0" layoutY="24.0" mnemonicParsing="false" onAction="#bookAppointment" prefHeight="59.0" prefWidth="189.0" text="Book Appointment">
          <font>
             <Font name="AppleGothic Regular" size="18.0" />
          </font>

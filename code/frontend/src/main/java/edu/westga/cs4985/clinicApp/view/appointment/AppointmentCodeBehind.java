@@ -33,6 +33,9 @@ import javafx.stage.WindowEvent;
  *
  */
 public class AppointmentCodeBehind {
+	
+	@FXML
+    private Button bookAppointment;
 
     @FXML
     private ListView<Appointment> futureAppointmentList;
@@ -294,7 +297,14 @@ public class AppointmentCodeBehind {
             	this.patientLabel.textProperty().set("Patient: " + this.viewModel.selectedFutureAppointmentProperty().get().getPatient().getFullName());
             	this.locationLabel.textProperty().set("Location: " + this.viewModel.selectedFutureAppointmentProperty().get().getLocation());
         		this.cancelAppointmentButton.setVisible(true);
-        	} else if (this.viewModel.selectedFutureAppointmentProperty().get() == null) {
+        	} else if (this.viewModel.selectedPastAppointmentProperty().get() != null) {
+        		this.cancelAppointmentButton.setVisible(false);
+        		this.medicalPersonnelLabel.textProperty().set("Medical Personnel: " + this.viewModel.selectedPastAppointmentProperty().get().getMedicalPersonnel());
+            	this.timeLabel.textProperty().set("Time: " + this.viewModel.selectedPastAppointmentProperty().get().getDateTime());
+            	this.appointmentNotes.textProperty().set(this.viewModel.selectedPastAppointmentProperty().get().getNotes());
+            	this.patientLabel.textProperty().set("Patient: " + this.viewModel.selectedPastAppointmentProperty().get().getPatient().getFullName());
+            	this.locationLabel.textProperty().set("Location: " + this.viewModel.selectedPastAppointmentProperty().get().getLocation());
+        	} else {
         		this.cancelAppointmentButton.setVisible(false);
         		this.medicalPersonnelLabel.textProperty().set("Medical Personnel: " + this.viewModel.seletedMedicalPersonnel().get());
         		this.patientLabel.textProperty().set("Patient: " + this.viewModel.getPatient().getFullName());
@@ -303,14 +313,7 @@ public class AppointmentCodeBehind {
             	this.appointmentNotes.textProperty().set(this.viewModel.notesProperty().get());
         		
         	}
-        	if (this.viewModel.selectedPastAppointmentProperty().get() != null) {
-        		this.cancelAppointmentButton.setVisible(false);
-        		this.medicalPersonnelLabel.textProperty().set("Medical Personnel: " + this.viewModel.selectedPastAppointmentProperty().get().getMedicalPersonnel());
-            	this.timeLabel.textProperty().set("Time: " + this.viewModel.selectedPastAppointmentProperty().get().getDateTime());
-            	this.appointmentNotes.textProperty().set(this.viewModel.selectedPastAppointmentProperty().get().getNotes());
-            	this.patientLabel.textProperty().set("Patient: " + this.viewModel.selectedPastAppointmentProperty().get().getPatient().getFullName());
-            	this.locationLabel.textProperty().set("Location: " + this.viewModel.selectedPastAppointmentProperty().get().getLocation());
-        	}
+        	
         }
 
         @FXML
@@ -349,22 +352,13 @@ public class AppointmentCodeBehind {
         
         @FXML
         void onEditNotes(ActionEvent event) {
-        	this.saveButton.setVisible(true);
-        	this.appointmentNotes.setEditable(true);
-        	this.OKButton.setVisible(false);
-        	this.cancelAppointmentButton.setVisible(false);
+        	//No need for Patient
         }
 
         @FXML
         void saveNotes(ActionEvent event) {
-        	this.saveButton.setVisible(false);
-        	this.appointmentNotes.setEditable(false);
-        	this.OKButton.setVisible(true);
-
-			this.viewModel.notesProperty().set(this.appointmentNotes.getText());
+        	//No need for Patient
         }
-        
-
     }
 
 }

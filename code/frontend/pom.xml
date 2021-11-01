@@ -149,6 +149,8 @@
 									<includes>
 										<include>edu.westga.cs4985.clinicApp.model</include>
 										<include>edu.westga.cs4985.clinicApp.viewmodel</include>
+                                        <include>edu.westga.cs4985.clinicApp.view.appointment</include>
+                                        <include>edu.westga.cs4985.clinicApp.view.medicalPersonnel</include>
 									</includes>
 									<!--excludes>
 										<exclude>edu.westga.cs4985.clinicApp.ClinicApp.test</exclude>
