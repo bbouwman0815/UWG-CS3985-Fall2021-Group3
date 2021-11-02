@@ -151,6 +151,11 @@
 										<include>edu.westga.cs4985.clinicApp.viewmodel</include>
                                         <include>edu.westga.cs4985.clinicApp.view.appointment</include>
                                         <include>edu.westga.cs4985.clinicApp.view.medicalPersonnel</include>
+                                        <include>edu.westga.cs4985.clinicApp.view.login</include>
+                                        <include>edu.westga.cs4985.clinicApp.view.dashboard</include>
+                                        <include>edu.westga.cs4985.clinicApp.view.generalInfor</include>
+                                        <include>edu.westga.cs4985.clinicApp.view.medicalConditions</include>
+                                        <include>edu.westga.cs4985.clinicApp.view.medicalpersonnel</include>
 									</includes>
 									<!--excludes>
 										<exclude>edu.westga.cs4985.clinicApp.ClinicApp.test</exclude>
