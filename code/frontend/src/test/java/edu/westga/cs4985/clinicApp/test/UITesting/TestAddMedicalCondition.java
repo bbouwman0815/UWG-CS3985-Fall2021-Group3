@@ -161,5 +161,50 @@ class TestAddMedicalCondition extends ApplicationTest {
 
 		this.clickOn("#addButton");
 	}
+	
+	@Test
+	public void testAddInvalidMedicalCondition() throws InterruptedException {
+		this.clickOn("#usernameTextField");
+		this.type(KeyCode.B);
+		this.type(KeyCode.B);
+		this.type(KeyCode.O);
+		this.type(KeyCode.U);
+		this.type(KeyCode.W);
+		this.type(KeyCode.M);
+		this.type(KeyCode.A);
+		this.type(KeyCode.N);
+		this.type(KeyCode.DIGIT0);
+		this.type(KeyCode.DIGIT8);
+		this.type(KeyCode.DIGIT1);
+		this.type(KeyCode.DIGIT5);
+		this.clickOn("#passwordTextField");
+		this.type(KeyCode.P);
+		this.type(KeyCode.A);
+		this.type(KeyCode.S);
+		this.type(KeyCode.S);
+		this.type(KeyCode.W);
+		this.type(KeyCode.O);
+		this.type(KeyCode.R);
+		this.type(KeyCode.D);
+		this.clickOn("#loginButton");
+
+		this.clickOn("#medicalConditionsNavButton");
+		this.clickOn("#addMedicationConditionButton");
+
+		this.clickOn("#nameTextField");
+		this.type(KeyCode.SPACE);
+
+
+		this.clickOn("#diagnosisDatePicker").scroll(HorizontalDirection.RIGHT);
+	
+
+		this.clickOn("#terminationDatePicker").scroll(HorizontalDirection.RIGHT);
+		
+
+		this.clickOn("#notesTextArea");
+
+
+		this.clickOn("#cancelButton");
+	}
 
 }

@@ -9,6 +9,7 @@ import edu.westga.cs4985.clinicApp.ClinicApp;
 import edu.westga.cs4985.clinicApp.client.Communicator;
 import edu.westga.cs4985.clinicApp.client.RequestType;
 import edu.westga.cs4985.clinicApp.model.UserManager;
+import javafx.scene.control.ButtonType;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
@@ -79,6 +80,40 @@ class TestRemoveMedicalCondition extends ApplicationTest {
 
 		this.rightClickOn(1250, 475);
 		this.clickOn("#deleteConditionButton");
+		this.clickOn(1030, 445);
+
+	}
+	
+	@Test
+	public void testRemoveMedicalConditionCancel() throws InterruptedException {
+		this.clickOn("#usernameTextField");
+		this.type(KeyCode.B);
+		this.type(KeyCode.B);
+		this.type(KeyCode.O);
+		this.type(KeyCode.U);
+		this.type(KeyCode.W);
+		this.type(KeyCode.M);
+		this.type(KeyCode.A);
+		this.type(KeyCode.N);
+		this.type(KeyCode.DIGIT0);
+		this.type(KeyCode.DIGIT8);
+		this.type(KeyCode.DIGIT1);
+		this.type(KeyCode.DIGIT5);
+		this.clickOn("#passwordTextField");
+		this.type(KeyCode.P);
+		this.type(KeyCode.A);
+		this.type(KeyCode.S);
+		this.type(KeyCode.S);
+		this.type(KeyCode.W);
+		this.type(KeyCode.O);
+		this.type(KeyCode.R);
+		this.type(KeyCode.D);
+		this.clickOn("#loginButton");
+		this.clickOn("#medicalConditionsNavButton");
+
+		this.rightClickOn(1250, 475);
+		this.clickOn("#deleteConditionButton");
+		this.clickOn(1060, 445);
 
 	}
 
