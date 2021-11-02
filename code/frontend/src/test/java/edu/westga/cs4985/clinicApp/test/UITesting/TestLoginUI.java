@@ -86,6 +86,7 @@ public class TestLoginUI extends ApplicationTest {
 		this.type(KeyCode.R);
 		this.type(KeyCode.D);
 		this.type(KeyCode.ENTER);
+		this.clickOn("#logoutButton");
 	}
 	
 	@Test
