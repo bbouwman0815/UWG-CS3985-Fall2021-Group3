@@ -1,10 +1,6 @@
 package edu.westga.cs4985.clinicApp.model;
 
 import edu.westga.cs4985.clinicApp.resources.UI;
-import edu.westga.cs4985.clinicApp.utils.Country;
-import edu.westga.cs4985.clinicApp.utils.Ethnicity;
-import edu.westga.cs4985.clinicApp.utils.Gender;
-import edu.westga.cs4985.clinicApp.utils.Race;
 
 /**
  * The Patient class.
@@ -40,6 +36,8 @@ public class Patient extends Person {
 	 * @param phoneNumber the phone number
 	 * @param email       the email
 	 * @param insurance   the insurance
+	 * @param username	  the username
+	 * @param password	  the password
 	 * 
 	 * @precondition insurance != null && !insurance.isEmpty() && phoneNumber !=
 	 *               null && !phoneNumber.isEmpty() && email != null &&
@@ -89,7 +87,7 @@ public class Patient extends Person {
 	/**
 	 * Sets the caregiver.
 	 *
-	 * @param insurance the new caregiver
+	 * @param cargiver the new caregiver
 	 */
 	public void setCaregiver(String caregiver) {
 		if (caregiver == null) {
@@ -104,7 +102,7 @@ public class Patient extends Person {
 	 * @return the insurance
 	 */
 	public String getInsurance() {
-		return insurance;
+		return this.insurance;
 	}
 
 	/**
@@ -122,7 +120,7 @@ public class Patient extends Person {
 	 * @return the phone number
 	 */
 	public String getPhoneNumber() {
-		return phoneNumber;
+		return this.phoneNumber;
 	}
 
 	/**
@@ -131,7 +129,7 @@ public class Patient extends Person {
 	 * @return the email
 	 */
 	public String getEmail() {
-		return email;
+		return this.email;
 	}
 
 	/**
