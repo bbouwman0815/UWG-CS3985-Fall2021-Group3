@@ -14,6 +14,8 @@ public class InputValidators {
 	 * Validate phone number.
 	 *
 	 * @param phoneNumber the phone number
+	 * 
+	 * @return true if valid, false otherwise
 	 */
 	public static boolean validatePhoneNumber(String phoneNumber) {
 		Pattern pattern = Pattern.compile("^((\\(\\d{3}\\))|\\d{3})[- .]?\\d{3}[- .]?\\d{4}$");
