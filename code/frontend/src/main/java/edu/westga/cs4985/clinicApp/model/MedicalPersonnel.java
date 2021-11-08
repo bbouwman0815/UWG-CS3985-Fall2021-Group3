@@ -1,8 +1,5 @@
 package edu.westga.cs4985.clinicApp.model;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-
 import edu.westga.cs4985.clinicApp.resources.UI;
 
 /**
@@ -13,6 +10,8 @@ import edu.westga.cs4985.clinicApp.resources.UI;
  *
  */
 public class MedicalPersonnel extends Person {
+
+	private static final String ADDRESS_SEPERATOR = ", ";
 
 	private String phoneNumber;
 
@@ -36,6 +35,9 @@ public class MedicalPersonnel extends Person {
 	 * @param ethnicity   the ethnicity
 	 * @param phoneNumber the phone number
 	 * @param email       the email
+	 * @param username	  the username
+	 * @param password	  the password
+	 * @param zipcode	  the zipcode
 	 * 
 	 * @precondition insurance != null && !insurance.isEmpty() && phoneNumber !=
 	 *               null && !phoneNumber.isEmpty() && email != null &&
@@ -90,7 +92,7 @@ public class MedicalPersonnel extends Person {
 	 * @return the email
 	 */
 	public String getEmail() {
-		return email;
+		return this.email;
 	}
 
 	/**
@@ -122,7 +124,7 @@ public class MedicalPersonnel extends Person {
 	 * @return the full address
 	 */
 	public String getFullAddress() {
-		return this.getAddress1() + ", " + this.getCity() + ", " + this.getState() + ", " + this.getCountry();
+		return this.getAddress1() + ADDRESS_SEPERATOR + this.getCity() + ADDRESS_SEPERATOR + this.getState() + ADDRESS_SEPERATOR + this.getCountry();
 	}
 
 	/**
