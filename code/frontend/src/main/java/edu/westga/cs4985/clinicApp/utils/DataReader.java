@@ -1,21 +1,11 @@
 package edu.westga.cs4985.clinicApp.utils;
 
-import java.text.ParseException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-
-import edu.westga.cs4985.clinicApp.model.Appointment;
 import edu.westga.cs4985.clinicApp.model.MedicalPersonnel;
 import edu.westga.cs4985.clinicApp.model.Patient;
 import edu.westga.cs4985.clinicApp.model.User;
-import edu.westga.cs4985.clinicApp.model.UserManager;
+
 
 /**
  * Read data from json file
@@ -43,7 +33,7 @@ public class DataReader {
 	/**
 	 * Convert json string to user
 	 * 
-	 * @param reply the user json string
+	 * @param json the user json string
 	 * 
 	 * @return the user associated with the json string
 	 */
@@ -52,14 +42,14 @@ public class DataReader {
 		String type = ((String) json.get("type"));
 		if (type.equals("PATIENT")) {
 			Patient patient = new Patient((String) json.get("firstName"), (String) json.get("lastName"), (String) json.get("gender"), (String) json.get("dateOfBirth"), (String) json.get("address1"),
-					(String) json.get("address2"), (String) json.get("city"), (String) json.get("state"), (String) json.get("country"), (String) json.get("race"),(String) json.get("ethnicty"),
+					(String) json.get("address2"), (String) json.get("city"), (String) json.get("state"), (String) json.get("country"), (String) json.get("race"), (String) json.get("ethnicty"),
 					(String) json.get("phoneNumber"), (String) json.get("email"), (String) json.get("insurance"), (String) json.get("userName"), (String) json.get("password"));
 			patient.setCaregiver((String) json.get("caregiver"));
 			user = patient;
 		}
 		if (type.equals("MedicalPersonnel")) {
 			MedicalPersonnel medicalPersonnel = new MedicalPersonnel((String) json.get("firstName"), (String) json.get("lastName"), (String) json.get("gender"), (String) json.get("dateOfBirth"), (String) json.get("address1"),
-					(String) json.get("address2"), (String) json.get("city"), (String) json.get("state"), (String) json.get("country"), (String) json.get("race"),(String) json.get("ethnicty"),
+					(String) json.get("address2"), (String) json.get("city"), (String) json.get("state"), (String) json.get("country"), (String) json.get("race"), (String) json.get("ethnicty"),
 					(String) json.get("phoneNumber"), (String) json.get("email"), (String) json.get("userName"), (String) json.get("password"), (String) json.get("zipcode"));
 			user = medicalPersonnel;
 		}
