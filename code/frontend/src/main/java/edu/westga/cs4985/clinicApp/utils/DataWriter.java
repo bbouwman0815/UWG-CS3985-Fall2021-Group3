@@ -4,12 +4,8 @@ import edu.westga.cs4985.clinicApp.model.Appointment;
 import edu.westga.cs4985.clinicApp.model.MedicalCondition;
 import edu.westga.cs4985.clinicApp.model.MedicalPersonnel;
 import edu.westga.cs4985.clinicApp.model.Patient;
-import edu.westga.cs4985.clinicApp.model.User;
-
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -21,6 +17,8 @@ import org.json.simple.JSONObject;
  */
 public class DataWriter {
 	
+	private static final String ERROR = "Error";
+
 	/**
 	 * Write the user's name user name and password as json 
 	 * 
@@ -94,7 +92,8 @@ public class DataWriter {
 	/**
 	 * Write the patient's general information as json
 	 *  
-	 * @param patient the patient
+	 * @param person 		   the person
+	 * @param availabilityList the availability of the medical person
 	 * @return the json that contains patient's general information
 	 */
 	@SuppressWarnings("unchecked")
@@ -190,7 +189,7 @@ public class DataWriter {
 	@SuppressWarnings("unchecked")
 	public static String writeAppointmentInfo(Appointment appointment) {
 		if (appointment == null) {
-			return "Error";
+			return ERROR;
 		}
 		JSONObject json = new JSONObject();
 		json.put("medicalPersonnel", appointment.getMedicalPersonnel().getUsername());
@@ -211,7 +210,7 @@ public class DataWriter {
 	@SuppressWarnings("unchecked")
 	public static String writeMedicalConditionInfo(MedicalCondition medicalCondition) {
 		if (medicalCondition == null) {
-			return "Error";
+			return ERROR;
 		}
 		JSONObject json = new JSONObject();
 		json.put("patient", medicalCondition.getPatient().getUsername());
