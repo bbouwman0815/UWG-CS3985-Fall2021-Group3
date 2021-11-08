@@ -1,6 +1,5 @@
 package edu.westga.cs4985.clinicApp.client;
 
-import org.zeromq.SocketType;
 import org.zeromq.ZContext;
 import org.zeromq.ZMQ;
 import org.zeromq.ZMQ.Socket;
@@ -14,7 +13,7 @@ import org.zeromq.ZMQ.Socket;
 public class Communicator {
 	private ZContext context;
 	private Socket socket;
-	public static final String SEPARATOR = "," ;
+	public static final String SEPARATOR = ",";
 	
 	/**
 	 * Creates the communicator by connect to the server with the address
@@ -29,7 +28,7 @@ public class Communicator {
 	public Communicator() {
 		this.context = new ZContext(1);
 		System.out.println("Connecting to server");
-		this.socket = context.createSocket(ZMQ.REQ);
+		this.socket = this.context.createSocket(ZMQ.REQ);
 		this.socket.connect("tcp://127.0.0.1:5573");
 	}
 	
@@ -44,16 +43,16 @@ public class Communicator {
 	 * @return a reply from the server as a String
 	 */
 	public String request(RequestType requestType, String data) {
-		if(this.context == null) {
+		if (this.context == null) {
 			throw new IllegalStateException("The context has been closed or never opened");
 		}
-		if(this.socket == null) {
+		if (this.socket == null) {
 			throw new IllegalStateException("The socket has been closed or never opened");
 		}
 		String request = requestType + Communicator.SEPARATOR + data;
-		socket.send(request.getBytes(ZMQ.CHARSET), 0);
+		this.socket.send(request.getBytes(ZMQ.CHARSET), 0);
 		
-		byte[] reply = socket.recv(0);
+		byte[] reply = this.socket.recv(0);
 		String response = new String(reply, ZMQ.CHARSET);
 		return response;
 	}
@@ -66,11 +65,11 @@ public class Communicator {
 	 * 
 	 */
 	public void close() {
-		if(this.socket != null) {
+		if (this.socket != null) {
 			this.socket.close();
 			this.socket = null;
 		}
-		if(this.context != null) {
+		if (this.context != null) {
 			this.context.close();
 			this.context = null;
 		}
