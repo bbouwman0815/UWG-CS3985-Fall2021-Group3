@@ -101,6 +101,8 @@ public class WindowGenerator {
 	 *
 	 * @param fxml       the fxml location
 	 * @param controller the controller
+	 * @param title		 the title
+	 * 
 	 * @return the stage
 	 * @throws IOException the IO exception
 	 */
