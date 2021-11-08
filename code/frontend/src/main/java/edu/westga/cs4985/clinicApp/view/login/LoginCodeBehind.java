@@ -29,6 +29,9 @@ public class LoginCodeBehind {
 
 	@FXML
 	private Button loginButton;
+	
+	@FXML
+	private Button registerButton;
 
 	@FXML
 	private Button addPatientButton;
