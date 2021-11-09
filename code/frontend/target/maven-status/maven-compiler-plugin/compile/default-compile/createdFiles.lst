@@ -12,7 +12,6 @@ edu\westga\cs4985\clinicApp\utils\Race.class
 edu\westga\cs4985\clinicApp\utils\Gender.class
 edu\westga\cs4985\clinicApp\view\generalInfor\PatientGeneralInfoCodeBehind$AddCaregiverPopupCodeBehind.class
 edu\westga\cs4985\clinicApp\viewmodel\ClinicAppViewModel.class
-edu\westga\cs4985\clinicApp\view\medicalPersonnel\MedicalPersonnelCodeBehind$1.class
 edu\westga\cs4985\clinicApp\model\MedicalCondition.class
 edu\westga\cs4985\clinicApp\model\User.class
 edu\westga\cs4985\clinicApp\model\MedicalPersonnel.class

@@ -14,7 +14,7 @@ import javafx.geometry.VerticalDirection;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
-public class TestMedicalPersonnelAddPatient extends ApplicationTest {
+public class TestMedicalPersonnel extends ApplicationTest {
 
 	@Override
 	public void start(Stage stage) throws IOException {
@@ -56,7 +56,6 @@ public class TestMedicalPersonnelAddPatient extends ApplicationTest {
 				return "ERROR";
 			}
 		}
-	
 	}
 
 	@Test
@@ -228,10 +227,8 @@ public class TestMedicalPersonnelAddPatient extends ApplicationTest {
 		this.type(KeyCode.R);
 		this.type(KeyCode.D);
 		this.clickOn("#loginButton");
-		
 		this.clickOn("#showAllPatientsRadioButton");
 		this.clickOn("#showAllPatientsRadioButton");
-		
 		this.clickOn("#patientListView");
 		this.type(KeyCode.PAGE_DOWN);
 		this.clickOn("#generalInfoTab");
@@ -242,8 +239,30 @@ public class TestMedicalPersonnelAddPatient extends ApplicationTest {
 		this.type(KeyCode.TAB);
 		this.type(KeyCode.TAB);
 		this.type(KeyCode.ENTER);
-
-
+	}
+	
+	@Test
+	public void testRemovePatient() throws InterruptedException {
+		this.clickOn("#usernameTextField");
+		this.type(KeyCode.A);
+		this.type(KeyCode.D);
+		this.type(KeyCode.M);
+		this.type(KeyCode.I);
+		this.type(KeyCode.N);
+		this.clickOn("#passwordTextField");
+		this.type(KeyCode.P);
+		this.type(KeyCode.A);
+		this.type(KeyCode.S);
+		this.type(KeyCode.S);
+		this.type(KeyCode.W);
+		this.type(KeyCode.O);
+		this.type(KeyCode.R);
+		this.type(KeyCode.D);
+		this.clickOn("#loginButton");
+		this.clickOn("#patientListView");
+		this.type(KeyCode.PAGE_DOWN);
+		this.clickOn("#removePatientButton");
+		this.type(KeyCode.ENTER);
 	}
 	
 	@Test
