@@ -149,6 +149,9 @@ public class MedicalPersonnelCodeBehind {
 
 	@FXML
 	private Button logoutButton;
+	
+    @FXML
+    private Button removePatientButton;
 
 	private MedicalPersonnelViewModel viewmodel;
 
@@ -166,6 +169,8 @@ public class MedicalPersonnelCodeBehind {
 		this.appointmentPane.getChildren().setAll(pane);
 		this.addCaregiverButton.setVisible(false);
 		this.removeCaregiverButton.setVisible(false);
+		this.removePatientButton.setVisible(true);
+		this.addPatientButton.setVisible(false);
 	}
 
 	private void setMedicalConditionsTable() {
@@ -201,33 +206,6 @@ public class MedicalPersonnelCodeBehind {
 					}
 				});
 
-		this.patientListView.setOnMouseClicked((EventHandler<? super MouseEvent>) new EventHandler<MouseEvent>() {
-
-			@Override
-			public void handle(MouseEvent click) {
-
-				if (click.getClickCount() == 2) {
-					Alert alert = WindowGenerator
-							.openConfirm("Are you sure want to remove the patient from your care?");
-					alert.setOnCloseRequest((evt) -> {
-
-						if (alert.getResult().getButtonData().equals(ButtonData.YES)) {
-							viewmodel.removePatientFromCare();
-							patientListView.getSelectionModel().clearSelection();
-							UserManager.userManager.updateMedicalPersonnelsPatients(viewmodel.getMedicalePersonnel(),
-									viewmodel.getPatients());
-							updateDisplay();
-						}
-						if (alert.getResult().getButtonData().equals(ButtonData.NO)) {
-							patientListView.getSelectionModel().clearSelection();
-						}
-					});
-					alert.showAndWait();
-
-				}
-			}
-		});
-
 		this.showAllPatientsRadioButton.selectedProperty().addListener((observable, oldType, newType) -> {
 			this.updateDisplay();
 		});
@@ -235,9 +213,13 @@ public class MedicalPersonnelCodeBehind {
 
 	private void updateDisplay() {
 		if (this.showAllPatientsRadioButton.isSelected()) {
+			this.removePatientButton.setVisible(false);
+			this.addPatientButton.setVisible(true);
 			this.viewmodel.loadAllPatients();
 		} else {
 			this.viewmodel.loadPatients();
+			this.removePatientButton.setVisible(true);
+			this.addPatientButton.setVisible(false);
 		}
 
 	}
@@ -324,6 +306,26 @@ public class MedicalPersonnelCodeBehind {
     	this.caregiverLabel.textProperty().set("");
     	this.addCaregiverButton.setVisible(true);
 		this.removeCaregiverButton.setVisible(false);
+    }
+    
+    @FXML
+    void handleRemovePatient(ActionEvent event) {
+    	Alert alert = WindowGenerator
+				.openConfirm("Are you sure want to remove the patient from your care?");
+		alert.setOnCloseRequest((evt) -> {
+
+			if (alert.getResult().getButtonData().equals(ButtonData.YES)) {
+				viewmodel.removePatientFromCare();
+				patientListView.getSelectionModel().clearSelection();
+				UserManager.userManager.updateMedicalPersonnelsPatients(viewmodel.getMedicalePersonnel(),
+						viewmodel.getPatients());
+				updateDisplay();
+			}
+			if (alert.getResult().getButtonData().equals(ButtonData.NO)) {
+				patientListView.getSelectionModel().clearSelection();
+			}
+		});
+		alert.showAndWait();
     }
     
     public class AddCaregiverPopupCodeBehind {
