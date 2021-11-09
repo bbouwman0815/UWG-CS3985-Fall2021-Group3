@@ -82,8 +82,11 @@ public class TestUpdateGeneralInfo extends ApplicationTest {
 		this.clickOn("#generalInfoNavButton");
 		this.clickOn("#editbutton");
 		this.clickOn("#addCaregiverButton");
-		this.clickOn(850, 310);
-		this.clickOn(925, 630);
+		this.clickOn("#caregiverList");
+		this.type(KeyCode.UP);
+		this.type(KeyCode.ENTER);
+		this.type(KeyCode.TAB);
+		this.type(KeyCode.ENTER);
 		
 	}
 	
@@ -115,8 +118,11 @@ public class TestUpdateGeneralInfo extends ApplicationTest {
 		this.clickOn("#generalInfoNavButton");
 		this.clickOn("#editbutton");
 		this.clickOn("#addCaregiverButton");
-		this.clickOn(850, 310);
-		this.clickOn(925, 630);
+		this.clickOn("#caregiverList");
+		this.type(KeyCode.UP);
+		this.type(KeyCode.ENTER);
+		this.type(KeyCode.TAB);
+		this.type(KeyCode.ENTER);
 		this.clickOn("#removeCaregiverButton");	
 	}
 	
@@ -151,37 +157,6 @@ public class TestUpdateGeneralInfo extends ApplicationTest {
 	}
 	
 	@Test
-	public void testRemoveUnselectedCaregiver() throws InterruptedException {
-		this.clickOn("#usernameTextField");
-		this.type(KeyCode.B);
-		this.type(KeyCode.B);
-		this.type(KeyCode.O);
-		this.type(KeyCode.U);
-		this.type(KeyCode.W);
-		this.type(KeyCode.M);
-		this.type(KeyCode.A);
-		this.type(KeyCode.N);
-		this.type(KeyCode.DIGIT0);
-		this.type(KeyCode.DIGIT8);
-		this.type(KeyCode.DIGIT1);
-		this.type(KeyCode.DIGIT5);
-		this.clickOn("#passwordTextField");
-		this.type(KeyCode.P);
-		this.type(KeyCode.A);
-		this.type(KeyCode.S);
-		this.type(KeyCode.S);
-		this.type(KeyCode.W);
-		this.type(KeyCode.O);
-		this.type(KeyCode.R);
-		this.type(KeyCode.D); 
-		this.clickOn("#loginButton");
-		this.clickOn("#generalInfoNavButton");
-		this.clickOn("#editbutton");
-		this.clickOn("#addCaregiverButton");
-		this.clickOn(925, 680);	
-	}  
-	
-	@Test
 	public void testUpdateCareGiverCancel() throws InterruptedException {
 		this.clickOn("#usernameTextField"); 
 		this.type(KeyCode.B);
@@ -209,8 +184,10 @@ public class TestUpdateGeneralInfo extends ApplicationTest {
 		this.clickOn("#generalInfoNavButton");
 		this.clickOn("#editbutton");
 		this.clickOn("#addCaregiverButton");
-		this.clickOn(850, 310);
-		this.clickOn(925, 685);
+		this.clickOn("#caregiverList");
+		this.type(KeyCode.TAB);
+		this.type(KeyCode.TAB);
+		this.type(KeyCode.ENTER);
 		
 	}
 	
