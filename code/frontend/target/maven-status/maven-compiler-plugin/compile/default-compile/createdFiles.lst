@@ -2,8 +2,10 @@ edu\westga\cs4985\clinicApp\resources\UI.class
 edu\westga\cs4985\clinicApp\view\medicalConditions\MedicalConditionsCodeBehind.class
 edu\westga\cs4985\clinicApp\utils\Country.class
 edu\westga\cs4985\clinicApp\utils\login\UToken.class
+edu\westga\cs4985\clinicApp\view\medicalpersonnel\MedicalPersonnelCodeBehind$AddCaregiverPopupCodeBehind.class
 edu\westga\cs4985\clinicApp\model\Patient.class
 edu\westga\cs4985\clinicApp\model\Appointment.class
+edu\westga\cs4985\clinicApp\view\medicalpersonnel\MedicalPersonnelCodeBehind.class
 edu\westga\cs4985\clinicApp\resources\InputValidators.class
 edu\westga\cs4985\clinicApp\model\Login.class
 edu\westga\cs4985\clinicApp\view\login\NewMedicalPersonnelCodeBehind.class
@@ -34,11 +36,9 @@ edu\westga\cs4985\clinicApp\view\appointment\MedicalPersonnelAppointmentCodeBehi
 edu\westga\cs4985\clinicApp\view\appointment\AppointmentCodeBehind.class
 edu\westga\cs4985\clinicApp\view\appointment\MedicalPersonnelAppointmentCodeBehind.class
 edu\westga\cs4985\clinicApp\utils\DataReader.class
-edu\westga\cs4985\clinicApp\view\medicalPersonnel\MedicalPersonnelCodeBehind.class
 edu\westga\cs4985\clinicApp\view\appointment\AppointmentCodeBehind$BookAppointmentPopupCodeBehind.class
 edu\westga\cs4985\clinicApp\view\appointment\AppointmentCodeBehind$AppointmentViewPopupCodeBehind.class
 edu\westga\cs4985\clinicApp\view\login\RegisterCodeBehind.class
 edu\westga\cs4985\clinicApp\resources\UI$ExceptionMessages.class
 edu\westga\cs4985\clinicApp\view\login\NewPatientCodeBehind.class
 edu\westga\cs4985\clinicApp\view\generalInfor\PatientGeneralInfoCodeBehind.class
-edu\westga\cs4985\clinicApp\view\medicalPersonnel\MedicalPersonnelCodeBehind$AddCaregiverPopupCodeBehind.class
