@@ -87,7 +87,7 @@ public class Patient extends Person {
 	/**
 	 * Sets the caregiver.
 	 *
-	 * @param cargiver the new caregiver
+	 * @param caregiver the new caregiver
 	 */
 	public void setCaregiver(String caregiver) {
 		if (caregiver == null) {
