@@ -13,50 +13,49 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 public class RegisterCodeBehind {
-	
-	String[] roleList = {"Patient", "Medical Personnel", "Caregiver"};
-	
-	 @FXML
-	 private ComboBox<String> roleSelecter;
-	 
-	 @FXML
-		private void initialize() {
-			this.roleSelecter.itemsProperty().set(FXCollections.observableArrayList(this.roleList));
+
+	String[] roleList = { "Patient", "Medical Personnel", "Caregiver" };
+
+	@FXML
+	private ComboBox<String> roleSelecter;
+
+	@FXML
+	private void initialize() {
+		this.roleSelecter.itemsProperty().set(FXCollections.observableArrayList(this.roleList));
+	}
+
+	@FXML
+	void onCancel(ActionEvent event) {
+
+		Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		currentStage.fireEvent(new WindowEvent(currentStage, WindowEvent.WINDOW_CLOSE_REQUEST));
+		currentStage.close();
+
+	}
+
+	@FXML
+	void onGo(ActionEvent event) throws IOException {
+
+		if (this.roleSelecter.getValue() == null) {
+			Alert alert = WindowGenerator.openAlert("Please select your role!");
+
+			alert.showAndWait();
+		} else if (this.roleSelecter.getValue().equals("Patient")) {
+			WindowGenerator.setupAddNewPatient();
+			Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+			currentStage.fireEvent(new WindowEvent(currentStage, WindowEvent.WINDOW_CLOSE_REQUEST));
+			currentStage.close();
+
+		} else if (this.roleSelecter.getValue().equals("Medical Personnel")) {
+			WindowGenerator.setupAddNewMedicalPersonnel();
+			Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+			currentStage.fireEvent(new WindowEvent(currentStage, WindowEvent.WINDOW_CLOSE_REQUEST));
+			currentStage.close();
+
+		} else if (this.roleSelecter.getValue().equals("Caregiver")) {
+			// Caregiver for next sprint
 		}
 
-	 @FXML
-	 void onCancel(ActionEvent event) {
-		 
-		 Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-         currentStage.fireEvent(new WindowEvent(currentStage, WindowEvent.WINDOW_CLOSE_REQUEST));
-         currentStage.close();
-
-	 }
-
-	 @FXML
-	 void onGo(ActionEvent event) throws IOException {
-		 
-		 if (this.roleSelecter.getValue() == null) {
-			 Alert alert = WindowGenerator.openAlert("Please select your role!");
-	        	
-			alert.showAndWait();
-		 } else if (this.roleSelecter.getValue().equals("Patient")) {
-			 WindowGenerator.setupAddNewPatient();
-			 Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-	         currentStage.fireEvent(new WindowEvent(currentStage, WindowEvent.WINDOW_CLOSE_REQUEST));
-	         currentStage.close();
-			 
-		 } else if (this.roleSelecter.getValue().equals("Medical Personnel")) {
-			 WindowGenerator.setupAddNewMedicalPersonnel();
-			 Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-	         currentStage.fireEvent(new WindowEvent(currentStage, WindowEvent.WINDOW_CLOSE_REQUEST));
-	         currentStage.close();
-			 
-		 } else if (this.roleSelecter.getValue().equals("Caregiver")) {
-			 //Caregiver for next sprint
-		 }
-		 
-
-	 }
+	}
 
 }
