@@ -9,7 +9,6 @@ package edu.westga.cs4985.clinicApp.utils;
  */
 public class Race {
 	
-	public String[] race = {"American Indian or Alaska Native", "Asian", "Black or African American"
-							,"Native Hawaiian or Other Pacific Islander", "White"};
+	public String[] race = {"American Indian or Alaska Native", "Asian", "Black or African American", "Native Hawaiian or Other Pacific Islander", "White"};
 
 }
