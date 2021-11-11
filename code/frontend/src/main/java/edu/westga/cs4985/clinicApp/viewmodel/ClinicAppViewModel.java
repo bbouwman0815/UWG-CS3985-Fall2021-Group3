@@ -39,7 +39,7 @@ public class ClinicAppViewModel {
 		String user = null;
 		String userName = this.userNameProperty.get();
 		String password = this.passwordProperty.get();
-		user = ""+ userName + "," + password;
+		user = "" + userName + "," + password;
 		return user;
 	}
 
