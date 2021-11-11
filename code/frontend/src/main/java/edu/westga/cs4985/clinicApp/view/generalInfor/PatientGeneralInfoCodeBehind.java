@@ -41,8 +41,8 @@ import javafx.stage.WindowEvent;
  */
 public class PatientGeneralInfoCodeBehind {
 
-	private final String PHONE_ERROR = "Please formate phone number as (###)-###-###";
-	private final String EMAIL_ERROR = "Inproper email format";
+	private static final String PHONE_ERROR = "Please formate phone number as (###)-###-###";
+	private static final String EMAIL_ERROR = "Inproper email format";
 
 	@FXML
 	private TextField firstNameInput;
