@@ -108,7 +108,7 @@ public class MedicalConditionsCodeBehind {
 
 	@FXML
 	void handleDeleteMedicalCondition(ActionEvent event) {
-		onRemovePlaceHolder();
+		this.onRemovePlaceHolder();
 	}
 
 	void onRemovePlaceHolder() {
@@ -129,7 +129,7 @@ public class MedicalConditionsCodeBehind {
 	void setMedicalConditions() throws ParseException {
 		List<MedicalCondition> medicalConditions = FXCollections.observableArrayList(
 				UserManager.userManager.getMedicalConditions(this.viewModel.getPatient().getUsername()));
-		medicalConditionTableView.itemsProperty().set((ObservableList<MedicalCondition>) medicalConditions);
+		this.medicalConditionTableView.itemsProperty().set((ObservableList<MedicalCondition>) medicalConditions);
 	}
 
 	public class AddMedicalConditionPopupCodeBehind {
@@ -167,9 +167,9 @@ public class MedicalConditionsCodeBehind {
 				String notes = this.notesTextArea.getText();
 				MedicalCondition medicalCondition = new MedicalCondition(user, name, diagnosis, termination, notes);
 				UserManager.userManager.addMedicalCondition(medicalCondition);
-				setMedicalConditions();
+				MedicalConditionsCodeBehind.this.setMedicalConditions();
 				this.returnToPreviousStage(event);
-			} catch(NullPointerException e) {
+			} catch (NullPointerException e) {
 				Alert alert = WindowGenerator.openAlert("Please fill out all data!");
             	
     			alert.showAndWait();
