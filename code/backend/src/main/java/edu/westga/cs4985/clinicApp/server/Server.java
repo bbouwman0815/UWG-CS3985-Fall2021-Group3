@@ -235,6 +235,30 @@ public class Server extends Thread {
 		return "ERROR";
 	}
 	
+
+	/**
+	 * Get user json string by given json string as user name
+	 * 
+	 * @param jsonString the json string that contains the user name
+	 * @return the user json string associated with given user name json string
+	 * @throws IOException the IO exception
+	 * @throws ParseException 
+	 */
+	public String getCaregiverByUserName(String jsonString) throws IOException, ParseException {
+		JSONParser parser = new JSONParser();
+
+		FileReader reader = new FileReader("./jsonFiles/users.json");
+		JSONArray jsonObject = (JSONArray) parser.parse(reader);
+		JSONObject data = (JSONObject) parser.parse(jsonString);
+		for (Object aData : jsonObject) {
+			JSONObject parseData = (JSONObject) aData;
+			if (parseData.get("userName").equals(data.get("caregiver"))) {
+				return parseData.toJSONString();
+			}
+		}
+		return "ERROR";
+	}
+	
 	/**
 	 * Get user json string by given json string as user name
 	 * 
@@ -468,6 +492,30 @@ public class Server extends Thread {
 	}
 	
 	/**
+	 * Gets the all Caregivers.
+	 *
+	 * @param jsonString the json string
+	 * @return the all Caregivers
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws ParseException the parse exception
+	 */
+	@SuppressWarnings("unchecked")
+	private String getAllCaregivers() throws IOException, ParseException {
+		JSONParser parser = new JSONParser();
+		JSONArray caregivers = new JSONArray();
+		FileReader reader = new FileReader("./jsonFiles/users.json");
+		JSONArray jsonObject = (JSONArray) parser.parse(reader);
+		for (Object aData : jsonObject) {
+			JSONObject parseData = (JSONObject) aData;
+			if (parseData.get("type").equals("Caregiver")) {
+				caregivers.add(parseData);
+			}
+		}
+
+		return caregivers.toJSONString();
+	}
+	
+	/**
 	 * Gets the all MedicalPersonnels.
 	 *
 	 * @param jsonString the json string
@@ -582,7 +630,7 @@ public class Server extends Thread {
 	public void run() {
 		Context context = ZMQ.context(1);
 		Socket socket = context.socket(ZMQ.REP);
-		socket.bind("tcp://127.0.0.1:5573");
+		socket.bind("tcp://127.0.0.1:5575");
 
 		while (!Thread.currentThread().isInterrupted()) {
 
@@ -646,7 +694,15 @@ public class Server extends Thread {
 					e.printStackTrace();
 				}
 			}
-
+			if (request.equals("GET_CAREGIVER_BY_USER_NAME")) {
+				try {
+					result = this.getCaregiverByUserName(data);
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+			}
 			if (request.equals("ADD_PATIENT")) {
 				try {
 					result = this.addPatientUser(data);
@@ -751,7 +807,15 @@ public class Server extends Thread {
 					e.printStackTrace();
 				}
 			}
-
+			if (request.equals("GET_ALL_CAREGIVERS")) {
+				try {
+					result = this.getAllCaregivers();
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+			}
 			if (request.equals("GET_PATIENTS")) {
 				try {
 					result = this.getAllPatients();

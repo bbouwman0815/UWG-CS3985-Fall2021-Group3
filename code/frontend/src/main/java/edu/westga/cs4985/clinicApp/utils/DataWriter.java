@@ -56,6 +56,19 @@ public class DataWriter {
 	 * @return the json that contains the user's user name 
 	 */
 	@SuppressWarnings("unchecked")
+	public static String getCaregiverUserName(String username) {
+		JSONObject json = new JSONObject();
+		json.put("caregiver", username);
+		return json.toJSONString();
+	}
+	
+	/**
+	 * Write the user's name user name as json 
+	 * 
+	 * @param username the user's user name
+	 * @return the json that contains the user's user name 
+	 */
+	@SuppressWarnings("unchecked")
 	public static String getUserByMedicalPersonnelName(String username) {
 		JSONObject json = new JSONObject();
 		json.put("medicalPersonnel", username);
@@ -154,7 +167,7 @@ public class DataWriter {
 		json.put("phoneNumber", patient.getPhoneNumber());
 		json.put("email", patient.getEmail());
 		json.put("insurance", patient.getInsurance());
-		json.put("caregiver", patient.getCaregiver());
+		json.put("caregiver", patient.getCaregiver() == null? "" : patient.getCaregiver().getUsername());
 		return json.toJSONString();
 	}
 	

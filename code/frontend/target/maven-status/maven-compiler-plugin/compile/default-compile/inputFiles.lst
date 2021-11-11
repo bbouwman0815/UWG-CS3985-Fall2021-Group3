@@ -5,6 +5,7 @@
 /Users/pipai/Documents/GitHub/UWG-CS3985-Fall2021-Group5/code/frontend/src/main/java/edu/westga/cs4985/clinicApp/resources/UI.java
 /Users/pipai/Documents/GitHub/UWG-CS3985-Fall2021-Group5/code/frontend/src/main/java/edu/westga/cs4985/clinicApp/utils/Ethnicity.java
 /Users/pipai/Documents/GitHub/UWG-CS3985-Fall2021-Group5/code/frontend/src/main/java/edu/westga/cs4985/clinicApp/utils/DataWriter.java
+/Users/pipai/Documents/GitHub/UWG-CS3985-Fall2021-Group5/code/frontend/src/main/java/edu/westga/cs4985/clinicApp/viewmodel/CaregiverViewModel.java
 /Users/pipai/Documents/GitHub/UWG-CS3985-Fall2021-Group5/code/frontend/src/main/java/edu/westga/cs4985/clinicApp/utils/login/UToken.java
 /Users/pipai/Documents/GitHub/UWG-CS3985-Fall2021-Group5/code/frontend/src/main/java/edu/westga/cs4985/clinicApp/view/generalInfor/PatientGeneralInfoCodeBehind.java
 /Users/pipai/Documents/GitHub/UWG-CS3985-Fall2021-Group5/code/frontend/src/main/java/edu/westga/cs4985/clinicApp/resources/InputValidators.java
@@ -12,6 +13,7 @@
 /Users/pipai/Documents/GitHub/UWG-CS3985-Fall2021-Group5/code/frontend/src/main/java/edu/westga/cs4985/clinicApp/utils/Gender.java
 /Users/pipai/Documents/GitHub/UWG-CS3985-Fall2021-Group5/code/frontend/src/main/java/edu/westga/cs4985/clinicApp/ClinicApp.java
 /Users/pipai/Documents/GitHub/UWG-CS3985-Fall2021-Group5/code/frontend/src/main/java/edu/westga/cs4985/clinicApp/view/appointment/MedicalPersonnelAppointmentCodeBehind.java
+/Users/pipai/Documents/GitHub/UWG-CS3985-Fall2021-Group5/code/frontend/src/main/java/edu/westga/cs4985/clinicApp/model/Caregiver.java
 /Users/pipai/Documents/GitHub/UWG-CS3985-Fall2021-Group5/code/frontend/src/main/java/edu/westga/cs4985/clinicApp/viewmodel/PatientViewModel.java
 /Users/pipai/Documents/GitHub/UWG-CS3985-Fall2021-Group5/code/frontend/src/main/java/edu/westga/cs4985/clinicApp/viewmodel/MedicalPersonnelViewModel.java
 /Users/pipai/Documents/GitHub/UWG-CS3985-Fall2021-Group5/code/frontend/src/main/java/edu/westga/cs4985/clinicApp/view/medicalPersonnel/MedicalPersonnelCodeBehind.java
@@ -19,12 +21,12 @@
 /Users/pipai/Documents/GitHub/UWG-CS3985-Fall2021-Group5/code/frontend/src/main/java/edu/westga/cs4985/clinicApp/client/Communicator.java
 /Users/pipai/Documents/GitHub/UWG-CS3985-Fall2021-Group5/code/frontend/src/main/java/edu/westga/cs4985/clinicApp/model/Login.java
 /Users/pipai/Documents/GitHub/UWG-CS3985-Fall2021-Group5/code/frontend/src/main/java/edu/westga/cs4985/clinicApp/model/UserManager.java
-/Users/pipai/Documents/GitHub/UWG-CS3985-Fall2021-Group5/code/frontend/src/main/java/edu/westga/cs4985/clinicApp/utils/DataReader.java
 /Users/pipai/Documents/GitHub/UWG-CS3985-Fall2021-Group5/code/frontend/src/main/java/edu/westga/cs4985/clinicApp/model/User.java
 /Users/pipai/Documents/GitHub/UWG-CS3985-Fall2021-Group5/code/frontend/src/main/java/edu/westga/cs4985/clinicApp/view/login/NewMedicalPersonnelCodeBehind.java
 /Users/pipai/Documents/GitHub/UWG-CS3985-Fall2021-Group5/code/frontend/src/main/java/edu/westga/cs4985/clinicApp/view/login/LoginCodeBehind.java
 /Users/pipai/Documents/GitHub/UWG-CS3985-Fall2021-Group5/code/frontend/src/main/java/edu/westga/cs4985/clinicApp/view/login/RegisterCodeBehind.java
 /Users/pipai/Documents/GitHub/UWG-CS3985-Fall2021-Group5/code/frontend/src/main/java/edu/westga/cs4985/clinicApp/view/login/NewPatientCodeBehind.java
+/Users/pipai/Documents/GitHub/UWG-CS3985-Fall2021-Group5/code/frontend/src/main/java/edu/westga/cs4985/clinicApp/view/caregiver/CaregiverCodeBehind.java
 /Users/pipai/Documents/GitHub/UWG-CS3985-Fall2021-Group5/code/frontend/src/main/java/edu/westga/cs4985/clinicApp/model/MedicalPersonnel.java
 /Users/pipai/Documents/GitHub/UWG-CS3985-Fall2021-Group5/code/frontend/src/main/java/edu/westga/cs4985/clinicApp/view/dashboard/DashboardCodeBehind.java
 /Users/pipai/Documents/GitHub/UWG-CS3985-Fall2021-Group5/code/frontend/src/main/java/edu/westga/cs4985/clinicApp/utils/Country.java
