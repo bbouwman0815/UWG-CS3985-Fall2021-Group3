@@ -19,11 +19,11 @@ public interface ILogin {
 	 * @return true if valid, false otherwise
 	 * 
 	 */
-	abstract boolean validateCredentials(String username, String password);
+	boolean validateCredentials(String username, String password);
 	
 	/*
 	 * Logs the user in
 	 */
-	abstract User login();
+	User login();
 
 }
