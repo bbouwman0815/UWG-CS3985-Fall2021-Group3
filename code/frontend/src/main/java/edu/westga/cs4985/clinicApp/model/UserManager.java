@@ -367,6 +367,22 @@ public class UserManager {
 	}
 	
 	/**
+	 * Gets the patients for Caregiver.
+	 *
+	 * @param medicalPersonnel the medical personnel
+	 * @return the patients for medical personnel
+	 * @throws ParseException the parse exception
+	 */
+	public List<Patient> getPatientsForCaregiver(String caregiver) throws ParseException {
+		String request = DataWriter.getCaregiverUserName(caregiver);
+		String reply = this.communicator.request(RequestType.GET_CAREGIVER_PATIENTS, request);
+		if (reply.equals("ERROR")) {
+			return new ArrayList<Patient>();
+		}
+		return this.convertToPatients(reply);
+	}
+	
+	/**
 	 * Removes the medical personnels patient.
 	 *
 	 * @param username the username
@@ -376,6 +392,21 @@ public class UserManager {
 	public boolean updateMedicalPersonnelsPatients(MedicalPersonnel medicalPersonnel,  List<Patient> patients) {
 		String request = DataWriter.updateMedicalPersonnelsPatients(medicalPersonnel, patients);
 		String reply = this.communicator.request(RequestType.UPDATE_MEDICAL_PERSONNELS_PATIENTS, request);
+		if (reply.equals("ERROR")) {
+			return false;
+		}
+		return true;
+	}
+	
+	/**
+	 * Removes the caregiver patient.
+	 *
+	 * @param username the username
+	 * @return true, if successful
+	 */
+	public boolean updateCaregiverPatients(Caregiver caregiver,  List<Patient> patients) {
+		String request = DataWriter.updateCaregiverPatients(caregiver, patients);
+		String reply = this.communicator.request(RequestType.UPDATE_CAREGIVER_PATIENTS, request);
 		if (reply.equals("ERROR")) {
 			return false;
 		}

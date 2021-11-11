@@ -180,7 +180,7 @@ public class CaregiverViewModel {
 	public void loadPatients() {
 		List<Patient> patients;
 		try {
-			patients = UserManager.userManager.getPatientsForMedicalPersonnel(User.user.getUsername());
+			patients = UserManager.userManager.getPatientsForCaregiver(User.user.getUsername());
 			this.patients = patients;
 		} catch (ParseException e) {
 			e.printStackTrace();

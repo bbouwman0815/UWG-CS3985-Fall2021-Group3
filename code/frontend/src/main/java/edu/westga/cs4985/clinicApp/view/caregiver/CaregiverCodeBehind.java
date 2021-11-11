@@ -288,8 +288,8 @@ public class CaregiverCodeBehind {
 		} else {
 			this.viewmodel.addPatientToCare();
 			this.patientListView.getSelectionModel().clearSelection();
-//			UserManager.userManager.updateMedicalPersonnelsPatients(this.viewmodel.getMedicalePersonnel(),
-//					this.viewmodel.getPatients());
+			UserManager.userManager.updateCaregiverPatients(this.viewmodel.getCaregiver(),
+					this.viewmodel.getPatients());
 			this.updateDisplay();
 		}
 	}
@@ -371,8 +371,8 @@ public class CaregiverCodeBehind {
 			if (alert.getResult().getButtonData().equals(ButtonData.YES)) {
 				viewmodel.removePatientFromCare();
 				patientListView.getSelectionModel().clearSelection();
-//				UserManager.userManager.updateMedicalPersonnelsPatients(viewmodel.getMedicalePersonnel(),
-//						viewmodel.getPatients());
+				UserManager.userManager.updateCaregiverPatients(viewmodel.getCaregiver(),
+						viewmodel.getPatients());
 				updateDisplay();
 			}
 			if (alert.getResult().getButtonData().equals(ButtonData.NO)) {

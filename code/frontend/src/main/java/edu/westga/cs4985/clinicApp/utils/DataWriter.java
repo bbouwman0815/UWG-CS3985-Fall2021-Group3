@@ -1,6 +1,7 @@
 package edu.westga.cs4985.clinicApp.utils;
 
 import edu.westga.cs4985.clinicApp.model.Appointment;
+import edu.westga.cs4985.clinicApp.model.Caregiver;
 import edu.westga.cs4985.clinicApp.model.MedicalCondition;
 import edu.westga.cs4985.clinicApp.model.MedicalPersonnel;
 import edu.westga.cs4985.clinicApp.model.Patient;
@@ -133,6 +134,25 @@ public class DataWriter {
 	public static String updateMedicalPersonnelsPatients(MedicalPersonnel person, List<Patient> patientList) {
 		JSONObject json = new JSONObject();
 		json.put("medicalPersonnel", person.getUsername());
+		JSONArray patients = new JSONArray();
+		for (Patient patient : patientList) {
+			patients.add(patient.getUsername());
+		}
+		json.put("patients", patients);
+		return json.toJSONString();
+	}
+	
+	/**
+	 * Update Caregiver patients.
+	 *
+	 * @param person the person
+	 * @param patientList the patient list
+	 * @return the string
+	 */
+	@SuppressWarnings("unchecked")
+	public static String updateCaregiverPatients(Caregiver person, List<Patient> patientList) {
+		JSONObject json = new JSONObject();
+		json.put("caregiver", person.getUsername());
 		JSONArray patients = new JSONArray();
 		for (Patient patient : patientList) {
 			patients.add(patient.getUsername());
