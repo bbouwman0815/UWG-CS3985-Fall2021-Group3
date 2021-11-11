@@ -32,7 +32,7 @@ import javafx.stage.WindowEvent;
 public class MedicalPersonnelAppointmentCodeBehind {
 	
 	private static final String APPOINTMENT_VIEW_POPUP = "../appointment/AppointmentViewPopup.fxml";
-	private final String[] dateTimes = {"08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00",};
+	private final String[] dateTimes = {"08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00",};
 	
 	@FXML
     private ListView<Appointment> futureAppointmentList;
@@ -106,36 +106,13 @@ public class MedicalPersonnelAppointmentCodeBehind {
     public void setListeners() {
     	this.futureAppointmentList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
     		if (newValue != null) {
-    			try {
-    				Stage popup = WindowGenerator.openPopup(APPOINTMENT_VIEW_POPUP, new AppointmentViewPopupCodeBehind(this.viewModel), "Appointment View Window");
-    	        	popup.setOnCloseRequest((event) -> {
-    	        		this.futureAppointmentList.getSelectionModel().clearSelection();
-    	        	});
-    	        	
-    	        	popup.show();
-    	        	
-    			}
-    			catch (IOException e) {
-					e.printStackTrace();
-				}
+    			this.showAppointmentPopUP();
     		}
     	});
     	
     	this.pastAppointmentList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
     		if (newValue != null) {
-    			try {
-    				Stage popup = WindowGenerator.openPopup(APPOINTMENT_VIEW_POPUP, new AppointmentViewPopupCodeBehind(this.viewModel), "Appointment View Window");
-    	        	popup.setOnCloseRequest((event) -> {
-    	        		this.pastAppointmentList.getSelectionModel().clearSelection();
-    	        	});
-    	        	
-    	        	popup.show();
-    	        	
-    	        	
-    			}
-    			catch (IOException e) {
-					e.printStackTrace();
-				}
+    			this.showAppointmentPopUP();
     		}
     	});
     	this.availabilitiesList.setOnMouseClicked((EventHandler<? super MouseEvent>) new EventHandler<MouseEvent>() {
@@ -168,6 +145,20 @@ public class MedicalPersonnelAppointmentCodeBehind {
     	});
     }
 
+	private void showAppointmentPopUP() {
+		try {
+			Stage popup = WindowGenerator.openPopup(APPOINTMENT_VIEW_POPUP, new AppointmentViewPopupCodeBehind(this.viewModel), "Appointment View Window");
+			popup.setOnCloseRequest((event) -> {
+				this.futureAppointmentList.getSelectionModel().clearSelection();
+			});
+			
+			popup.show();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
     @FXML
     void onAddAvailability(ActionEvent event) {
     	if (this.datePicker.getValue() == null) {
@@ -180,7 +171,7 @@ public class MedicalPersonnelAppointmentCodeBehind {
 			alert.showAndWait();
     	} else {
     		String dateTime = this.datePicker.getValue().toString() + " " + this.timePicker.getValue().toString();
-        	if(this.viewModel.isAddedAvailability(dateTime)) {
+        	if (this.viewModel.isAddedAvailability(dateTime)) {
         		Alert alert = WindowGenerator.openAlert("The availability already added! Please select another date!");
             	
     			alert.showAndWait();
