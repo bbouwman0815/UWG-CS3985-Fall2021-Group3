@@ -202,8 +202,9 @@ public class MedicalPersonnelViewModel {
 	/**
 	 * Add an availability for user
 	 * 
+	 * @param dateTime the date time to add
 	 */
-	public void addAvailability(String dateTime) throws ParseException{
+	public void addAvailability(String dateTime) throws ParseException {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 		LocalDateTime availability = LocalDateTime.parse(dateTime, formatter);
 		this.availabilityList.add(availability);
@@ -212,10 +213,8 @@ public class MedicalPersonnelViewModel {
 	
 	/**
 	 * Delete an availability for user
-	 * 
-	 * @return the added availability
 	 */
-	public void deleteAvailability() throws ParseException{
+	public void deleteAvailability() throws ParseException {
 		LocalDateTime availability = this.selectedAvailabilityProperty.get();
 		this.availabilityList.remove(availability);
 		this.availabilityListProperty.set(FXCollections.observableArrayList(this.availabilityList));
@@ -230,8 +229,7 @@ public class MedicalPersonnelViewModel {
 		for (Appointment theAppointment : appointments) {
 			if (!theAppointment.hasPassed()) {
 				this.futureppointmentList.add(theAppointment);
-			}
-			else {
+			} else {
 				this.pastAppointmentList.add(theAppointment);
 			}
 		}
@@ -254,12 +252,14 @@ public class MedicalPersonnelViewModel {
 	/**
 	 * Check current availability if is added
 	 * 
+	 * @param dateTime	the dateTime of availability
+	 * 
 	 * @return true if current availability is added; otherwise false
 	 */
 	public boolean isAddedAvailability(String dateTime) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 		LocalDateTime currentAvailability = LocalDateTime.parse(dateTime, formatter);
-		for (LocalDateTime availability : this.availabilityList){
+		for (LocalDateTime availability : this.availabilityList) {
 			if (availability.equals(currentAvailability)) {
 				return true;
 			}
