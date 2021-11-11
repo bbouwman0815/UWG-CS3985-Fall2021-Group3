@@ -8,12 +8,10 @@ import java.util.List;
 import org.json.simple.parser.ParseException;
 import edu.westga.cs4985.clinicApp.model.MedicalCondition;
 import edu.westga.cs4985.clinicApp.model.Patient;
-import edu.westga.cs4985.clinicApp.model.User;
 import edu.westga.cs4985.clinicApp.model.UserManager;
 import edu.westga.cs4985.clinicApp.resources.WindowGenerator;
 import edu.westga.cs4985.clinicApp.view.generalInfor.PatientGeneralInfoCodeBehind.AddCaregiverPopupCodeBehind;
 import edu.westga.cs4985.clinicApp.viewmodel.MedicalPersonnelViewModel;
-import edu.westga.cs4985.clinicApp.viewmodel.PatientViewModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -188,7 +186,7 @@ public class MedicalPersonnelCodeBehind {
 					if (newValue != null) {
 						try {
 							this.loadPatientData();
-							if (this.caregiverLabel.textProperty().get() == "") {
+							if (this.caregiverLabel.textProperty().get().isEmpty()) {
 					    		this.addCaregiverButton.setVisible(true);
 					    		this.removeCaregiverButton.setVisible(false);
 					    	} else {
@@ -212,14 +210,14 @@ public class MedicalPersonnelCodeBehind {
 					alert.setOnCloseRequest((evt) -> {
 
 						if (alert.getResult().getButtonData().equals(ButtonData.YES)) {
-							viewmodel.removePatientFromCare();
-							patientListView.getSelectionModel().clearSelection();
-							UserManager.userManager.updateMedicalPersonnelsPatients(viewmodel.getMedicalePersonnel(),
-									viewmodel.getPatients());
-							updateDisplay();
+							MedicalPersonnelCodeBehind.this.viewmodel.removePatientFromCare();
+							MedicalPersonnelCodeBehind.this.patientListView.getSelectionModel().clearSelection();
+							UserManager.userManager.updateMedicalPersonnelsPatients(MedicalPersonnelCodeBehind.this.viewmodel.getMedicalePersonnel(),
+							MedicalPersonnelCodeBehind.this.viewmodel.getPatients());
+							MedicalPersonnelCodeBehind.this.updateDisplay();
 						}
 						if (alert.getResult().getButtonData().equals(ButtonData.NO)) {
-							patientListView.getSelectionModel().clearSelection();
+							MedicalPersonnelCodeBehind.this.patientListView.getSelectionModel().clearSelection();
 						}
 					});
 					alert.showAndWait();
@@ -245,9 +243,9 @@ public class MedicalPersonnelCodeBehind {
 	@FXML
 	void handleAddPatient(ActionEvent event) {
 		if (this.viewmodel.checkPatientUnderCare()) {
-			Alert a = new Alert(AlertType.WARNING);
-			a.setContentText("Patient is already under your care");
-			a.show();
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setContentText("Patient is already under your care");
+			alert.show();
 		} else {
 			this.viewmodel.addPatientToCare();
 			this.patientListView.getSelectionModel().clearSelection();
@@ -339,14 +337,14 @@ public class MedicalPersonnelCodeBehind {
 
         @FXML
         void onAdd(ActionEvent event) {
-        	if(this.caregiverList.getSelectionModel().getSelectedItem() == null) {
+        	if (this.caregiverList.getSelectionModel().getSelectedItem() == null) {
         		Alert alert = WindowGenerator.openAlert("Please select your caregiver!");
             	
     			alert.showAndWait();
         	} else {
-            	addCaregiverButton.setVisible(false);
-            	removeCaregiverButton.setVisible(true);
-            	caregiverLabel.textProperty().set(this.caregiverList.getSelectionModel().getSelectedItem());
+            	MedicalPersonnelCodeBehind.this.addCaregiverButton.setVisible(false);
+            	MedicalPersonnelCodeBehind.this.removeCaregiverButton.setVisible(true);
+            	MedicalPersonnelCodeBehind.this.caregiverLabel.textProperty().set(this.caregiverList.getSelectionModel().getSelectedItem());
             	this.viewModel.selectedPatient().setCaregiver(this.caregiverList.getSelectionModel().getSelectedItem());
             	UserManager.userManager.updatePatientGeneralInfo(this.viewModel.selectedPatient());
             	this.returnToPreviousStage(event);
