@@ -268,7 +268,9 @@ public class UserManager {
 	/**
 	 * Update medical personenl's availabilities
 	 * 
-	 * @param person medical personenl's availabilities
+	 * @param person 			the medical personnel
+	 * @param availabilityList  the list of availability
+	 * 
 	 * @return true if medical personenl's availabilities is updated successful; otherwise
 	 *         false
 	 */
@@ -311,6 +313,8 @@ public class UserManager {
 	/**
 	 * Gets the all MedicalPersonnels.
 	 *
+	 *@param zipcode	the zipcode of the medical personnel
+	 *
 	 * @return the all MedicalPersonnels
 	 * @throws ParseException the parse exception
 	 */
@@ -342,8 +346,9 @@ public class UserManager {
 	/**
 	 * Removes the medical personnels patient.
 	 *
-	 * @param username the username
-	 * @param username2 the username 2
+	 * @param medicalPersonnel  the medical personnel
+	 * @param patients			the list of patients
+	 * 
 	 * @return true, if successful
 	 */
 	public boolean updateMedicalPersonnelsPatients(MedicalPersonnel medicalPersonnel,  List<Patient> patients) {
