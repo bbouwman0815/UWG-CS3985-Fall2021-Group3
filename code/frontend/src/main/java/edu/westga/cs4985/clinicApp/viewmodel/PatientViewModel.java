@@ -107,9 +107,9 @@ public class PatientViewModel {
 	 * @return true if current appointment is booked; otherwise false
 	 */
 	public boolean isBookedAppointment() {
-		for (Appointment appointment : this.futureppointmentList){
-			if (appointment.getMedicalPersonnel().equals(this.seletedMedicalPersonnel.get()) &&
-					appointment.getDateTime().equals(this.selectedAvailabilityProperty.get())) {
+		for (Appointment appointment : this.futureppointmentList) {
+			if (appointment.getMedicalPersonnel().equals(this.seletedMedicalPersonnel.get()) 
+					&& appointment.getDateTime().equals(this.selectedAvailabilityProperty.get())) {
 				return true;
 			}
 		}
