@@ -31,6 +31,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import java.util.Locale;
 
 /**
  * The code behind for the patient general information view.
@@ -307,10 +308,10 @@ public class PatientGeneralInfoCodeBehind {
 	}
 
 	private void setUpChoiceBoxes() {
-		this.raceChoiceBox.itemsProperty().set(FXCollections.observableArrayList(this.race.race));
-		this.sexChoiceBox.itemsProperty().set(FXCollections.observableArrayList(this.gender.sex));
-		this.ethnicityChoiceBox.itemsProperty().set(FXCollections.observableArrayList(this.ethnicity.ethnicity));
-		this.countryChoiceBox.itemsProperty().set(FXCollections.observableArrayList(this.country.country));
+		this.raceChoiceBox.itemsProperty().set(FXCollections.observableArrayList(this.race.RACE));
+		this.sexChoiceBox.itemsProperty().set(FXCollections.observableArrayList(this.gender.SEX));
+		this.ethnicityChoiceBox.itemsProperty().set(FXCollections.observableArrayList(this.ethnicity.ETHNICITY));
+		this.countryChoiceBox.itemsProperty().set(FXCollections.observableArrayList(Locale.getISOCountries()));
 	}
 
 	@FXML
