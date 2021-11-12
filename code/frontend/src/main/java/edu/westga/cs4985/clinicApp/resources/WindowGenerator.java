@@ -101,7 +101,7 @@ public class WindowGenerator {
 	 *
 	 * @param fxml       the fxml location
 	 * @param controller the controller
-	 * @param title		 the title
+	 * @param title      the title
 	 * 
 	 * @return the stage
 	 * @throws IOException the IO exception
@@ -167,7 +167,7 @@ public class WindowGenerator {
 		loader.setLocation(codebehind.getClass().getResource(NEW_MEDICAL_PERSONNEL_GUI));
 		WindowGenerator.setupScene((Parent) loader.load(), ADMIN_PROFILE_TITLE);
 	}
-	
+
 	public static void setUpLogin(Stage currentStage) throws IOException {
 		LoginCodeBehind codebehind = new LoginCodeBehind();
 		FXMLLoader loader = new FXMLLoader();

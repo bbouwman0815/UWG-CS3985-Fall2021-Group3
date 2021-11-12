@@ -5,6 +5,7 @@ import java.util.regex.Pattern;
 
 /**
  * The Class InputValidators.
+ * 
  * @author Brian Bouwman
  * @version Fall 20201
  */
@@ -22,7 +23,7 @@ public class InputValidators {
 		Matcher matcher = pattern.matcher(phoneNumber);
 		return matcher.matches();
 	}
-	
+
 	/**
 	 * Validate email.
 	 *
@@ -34,8 +35,7 @@ public class InputValidators {
 		Matcher matcher = pattern.matcher(email);
 		return matcher.matches();
 	}
-	
-	
+
 	/**
 	 * Validate birthday.
 	 *
@@ -47,6 +47,5 @@ public class InputValidators {
 		Matcher matcher = pattern.matcher(birthday);
 		return matcher.matches();
 	}
-	
-	
+
 }
