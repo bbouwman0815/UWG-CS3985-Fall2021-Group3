@@ -5,7 +5,8 @@ import org.zeromq.ZMQ;
 import org.zeromq.ZMQ.Socket;
 
 /**
- * A Communicator class to connect to the server using the REQ socket in the ZMQ library/
+ * A Communicator class to connect to the server using the REQ socket in the ZMQ
+ * library/
  * 
  * @author Jinxiang Zeng
  * @version Fall 2021
@@ -14,7 +15,7 @@ public class Communicator {
 	private ZContext context;
 	private Socket socket;
 	public static final String SEPARATOR = ",";
-	
+
 	/**
 	 * Creates the communicator by connect to the server with the address
 	 * 
@@ -31,15 +32,17 @@ public class Communicator {
 		this.socket = this.context.createSocket(ZMQ.REQ);
 		this.socket.connect("tcp://127.0.0.1:5573");
 	}
-	
+
 	/**
-	 * Requests to the server with the request type and data. Then it will return a reply.
+	 * Requests to the server with the request type and data. Then it will return a
+	 * reply.
 	 * 
 	 * @precondition context and socket must be opened
 	 * @postcondition none
 	 * 
 	 * @param requestType the request type
-	 * @param data the data to be use by the server to fetch or update what is given.
+	 * @param data        the data to be use by the server to fetch or update what
+	 *                    is given.
 	 * @return a reply from the server as a String
 	 */
 	public String request(RequestType requestType, String data) {
@@ -51,12 +54,12 @@ public class Communicator {
 		}
 		String request = requestType + Communicator.SEPARATOR + data;
 		this.socket.send(request.getBytes(ZMQ.CHARSET), 0);
-		
+
 		byte[] reply = this.socket.recv(0);
 		String response = new String(reply, ZMQ.CHARSET);
 		return response;
 	}
-	
+
 	/**
 	 * Closes the socket and context if it has not already been close.
 	 * 
@@ -74,7 +77,7 @@ public class Communicator {
 			this.context = null;
 		}
 	}
-	
+
 	@Override
 	public void finalize() {
 		this.close();
