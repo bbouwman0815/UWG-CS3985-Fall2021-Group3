@@ -1,5 +1,5 @@
 package edu.westga.cs4985.clinicApp;
-	
+
 import java.io.IOException;
 
 import edu.westga.cs4985.clinicApp.model.UserManager;
@@ -9,13 +9,13 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 
-
 public class ClinicApp extends Application {
 	public static final String GUI_FXML = "view/login/LoginGui.fxml";
 	public static final String WINDOW_TITLE = "Clinic";
 	public static final String DASHBOARD_GUI = "view/dashboard/DashboardGui.fxml";
-	
+
 	public UserManager user;
+
 	/**
 	 * Constructs a new Application object for Image program.
 	 * 
@@ -53,7 +53,7 @@ public class ClinicApp extends Application {
 	 * @param args not used
 	 */
 	public static void main(String[] args) {
-		
+
 		launch(args);
 	}
 
