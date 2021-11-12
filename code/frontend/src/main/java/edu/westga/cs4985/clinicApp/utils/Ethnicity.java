@@ -9,6 +9,6 @@ package edu.westga.cs4985.clinicApp.utils;
  */
 public class Ethnicity {
 
-	public String[] ethnicity = { "Hispanic or Latino", "Not Hispanic or Latino" };
+	public static final String[] ethnicity = { "Hispanic or Latino", "Not Hispanic or Latino" };
 
 }
