@@ -43,7 +43,7 @@ public abstract class User {
 		this.password = password;
 		this.setUserToken();
 	}
-	
+
 	private void setUserToken() {
 		this.userToken = new UToken(this.username, this.password);
 	}
@@ -78,7 +78,7 @@ public abstract class User {
 	public String getPassword() {
 		return this.password;
 	}
-	
+
 	/**
 	 * Sets the username.
 	 *
@@ -87,7 +87,7 @@ public abstract class User {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	
+
 	/**
 	 * Sets the password.
 	 *

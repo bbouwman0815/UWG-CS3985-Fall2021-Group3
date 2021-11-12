@@ -12,7 +12,7 @@ import java.security.NoSuchAlgorithmException;
  * 
  */
 public class HashPassword {
-	
+
 	private MessageDigest md;
 
 	/**
@@ -49,7 +49,7 @@ public class HashPassword {
 	 * Checks if the specified password hashes to the specified hash
 	 * 
 	 * @param password the password to be checked
-	 * @param hash the hash of the actual password
+	 * @param hash     the hash of the actual password
 	 * @return true if the specified password has the specified hash
 	 */
 	public boolean checkPassword(String password, String hash) {

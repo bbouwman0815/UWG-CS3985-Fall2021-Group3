@@ -16,7 +16,7 @@ public class Patient extends Person {
 	private String phoneNumber;
 
 	private String email;
-	
+
 	private String careGiver;
 
 	/**
@@ -36,8 +36,8 @@ public class Patient extends Person {
 	 * @param phoneNumber the phone number
 	 * @param email       the email
 	 * @param insurance   the insurance
-	 * @param username	  the username
-	 * @param password	  the password
+	 * @param username    the username
+	 * @param password    the password
 	 * 
 	 * @precondition insurance != null && !insurance.isEmpty() && phoneNumber !=
 	 *               null && !phoneNumber.isEmpty() && email != null &&
@@ -48,9 +48,9 @@ public class Patient extends Person {
 	 */
 	public Patient(String firstName, String lastName, String gender, String dateOfBirth, String address1,
 			String address2, String city, String state, String country, String race, String ethnicity,
-			String phoneNumber, String email, String insurance,
-			String username, String password) {
-		super(firstName, lastName, gender, dateOfBirth, address1, address2, city, state, country, race, ethnicity, username, password);
+			String phoneNumber, String email, String insurance, String username, String password) {
+		super(firstName, lastName, gender, dateOfBirth, address1, address2, city, state, country, race, ethnicity,
+				username, password);
 		if (insurance == null) {
 			throw new IllegalArgumentException(UI.ExceptionMessages.NULL_FIRSTNAME);
 		}
@@ -74,7 +74,7 @@ public class Patient extends Person {
 		this.email = email;
 		this.careGiver = "";
 	}
-	
+
 	/**
 	 * Gets the caregiver.
 	 *
@@ -83,7 +83,7 @@ public class Patient extends Person {
 	public String getCaregiver() {
 		return this.careGiver;
 	}
-	
+
 	/**
 	 * Sets the caregiver.
 	 *
@@ -140,7 +140,7 @@ public class Patient extends Person {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
 	/**
 	 * Gets the full name.
 	 *
@@ -158,7 +158,7 @@ public class Patient extends Person {
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
-	
+
 	@Override
 	public String toString() {
 		String patientInformation = this.getFullName() + " ";

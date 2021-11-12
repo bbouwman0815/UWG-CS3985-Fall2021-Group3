@@ -84,13 +84,13 @@ public class UserManager {
 		}
 		return DataReader.convertToUser(reply);
 	}
-	
+
 	/**
 	 * Get the user by user name
 	 * 
 	 * @param userName the user's user name
 	 * @return the user associated with the user name
-	 * @throws ParseException 
+	 * @throws ParseException
 	 */
 	public User getUserByMedicalPersonnelUserName(String userName) throws ParseException {
 		String request = DataWriter.getUserByMedicalPersonnelName(userName);
@@ -116,13 +116,13 @@ public class UserManager {
 		}
 		return this.convertToAppointments(reply);
 	}
-	
+
 	/**
 	 * Get the appointment list associated with the given user name
 	 * 
 	 * @param userName the user name
 	 * @return the appointment list associated with the given user name
-	 * @throws ParseException 
+	 * @throws ParseException
 	 */
 	public List<Appointment> getAppointmentsForMedicalPersonnel(String userName) throws ParseException {
 		String request = DataWriter.getUserByMedicalPersonnelName(userName);
@@ -132,13 +132,13 @@ public class UserManager {
 		}
 		return this.convertToAppointments(reply);
 	}
-	
+
 	/**
 	 * Get the appointment list associated with the given user name
 	 * 
 	 * @param userName the user name
 	 * @return the appointment list associated with the given user name
-	 * @throws ParseException 
+	 * @throws ParseException
 	 */
 	public List<LocalDateTime> getAvailabilities(String userName) throws ParseException {
 		String request = DataWriter.getUserByMedicalPersonnelName(userName);
@@ -163,7 +163,7 @@ public class UserManager {
 		}
 		return true;
 	}
-	
+
 	/**
 	 * Update an appointment
 	 * 
@@ -193,7 +193,7 @@ public class UserManager {
 		}
 		return true;
 	}
-	
+
 	public boolean addMedicalPersonnel(MedicalPersonnel medicalPersonnel) {
 		String requestData = DataWriter.writeMedicalPersonnelInfo(medicalPersonnel);
 		String reply = this.communicator.request(RequestType.ADD_MEDICAL_PERSONNEL, requestData);
@@ -264,15 +264,15 @@ public class UserManager {
 		}
 		return true;
 	}
-	
+
 	/**
 	 * Update medical personenl's availabilities
 	 * 
-	 * @param person 			the medical personnel
-	 * @param availabilityList  the list of availability
+	 * @param person           the medical personnel
+	 * @param availabilityList the list of availability
 	 * 
-	 * @return true if medical personenl's availabilities is updated successful; otherwise
-	 *         false
+	 * @return true if medical personenl's availabilities is updated successful;
+	 *         otherwise false
 	 */
 	public boolean updateMedicalPersonnelAvaiabilities(MedicalPersonnel person, List<LocalDateTime> availabilityList) {
 		String requestData = DataWriter.updateMedicalPersonnelAvailabilities(person, availabilityList);
@@ -309,11 +309,11 @@ public class UserManager {
 		String reply = this.communicator.request(RequestType.GET_ALL_PATIENTS, request);
 		return this.convertToPatient(reply);
 	}
-	
+
 	/**
 	 * Gets the all MedicalPersonnels.
 	 *
-	 *@param zipcode	the zipcode of the medical personnel
+	 * @param zipcode the zipcode of the medical personnel
 	 *
 	 * @return the all MedicalPersonnels
 	 * @throws ParseException the parse exception
@@ -326,7 +326,7 @@ public class UserManager {
 		}
 		return this.convertToMedicalPersonnel(reply);
 	}
-	
+
 	/**
 	 * Gets the patients for medical personnel.
 	 *
@@ -342,16 +342,16 @@ public class UserManager {
 		}
 		return this.convertToPatients(reply);
 	}
-	
+
 	/**
 	 * Removes the medical personnels patient.
 	 *
-	 * @param medicalPersonnel  the medical personnel
-	 * @param patients			the list of patients
+	 * @param medicalPersonnel the medical personnel
+	 * @param patients         the list of patients
 	 * 
 	 * @return true, if successful
 	 */
-	public boolean updateMedicalPersonnelsPatients(MedicalPersonnel medicalPersonnel,  List<Patient> patients) {
+	public boolean updateMedicalPersonnelsPatients(MedicalPersonnel medicalPersonnel, List<Patient> patients) {
 		String request = DataWriter.updateMedicalPersonnelsPatients(medicalPersonnel, patients);
 		String reply = this.communicator.request(RequestType.UPDATE_MEDICAL_PERSONNELS_PATIENTS, request);
 		if (reply.equals("ERROR")) {
@@ -378,7 +378,8 @@ public class UserManager {
 			LocalDateTime datetime = LocalDateTime.parse(parseData.get("date").toString());
 			String notes = (String) parseData.get("notes");
 			Patient patient = (Patient) this.getUserByUserName(parseData.get("patient").toString());
-			MedicalPersonnel medicalPersonnel = (MedicalPersonnel) this.getUserByMedicalPersonnelUserName(parseData.get("medicalPersonnel").toString());
+			MedicalPersonnel medicalPersonnel = (MedicalPersonnel) this
+					.getUserByMedicalPersonnelUserName(parseData.get("medicalPersonnel").toString());
 			String location = (String) parseData.get("location");
 
 			Appointment appointment = new Appointment(datetime, patient, medicalPersonnel, location, notes);
@@ -386,14 +387,14 @@ public class UserManager {
 		}
 		return appointments;
 	}
-	
+
 	/**
 	 * Convert json string to list of availabilities
 	 * 
 	 * @param reply the availabilities json string
 	 * 
 	 * @return the availabilities list associated with the json string
-	 * @throws ParseException 
+	 * @throws ParseException
 	 */
 	public List<LocalDateTime> convertToAvailabilities(String reply) throws ParseException {
 		List<LocalDateTime> availabilities = new ArrayList<LocalDateTime>();
@@ -405,7 +406,6 @@ public class UserManager {
 		}
 		return availabilities;
 	}
-	
 
 	/**
 	 * Convert to medical conditions.
@@ -462,7 +462,7 @@ public class UserManager {
 		}
 		return patients;
 	}
-	
+
 	private List<Patient> convertToPatients(String reply) throws ParseException {
 		List<Patient> patients = new ArrayList<Patient>();
 		JSONParser parser = new JSONParser();
@@ -473,7 +473,7 @@ public class UserManager {
 		}
 		return patients;
 	}
-	
+
 	private List<MedicalPersonnel> convertToMedicalPersonnel(String reply) throws ParseException {
 		List<MedicalPersonnel> medicalPersonnels = new ArrayList<MedicalPersonnel>();
 		JSONParser parser = new JSONParser();
@@ -497,8 +497,8 @@ public class UserManager {
 			String email = (String) parseData.get("email");
 			String zipcode = (String) parseData.get("zipcode");
 
-			MedicalPersonnel medicalPersonnel = new MedicalPersonnel(firstName, lastName, gender, dateOfBirth, address1, address2, city, state,
-					country, race, ethnicity, phoneNumber, email, userName, password, zipcode);
+			MedicalPersonnel medicalPersonnel = new MedicalPersonnel(firstName, lastName, gender, dateOfBirth, address1,
+					address2, city, state, country, race, ethnicity, phoneNumber, email, userName, password, zipcode);
 			medicalPersonnels.add(medicalPersonnel);
 
 		}

@@ -16,7 +16,7 @@ public class MedicalPersonnel extends Person {
 	private String phoneNumber;
 
 	private String email;
-	
+
 	private String zipcode;
 
 	/**
@@ -35,9 +35,9 @@ public class MedicalPersonnel extends Person {
 	 * @param ethnicity   the ethnicity
 	 * @param phoneNumber the phone number
 	 * @param email       the email
-	 * @param username	  the username
-	 * @param password	  the password
-	 * @param zipcode	  the zipcode
+	 * @param username    the username
+	 * @param password    the password
+	 * @param zipcode     the zipcode
 	 * 
 	 * @precondition insurance != null && !insurance.isEmpty() && phoneNumber !=
 	 *               null && !phoneNumber.isEmpty() && email != null &&
@@ -49,7 +49,8 @@ public class MedicalPersonnel extends Person {
 	public MedicalPersonnel(String firstName, String lastName, String gender, String dateOfBirth, String address1,
 			String address2, String city, String state, String country, String race, String ethnicity,
 			String phoneNumber, String email, String username, String password, String zipcode) {
-		super(firstName, lastName, gender, dateOfBirth, address1, address2, city, state, country, race, ethnicity, username, password);
+		super(firstName, lastName, gender, dateOfBirth, address1, address2, city, state, country, race, ethnicity,
+				username, password);
 
 		if (phoneNumber == null) {
 			throw new IllegalArgumentException(UI.ExceptionMessages.NULL_LASTNAME);
@@ -67,7 +68,7 @@ public class MedicalPersonnel extends Person {
 		this.email = email;
 		this.zipcode = zipcode;
 	}
-	
+
 	/**
 	 * Gets the zipcode
 	 *
@@ -76,7 +77,7 @@ public class MedicalPersonnel extends Person {
 	public String getZipCode() {
 		return this.zipcode;
 	}
-	
+
 	/**
 	 * Gets the phone number.
 	 *
@@ -103,7 +104,7 @@ public class MedicalPersonnel extends Person {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
 	/**
 	 * Gets the full name.
 	 *
@@ -112,19 +113,20 @@ public class MedicalPersonnel extends Person {
 	public String getFullName() {
 		return this.getFirstName() + " " + this.getLastName();
 	}
-	
+
 	@Override
 	public String toString() {
 		return this.getFirstName() + " " + this.getLastName();
 	}
-	
+
 	/**
 	 * Gets the full address
 	 *
 	 * @return the full address
 	 */
 	public String getFullAddress() {
-		return this.getAddress1() + ADDRESS_SEPERATOR + this.getCity() + ADDRESS_SEPERATOR + this.getState() + ADDRESS_SEPERATOR + this.getCountry();
+		return this.getAddress1() + ADDRESS_SEPERATOR + this.getCity() + ADDRESS_SEPERATOR + this.getState()
+				+ ADDRESS_SEPERATOR + this.getCountry();
 	}
 
 	/**
