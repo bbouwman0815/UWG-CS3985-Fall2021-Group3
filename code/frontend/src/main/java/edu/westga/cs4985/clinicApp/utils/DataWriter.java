@@ -11,16 +11,17 @@ import org.json.simple.JSONObject;
 
 /**
  * Write data to json file
+ * 
  * @author Jinxiang Zeng
  * @version Fall 2021
  *
  */
 public class DataWriter {
-	
+
 	private static final String ERROR = "Error";
 
 	/**
-	 * Write the user's name user name and password as json 
+	 * Write the user's name user name and password as json
 	 * 
 	 * @param username the user's user name
 	 * @param password the user's password
@@ -33,12 +34,12 @@ public class DataWriter {
 		json.put("password", password);
 		return json.toJSONString();
 	}
-	
+
 	/**
-	 * Write the user's name user name as json 
+	 * Write the user's name user name as json
 	 * 
 	 * @param username the user's user name
-	 * @return the json that contains the user's user name 
+	 * @return the json that contains the user's user name
 	 */
 	@SuppressWarnings("unchecked")
 	public static String getUserName(String username) {
@@ -46,12 +47,12 @@ public class DataWriter {
 		json.put("patient", username);
 		return json.toJSONString();
 	}
-	
+
 	/**
-	 * Write the user's name user name as json 
+	 * Write the user's name user name as json
 	 * 
 	 * @param username the user's user name
-	 * @return the json that contains the user's user name 
+	 * @return the json that contains the user's user name
 	 */
 	@SuppressWarnings("unchecked")
 	public static String getUserByMedicalPersonnelName(String username) {
@@ -59,12 +60,12 @@ public class DataWriter {
 		json.put("medicalPersonnel", username);
 		return json.toJSONString();
 	}
-	
+
 	/**
 	 * Write the medical personnel & patients name as json.
 	 *
 	 * @param mpusername the medical personnels name
-	 * @param pusername the patients name
+	 * @param pusername  the patients name
 	 * 
 	 * @return the json that contains the user's user names
 	 */
@@ -75,12 +76,12 @@ public class DataWriter {
 		json.put("patient", pusername);
 		return json.toJSONString();
 	}
-	
+
 	/**
-	 * Write the user's zipcode as json 
+	 * Write the user's zipcode as json
 	 * 
 	 * @param zipcode the user's uzipcode
-	 * @return the json that contains the user's zipcode 
+	 * @return the json that contains the user's zipcode
 	 */
 	@SuppressWarnings("unchecked")
 	public static String getMedicalPersonnels(String zipcode) {
@@ -88,16 +89,17 @@ public class DataWriter {
 		json.put("zipcode", zipcode);
 		return json.toJSONString();
 	}
-	
+
 	/**
 	 * Write the patient's general information as json
-	 *  
-	 * @param person 		   the person
+	 * 
+	 * @param person           the person
 	 * @param availabilityList the availability of the medical person
 	 * @return the json that contains patient's general information
 	 */
 	@SuppressWarnings("unchecked")
-	public static String updateMedicalPersonnelAvailabilities(MedicalPersonnel person, List<LocalDateTime> availabilityList) {
+	public static String updateMedicalPersonnelAvailabilities(MedicalPersonnel person,
+			List<LocalDateTime> availabilityList) {
 		JSONObject json = new JSONObject();
 		json.put("medicalPersonnel", person.getUsername());
 		JSONArray availability = new JSONArray();
@@ -111,7 +113,7 @@ public class DataWriter {
 	/**
 	 * Update medical personnels patients.
 	 *
-	 * @param person the person
+	 * @param person      the person
 	 * @param patientList the patient list
 	 * @return the string
 	 */
@@ -126,10 +128,10 @@ public class DataWriter {
 		json.put("patients", patients);
 		return json.toJSONString();
 	}
-	
+
 	/**
 	 * Write the patient's general information as json
-	 *  
+	 * 
 	 * @param patient the patient
 	 * @return the json that contains patient's general information
 	 */
@@ -156,7 +158,7 @@ public class DataWriter {
 		json.put("caregiver", patient.getCaregiver());
 		return json.toJSONString();
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public static String writeMedicalPersonnelInfo(MedicalPersonnel medicalPersonnel) {
 		JSONObject json = new JSONObject();
@@ -182,7 +184,7 @@ public class DataWriter {
 
 	/**
 	 * Write the appointment as json
-	 *  
+	 * 
 	 * @param appointment the appointment
 	 * @return the json that contains appointment information
 	 */
@@ -198,9 +200,9 @@ public class DataWriter {
 		json.put("location", appointment.getLocation());
 		json.put("notes", appointment.getNotes());
 		return json.toJSONString();
-		
+
 	}
-	
+
 	/**
 	 * Write medical condition info.
 	 *
@@ -219,6 +221,6 @@ public class DataWriter {
 		json.put("terminationDate", medicalCondition.getTerminationDate());
 		json.put("notes", medicalCondition.getNotes());
 		return json.toJSONString();
-		
+
 	}
 }
