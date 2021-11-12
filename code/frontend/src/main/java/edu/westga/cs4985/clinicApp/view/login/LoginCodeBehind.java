@@ -29,7 +29,7 @@ public class LoginCodeBehind {
 
 	@FXML
 	private Button loginButton;
-	
+
 	@FXML
 	private Button registerButton;
 
@@ -82,14 +82,13 @@ public class LoginCodeBehind {
 			}
 		}
 	}
-	
 
-    @FXML
-    void onRegister(ActionEvent event) throws IOException {
-    	RegisterCodeBehind codebehind = new RegisterCodeBehind();
+	@FXML
+	void onRegister(ActionEvent event) throws IOException {
+		RegisterCodeBehind codebehind = new RegisterCodeBehind();
 		FXMLLoader loader = new FXMLLoader();
 		loader.setController(codebehind);
 		loader.setLocation(codebehind.getClass().getResource("Registration.fxml"));
 		WindowGenerator.setupScene((Parent) loader.load(), "Registration Window");
-    }
+	}
 }
