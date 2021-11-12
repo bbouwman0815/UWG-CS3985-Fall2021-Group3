@@ -14,14 +14,14 @@ import javafx.stage.WindowEvent;
 
 public class RegisterCodeBehind {
 
-	String[] roleList = { "Patient", "Medical Personnel", "Caregiver" };
+	public static final String[] ROLELIST = { "Patient", "Medical Personnel", "Caregiver" };
 
 	@FXML
 	private ComboBox<String> roleSelecter;
 
 	@FXML
 	private void initialize() {
-		this.roleSelecter.itemsProperty().set(FXCollections.observableArrayList(this.roleList));
+		this.roleSelecter.itemsProperty().set(FXCollections.observableArrayList(ROLELIST));
 	}
 
 	@FXML
