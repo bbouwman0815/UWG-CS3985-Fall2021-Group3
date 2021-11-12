@@ -235,6 +235,30 @@ public class Server extends Thread {
 		return "ERROR";
 	}
 	
+
+	/**
+	 * Get user json string by given json string as user name
+	 * 
+	 * @param jsonString the json string that contains the user name
+	 * @return the user json string associated with given user name json string
+	 * @throws IOException the IO exception
+	 * @throws ParseException 
+	 */
+	public String getCaregiverByUserName(String jsonString) throws IOException, ParseException {
+		JSONParser parser = new JSONParser();
+
+		FileReader reader = new FileReader("./jsonFiles/users.json");
+		JSONArray jsonObject = (JSONArray) parser.parse(reader);
+		JSONObject data = (JSONObject) parser.parse(jsonString);
+		for (Object aData : jsonObject) {
+			JSONObject parseData = (JSONObject) aData;
+			if (parseData.get("userName").equals(data.get("caregiver"))) {
+				return parseData.toJSONString();
+			}
+		}
+		return "ERROR";
+	}
+	
 	/**
 	 * Get user json string by given json string as user name
 	 * 
@@ -468,6 +492,30 @@ public class Server extends Thread {
 	}
 	
 	/**
+	 * Gets the all Caregivers.
+	 *
+	 * @param jsonString the json string
+	 * @return the all Caregivers
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws ParseException the parse exception
+	 */
+	@SuppressWarnings("unchecked")
+	private String getAllCaregivers() throws IOException, ParseException {
+		JSONParser parser = new JSONParser();
+		JSONArray caregivers = new JSONArray();
+		FileReader reader = new FileReader("./jsonFiles/users.json");
+		JSONArray jsonObject = (JSONArray) parser.parse(reader);
+		for (Object aData : jsonObject) {
+			JSONObject parseData = (JSONObject) aData;
+			if (parseData.get("type").equals("Caregiver")) {
+				caregivers.add(parseData);
+			}
+		}
+
+		return caregivers.toJSONString();
+	}
+	
+	/**
 	 * Gets the all MedicalPersonnels.
 	 *
 	 * @param jsonString the json string
@@ -518,6 +566,31 @@ public class Server extends Thread {
 	}
 	
 	/**
+	 * Gets the all patients.
+	 *
+	 * @param jsonString the json string
+	 * @return the all patients
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws ParseException the parse exception
+	 */
+	@SuppressWarnings("unchecked")
+	private String getCaregiverPatients(String jsonString) throws IOException, ParseException {
+		JSONParser parser = new JSONParser();
+		JSONArray patients = new JSONArray();
+		FileReader reader = new FileReader("./jsonFiles/caregiverpatients.json");
+		JSONArray jsonObject = (JSONArray) parser.parse(reader);
+		JSONObject data = (JSONObject) parser.parse(jsonString);
+		for (Object aData : jsonObject) {
+			JSONObject parseData = (JSONObject) aData;
+			if (parseData.get("caregiver").equals(data.get("caregiver"))) {
+				return parseData.get("patients").toString();
+			}
+		}
+
+		return patients.toJSONString();
+	}
+	
+	/**
 	 * Update medical personnels patients.
 	 *
 	 * @param jsonString the json string
@@ -537,6 +610,42 @@ public class Server extends Thread {
 		for (Object aData : jsonObject) {
 			JSONObject parseData = (JSONObject) aData;
 			if (parseData.get("medicalPersonnel").equals(data.get("medicalPersonnel"))) {
+				result = parseData;
+			}
+		}
+		if(result != null) {
+			jsonObject.remove(result);
+			jsonObject.add(data);
+		} else {
+			jsonObject.add(data);
+		}
+		
+		writer.write(jsonObject.toJSONString());
+		writer.flush();
+		writer.close();
+		return "Updated";
+	}
+	
+	/**
+	 * Update caregiver patients.
+	 *
+	 * @param jsonString the json string
+	 * @return the string
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws ParseException the parse exception
+	 */
+	@SuppressWarnings("unchecked")
+	public String updateCaregiverPatients(String jsonString) throws IOException, ParseException {
+		JSONParser parser = new JSONParser();
+		FileReader reader = new FileReader("./jsonFiles/caregiverpatients.json");
+		JSONArray jsonObject = (JSONArray) parser.parse(reader);
+
+		FileWriter writer = new FileWriter("./jsonFiles/caregiverpatients.json");
+		JSONObject data = (JSONObject) parser.parse(jsonString);
+		JSONObject result = null;
+		for (Object aData : jsonObject) {
+			JSONObject parseData = (JSONObject) aData;
+			if (parseData.get("caregiver").equals(data.get("caregiver"))) {
 				result = parseData;
 			}
 		}
@@ -582,7 +691,7 @@ public class Server extends Thread {
 	public void run() {
 		Context context = ZMQ.context(1);
 		Socket socket = context.socket(ZMQ.REP);
-		socket.bind("tcp://127.0.0.1:5573");
+		socket.bind("tcp://127.0.0.1:5576");
 
 		while (!Thread.currentThread().isInterrupted()) {
 
@@ -646,7 +755,15 @@ public class Server extends Thread {
 					e.printStackTrace();
 				}
 			}
-
+			if (request.equals("GET_CAREGIVER_BY_USER_NAME")) {
+				try {
+					result = this.getCaregiverByUserName(data);
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+			}
 			if (request.equals("ADD_PATIENT")) {
 				try {
 					result = this.addPatientUser(data);
@@ -724,9 +841,27 @@ public class Server extends Thread {
 					e.printStackTrace();
 				}
 			}
+			if (request.equals("GET_CAREGIVER_PATIENTS")) {
+				try {
+					result = this.getCaregiverPatients(data);
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+			}
 			if (request.equals("UPDATE_MEDICAL_PERSONNELS_PATIENTS")) {
 				try {
 					result = this.updateMedicalPersonnelsPatients(data);
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+			}
+			if (request.equals("UPDATE_CAREGIVER_PATIENTS")) {
+				try {
+					result = this.updateCaregiverPatients(data);
 				} catch (IOException e) {
 					e.printStackTrace();
 				} catch (ParseException e) {
@@ -751,7 +886,15 @@ public class Server extends Thread {
 					e.printStackTrace();
 				}
 			}
-
+			if (request.equals("GET_ALL_CAREGIVERS")) {
+				try {
+					result = this.getAllCaregivers();
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+			}
 			if (request.equals("GET_PATIENTS")) {
 				try {
 					result = this.getAllPatients();

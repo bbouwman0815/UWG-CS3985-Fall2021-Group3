@@ -6,6 +6,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.json.simple.parser.ParseException;
+
+import edu.westga.cs4985.clinicApp.model.Caregiver;
 import edu.westga.cs4985.clinicApp.model.MedicalCondition;
 import edu.westga.cs4985.clinicApp.model.Patient;
 import edu.westga.cs4985.clinicApp.model.User;
@@ -250,7 +252,7 @@ public class MedicalPersonnelCodeBehind {
 		this.address1Input.setText(selectedPatient.getAddress1());
 		this.address2Input.setText(selectedPatient.getAddress2());
 		this.cityInput.setText(selectedPatient.getCity());
-		this.caregiverLabel.setText((selectedPatient.getCaregiver()));
+		this.caregiverLabel.setText(selectedPatient.getCaregiver() == null ? "" : selectedPatient.getCaregiver().toString());
 		this.stateInput.setText(selectedPatient.getState());
 		this.ethnicityChoiceBox.setValue(selectedPatient.getEthnicity());
 		this.countryChoiceBox.setValue(selectedPatient.getCountry());
@@ -258,7 +260,6 @@ public class MedicalPersonnelCodeBehind {
 		this.sexChoiceBox.setValue(selectedPatient.getGender());
 		this.insuranceInput.setText(selectedPatient.getInsurance());
 		this.birthdayPicker.setValue(datetime);
-		this.caregiverLabel.setText(selectedPatient.getCaregiver());
 		
 		this.setMedicalConditions();
 	}
@@ -302,7 +303,7 @@ public class MedicalPersonnelCodeBehind {
     
     @FXML
     void removerCaregiver(ActionEvent event) {
-    	this.viewmodel.selectedPatient().setCaregiver("");
+    	this.viewmodel.selectedPatient().setCaregiver(null);
     	this.caregiverLabel.textProperty().set("");
     	this.addCaregiverButton.setVisible(true);
 		this.removeCaregiverButton.setVisible(false);
@@ -331,7 +332,7 @@ public class MedicalPersonnelCodeBehind {
     public class AddCaregiverPopupCodeBehind {
 
         @FXML
-        private ListView<String> caregiverList;
+        private ListView<Caregiver> caregiverList;
         
         private MedicalPersonnelViewModel viewModel;
         
@@ -348,19 +349,17 @@ public class MedicalPersonnelCodeBehind {
         	} else {
             	addCaregiverButton.setVisible(false);
             	removeCaregiverButton.setVisible(true);
-            	caregiverLabel.textProperty().set(this.caregiverList.getSelectionModel().getSelectedItem());
-            	this.viewModel.selectedPatient().setCaregiver(this.caregiverList.getSelectionModel().getSelectedItem());
-            	UserManager.userManager.updatePatientGeneralInfo(this.viewModel.selectedPatient());
+            	caregiverLabel.textProperty().set(this.caregiverList.getSelectionModel().getSelectedItem().toString());
+            	viewModel.selectedPatient().setCaregiver(this.caregiverList.getSelectionModel().getSelectedItem());
+            	UserManager.userManager.updatePatientGeneralInfo(viewModel.selectedPatient());
             	this.returnToPreviousStage(event);
         	}
         	
         }
         
         @FXML
-        public void initialize() {
-        	this.caregiverList.getItems().add("Caregiver A");
-        	this.caregiverList.getItems().add("Caregiver B");
-        	this.caregiverList.getItems().add("Caregiver C");
+        public void initialize() throws ParseException {
+        	this.caregiverList.itemsProperty().set(FXCollections.observableArrayList(UserManager.userManager.getAllCaregivers()));
         }
 
         @FXML

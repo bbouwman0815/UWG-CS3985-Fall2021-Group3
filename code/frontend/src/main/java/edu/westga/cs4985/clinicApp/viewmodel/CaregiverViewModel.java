@@ -1,13 +1,13 @@
 package edu.westga.cs4985.clinicApp.viewmodel;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.json.simple.parser.ParseException;
 
 import edu.westga.cs4985.clinicApp.model.Appointment;
+import edu.westga.cs4985.clinicApp.model.Caregiver;
 import edu.westga.cs4985.clinicApp.model.MedicalPersonnel;
 import edu.westga.cs4985.clinicApp.model.Patient;
 import edu.westga.cs4985.clinicApp.model.User;
@@ -21,16 +21,17 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 
 /**
- * The view model for MedicalPersonnel
+ * The view model for Caregiver
  * 
  * @author Jinxiang Zeng
  * @version Fall 2021
  *
  */
-public class MedicalPersonnelViewModel {
+public class CaregiverViewModel {
 	
+	private ObjectProperty<MedicalPersonnel> seletedMedicalPersonnel;
 	private ObjectProperty<LocalDateTime> selectedAvailabilityProperty;
-	private ListProperty<LocalDateTime> availabilityListProperty;
+
 	private ObjectProperty<Appointment> selectedFutureAppointmentProperty;
 	private ObjectProperty<Appointment> selectedPastAppointmentProperty;
 	private ListProperty<Appointment> futureAppointmentListProperty;
@@ -38,12 +39,8 @@ public class MedicalPersonnelViewModel {
 	private List<Appointment> futureppointmentList;
 	private StringProperty notesProperty;
 	private List<Appointment> pastAppointmentList;
-	private List<LocalDateTime> availabilityList;
-	private MedicalPersonnel medicalePersonnel;
+	private Caregiver caregiver;
 	
-	private ObjectProperty<LocalDateTime> selectedDayProperty;
-	private ObjectProperty<String> selectedTimeProperty;
-
 	private ListProperty<Patient> patientsListProperty;
 	private ListProperty<Patient> allPatientsListProperty;
 
@@ -53,33 +50,49 @@ public class MedicalPersonnelViewModel {
 	private List<Patient> allPatients;
 	
 	/**
-	 * Create view model for medical personnel
+	 * Create view model caregiver
 	 * 
 	 * @precondition none
 	 * 
 	 * @postcondition none
 	 */
-	public MedicalPersonnelViewModel() {
-		this.medicalePersonnel = (MedicalPersonnel) User.user;
+	public CaregiverViewModel() {
+		this.caregiver = (Caregiver) User.user;
 		this.selectedFutureAppointmentProperty = new SimpleObjectProperty<Appointment>();
 		this.selectedPastAppointmentProperty = new SimpleObjectProperty<Appointment>();
-		this.selectedAvailabilityProperty = new SimpleObjectProperty<LocalDateTime>();
 		this.futureAppointmentListProperty = new SimpleListProperty<Appointment>();
 		this.pastAppointmentListProperty = new SimpleListProperty<Appointment>();
-		this.availabilityListProperty = new SimpleListProperty<LocalDateTime>();
 		
-		this.selectedDayProperty = new SimpleObjectProperty<LocalDateTime>();
-		this.selectedTimeProperty = new SimpleObjectProperty<String>();
+		this.seletedMedicalPersonnel = new SimpleObjectProperty<MedicalPersonnel>();
+		this.selectedAvailabilityProperty = new SimpleObjectProperty<LocalDateTime>();
+		
 		this.notesProperty = new SimpleStringProperty("");
 		this.futureppointmentList = new ArrayList<Appointment>();
 		this.pastAppointmentList = new ArrayList<Appointment>();
-		this.availabilityList = new ArrayList<LocalDateTime>();
 		
 		this.patients = new ArrayList<Patient>();
 		this.allPatients = new ArrayList<Patient>();
 		this.patientsListProperty = new SimpleListProperty<Patient>(FXCollections.observableArrayList(this.patients));
 		this.allPatientsListProperty = new SimpleListProperty<Patient>(FXCollections.observableArrayList(this.patients));
 		this.selectedPatientProperty = new SimpleObjectProperty<Patient>();
+	}
+	
+	/**
+	 * Get the selected medical personnel
+	 * 
+	 * @return the selected medical personnel
+	 */
+	public ObjectProperty<MedicalPersonnel> seletedMedicalPersonnel() {
+		return this.seletedMedicalPersonnel;
+	}
+	
+	/**
+	 * Get the selected availability property
+	 * 
+	 * @return the selected availability property
+	 */
+	public ObjectProperty<LocalDateTime> selectedAvailabilityProperty() {
+		return this.selectedAvailabilityProperty;
 	}
 
 	/**
@@ -167,7 +180,7 @@ public class MedicalPersonnelViewModel {
 	public void loadPatients() {
 		List<Patient> patients;
 		try {
-			patients = UserManager.userManager.getPatientsForMedicalPersonnel(User.user.getUsername());
+			patients = UserManager.userManager.getPatientsForCaregiver(User.user.getUsername());
 			this.patients = patients;
 		} catch (ParseException e) {
 			e.printStackTrace();
@@ -190,35 +203,39 @@ public class MedicalPersonnelViewModel {
 	}
 	
 	/**
-	 * Get the medicalePersonnel user
+	 * Get the caregiver user
 	 * 
-	 * @return the logged in medicalePersonnel
+	 * @return the logged in caregiver
 	 */
-	public MedicalPersonnel getMedicalePersonnel() {
-		return this.medicalePersonnel;
-	}
-	
-	
-	/**
-	 * Add an availability for user
-	 * 
-	 */
-	public void addAvailability(String dateTime) throws ParseException{
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-		LocalDateTime availability = LocalDateTime.parse(dateTime, formatter);
-		this.availabilityList.add(availability);
-		this.availabilityListProperty.set(FXCollections.observableArrayList(this.availabilityList));
+	public Caregiver getCaregiver() {
+		return this.caregiver;
 	}
 	
 	/**
-	 * Delete an availability for user
+	 * Check current appointment if is booked
 	 * 
-	 * @return the added availability
+	 * @return true if current appointment is booked; otherwise false
 	 */
-	public void deleteAvailability() throws ParseException{
-		LocalDateTime availability = this.selectedAvailabilityProperty.get();
-		this.availabilityList.remove(availability);
-		this.availabilityListProperty.set(FXCollections.observableArrayList(this.availabilityList));
+	public boolean isBookedAppointment() {
+		for (Appointment appointment : this.futureppointmentList){
+			if (appointment.getMedicalPersonnel().equals(this.seletedMedicalPersonnel.get()) &&
+					appointment.getDateTime().equals(this.selectedAvailabilityProperty.get())) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * Booking an appointment for user
+	 * 
+	 * @return the booked appointment
+	 */
+	public Appointment bookAppointment() {
+		Appointment appointment = new Appointment(this.selectedAvailabilityProperty.get(), this.selectedPatient(), this.seletedMedicalPersonnel.get(), this.seletedMedicalPersonnel.get().getFullAddress(), this.notesProperty.get());
+		this.futureppointmentList.add(appointment);
+		this.futureAppointmentListProperty.set(FXCollections.observableArrayList(this.futureppointmentList));
+		return appointment;
 	}
 	
 	/**
@@ -227,6 +244,8 @@ public class MedicalPersonnelViewModel {
 	 * @param appointments the appointment list used to filter
 	 */
 	public void filterAppointment(List<Appointment> appointments) {
+		this.futureppointmentList.clear();
+		this.pastAppointmentList.clear();
 		for (Appointment theAppointment : appointments) {
 			if (!theAppointment.hasPassed()) {
 				this.futureppointmentList.add(theAppointment);
@@ -238,33 +257,6 @@ public class MedicalPersonnelViewModel {
 		this.futureAppointmentListProperty.set(FXCollections.observableArrayList(this.futureppointmentList));
 		this.pastAppointmentListProperty.set(FXCollections.observableArrayList(this.pastAppointmentList));
 
-	}
-	
-	/**
-	 * Set up the availability List
-	 * @param dayTimes the value of vailability List
-	 */
-	public void setAvailabilityList(List<LocalDateTime> dayTimes) {
-		for (LocalDateTime dateTime : dayTimes) {
-			this.availabilityList.add(dateTime);
-		}
-		this.availabilityListProperty.set(FXCollections.observableArrayList(this.availabilityList));
-	}
-	
-	/**
-	 * Check current availability if is added
-	 * 
-	 * @return true if current availability is added; otherwise false
-	 */
-	public boolean isAddedAvailability(String dateTime) {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-		LocalDateTime currentAvailability = LocalDateTime.parse(dateTime, formatter);
-		for (LocalDateTime availability : this.availabilityList){
-			if (availability.equals(currentAvailability)) {
-				return true;
-			}
-		}
-		return false;
 	}
 	
 	/**
@@ -314,42 +306,6 @@ public class MedicalPersonnelViewModel {
 			return true;
 		}
 		return false;
-	}
-	
-	/**
-	 * Get the selected time
-	 * 
-	 * @return the selected time
-	 */
-	public ObjectProperty<String> seletedTimeProperty() {
-		return this.selectedTimeProperty;
-	}
-	
-	/**
-	 * Get the selected availability property
-	 * 
-	 * @return the selected availability property
-	 */
-	public ObjectProperty<LocalDateTime> selectedDayProperty() {
-		return this.selectedDayProperty;
-	}
-	
-	/**
-	 * Get the selected availability property
-	 * 
-	 * @return the selected availability property
-	 */
-	public ObjectProperty<LocalDateTime> selectedAvailabilityProperty() {
-		return this.selectedAvailabilityProperty;
-	}
-	
-	/**
-	 * Get the availability list property
-	 * 
-	 * @return the availability list property
-	 */
-	public ListProperty<LocalDateTime> availabilityListProperty() {
-		return this.availabilityListProperty;
 	}
 	
 	/**
@@ -413,15 +369,6 @@ public class MedicalPersonnelViewModel {
 	 */
 	public List<Appointment> pastAppointmentList() {
 		return this.pastAppointmentList;
-	}
-	
-	/**
-	 * Get the availability list
-	 *  
-	 * @return the availability list
-	 */
-	public List<LocalDateTime> availabilityList() {
-		return this.availabilityList;
 	}
 
 }

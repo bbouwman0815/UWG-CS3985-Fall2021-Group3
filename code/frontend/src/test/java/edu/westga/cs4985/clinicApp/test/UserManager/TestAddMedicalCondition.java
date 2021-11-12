@@ -10,7 +10,6 @@ import edu.westga.cs4985.clinicApp.model.MedicalCondition;
 import edu.westga.cs4985.clinicApp.model.Patient;
 import edu.westga.cs4985.clinicApp.model.UserManager;
 import edu.westga.cs4985.clinicApp.utils.Country;
-import edu.westga.cs4985.clinicApp.utils.DataReader;
 import edu.westga.cs4985.clinicApp.utils.DataWriter;
 import edu.westga.cs4985.clinicApp.utils.Ethnicity;
 import edu.westga.cs4985.clinicApp.utils.Gender;
@@ -24,7 +23,6 @@ class TestAddMedicalCondition {
 		public String request(RequestType requestType, String data) {
 			UserManager manager = new UserManager();
 			DataWriter writer = new DataWriter();
-			DataReader reader = new DataReader();
 			String request = requestType + "," + data;
 
 			if (request.equals(
