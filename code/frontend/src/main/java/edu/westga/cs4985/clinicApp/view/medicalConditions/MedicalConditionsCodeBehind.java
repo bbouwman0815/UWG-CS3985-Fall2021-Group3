@@ -125,7 +125,7 @@ public class MedicalConditionsCodeBehind {
 			}
 		});
 	}
-	
+
 	void setMedicalConditions() throws ParseException {
 		List<MedicalCondition> medicalConditions = FXCollections.observableArrayList(
 				UserManager.userManager.getMedicalConditions(this.viewModel.getPatient().getUsername()));
@@ -171,11 +171,10 @@ public class MedicalConditionsCodeBehind {
 				this.returnToPreviousStage(event);
 			} catch (NullPointerException e) {
 				Alert alert = WindowGenerator.openAlert("Please fill out all data!");
-            	
-    			alert.showAndWait();
+
+				alert.showAndWait();
 			}
-			
-			
+
 		}
 
 		@FXML
@@ -185,7 +184,7 @@ public class MedicalConditionsCodeBehind {
 
 		@FXML
 		void handleTerminationDate(ActionEvent event) {
-		
+
 		}
 
 		public AddMedicalConditionPopupCodeBehind() {

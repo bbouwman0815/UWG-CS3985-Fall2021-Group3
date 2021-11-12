@@ -11,7 +11,7 @@ import javafx.beans.property.StringProperty;
  *
  */
 public class ClinicAppViewModel {
-	
+
 	private StringProperty userNameProperty;
 	private StringProperty passwordProperty;
 

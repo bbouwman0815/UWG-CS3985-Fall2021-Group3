@@ -28,7 +28,7 @@ import javafx.collections.FXCollections;
  *
  */
 public class MedicalPersonnelViewModel {
-	
+
 	private ObjectProperty<LocalDateTime> selectedAvailabilityProperty;
 	private ListProperty<LocalDateTime> availabilityListProperty;
 	private ObjectProperty<Appointment> selectedFutureAppointmentProperty;
@@ -40,7 +40,7 @@ public class MedicalPersonnelViewModel {
 	private List<Appointment> pastAppointmentList;
 	private List<LocalDateTime> availabilityList;
 	private MedicalPersonnel medicalePersonnel;
-	
+
 	private ObjectProperty<LocalDateTime> selectedDayProperty;
 	private ObjectProperty<String> selectedTimeProperty;
 
@@ -51,7 +51,7 @@ public class MedicalPersonnelViewModel {
 
 	private List<Patient> patients;
 	private List<Patient> allPatients;
-	
+
 	/**
 	 * Create view model for patient general information.
 	 * 
@@ -67,18 +67,19 @@ public class MedicalPersonnelViewModel {
 		this.futureAppointmentListProperty = new SimpleListProperty<Appointment>();
 		this.pastAppointmentListProperty = new SimpleListProperty<Appointment>();
 		this.availabilityListProperty = new SimpleListProperty<LocalDateTime>();
-		
+
 		this.selectedDayProperty = new SimpleObjectProperty<LocalDateTime>();
 		this.selectedTimeProperty = new SimpleObjectProperty<String>();
 		this.notesProperty = new SimpleStringProperty("");
 		this.futureppointmentList = new ArrayList<Appointment>();
 		this.pastAppointmentList = new ArrayList<Appointment>();
 		this.availabilityList = new ArrayList<LocalDateTime>();
-		
+
 		this.patients = new ArrayList<Patient>();
 		this.allPatients = new ArrayList<Patient>();
 		this.patientsListProperty = new SimpleListProperty<Patient>(FXCollections.observableArrayList(this.patients));
-		this.allPatientsListProperty = new SimpleListProperty<Patient>(FXCollections.observableArrayList(this.patients));
+		this.allPatientsListProperty = new SimpleListProperty<Patient>(
+				FXCollections.observableArrayList(this.patients));
 		this.selectedPatientProperty = new SimpleObjectProperty<Patient>();
 	}
 
@@ -90,7 +91,7 @@ public class MedicalPersonnelViewModel {
 	public ListProperty<Patient> patientsListProperty() {
 		return this.patientsListProperty;
 	}
-	
+
 	/**
 	 * Gets the patients.
 	 *
@@ -117,7 +118,7 @@ public class MedicalPersonnelViewModel {
 	public ObjectProperty<Patient> selectedPatientProperty() {
 		return this.selectedPatientProperty;
 	}
-	
+
 	/**
 	 * Gets the selected patient.
 	 *
@@ -153,7 +154,6 @@ public class MedicalPersonnelViewModel {
 	public void setPatients(List<Patient> patients) {
 		this.patients = patients;
 	}
-	
 
 	/**
 	 * Gets all of the patients.
@@ -172,11 +172,11 @@ public class MedicalPersonnelViewModel {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		
+
 		this.patientsListProperty.set(FXCollections.observableArrayList(this.patients));
 
 	}
-	
+
 	public void loadAllPatients() {
 		List<Patient> patients;
 		try {
@@ -185,10 +185,10 @@ public class MedicalPersonnelViewModel {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		
+
 		this.patientsListProperty.set(FXCollections.observableArrayList(this.allPatients));
 	}
-	
+
 	/**
 	 * Get the medicalePersonnel user
 	 * 
@@ -197,8 +197,7 @@ public class MedicalPersonnelViewModel {
 	public MedicalPersonnel getMedicalePersonnel() {
 		return this.medicalePersonnel;
 	}
-	
-	
+
 	/**
 	 * Add an availability for user
 	 * 
@@ -210,7 +209,7 @@ public class MedicalPersonnelViewModel {
 		this.availabilityList.add(availability);
 		this.availabilityListProperty.set(FXCollections.observableArrayList(this.availabilityList));
 	}
-	
+
 	/**
 	 * Delete an availability for user
 	 */
@@ -219,7 +218,7 @@ public class MedicalPersonnelViewModel {
 		this.availabilityList.remove(availability);
 		this.availabilityListProperty.set(FXCollections.observableArrayList(this.availabilityList));
 	}
-	
+
 	/**
 	 * Filter appointment list to future and past sections
 	 * 
@@ -237,9 +236,10 @@ public class MedicalPersonnelViewModel {
 		this.pastAppointmentListProperty.set(FXCollections.observableArrayList(this.pastAppointmentList));
 
 	}
-	
+
 	/**
 	 * Set up the availability List
+	 * 
 	 * @param dayTimes the value of vailability List
 	 */
 	public void setAvailabilityList(List<LocalDateTime> dayTimes) {
@@ -248,11 +248,11 @@ public class MedicalPersonnelViewModel {
 		}
 		this.availabilityListProperty.set(FXCollections.observableArrayList(this.availabilityList));
 	}
-	
+
 	/**
 	 * Check current availability if is added
 	 * 
-	 * @param dateTime	the dateTime of availability
+	 * @param dateTime the dateTime of availability
 	 * 
 	 * @return true if current availability is added; otherwise false
 	 */
@@ -266,7 +266,7 @@ public class MedicalPersonnelViewModel {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Cancel an appointment for user
 	 * 
@@ -278,7 +278,7 @@ public class MedicalPersonnelViewModel {
 		this.futureAppointmentListProperty.set(FXCollections.observableArrayList(this.futureppointmentList));
 		return appointment;
 	}
-	
+
 	/**
 	 * Delete patient.
 	 *
@@ -287,7 +287,7 @@ public class MedicalPersonnelViewModel {
 	public Patient removePatientFromCare() {
 		Patient patient = this.selectedPatientProperty.get();
 		this.patients.remove(this.selectedPatientProperty.getValue());
-		//this.patientsListProperty.set(FXCollections.observableArrayList(this.patients));
+		// this.patientsListProperty.set(FXCollections.observableArrayList(this.patients));
 		return patient;
 	}
 
@@ -299,12 +299,13 @@ public class MedicalPersonnelViewModel {
 	public Patient addPatientToCare() {
 		Patient patient = this.selectedPatientProperty.get();
 		this.patients.add(this.selectedPatientProperty.getValue());
-		//this.patientsListProperty.set(FXCollections.observableArrayList(this.patients));
+		// this.patientsListProperty.set(FXCollections.observableArrayList(this.patients));
 		return patient;
 	}
-	
+
 	/**
-	 * Checks if the selected patient is under the care of the logged medical personnel
+	 * Checks if the selected patient is under the care of the logged medical
+	 * personnel
 	 *
 	 * @return true if under care, false otherwise
 	 */
@@ -315,7 +316,7 @@ public class MedicalPersonnelViewModel {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Get the selected time
 	 * 
@@ -324,7 +325,7 @@ public class MedicalPersonnelViewModel {
 	public ObjectProperty<String> seletedTimeProperty() {
 		return this.selectedTimeProperty;
 	}
-	
+
 	/**
 	 * Get the selected availability property
 	 * 
@@ -333,7 +334,7 @@ public class MedicalPersonnelViewModel {
 	public ObjectProperty<LocalDateTime> selectedDayProperty() {
 		return this.selectedDayProperty;
 	}
-	
+
 	/**
 	 * Get the selected availability property
 	 * 
@@ -342,7 +343,7 @@ public class MedicalPersonnelViewModel {
 	public ObjectProperty<LocalDateTime> selectedAvailabilityProperty() {
 		return this.selectedAvailabilityProperty;
 	}
-	
+
 	/**
 	 * Get the availability list property
 	 * 
@@ -351,7 +352,7 @@ public class MedicalPersonnelViewModel {
 	public ListProperty<LocalDateTime> availabilityListProperty() {
 		return this.availabilityListProperty;
 	}
-	
+
 	/**
 	 * Get the selected future appointment property
 	 * 
@@ -360,7 +361,7 @@ public class MedicalPersonnelViewModel {
 	public ObjectProperty<Appointment> selectedFutureAppointmentProperty() {
 		return this.selectedFutureAppointmentProperty;
 	}
-	
+
 	/**
 	 * Get the selected past appointment property
 	 * 
@@ -369,55 +370,55 @@ public class MedicalPersonnelViewModel {
 	public ObjectProperty<Appointment> selectedPastAppointmentProperty() {
 		return this.selectedPastAppointmentProperty;
 	}
-	
+
 	/**
 	 * Get the future appointment list property
-	 *  
+	 * 
 	 * @return the future appointment list property
 	 */
 	public ListProperty<Appointment> futureAppointmentListProperty() {
 		return this.futureAppointmentListProperty;
 	}
-	
+
 	/**
 	 * Get the past appointment list property
-	 *  
+	 * 
 	 * @return the past appointment list property
 	 */
 	public ListProperty<Appointment> pastAppointmentListProperty() {
 		return this.pastAppointmentListProperty;
 	}
-	
+
 	/**
 	 * Get the notes property
-	 *  
+	 * 
 	 * @return the notes property
 	 */
 	public StringProperty notesProperty() {
 		return this.notesProperty;
 	}
-	
+
 	/**
 	 * Get the future appointment list
-	 *  
+	 * 
 	 * @return the future appointment list
 	 */
 	public List<Appointment> futureppointmentList() {
 		return this.futureppointmentList;
 	}
-	
+
 	/**
 	 * Get the past appointment list
-	 *  
+	 * 
 	 * @return the past appointment list
 	 */
 	public List<Appointment> pastAppointmentList() {
 		return this.pastAppointmentList;
 	}
-	
+
 	/**
 	 * Get the availability list
-	 *  
+	 * 
 	 * @return the availability list
 	 */
 	public List<LocalDateTime> availabilityList() {
