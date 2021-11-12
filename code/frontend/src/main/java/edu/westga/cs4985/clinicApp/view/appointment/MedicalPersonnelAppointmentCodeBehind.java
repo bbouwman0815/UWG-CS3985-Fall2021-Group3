@@ -134,17 +134,18 @@ public class MedicalPersonnelAppointmentCodeBehind {
 
 						if (alert.getResult().getButtonData().equals(ButtonData.YES)) {
 							try {
-								viewModel.deleteAvailability();
-								availabilitiesList.getSelectionModel().clearSelection();
+								MedicalPersonnelAppointmentCodeBehind.this.viewModel.deleteAvailability();
+								MedicalPersonnelAppointmentCodeBehind.this.availabilitiesList.getSelectionModel().clearSelection();
 								UserManager.userManager.updateMedicalPersonnelAvaiabilities(
-										viewModel.getMedicalePersonnel(), viewModel.availabilityList());
+										MedicalPersonnelAppointmentCodeBehind.this.viewModel.getMedicalePersonnel(),
+										MedicalPersonnelAppointmentCodeBehind.this.viewModel.availabilityList());
 
 							} catch (ParseException e) {
 								System.out.println();
 							}
 						}
 						if (alert.getResult().getButtonData().equals(ButtonData.NO)) {
-							availabilitiesList.getSelectionModel().clearSelection();
+							MedicalPersonnelAppointmentCodeBehind.this.availabilitiesList.getSelectionModel().clearSelection();
 						}
 					});
 					alert.showAndWait();
