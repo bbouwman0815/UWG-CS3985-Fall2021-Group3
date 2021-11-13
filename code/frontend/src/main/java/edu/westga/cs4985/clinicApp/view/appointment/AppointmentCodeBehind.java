@@ -210,6 +210,7 @@ public class AppointmentCodeBehind {
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
+<<<<<<< HEAD
 					Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 					currentStage.fireEvent(new WindowEvent(currentStage, WindowEvent.WINDOW_CLOSE_REQUEST));
 					currentStage.close();
@@ -349,6 +350,173 @@ public class AppointmentCodeBehind {
 		void cancelAppointment(ActionEvent event) {
 			Alert alert = WindowGenerator.openConfirm("Are you sure you want to cancel this appointment?");
 
+=======
+            		
+        			
+        		}
+        	});
+        }
+        
+        public void setBindings() {
+        	this.viewModel.seletedMedicalPersonnel().bind(this.medicalPersonList.getSelectionModel().selectedItemProperty());
+        	this.viewModel.selectedAvailabilityProperty().bind(this.availableTimeList.getSelectionModel().selectedItemProperty());
+        	
+        }
+
+        @FXML
+        void bookTheAppointment(ActionEvent event) throws IOException {
+        	if (this.viewModel.seletedMedicalPersonnel().get() == null) {
+        		Alert alert = WindowGenerator.openAlert("Please select your medical personnel!");
+            	
+    			alert.showAndWait();
+        	} else if (this.viewModel.selectedAvailabilityProperty().get() == null) {
+        		Alert alert = WindowGenerator.openAlert("Please select your time!");
+            	
+    			alert.showAndWait();
+        	} else {
+        		Alert bookAlert = WindowGenerator.openConfirm("Are you sure want to book this appointment?");
+            	bookAlert.setOnCloseRequest((action) -> {
+            		if (bookAlert.getResult().getButtonData().equals(ButtonData.YES)) {
+            			this.viewModel.notesProperty().set(this.noteTextBox.getText());
+            			Appointment appointment = this.viewModel.bookAppointment();
+            			UserManager.userManager.bookAppointment(appointment);
+            			
+            			try {
+							List<LocalDateTime> availabilityList = UserManager.userManager.getAvailabilities(this.viewModel.seletedMedicalPersonnel().getValue().getUsername());
+							availabilityList.remove(appointment.getDateTime());
+							UserManager.userManager.updateMedicalPersonnelAvaiabilities(this.viewModel.seletedMedicalPersonnel().get(), availabilityList);
+						} catch (ParseException e1) {
+							e1.printStackTrace();
+						}
+            			
+            			Stage popup;
+						try {
+							popup = WindowGenerator.openPopup(APPOINTMENT_VIEW_POPUP, new AppointmentViewPopupCodeBehind(this.viewModel), "Appointment View Window");
+							popup.show();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+						Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+	                    currentStage.fireEvent(new WindowEvent(currentStage, WindowEvent.WINDOW_CLOSE_REQUEST));
+	                    currentStage.close();
+
+            		}
+            	});
+        		bookAlert.show();
+        	}
+        	
+        }
+
+        @FXML
+        void cancel(ActionEvent event) {
+        	Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        	currentStage.fireEvent(new WindowEvent(currentStage, WindowEvent.WINDOW_CLOSE_REQUEST));
+        	currentStage.close();
+        }
+
+        @FXML
+        void getCityName(ActionEvent event) throws ParseException {
+        	
+        	String zipcode = this.zipcodeInput.getText();
+        	try {
+        		int zip = Integer.parseInt(zipcode);
+        		if (zip > 99999 || zip < 10000) {
+        			Alert alert = WindowGenerator.openAlert("Please entery FIVE digits for zipcode!");
+        			
+        			alert.showAndWait();
+        			return;
+        		}
+        		List<MedicalPersonnel> list = UserManager.userManager.getAllMedicalPersonnels(zipcode);
+        		if (list.size() == 0) {
+        			Alert alert = WindowGenerator.openAlert("There are no any Medical Personnel in this area. Please entry another zipcode!");
+                	
+        			alert.showAndWait();
+        			return;
+        		} else {
+        			this.medicalPersonList.itemsProperty().set(FXCollections.observableArrayList(list));
+        		}
+        		
+        	} catch(NumberFormatException e) {
+        		Alert alert = WindowGenerator.openAlert("Please entery numbers for zipcode!");
+        	
+        		alert.showAndWait();
+        		return;
+        	}
+       }
+
+    }
+
+    public class AppointmentViewPopupCodeBehind {
+
+        @FXML
+        private TextArea appointmentNotes;
+        
+        @FXML
+        private Button editButton;
+
+        @FXML
+        private Button OKButton;
+
+        @FXML
+        private Button saveButton;
+        
+        @FXML
+        private Button cancelAppointmentButton;
+        
+        @FXML
+        private Label medicalPersonnelLabel;
+
+        @FXML
+        private Label patientLabel;
+
+        @FXML
+        private Label timeLabel;
+
+        @FXML
+        private Label locationLabel;
+        
+        private PatientViewModel viewModel;
+        
+        public AppointmentViewPopupCodeBehind(PatientViewModel viewModel) {
+        	this.viewModel = viewModel;
+        }
+        
+        @FXML
+        public void initialize() {
+        	this.editButton.setVisible(false);
+        	this.saveButton.setVisible(false);
+        	this.appointmentNotes.setEditable(false);
+        	if (this.viewModel.selectedFutureAppointmentProperty().get() != null) {
+        		this.medicalPersonnelLabel.textProperty().set("Medical Personnel: " + this.viewModel.selectedFutureAppointmentProperty().get().getMedicalPersonnel());
+            	this.timeLabel.textProperty().set("Time: " + this.viewModel.selectedFutureAppointmentProperty().get().getDateTime());
+            	this.appointmentNotes.textProperty().set(this.viewModel.selectedFutureAppointmentProperty().get().getNotes());
+            	this.patientLabel.textProperty().set("Patient: " + this.viewModel.selectedFutureAppointmentProperty().get().getPatient().getFullName());
+            	this.locationLabel.textProperty().set("Location: " + this.viewModel.selectedFutureAppointmentProperty().get().getLocation());
+        		this.cancelAppointmentButton.setVisible(true);
+        	} else if (this.viewModel.selectedPastAppointmentProperty().get() != null) {
+        		this.cancelAppointmentButton.setVisible(false);
+        		this.medicalPersonnelLabel.textProperty().set("Medical Personnel: " + this.viewModel.selectedPastAppointmentProperty().get().getMedicalPersonnel());
+            	this.timeLabel.textProperty().set("Time: " + this.viewModel.selectedPastAppointmentProperty().get().getDateTime());
+            	this.appointmentNotes.textProperty().set(this.viewModel.selectedPastAppointmentProperty().get().getNotes());
+            	this.patientLabel.textProperty().set("Patient: " + this.viewModel.selectedPastAppointmentProperty().get().getPatient().getFullName());
+            	this.locationLabel.textProperty().set("Location: " + this.viewModel.selectedPastAppointmentProperty().get().getLocation());
+        	} else {
+        		this.cancelAppointmentButton.setVisible(false);
+        		this.medicalPersonnelLabel.textProperty().set("Medical Personnel: " + this.viewModel.seletedMedicalPersonnel().get());
+        		this.patientLabel.textProperty().set("Patient: " + this.viewModel.getPatient().getFullName());
+            	this.timeLabel.textProperty().set("Time: " + this.viewModel.selectedAvailabilityProperty().get());
+            	this.locationLabel.textProperty().set("Location: " + this.viewModel.seletedMedicalPersonnel().get().getFullAddress());
+            	this.appointmentNotes.textProperty().set(this.viewModel.notesProperty().get());
+        		
+        	}
+        	
+        }
+
+        @FXML
+        void cancelAppointment(ActionEvent event) {
+        	Alert alert = WindowGenerator.openConfirm("Are you sure you want to cancel this appointment?");
+        	
+>>>>>>> feature-create-caregiver-and-implement-UI
 			alert.setOnCloseRequest((evt) -> {
 				if (alert.getResult().getButtonData().equals(ButtonData.YES)) {
 					Appointment appointment = this.viewModel.cancelAppointment();

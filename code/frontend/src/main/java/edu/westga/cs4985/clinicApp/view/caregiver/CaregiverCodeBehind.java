@@ -487,11 +487,7 @@ public class CaregiverCodeBehind {
 
         @FXML
         void bookTheAppointment(ActionEvent event) throws IOException {
-        	if(this.viewModel.isBookedAppointment()) {
-        		Alert alert = WindowGenerator.openAlert("The appointment already book! Please select another date!");
-            	
-    			alert.showAndWait();
-        	} else if (this.viewModel.seletedMedicalPersonnel().get() == null) {
+        	if (this.viewModel.seletedMedicalPersonnel().get() == null) {
         		Alert alert = WindowGenerator.openAlert("Please select your medical personnel!");
             	
     			alert.showAndWait();

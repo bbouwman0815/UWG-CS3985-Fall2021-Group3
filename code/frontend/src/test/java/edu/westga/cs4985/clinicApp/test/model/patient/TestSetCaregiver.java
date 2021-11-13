@@ -33,12 +33,4 @@ public class TestSetCaregiver {
 		patient.setCaregiver(caregiver);
 		assertEquals("New", patient.getCaregiver().getUsername());
 	}
-	
-	@Test
-	void testSetNullCaregiver() {
-		Patient patient = patientDummy();
-		
-		assertThrows(IllegalArgumentException.class,
-				() -> patient.setCaregiver(null));
-	}
 }
