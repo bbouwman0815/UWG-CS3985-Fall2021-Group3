@@ -57,7 +57,7 @@ public class CaregiverViewModel {
 	 * @postcondition none
 	 */
 	public CaregiverViewModel() {
-		this.caregiver = (Caregiver) User.user;
+		this.caregiver = (Caregiver) User.user();
 		this.selectedFutureAppointmentProperty = new SimpleObjectProperty<Appointment>();
 		this.selectedPastAppointmentProperty = new SimpleObjectProperty<Appointment>();
 		this.futureAppointmentListProperty = new SimpleListProperty<Appointment>();
@@ -180,7 +180,7 @@ public class CaregiverViewModel {
 	public void loadPatients() {
 		List<Patient> patients;
 		try {
-			patients = UserManager.userManager.getPatientsForCaregiver(User.user.getUsername());
+			patients = UserManager.userManager().getPatientsForCaregiver(User.user().getUsername());
 			this.patients = patients;
 		} catch (ParseException e) {
 			e.printStackTrace();
@@ -193,7 +193,7 @@ public class CaregiverViewModel {
 	public void loadAllPatients() {
 		List<Patient> patients;
 		try {
-			patients = UserManager.userManager.getAllPatients();
+			patients = UserManager.userManager().getAllPatients();
 			this.allPatients = patients;
 		} catch (ParseException e) {
 			e.printStackTrace();

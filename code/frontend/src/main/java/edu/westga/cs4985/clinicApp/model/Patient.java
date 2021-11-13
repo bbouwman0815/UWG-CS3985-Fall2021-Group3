@@ -17,7 +17,7 @@ public class Patient extends Person {
 
 	private String email;
 
-	private String careGiver;
+	private Caregiver careGiver;
 
 	/**
 	 * Instantiates a new patient.
@@ -72,7 +72,7 @@ public class Patient extends Person {
 		this.insurance = insurance;
 		this.phoneNumber = phoneNumber;
 		this.email = email;
-		this.careGiver = "";
+		this.careGiver = null;
 	}
 
 	/**
@@ -80,7 +80,7 @@ public class Patient extends Person {
 	 *
 	 * @return the caregiver
 	 */
-	public String getCaregiver() {
+	public Caregiver getCaregiver() {
 		return this.careGiver;
 	}
 
@@ -89,7 +89,7 @@ public class Patient extends Person {
 	 *
 	 * @param caregiver the new caregiver
 	 */
-	public void setCaregiver(String caregiver) {
+	public void setCaregiver(Caregiver caregiver) {
 		if (caregiver == null) {
 			throw new IllegalArgumentException(UI.ExceptionMessages.NULL_DATEOFBIRTH);
 		}

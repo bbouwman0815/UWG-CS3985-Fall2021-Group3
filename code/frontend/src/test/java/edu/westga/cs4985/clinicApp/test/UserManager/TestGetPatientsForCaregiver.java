@@ -50,7 +50,7 @@ class TestGetPatientsForCaregiver {
 	@Test
 	void testGetPatientsForCaregiver() throws ParseException {
 		UserManager userManager = new UserManager(new ServerFake());
-		userManager.userManager = userManager;
+		UserManager.setUserManager(userManager);
 		Patient patient = (Patient) userManager.getUserByUserName("bbouwman0815");
 		assertEquals(patient.getFirstName(), "Brian");
 		Caregiver caregiver = (Caregiver) userManager.getCaregiverByUserName("timi1");
@@ -64,7 +64,7 @@ class TestGetPatientsForCaregiver {
 	@Test
 	void testGetAllCaregivers() throws ParseException {
 		UserManager userManager = new UserManager(new ServerFake());
-		userManager.userManager = userManager;
+		UserManager.setUserManager(userManager);
 		List<Caregiver> caregivers = userManager.getAllCaregivers();
 		assertEquals(1, caregivers.size());
 	}
