@@ -38,22 +38,21 @@ public class TestUpdateGeneralInfo extends ApplicationTest {
 					"ADD_MEDICAL_CONDITION,{\"terminationDate\":\"2016-11-01\",\"notes\":\"this disease lasts six years\",\"patient\":\"bbouwman0815\",\"diagnosisDate\":\"2010-11-01\",\"name\":\"sixyearsdiseaselmao\"}")) {
 				return "ADDED";
 			}
-			if (request.equals(
-					"GET_USER_BY_USERNAME,{\"patient\":\"bbouwman0815\"}")) {
+			if (request.equals("GET_USER_BY_USERNAME,{\"patient\":\"bbouwman0815\"}")) {
 				return "{\"insurance\":\"United Healthcare\",\"lastName\":\"Bouwman\",\"country\":\"United States\",\"gender\":\"Male\",\"race\":\"White\",\"address2\":\"\",\"city\":\"Carrollton\",\"address1\":\"912 Lovvorn Road\",\"dateOfBirth\":\"2021-09-15\",\"type\":\"PATIENT\",\"userName\":\"bbouwman0815\",\"firstName\":\"Brian\",\"password\":\"5f4dcc3b5aa765d61d8327deb882cf99\",\"phoneNumber\":\"6665554444\",\"ethnicty\":\"Not Hispanic or Latino\",\"caregiver\":\"\",\"state\":\"GA\",\"email\":\"bbouwman0815@yahoo.com\"}";
 			}
-			if (request.equals(
-					"GET_MEDICAL_CONDITIONS,{\"patient\":\"bbouwman0815\"}")) {
+			if (request.equals("GET_MEDICAL_CONDITIONS,{\"patient\":\"bbouwman0815\"}")) {
 				return "[{\"terminationDate\":\"2021-11-01\",\"notes\":\"this disease lasts six years lmao\",\"patient\":\"bbouwman0815\",\"diagnosisDate\":\"2010-11-01\",\"name\":\"sixyearsdiseaselmao\"}]";
+			}
+			if (request.equals("GET_ALL_CAREGIVERS,GET_ALL_CAREGIVERS")) {
+				return "[{\"lastName\":\"liu\",\"country\":\"Bhutan\",\"gender\":\"Male\",\"race\":\"Asian\",\"address2\":\"123\",\"city\":\"Carronllton\",\"address1\":\"1601 Maple St\",\"dateOfBirth\":\"1990-09-29\",\"type\":\"Caregiver\",\"userName\":\"timi1\",\"firstName\":\"timi\",\"password\":\"5f4dcc3b5aa765d61d8327deb882cf99\",\"phoneNumber\":\"4444444444\",\"ethnicty\":\"Hispanic or Latino\",\"state\":\"GA\",\"email\":\"temail@email\"}]";
 			} else {
 				return "ERROR";
 			}
 		}
 
 	}
-	
 
-	
 	@Test
 	public void testUpdateCareGiver() throws InterruptedException {
 		this.clickOn("#usernameTextField");
@@ -87,9 +86,9 @@ public class TestUpdateGeneralInfo extends ApplicationTest {
 		this.type(KeyCode.ENTER);
 		this.type(KeyCode.TAB);
 		this.type(KeyCode.ENTER);
-		
+
 	}
-	
+
 	@Test
 	public void testUpdateRemoveCareGiver() throws InterruptedException {
 		this.clickOn("#usernameTextField");
@@ -123,9 +122,9 @@ public class TestUpdateGeneralInfo extends ApplicationTest {
 		this.type(KeyCode.ENTER);
 		this.type(KeyCode.TAB);
 		this.type(KeyCode.ENTER);
-		this.clickOn("#removeCaregiverButton");	
+		this.clickOn("#removeCaregiverButton");
 	}
-	
+
 	@Test
 	public void testAddUnselectedCaregiver() throws InterruptedException {
 		this.clickOn("#usernameTextField");
@@ -155,10 +154,10 @@ public class TestUpdateGeneralInfo extends ApplicationTest {
 		this.clickOn("#editbutton");
 		this.clickOn("#addCaregiverButton");
 	}
-	
+
 	@Test
 	public void testUpdateCareGiverCancel() throws InterruptedException {
-		this.clickOn("#usernameTextField"); 
+		this.clickOn("#usernameTextField");
 		this.type(KeyCode.B);
 		this.type(KeyCode.B);
 		this.type(KeyCode.O);
@@ -188,9 +187,9 @@ public class TestUpdateGeneralInfo extends ApplicationTest {
 		this.type(KeyCode.TAB);
 		this.type(KeyCode.TAB);
 		this.type(KeyCode.ENTER);
-		
+
 	}
-	
+
 	@Test
 	public void testUpdatePhoneNumber() throws InterruptedException {
 		this.clickOn("#usernameTextField");
@@ -241,7 +240,7 @@ public class TestUpdateGeneralInfo extends ApplicationTest {
 		this.type(KeyCode.DIGIT1);
 		this.clickOn("#saveButton");
 	}
-	
+
 	@Test
 	public void testUpdateInvalidPhoneNumber() throws InterruptedException {
 		this.clickOn("#usernameTextField");
@@ -291,7 +290,7 @@ public class TestUpdateGeneralInfo extends ApplicationTest {
 		this.type(KeyCode.DIGIT2);
 		this.clickOn("#saveButton");
 	}
-	
+
 	@Test
 	public void testUpdatePhoneNumberCancelSave() throws InterruptedException {
 		this.clickOn("#usernameTextField");
@@ -342,7 +341,7 @@ public class TestUpdateGeneralInfo extends ApplicationTest {
 		this.type(KeyCode.DIGIT1);
 		this.clickOn("#cancelButton");
 	}
-	
+
 	@Test
 	public void testUpdateInvalidFields() throws InterruptedException {
 		this.clickOn("#usernameTextField");
@@ -368,18 +367,18 @@ public class TestUpdateGeneralInfo extends ApplicationTest {
 		this.type(KeyCode.R);
 		this.type(KeyCode.D);
 		this.clickOn("#loginButton");
-		
+
 		this.clickOn("#generalInfoNavButton");
-		
+
 		this.clickOn("#editbutton");
-		
+
 		this.clickOn("#firstNameInput");
 		this.type(KeyCode.BACK_SPACE);
 		this.type(KeyCode.BACK_SPACE);
 		this.type(KeyCode.BACK_SPACE);
 		this.type(KeyCode.BACK_SPACE);
 		this.type(KeyCode.BACK_SPACE);
-	
+
 		this.clickOn("#lastNameInput");
 		this.type(KeyCode.BACK_SPACE);
 		this.type(KeyCode.BACK_SPACE);
@@ -418,7 +417,7 @@ public class TestUpdateGeneralInfo extends ApplicationTest {
 		this.type(KeyCode.DELETE);
 		this.type(KeyCode.DELETE);
 		this.type(KeyCode.DELETE);
-		
+
 		this.clickOn("#phoneInput");
 		this.type(KeyCode.BACK_SPACE);
 		this.type(KeyCode.BACK_SPACE);
@@ -431,7 +430,7 @@ public class TestUpdateGeneralInfo extends ApplicationTest {
 		this.type(KeyCode.BACK_SPACE);
 		this.type(KeyCode.BACK_SPACE);
 		this.type(KeyCode.BACK_SPACE);
-		
+
 		this.clickOn("#address1Input");
 		this.type(KeyCode.BACK_SPACE);
 		this.type(KeyCode.BACK_SPACE);
@@ -459,15 +458,14 @@ public class TestUpdateGeneralInfo extends ApplicationTest {
 		this.type(KeyCode.DELETE);
 		this.type(KeyCode.DELETE);
 		this.type(KeyCode.DELETE);
-		
+
 		this.clickOn("#address1Input");
 		this.type(KeyCode.BACK_SPACE);
 		this.type(KeyCode.BACK_SPACE);
 		this.type(KeyCode.DELETE);
 		this.type(KeyCode.DELETE);
 		this.type(KeyCode.DELETE);
-		
-		
+
 		this.clickOn("#saveButton");
 	}
 
