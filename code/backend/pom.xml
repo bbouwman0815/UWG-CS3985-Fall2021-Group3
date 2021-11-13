@@ -111,7 +111,6 @@
 								<rule>
 									<element>PACKAGE</element>
 									<includes>
-										<include>edu.westga.cs4985.clinicApp.server</include>
 									</includes>
 									<!--excludes>
 										<exclude>edu.westga.cs4985.clinicApp.ClinicApp.test</exclude>

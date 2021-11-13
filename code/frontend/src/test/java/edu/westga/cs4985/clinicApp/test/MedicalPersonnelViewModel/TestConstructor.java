@@ -36,7 +36,9 @@ public class TestConstructor {
 				() -> assertEquals(0, viewModel.getPatients().size()),
 				() -> assertEquals(null, viewModel.selectedPatient()),
 				() -> assertEquals(null, viewModel.selectedPatientProperty().getValue()),
-				() -> assertEquals(0, viewModel.patientsListProperty().size()));
+				() -> assertEquals(0, viewModel.patientsListProperty().size()),
+				() -> assertEquals(0, viewModel.allPatientsListProperty().size()),
+				() -> assertEquals(0, viewModel.getAllPatients().size()));
 	}
 
 }
