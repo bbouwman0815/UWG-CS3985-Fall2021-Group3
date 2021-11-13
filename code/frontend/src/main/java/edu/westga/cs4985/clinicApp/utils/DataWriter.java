@@ -1,6 +1,7 @@
 package edu.westga.cs4985.clinicApp.utils;
 
 import edu.westga.cs4985.clinicApp.model.Appointment;
+import edu.westga.cs4985.clinicApp.model.Caregiver;
 import edu.westga.cs4985.clinicApp.model.MedicalCondition;
 import edu.westga.cs4985.clinicApp.model.MedicalPersonnel;
 import edu.westga.cs4985.clinicApp.model.Patient;
@@ -53,6 +54,19 @@ public class DataWriter {
 	 * 
 	 * @param username the user's user name
 	 * @return the json that contains the user's user name
+	 */
+	@SuppressWarnings("unchecked")
+	public static String getCaregiverUserName(String username) {
+		JSONObject json = new JSONObject();
+		json.put("caregiver", username);
+		return json.toJSONString();
+	}
+	
+	/**
+	 * Write the user's name user name as json 
+	 * 
+	 * @param username the user's user name
+	 * @return the json that contains the user's user name 
 	 */
 	@SuppressWarnings("unchecked")
 	public static String getUserByMedicalPersonnelName(String username) {
@@ -130,6 +144,25 @@ public class DataWriter {
 	}
 
 	/**
+	 * Update Caregiver patients.
+	 *
+	 * @param person the person
+	 * @param patientList the patient list
+	 * @return the string
+	 */
+	@SuppressWarnings("unchecked")
+	public static String updateCaregiverPatients(Caregiver person, List<Patient> patientList) {
+		JSONObject json = new JSONObject();
+		json.put("caregiver", person.getUsername());
+		JSONArray patients = new JSONArray();
+		for (Patient patient : patientList) {
+			patients.add(patient.getUsername());
+		}
+		json.put("patients", patients);
+		return json.toJSONString();
+	}
+	
+	/**
 	 * Write the patient's general information as json
 	 * 
 	 * @param patient the patient
@@ -155,7 +188,7 @@ public class DataWriter {
 		json.put("phoneNumber", patient.getPhoneNumber());
 		json.put("email", patient.getEmail());
 		json.put("insurance", patient.getInsurance());
-		json.put("caregiver", patient.getCaregiver());
+		json.put("caregiver", patient.getCaregiver() == null? "" : patient.getCaregiver().getUsername());
 		return json.toJSONString();
 	}
 

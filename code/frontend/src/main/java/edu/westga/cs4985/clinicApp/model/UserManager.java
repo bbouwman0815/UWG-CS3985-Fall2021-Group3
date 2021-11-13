@@ -11,7 +11,6 @@ import org.json.simple.parser.ParseException;
 
 import edu.westga.cs4985.clinicApp.client.Communicator;
 import edu.westga.cs4985.clinicApp.client.RequestType;
-import edu.westga.cs4985.clinicApp.utils.DataReader;
 import edu.westga.cs4985.clinicApp.utils.DataWriter;
 
 /**
@@ -61,7 +60,7 @@ public class UserManager {
 		if (reply.equals("ERROR")) {
 			return null;
 		}
-		return DataReader.convertToUser(reply);
+		return this.convertToUser(reply);
 	}
 
 	/**
@@ -86,7 +85,23 @@ public class UserManager {
 		if (reply.equals("ERROR")) {
 			return null;
 		}
-		return DataReader.convertToUser(reply);
+		return this.convertToUser(reply);
+	}
+	
+	/**
+	 * Get the user by user name
+	 * 
+	 * @param userName the user's user name
+	 * @return the user associated with the user name
+	 * @throws ParseException
+	 */
+	public User getCaregiverByUserName(String userName) throws ParseException {
+		String request = DataWriter.getCaregiverUserName(userName);
+		String reply = this.communicator.request(RequestType.GET_CAREGIVER_BY_USER_NAME, request);
+		if (reply.equals("ERROR")) {
+			return null;
+		}
+		return this.convertToUser(reply);
 	}
 
 	/**
@@ -102,7 +117,7 @@ public class UserManager {
 		if (reply.equals("ERROR")) {
 			return null;
 		}
-		return DataReader.convertToUser(reply);
+		return this.convertToUser(reply);
 	}
 
 	/**
@@ -315,6 +330,18 @@ public class UserManager {
 	}
 
 	/**
+	 * Gets the all caregivers.
+	 *
+	 * @return the all caregivers
+	 * @throws ParseException the parse exception
+	 */
+	public List<Caregiver> getAllCaregivers() throws ParseException {
+		String request = "GET_ALL_CAREGIVERS";
+		String reply = this.communicator.request(RequestType.GET_ALL_CAREGIVERS, request);
+		return this.convertToCaregiver(reply);
+	}
+	
+	/**
 	 * Gets the all MedicalPersonnels.
 	 *
 	 * @param zipcode the zipcode of the medical personnel
@@ -348,6 +375,22 @@ public class UserManager {
 	}
 
 	/**
+	 * Gets the patients for Caregiver.
+	 *
+	 * @param medicalPersonnel the medical personnel
+	 * @return the patients for medical personnel
+	 * @throws ParseException the parse exception
+	 */
+	public List<Patient> getPatientsForCaregiver(String caregiver) throws ParseException {
+		String request = DataWriter.getCaregiverUserName(caregiver);
+		String reply = this.communicator.request(RequestType.GET_CAREGIVER_PATIENTS, request);
+		if (reply.equals("ERROR")) {
+			return new ArrayList<Patient>();
+		}
+		return this.convertToPatients(reply);
+	}
+	
+	/**
 	 * Removes the medical personnels patient.
 	 *
 	 * @param medicalPersonnel the medical personnel
@@ -358,6 +401,21 @@ public class UserManager {
 	public boolean updateMedicalPersonnelsPatients(MedicalPersonnel medicalPersonnel, List<Patient> patients) {
 		String request = DataWriter.updateMedicalPersonnelsPatients(medicalPersonnel, patients);
 		String reply = this.communicator.request(RequestType.UPDATE_MEDICAL_PERSONNELS_PATIENTS, request);
+		if (reply.equals("ERROR")) {
+			return false;
+		}
+		return true;
+	}
+	
+	/**
+	 * Removes the caregiver patient.
+	 *
+	 * @param username the username
+	 * @return true, if successful
+	 */
+	public boolean updateCaregiverPatients(Caregiver caregiver,  List<Patient> patients) {
+		String request = DataWriter.updateCaregiverPatients(caregiver, patients);
+		String reply = this.communicator.request(RequestType.UPDATE_CAREGIVER_PATIENTS, request);
 		if (reply.equals("ERROR")) {
 			return false;
 		}
@@ -461,6 +519,7 @@ public class UserManager {
 
 			Patient patient = new Patient(firstName, lastName, gender, dateOfBirth, address1, address2, city, state,
 					country, race, ethnicity, phoneNumber, email, insurance, userName, password);
+			patient.setCaregiver((Caregiver)this.getCaregiverByUserName((String) parseData.get("caregiver")));
 			patients.add(patient);
 
 		}
@@ -507,6 +566,83 @@ public class UserManager {
 
 		}
 		return medicalPersonnels;
+	}
+	
+	private List<Caregiver> convertToCaregiver(String reply) throws ParseException {
+		List<Caregiver> caregivers = new ArrayList<Caregiver>();
+		JSONParser parser = new JSONParser();
+		JSONArray data = (JSONArray) parser.parse(reply.toString());
+		for (Object aData : data) {
+			JSONObject parseData = (JSONObject) aData;
+			String firstName = (String) parseData.get("firstName");
+			String lastName = (String) parseData.get("lastName");
+			String country = (String) parseData.get("country");
+			String gender = (String) parseData.get("gender");
+			String race = (String) parseData.get("race");
+			String address1 = (String) parseData.get("address1");
+			String address2 = (String) parseData.get("address2");
+			String city = (String) parseData.get("city");
+			String dateOfBirth = (String) parseData.get("dateOfBirth");
+			String userName = (String) parseData.get("userName");
+			String password = (String) parseData.get("password");
+			String phoneNumber = (String) parseData.get("phoneNumber");
+			String ethnicity = (String) parseData.get("ethnicty");
+			String state = (String) parseData.get("state");
+			String email = (String) parseData.get("email");
+
+			Caregiver caregiver = new Caregiver(firstName, lastName, gender, dateOfBirth, address1, address2, city, state,
+					country, race, ethnicity, phoneNumber, email, userName, password);
+			caregivers.add(caregiver);
+
+		}
+		return caregivers;
+	}
+	
+	/**
+	 * Convert json string to user
+	 * 
+	 * @param reply the user json string
+	 * 
+	 * @return the user associated with the json string
+	 * @throws org.json.simple.parser.ParseException 
+	 */
+	public User convertToUser(String reply) throws org.json.simple.parser.ParseException {
+		JSONObject json = null;
+		json = (JSONObject) (new JSONParser()).parse(reply);
+		return convertToUser(json);
+	}
+	
+	/**
+	 * Convert json string to user
+	 * 
+	 * @param reply the user json string
+	 * 
+	 * @return the user associated with the json string
+	 * @throws ParseException 
+	 */
+	public User convertToUser(JSONObject json) throws ParseException {
+		User user = null;
+		String type = ((String) json.get("type"));
+		if (type.equals("PATIENT")) {
+			Patient patient = new Patient((String) json.get("firstName"), (String) json.get("lastName"), (String) json.get("gender"), (String) json.get("dateOfBirth"), (String) json.get("address1"),
+					(String) json.get("address2"), (String) json.get("city"), (String) json.get("state"), (String) json.get("country"), (String) json.get("race"),(String) json.get("ethnicty"),
+					(String) json.get("phoneNumber"), (String) json.get("email"), (String) json.get("insurance"), (String) json.get("userName"), (String) json.get("password"));
+			patient.setCaregiver((Caregiver)this.getCaregiverByUserName((String) json.get("caregiver")));
+			user = patient;
+		}
+		if (type.equals("MedicalPersonnel")) {
+			MedicalPersonnel medicalPersonnel = new MedicalPersonnel((String) json.get("firstName"), (String) json.get("lastName"), (String) json.get("gender"), (String) json.get("dateOfBirth"), (String) json.get("address1"),
+					(String) json.get("address2"), (String) json.get("city"), (String) json.get("state"), (String) json.get("country"), (String) json.get("race"),(String) json.get("ethnicty"),
+					(String) json.get("phoneNumber"), (String) json.get("email"), (String) json.get("userName"), (String) json.get("password"), (String) json.get("zipcode"));
+			user = medicalPersonnel;
+		}
+		if (type.equals("Caregiver")) {
+			Caregiver caregiver = new Caregiver((String) json.get("firstName"), (String) json.get("lastName"), (String) json.get("gender"), (String) json.get("dateOfBirth"), (String) json.get("address1"),
+					(String) json.get("address2"), (String) json.get("city"), (String) json.get("state"), (String) json.get("country"), (String) json.get("race"),(String) json.get("ethnicty"),
+					(String) json.get("phoneNumber"), (String) json.get("email"), (String) json.get("userName"), (String) json.get("password"));
+			user = caregiver;
+		}
+		return user;
 	}
 
 }

@@ -2,9 +2,11 @@ package edu.westga.cs4985.clinicApp.resources;
 
 import java.io.IOException;
 import edu.westga.cs4985.clinicApp.ClinicApp;
+import edu.westga.cs4985.clinicApp.model.Caregiver;
 import edu.westga.cs4985.clinicApp.model.MedicalPersonnel;
 import edu.westga.cs4985.clinicApp.model.Patient;
 import edu.westga.cs4985.clinicApp.model.User;
+import edu.westga.cs4985.clinicApp.view.caregiver.CaregiverCodeBehind;
 import edu.westga.cs4985.clinicApp.view.dashboard.DashboardCodeBehind;
 import edu.westga.cs4985.clinicApp.view.login.LoginCodeBehind;
 import edu.westga.cs4985.clinicApp.view.login.NewMedicalPersonnelCodeBehind;
@@ -90,6 +92,10 @@ public class WindowGenerator {
 		if (user instanceof MedicalPersonnel) {
 			fxml = "view/medicalpersonnel/MedicalPersonnelGui.fxml";
 			controller = new MedicalPersonnelCodeBehind();
+		}
+		if (user instanceof Caregiver) {
+			fxml = "view/caregiver/CaregiverGui.fxml";
+			controller = new CaregiverCodeBehind();
 		}
 		WindowGenerator.changeScene(currentStage, fxml, controller, PATIENT_PROFILE_TITLE);
 	}

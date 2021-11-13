@@ -77,9 +77,10 @@ class TestRemoveMedicalCondition extends ApplicationTest {
 		this.clickOn("#loginButton");
 		this.clickOn("#medicalConditionsNavButton");
 
-		this.rightClickOn(1250, 475);
+		this.clickOn("#medicalConditionTableView");
+		this.type(KeyCode.UP);
 		this.clickOn("#deleteConditionButton");
-		this.clickOn(1030, 445);
+		this.type(KeyCode.ENTER);
 
 	}
 	
@@ -110,10 +111,10 @@ class TestRemoveMedicalCondition extends ApplicationTest {
 		this.clickOn("#loginButton");
 		this.clickOn("#medicalConditionsNavButton");
 
-		this.rightClickOn(1250, 475);
+		this.clickOn("#medicalConditionTableView");
+		this.type(KeyCode.UP);
 		this.clickOn("#deleteConditionButton");
-		this.clickOn(1060, 445);
-
+		this.type(KeyCode.ESCAPE);
 	}
 
 }

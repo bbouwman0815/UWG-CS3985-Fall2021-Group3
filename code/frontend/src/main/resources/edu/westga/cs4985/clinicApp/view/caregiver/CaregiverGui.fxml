@@ -186,8 +186,26 @@
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="516.0" prefWidth="614.0">
                            <children>
-                              <AnchorPane fx:id="appointmentPane" layoutX="4.0" layoutY="8.0" prefHeight="502.0" prefWidth="605.0" />
-                           </children>
+      							<Button fx:id="bookAppointment" layoutX="363.0" layoutY="24.0" mnemonicParsing="false" onAction="#bookAppointment" prefHeight="59.0" prefWidth="189.0" text="Book Appointment">
+         							<font>
+            							<Font name="AppleGothic Regular" size="18.0" />
+         							</font>
+         							<effect>
+            							<SepiaTone />
+         							</effect></Button>
+      							<ListView fx:id="futureAppointmentList" layoutX="80.0" layoutY="141.0" prefHeight="140.0" prefWidth="448.0" />
+      							<ListView fx:id="pastAppointmentList" layoutX="80.0" layoutY="319.0" prefHeight="140.0" prefWidth="448.0" />
+                              <Label layoutX="80.0" layoutY="114.0" prefHeight="27.0" prefWidth="166.0" text="Future Appointments: " textFill="#cd1111">
+                                 <font>
+                                    <Font name="Apple LiSung Light" size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="80.0" layoutY="292.0" prefHeight="27.0" prefWidth="166.0" text="Past Appointments: " textFill="#cd1111">
+                                 <font>
+                                    <Font name="Apple LiSung Light" size="18.0" />
+                                 </font>
+                              </Label>
+   							</children>
                         </AnchorPane>
                      </content>
                   </Tab>
