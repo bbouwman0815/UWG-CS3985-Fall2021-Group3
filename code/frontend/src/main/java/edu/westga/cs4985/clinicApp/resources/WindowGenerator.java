@@ -84,7 +84,7 @@ public class WindowGenerator {
 	public static void setUserView(Stage currentStage) throws IOException {
 		String fxml = null;
 		Object controller = null;
-		User user = User.user;
+		User user = User.user();
 		if (user instanceof Patient) {
 			fxml = ClinicApp.DASHBOARD_GUI;
 			controller = new DashboardCodeBehind();

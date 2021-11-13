@@ -23,8 +23,8 @@ import edu.westga.cs4985.clinicApp.utils.DataWriter;
  */
 public class UserManager {
 
-	public static UserManager userManager;
-	public Communicator communicator;
+	private static UserManager userManager;
+	private Communicator communicator;
 
 	/**
 	 * Initialize constructor
@@ -40,6 +40,10 @@ public class UserManager {
 	 */
 	public UserManager(Communicator communicator) {
 		this.communicator = communicator;
+	}
+	
+	public static UserManager userManager() {
+		return userManager;
 	}
 
 	/**

@@ -25,8 +25,8 @@ public class TestFilterAppointment {
 		Country country = new Country();
 		Race race = new Race();
 		Ethnicity ethnicity = new Ethnicity();
-		MedicalPersonnel medicalPersonnel = new MedicalPersonnel("Xavier", "Jameson", gender.sex[0], "08-08-2008", "912 Maple Street",
-				"East Maple Building 2B", "Carrollton", "GA", country.country[0], race.race[1], ethnicity.ethnicity[1],
+		MedicalPersonnel medicalPersonnel = new MedicalPersonnel("Xavier", "Jameson", gender.SEX[0], "08-08-2008", "912 Maple Street",
+				"East Maple Building 2B", "Carrollton", "GA", country.COUNTRY[0], race.RACE[1], ethnicity.ETHNICITY[1],
 				"770-111-222", "email@email.com", "New", "New", "30118");
 		return medicalPersonnel;
 	}

@@ -9,6 +9,6 @@ package edu.westga.cs4985.clinicApp.utils;
  */
 public class Gender {
 
-	public static final String[] sex = { "Male", "Female" };
+	public static final String[] SEX = { "Male", "Female" };
 
 }

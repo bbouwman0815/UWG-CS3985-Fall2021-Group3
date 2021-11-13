@@ -14,7 +14,7 @@ public class ClinicApp extends Application {
 	public static final String WINDOW_TITLE = "Clinic";
 	public static final String DASHBOARD_GUI = "view/dashboard/DashboardGui.fxml";
 
-	public UserManager user;
+	private UserManager user;
 
 	/**
 	 * Constructs a new Application object for Image program.
@@ -25,6 +25,15 @@ public class ClinicApp extends Application {
 	public ClinicApp() {
 		super();
 		this.user = new UserManager();
+	}
+	
+	/**
+	 * Get user
+	 * 
+	 * @return the user
+	 */
+	public UserManager user() {
+		return this.user;
 	}
 
 	@Override

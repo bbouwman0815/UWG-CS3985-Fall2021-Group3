@@ -40,8 +40,8 @@ class TestUpdateMedicalPersonnelsPatients {
 		Country country = new Country();
 		Race race = new Race();
 		Ethnicity ethnicity = new Ethnicity();
-		MedicalPersonnel personnelDummy = new MedicalPersonnel("Greg", "Lane", gender.sex[0], "2021-09-15",
-				"292 Maple Street", "", "Carrollton", "GA", country.country[0], race.race[3], ethnicity.ethnicity[1],
+		MedicalPersonnel personnelDummy = new MedicalPersonnel("Greg", "Lane", gender.SEX[0], "2021-09-15",
+				"292 Maple Street", "", "Carrollton", "GA", country.COUNTRY[0], race.RACE[3], ethnicity.ETHNICITY[1],
 				"6785567432", "hhgreg@yahoo.com", "hhgreg", "123", "30117");
 		return personnelDummy;
 	}
@@ -51,8 +51,8 @@ class TestUpdateMedicalPersonnelsPatients {
 		Country country = new Country();
 		Race race = new Race();
 		Ethnicity ethnicity = new Ethnicity();
-		MedicalPersonnel personnelDummy = new MedicalPersonnel("Greg", "Lane", gender.sex[0], "2021-09-15",
-				"292 Maple Street", "", "Carrollton", "GA", country.country[0], race.race[3], ethnicity.ethnicity[1],
+		MedicalPersonnel personnelDummy = new MedicalPersonnel("Greg", "Lane", gender.SEX[0], "2021-09-15",
+				"292 Maple Street", "", "Carrollton", "GA", country.COUNTRY[0], race.RACE[3], ethnicity.ETHNICITY[1],
 				"6785567432", "hhgreg@yahoo.com", "gggregh", "123", "30117");
 		return personnelDummy;
 	}
@@ -62,8 +62,8 @@ class TestUpdateMedicalPersonnelsPatients {
 		Country country = new Country();
 		Race race = new Race();
 		Ethnicity ethnicity = new Ethnicity();
-		Patient patientDummy = new Patient("Greg", "Heath", gender.sex[0], "2021-09-15", "292 Maple Street",
-				"", "Carrollton", "GA", country.country[0], race.race[3], ethnicity.ethnicity[1],
+		Patient patientDummy = new Patient("Greg", "Heath", gender.SEX[0], "2021-09-15", "292 Maple Street",
+				"", "Carrollton", "GA", country.COUNTRY[0], race.RACE[3], ethnicity.ETHNICITY[1],
 				"678556743", "hhgreg@yahoo.com", "United Healthcare", "bbouwman0815", "123");
 		return patientDummy;
 	}
@@ -73,8 +73,8 @@ class TestUpdateMedicalPersonnelsPatients {
 		Country country = new Country();
 		Race race = new Race();
 		Ethnicity ethnicity = new Ethnicity();
-		Patient patientDummy = new Patient("Greg", "Heath", gender.sex[0], "2021-09-15", "292 Maple Street",
-				"", "Carrollton", "GA", country.country[0], race.race[3], ethnicity.ethnicity[1],
+		Patient patientDummy = new Patient("Greg", "Heath", gender.SEX[0], "2021-09-15", "292 Maple Street",
+				"", "Carrollton", "GA", country.COUNTRY[0], race.RACE[3], ethnicity.ETHNICITY[1],
 				"678556743", "hhgreg@yahoo.com", "United Healthcare", "jimmy1", "123");
 		return patientDummy;
 	}

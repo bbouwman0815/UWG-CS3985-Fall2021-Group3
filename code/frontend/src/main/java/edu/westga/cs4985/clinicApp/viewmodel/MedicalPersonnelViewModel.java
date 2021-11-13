@@ -60,7 +60,7 @@ public class MedicalPersonnelViewModel {
 	 * @postcondition none
 	 */
 	public MedicalPersonnelViewModel() {
-		this.medicalePersonnel = (MedicalPersonnel) User.user;
+		this.medicalePersonnel = (MedicalPersonnel) User.user();
 		this.selectedFutureAppointmentProperty = new SimpleObjectProperty<Appointment>();
 		this.selectedPastAppointmentProperty = new SimpleObjectProperty<Appointment>();
 		this.selectedAvailabilityProperty = new SimpleObjectProperty<LocalDateTime>();
@@ -167,7 +167,7 @@ public class MedicalPersonnelViewModel {
 	public void loadPatients() {
 		List<Patient> patients;
 		try {
-			patients = UserManager.userManager.getPatientsForMedicalPersonnel(User.user.getUsername());
+			patients = UserManager.userManager().getPatientsForMedicalPersonnel(User.user().getUsername());
 			this.patients = patients;
 		} catch (ParseException e) {
 			e.printStackTrace();
@@ -180,7 +180,7 @@ public class MedicalPersonnelViewModel {
 	public void loadAllPatients() {
 		List<Patient> patients;
 		try {
-			patients = UserManager.userManager.getAllPatients();
+			patients = UserManager.userManager().getAllPatients();
 			this.allPatients = patients;
 		} catch (ParseException e) {
 			e.printStackTrace();

@@ -181,6 +181,7 @@ public class MedicalPersonnelCodeBehind {
 	}
 
 	public void setListeners() {
+		this.setPatientListViewTwiceClick();
 		this.patientListView.getSelectionModel().selectedItemProperty()
 				.addListener((observable, oldValue, newValue) -> {
 					if (newValue != null) {
@@ -198,7 +199,12 @@ public class MedicalPersonnelCodeBehind {
 						}
 					}
 				});
-
+		this.showAllPatientsRadioButton.selectedProperty().addListener((observable, oldType, newType) -> {
+			this.updateDisplay();
+		});
+	}
+	
+	private void setPatientListViewTwiceClick() {
 		this.patientListView.setOnMouseClicked((EventHandler<? super MouseEvent>) new EventHandler<MouseEvent>() {
 
 			@Override
@@ -212,7 +218,7 @@ public class MedicalPersonnelCodeBehind {
 						if (alert.getResult().getButtonData().equals(ButtonData.YES)) {
 							MedicalPersonnelCodeBehind.this.viewmodel.removePatientFromCare();
 							MedicalPersonnelCodeBehind.this.patientListView.getSelectionModel().clearSelection();
-							UserManager.userManager.updateMedicalPersonnelsPatients(
+							UserManager.userManager().updateMedicalPersonnelsPatients(
 									MedicalPersonnelCodeBehind.this.viewmodel.getMedicalePersonnel(),
 									MedicalPersonnelCodeBehind.this.viewmodel.getPatients());
 							MedicalPersonnelCodeBehind.this.updateDisplay();
@@ -225,10 +231,6 @@ public class MedicalPersonnelCodeBehind {
 
 				}
 			}
-		});
-
-		this.showAllPatientsRadioButton.selectedProperty().addListener((observable, oldType, newType) -> {
-			this.updateDisplay();
 		});
 	}
 
@@ -250,7 +252,7 @@ public class MedicalPersonnelCodeBehind {
 		} else {
 			this.viewmodel.addPatientToCare();
 			this.patientListView.getSelectionModel().clearSelection();
-			UserManager.userManager.updateMedicalPersonnelsPatients(this.viewmodel.getMedicalePersonnel(),
+			UserManager.userManager().updateMedicalPersonnelsPatients(this.viewmodel.getMedicalePersonnel(),
 					this.viewmodel.getPatients());
 			this.updateDisplay();
 		}
@@ -284,7 +286,7 @@ public class MedicalPersonnelCodeBehind {
 		List<MedicalCondition> medicalConditions;
 		try {
 			medicalConditions = FXCollections.observableArrayList(
-					UserManager.userManager.getMedicalConditions(this.viewmodel.selectedPatient().getUsername()));
+					UserManager.userManager().getMedicalConditions(this.viewmodel.selectedPatient().getUsername()));
 			this.medicalConditionTableView.itemsProperty().set((ObservableList<MedicalCondition>) medicalConditions);
 		} catch (ParseException e) {
 
@@ -348,7 +350,7 @@ public class MedicalPersonnelCodeBehind {
 				MedicalPersonnelCodeBehind.this.caregiverLabel.textProperty()
 						.set(this.caregiverList.getSelectionModel().getSelectedItem());
 				this.viewModel.selectedPatient().setCaregiver(this.caregiverList.getSelectionModel().getSelectedItem());
-				UserManager.userManager.updatePatientGeneralInfo(this.viewModel.selectedPatient());
+				UserManager.userManager().updatePatientGeneralInfo(this.viewModel.selectedPatient());
 				this.returnToPreviousStage(event);
 			}
 

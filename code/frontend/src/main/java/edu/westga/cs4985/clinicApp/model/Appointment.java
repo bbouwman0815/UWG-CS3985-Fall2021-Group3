@@ -193,11 +193,4 @@ public class Appointment {
 				+ this.dateTime.getMinute();
 	}
 
-	@Override
-	public int hashCode() {
-		String hashString = this.getDateTime().toString() + this.getPatient().getFirstName()
-				+ this.getPatient().getLastName();
-		return hashString.hashCode();
-	}
-
 }

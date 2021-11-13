@@ -43,8 +43,8 @@ class TestAddMedicalPersonnel {
 		Country country = new Country();
 		Race race = new Race();
 		Ethnicity ethnicity = new Ethnicity();
-		MedicalPersonnel personnelDummy = new MedicalPersonnel("Greg", "Lane", gender.sex[0], "2021-09-15",
-				"292 Maple Street", "", "Carrollton", "GA", country.country[0], race.race[3], ethnicity.ethnicity[1],
+		MedicalPersonnel personnelDummy = new MedicalPersonnel("Greg", "Lane", gender.SEX[0], "2021-09-15",
+				"292 Maple Street", "", "Carrollton", "GA", country.COUNTRY[0], race.RACE[3], ethnicity.ETHNICITY[1],
 				"6785567432", "hhgreg@yahoo.com", "30117", "hhgreg", "123");
 		return personnelDummy;
 	}
@@ -54,8 +54,8 @@ class TestAddMedicalPersonnel {
 		Country country = new Country();
 		Race race = new Race();
 		Ethnicity ethnicity = new Ethnicity();
-		MedicalPersonnel personnelDummy = new MedicalPersonnel("Greg", "Laney", gender.sex[0], "2021-09-15",
-				"292 Maple Street", "", "Carrollton", "GA", country.country[0], race.race[3], ethnicity.ethnicity[1],
+		MedicalPersonnel personnelDummy = new MedicalPersonnel("Greg", "Laney", gender.SEX[0], "2021-09-15",
+				"292 Maple Street", "", "Carrollton", "GA", country.COUNTRY[0], race.RACE[3], ethnicity.ETHNICITY[1],
 				"6785567432", "hhgreg@yahoo.com", "30117", "hhgreg", "123");
 		return personnelDummy;
 	}

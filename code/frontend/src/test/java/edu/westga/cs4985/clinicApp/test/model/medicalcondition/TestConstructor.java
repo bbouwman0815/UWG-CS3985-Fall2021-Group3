@@ -26,8 +26,8 @@ class TestConstructor {
 		Country country = new Country();
 		Race race = new Race();
 		Ethnicity ethnicity = new Ethnicity();
-		Patient patientDummy = new Patient("Kyle", "Lang", gender.sex[0], "08-08-2008", "912 Maple Street",
-				"East Maple Building 2B", "Carrollton", "GA", country.country[0], race.race[1], ethnicity.ethnicity[1],
+		Patient patientDummy = new Patient("Kyle", "Lang", gender.SEX[0], "08-08-2008", "912 Maple Street",
+				"East Maple Building 2B", "Carrollton", "GA", country.COUNTRY[0], race.RACE[1], ethnicity.ETHNICITY[1],
 				"770-111-222", "email@email.com", "United Healthcare", "klang123", "123");
 		return patientDummy;
 	}
@@ -48,8 +48,8 @@ class TestConstructor {
 		Country country = new Country();
 		Race race = new Race();
 		Ethnicity ethnicity = new Ethnicity();
-		Patient patientDummy = new Patient("Kyle", "Lang", gender.sex[0], "08-08-2008", "912 Maple Street",
-				"East Maple Building 2B", "Carrollton", "GA", country.country[0], race.race[1], ethnicity.ethnicity[1],
+		Patient patientDummy = new Patient("Kyle", "Lang", gender.SEX[0], "08-08-2008", "912 Maple Street",
+				"East Maple Building 2B", "Carrollton", "GA", country.COUNTRY[0], race.RACE[1], ethnicity.ETHNICITY[1],
 				"770-111-222", "email@email.com", "United Healthcare", "klang123", "123");
 		String name = "Lyme Disease";
 		String diagnosisDate = "09-08-2012";

@@ -45,7 +45,7 @@ public class PatientViewModel {
 	 * @postcondition none
 	 */
 	public PatientViewModel() {
-		this.patient = (Patient) User.user;
+		this.patient = (Patient) User.user();
 		this.seletedMedicalPersonnel = new SimpleObjectProperty<MedicalPersonnel>();
 		this.selectedFutureAppointmentProperty = new SimpleObjectProperty<Appointment>();
 		this.selectedPastAppointmentProperty = new SimpleObjectProperty<Appointment>();

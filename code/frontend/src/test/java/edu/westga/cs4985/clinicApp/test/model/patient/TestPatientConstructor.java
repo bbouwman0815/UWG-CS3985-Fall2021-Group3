@@ -25,8 +25,8 @@ class TestPatientConstructor {
 		Country country = new Country();
 		Race race = new Race();
 		Ethnicity ethnicity = new Ethnicity();
-		Patient patientDummy = new Patient("Xavier", "Jameson", gender.sex[0], "08-08-2008", "912 Maple Street",
-				"East Maple Building 2B", "Carrollton", "GA", country.country[0], race.race[1], ethnicity.ethnicity[1],
+		Patient patientDummy = new Patient("Xavier", "Jameson", gender.SEX[0], "08-08-2008", "912 Maple Street",
+				"East Maple Building 2B", "Carrollton", "GA", country.COUNTRY[0], race.RACE[1], ethnicity.ETHNICITY[1],
 				"770-111-222", "email@email.com", "United Healthcare", "New", "New");
 		return patientDummy;
 	}
@@ -36,14 +36,14 @@ class TestPatientConstructor {
 		Patient patient = patientDummy();
 		assertAll(() -> assertEquals("Xavier", patient.getFirstName()),
 				() -> assertEquals("Jameson", patient.getLastName()),
-				() -> assertEquals(new Gender().sex[0], patient.getGender()),
+				() -> assertEquals(new Gender().SEX[0], patient.getGender()),
 				() -> assertEquals("08-08-2008", patient.getDateOfBirth()),
 				() -> assertEquals("912 Maple Street", patient.getAddress1()),
 				() -> assertEquals("East Maple Building 2B", patient.getAddress2()),
 				() -> assertEquals("Carrollton", patient.getCity()), () -> assertEquals("GA", patient.getState()),
-				() -> assertEquals(new Country().country[0], patient.getCountry()),
-				() -> assertEquals(new Race().race[1], patient.getRace()),
-				() -> assertEquals(new Ethnicity().ethnicity[1], patient.getEthnicity()),
+				() -> assertEquals(new Country().COUNTRY[0], patient.getCountry()),
+				() -> assertEquals(new Race().RACE[1], patient.getRace()),
+				() -> assertEquals(new Ethnicity().ETHNICITY[1], patient.getEthnicity()),
 				() -> assertEquals("770-111-222", patient.getPhoneNumber()),
 				() -> assertEquals("email@email.com", patient.getEmail()),
 				() -> assertEquals("United Healthcare", patient.getInsurance()),
@@ -58,8 +58,8 @@ class TestPatientConstructor {
 		Race race = new Race();
 		Ethnicity ethnicity = new Ethnicity();
 		assertThrows(IllegalArgumentException.class,
-				() -> new Patient("Xavier", "Jameson", gender.sex[0], "08-08-2008", "912 Maple Street", "",
-						"Carrollton", "GA", country.country[0], race.race[2], ethnicity.ethnicity[1], "",
+				() -> new Patient("Xavier", "Jameson", gender.SEX[0], "08-08-2008", "912 Maple Street", "",
+						"Carrollton", "GA", country.COUNTRY[0], race.RACE[2], ethnicity.ETHNICITY[1], "",
 						"email@email.com", "United Healthcare", "New", "New"));
 	}
 	
@@ -70,8 +70,8 @@ class TestPatientConstructor {
 		Country country = new Country();
 		Race race = new Race();
 		Ethnicity ethnicity = new Ethnicity();
-		Patient patient1 = new Patient("Xavier", "Jameson", gender.sex[0], "08-08-2008", "912 Maple Street",
-				"East Maple Building 2B", "Carrollton", "GA", country.country[0], race.race[1], ethnicity.ethnicity[1],
+		Patient patient1 = new Patient("Xavier", "Jameson", gender.SEX[0], "08-08-2008", "912 Maple Street",
+				"East Maple Building 2B", "Carrollton", "GA", country.COUNTRY[0], race.RACE[1], ethnicity.ETHNICITY[1],
 				"770-111-222", "email@email.com", "United Healthcare", "New", "New");
 		assertEquals(true, patient.equals(patient1));
 	}
@@ -90,8 +90,8 @@ class TestPatientConstructor {
 		Country country = new Country();
 		Race race = new Race();
 		Ethnicity ethnicity = new Ethnicity();
-		Patient patient1 = new Patient("Xavier", "Jameson", gender.sex[0], "08-08-2008", "912 Maple Street",
-				"East Maple Building 2B", "Carrollton", "GA", country.country[0], race.race[1], ethnicity.ethnicity[1],
+		Patient patient1 = new Patient("Xavier", "Jameson", gender.SEX[0], "08-08-2008", "912 Maple Street",
+				"East Maple Building 2B", "Carrollton", "GA", country.COUNTRY[0], race.RACE[1], ethnicity.ETHNICITY[1],
 				"770-111-222", "email@email.com", "United Healthcare", "lk", "123");
 		assertEquals(false, patient.equals(patient1));
 	}
@@ -103,8 +103,8 @@ class TestPatientConstructor {
 		Race race = new Race();
 		Ethnicity ethnicity = new Ethnicity();
 		assertThrows(IllegalArgumentException.class,
-				() -> new Patient("Xavier", "Jameson", gender.sex[0], "08-08-2008", "912 Maple Street", "",
-						"Carrollton", "GA", country.country[0], race.race[2], ethnicity.ethnicity[1], "12344",
+				() -> new Patient("Xavier", "Jameson", gender.SEX[0], "08-08-2008", "912 Maple Street", "",
+						"Carrollton", "GA", country.COUNTRY[0], race.RACE[2], ethnicity.ETHNICITY[1], "12344",
 						"email@email.com", "United Healthcare", "", "New"));
 	}
 	
@@ -115,8 +115,8 @@ class TestPatientConstructor {
 		Race race = new Race();
 		Ethnicity ethnicity = new Ethnicity();
 		assertThrows(IllegalArgumentException.class,
-				() -> new Patient("Xavier", "Jameson", gender.sex[0], "08-08-2008", "912 Maple Street", "",
-						"Carrollton", "GA", country.country[0], race.race[2], ethnicity.ethnicity[1], "12344",
+				() -> new Patient("Xavier", "Jameson", gender.SEX[0], "08-08-2008", "912 Maple Street", "",
+						"Carrollton", "GA", country.COUNTRY[0], race.RACE[2], ethnicity.ETHNICITY[1], "12344",
 						"email@email.com", "United Healthcare", "New", ""));
 	}
 	
@@ -127,8 +127,8 @@ class TestPatientConstructor {
 		Race race = new Race();
 		Ethnicity ethnicity = new Ethnicity();
 		assertThrows(IllegalArgumentException.class,
-				() -> new Patient("Xavier", "Jameson", gender.sex[0], "08-08-2008", "912 Maple Street", "",
-						"Carrollton", "GA", country.country[0], race.race[2], ethnicity.ethnicity[1], "12344",
+				() -> new Patient("Xavier", "Jameson", gender.SEX[0], "08-08-2008", "912 Maple Street", "",
+						"Carrollton", "GA", country.COUNTRY[0], race.RACE[2], ethnicity.ETHNICITY[1], "12344",
 						"email@email.com", "United Healthcare", null, "New"));
 	}
 	
@@ -139,8 +139,8 @@ class TestPatientConstructor {
 		Race race = new Race();
 		Ethnicity ethnicity = new Ethnicity();
 		assertThrows(IllegalArgumentException.class,
-				() -> new Patient("Xavier", "Jameson", gender.sex[0], "08-08-2008", "912 Maple Street", "",
-						"Carrollton", "GA", country.country[0], race.race[2], ethnicity.ethnicity[1], "12344",
+				() -> new Patient("Xavier", "Jameson", gender.SEX[0], "08-08-2008", "912 Maple Street", "",
+						"Carrollton", "GA", country.COUNTRY[0], race.RACE[2], ethnicity.ETHNICITY[1], "12344",
 						"email@email.com", "United Healthcare", "New", null));
 	}
 
@@ -151,8 +151,8 @@ class TestPatientConstructor {
 		Race race = new Race();
 		Ethnicity ethnicity = new Ethnicity();
 		assertThrows(IllegalArgumentException.class,
-				() -> new Patient("Xavier", "Jameson", gender.sex[0], "08-08-2008", "912 Maple Street", "",
-						"Carrollton", "GA", country.country[0], race.race[2], ethnicity.ethnicity[1], null,
+				() -> new Patient("Xavier", "Jameson", gender.SEX[0], "08-08-2008", "912 Maple Street", "",
+						"Carrollton", "GA", country.COUNTRY[0], race.RACE[2], ethnicity.ETHNICITY[1], null,
 						"email@email.com", "United Healthcare", "New", "New"));
 	}
 
@@ -163,8 +163,8 @@ class TestPatientConstructor {
 		Race race = new Race();
 		Ethnicity ethnicity = new Ethnicity();
 		assertThrows(IllegalArgumentException.class,
-				() -> new Patient("Xavier", "Jameson", gender.sex[0], "08-08-2008", "912 Maple Street", "",
-						"Carrollton", "GA", country.country[0], race.race[2], ethnicity.ethnicity[1], "770-111-222", "",
+				() -> new Patient("Xavier", "Jameson", gender.SEX[0], "08-08-2008", "912 Maple Street", "",
+						"Carrollton", "GA", country.COUNTRY[0], race.RACE[2], ethnicity.ETHNICITY[1], "770-111-222", "",
 						"United Healthcare", "New", "New"));
 	}
 
@@ -175,8 +175,8 @@ class TestPatientConstructor {
 		Race race = new Race();
 		Ethnicity ethnicity = new Ethnicity();
 		assertThrows(IllegalArgumentException.class,
-				() -> new Patient("Xavier", "Jameson", gender.sex[0], "08-08-2008", "912 Maple Street", "",
-						"Carrollton", "GA", country.country[0], race.race[2], ethnicity.ethnicity[1], "770-111-222",
+				() -> new Patient("Xavier", "Jameson", gender.SEX[0], "08-08-2008", "912 Maple Street", "",
+						"Carrollton", "GA", country.COUNTRY[0], race.RACE[2], ethnicity.ETHNICITY[1], "770-111-222",
 						null, "United Healthcare", "New", "New"));
 	}
 
@@ -187,8 +187,8 @@ class TestPatientConstructor {
 		Race race = new Race();
 		Ethnicity ethnicity = new Ethnicity();
 		assertThrows(IllegalArgumentException.class,
-				() -> new Patient("Xavier", "Jameson", gender.sex[0], "08-08-2008", "912 Maple Street", "",
-						"Carrollton", "GA", country.country[0], race.race[2], ethnicity.ethnicity[1], "770-111-222",
+				() -> new Patient("Xavier", "Jameson", gender.SEX[0], "08-08-2008", "912 Maple Street", "",
+						"Carrollton", "GA", country.COUNTRY[0], race.RACE[2], ethnicity.ETHNICITY[1], "770-111-222",
 						"email@email.com", "", "New", "New"));
 	}
 
@@ -199,8 +199,8 @@ class TestPatientConstructor {
 		Race race = new Race();
 		Ethnicity ethnicity = new Ethnicity();
 		assertThrows(IllegalArgumentException.class,
-				() -> new Patient("Xavier", "Jameson", gender.sex[0], "08-08-2008", "912 Maple Street", "",
-						"Carrollton", "GA", country.country[0], race.race[2], ethnicity.ethnicity[1], "770-111-222",
+				() -> new Patient("Xavier", "Jameson", gender.SEX[0], "08-08-2008", "912 Maple Street", "",
+						"Carrollton", "GA", country.COUNTRY[0], race.RACE[2], ethnicity.ETHNICITY[1], "770-111-222",
 						"email@email.com", null, "New", "New"));
 	}
 	

@@ -161,7 +161,16 @@ public class NewMedicalPersonnelCodeBehind {
 		this.invalidZipcode.setVisible(false);
 	}
 
-	private void setListeners() {
+	private void setContactListener() {
+		this.birthdayTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+			if (newValue != null) {
+				if (!InputValidators.validateBirthday(newValue)) {
+					this.invalidDateFormat.setVisible(true);
+				} else {
+					this.invalidDateFormat.setVisible(false);
+				}
+			}
+		});
 		this.phoneInput.textProperty().addListener((observable, oldValue, newValue) -> {
 			if (newValue != null) {
 				if (!InputValidators.validatePhoneNumber(newValue)) {
@@ -180,42 +189,14 @@ public class NewMedicalPersonnelCodeBehind {
 				}
 			}
 		});
-		this.birthdayTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+		this.zipcodeInput.textProperty().addListener((observable, oldValue, newValue) -> {
 			if (newValue != null) {
-				if (!InputValidators.validateBirthday(newValue)) {
-					this.invalidDateFormat.setVisible(true);
-				} else {
-					this.invalidDateFormat.setVisible(false);
-				}
+				this.invalidZipcode.setVisible(false);
 			}
 		});
-		this.firstNameInput.textProperty().addListener((observable, oldValue, newValue) -> {
-			if (newValue != null) {
-				this.invalidFirstName.setVisible(false);
-			}
-		});
-		this.lastNameInput.textProperty().addListener((observable, oldValue, newValue) -> {
-			if (newValue != null) {
-				this.invalidLastName.setVisible(false);
-			}
-		});
-		this.address1Input.textProperty().addListener((observable, oldValue, newValue) -> {
-			if (newValue != null) {
-				this.invalidAddress1.setVisible(false);
-			}
-		});
-
-		this.cityInput.textProperty().addListener((observable, oldValue, newValue) -> {
-			if (newValue != null) {
-				this.invalidCity.setVisible(false);
-			}
-		});
-		this.stateInput.textProperty().addListener((observable, oldValue, newValue) -> {
-			if (newValue != null) {
-				this.invalidState.setVisible(false);
-			}
-		});
-
+	}
+	
+	private void setChoiceBoxLinstener() {
 		this.usernameTextField.textProperty().addListener((observable, oldValue, newValue) -> {
 			if (newValue != null) {
 				this.usernameExistsLabel.setVisible(false);
@@ -248,12 +229,41 @@ public class NewMedicalPersonnelCodeBehind {
 				this.invalidSex.setVisible(false);
 			}
 		});
-		this.zipcodeInput.textProperty().addListener((observable, oldValue, newValue) -> {
+	}
+	
+	private void setLivingLinstener() {
+		this.firstNameInput.textProperty().addListener((observable, oldValue, newValue) -> {
 			if (newValue != null) {
-				this.invalidZipcode.setVisible(false);
+				this.invalidFirstName.setVisible(false);
+			}
+		});
+		this.lastNameInput.textProperty().addListener((observable, oldValue, newValue) -> {
+			if (newValue != null) {
+				this.invalidLastName.setVisible(false);
+			}
+		});
+		this.address1Input.textProperty().addListener((observable, oldValue, newValue) -> {
+			if (newValue != null) {
+				this.invalidAddress1.setVisible(false);
 			}
 		});
 
+		this.cityInput.textProperty().addListener((observable, oldValue, newValue) -> {
+			if (newValue != null) {
+				this.invalidCity.setVisible(false);
+			}
+		});
+		this.stateInput.textProperty().addListener((observable, oldValue, newValue) -> {
+			if (newValue != null) {
+				this.invalidState.setVisible(false);
+			}
+		});
+	}
+	
+	private void setListeners() {
+		this.setChoiceBoxLinstener();
+		this.setContactListener();
+		this.setLivingLinstener();
 	}
 
 	private void setUpChoiceBoxes() {
@@ -265,103 +275,122 @@ public class NewMedicalPersonnelCodeBehind {
 
 	@FXML
 	void addMedicalPersonnel(ActionEvent event) throws ParseException {
-		if (UserManager.userManager.getUserByUserName(this.usernameTextField.getText()) != null) {
+		if (UserManager.userManager().getUserByUserName(this.usernameTextField.getText()) != null) {
 			this.usernameExistsLabel.setText("UserName already Exist!");
 			this.usernameExistsLabel.setVisible(true);
 		} else {
-			boolean valid = true;
-			if (this.firstNameInput.getText() == null || this.firstNameInput.getText().isEmpty()) {
-				this.invalidFirstName.setVisible(true);
-				valid = false;
-			}
-			if (this.lastNameInput.getText() == null || this.lastNameInput.getText().isEmpty()) {
-				this.invalidLastName.setVisible(true);
-				valid = false;
-			}
-			if (this.birthdayTextField.getText() == null || this.birthdayTextField.getText().toString().isEmpty()) {
-				this.invalidDateFormat.setVisible(true);
-				valid = false;
-			}
-			if (this.phoneInput.getText() == null || this.phoneInput.getText().isEmpty()) {
-				this.invalidPhoneNumberLabel.setVisible(true);
-				valid = false;
-			}
-			if (this.emailInput.getText() == null || this.emailInput.getText().isEmpty()) {
-				this.invalidEmailLabel.setVisible(true);
-				valid = false;
-			}
-			if (this.address1Input.getText() == null || this.address1Input.getText().isEmpty()) {
-				this.invalidAddress1.setVisible(true);
-				valid = false;
-			}
-			if (this.usernameTextField.getText() == null || this.usernameTextField.getText().isEmpty()) {
-				this.usernameExistsLabel.setText("Invalid User Name!");
-				this.usernameExistsLabel.setVisible(true);
-				valid = false;
-			}
-			if (this.passwordTextField.getText() == null || this.passwordTextField.getText().isEmpty()) {
-				this.invalidPassword.setVisible(true);
-				valid = false;
-			}
-			if (this.cityInput.getText() == null || this.cityInput.getText().isEmpty()) {
-				this.invalidCity.setVisible(true);
-				valid = false;
-			}
-			if (this.stateInput.getText() == null || this.stateInput.getText().isEmpty()) {
-				this.invalidState.setVisible(true);
-				valid = false;
-			}
-			if (this.zipcodeInput.getText() == null || this.zipcodeInput.getText().isEmpty()) {
-				this.invalidZipcode.setVisible(true);
-				valid = false;
-			}
-			if (this.ethnicityChoiceBox.getSelectionModel().getSelectedItem() == null) {
-				this.invaildEthnicity.setVisible(true);
-				valid = false;
-			}
-			if (this.countryChoiceBox.getSelectionModel().getSelectedItem() == null) {
-				this.invalidCountry.setVisible(true);
-				valid = false;
-			}
-			if (this.raceChoiceBox.getSelectionModel().getSelectedItem() == null) {
-				this.invalidRace.setVisible(true);
-				valid = false;
-			}
-			if (this.sexChoiceBox.getSelectionModel().getSelectedItem() == null) {
-				this.invalidSex.setVisible(true);
-				valid = false;
-			}
-			if (valid) {
-				HashPassword hash = new HashPassword();
-				String username = this.usernameTextField.getText();
-				String password = hash.generateHash(this.passwordTextField.getText());
-				String firstname = this.firstNameInput.getText();
-				String lastname = this.lastNameInput.getText();
-				String birthday = this.birthdayTextField.getText();
-				String phone = this.phoneInput.getText();
-				String email = this.emailInput.getText();
-				String address1 = this.address1Input.getText();
-				String address2 = this.address2Input.getText();
-				String city = this.cityInput.getText();
-				String state = this.stateInput.getText();
-				String ethnicity = this.ethnicityChoiceBox.getSelectionModel().getSelectedItem();
-				String country = this.countryChoiceBox.getSelectionModel().getSelectedItem();
-				String race = this.raceChoiceBox.getSelectionModel().getSelectedItem();
-				String sex = this.sexChoiceBox.getSelectionModel().getSelectedItem();
-				String zip = this.zipcodeInput.getText();
-
-				MedicalPersonnel medicalPersonnel = new MedicalPersonnel(firstname, lastname, sex, birthday, address1,
-						address2, city, state, country, race, ethnicity, phone, email, username, password, zip);
-
-				if (UserManager.userManager.addMedicalPersonnel(medicalPersonnel)) {
-					Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-					currentStage.fireEvent(new WindowEvent(currentStage, WindowEvent.WINDOW_CLOSE_REQUEST));
-					currentStage.close();
-				}
+			if (this.checkChoiceBox() && this.checkInputs() && this.checkUserLoginInfo()) {
+				this.createMedicalPersonnel(event);
 			}
 
 		}
 
+	}
+	
+	private boolean checkInputs() {
+		boolean valid = true;
+		if (this.firstNameInput.getText() == null || this.firstNameInput.getText().isEmpty()) {
+			this.invalidFirstName.setVisible(true);
+			valid = false;
+		}
+		if (this.lastNameInput.getText() == null || this.lastNameInput.getText().isEmpty()) {
+			this.invalidLastName.setVisible(true);
+			valid = false;
+		}
+		if (this.birthdayTextField.getText() == null || this.birthdayTextField.getText().toString().isEmpty()) {
+			this.invalidDateFormat.setVisible(true);
+			valid = false;
+		}
+		if (this.emailInput.getText() == null || this.emailInput.getText().isEmpty()) {
+			this.invalidEmailLabel.setVisible(true);
+			valid = false;
+		}
+		if (this.address1Input.getText() == null || this.address1Input.getText().isEmpty()) {
+			this.invalidAddress1.setVisible(true);
+			valid = false;
+		}
+		if (this.cityInput.getText() == null || this.cityInput.getText().isEmpty()) {
+			this.invalidCity.setVisible(true);
+			valid = false;
+		}
+		if (this.stateInput.getText() == null || this.stateInput.getText().isEmpty()) {
+			this.invalidState.setVisible(true);
+			valid = false;
+		}
+		return valid;
+	}
+	
+	private boolean checkUserLoginInfo() {
+		boolean valid = true;
+		if (this.usernameTextField.getText() == null || this.usernameTextField.getText().isEmpty()) {
+			this.usernameExistsLabel.setText("Invalid User Name!");
+			this.usernameExistsLabel.setVisible(true);
+			valid = false;
+		}
+		if (this.passwordTextField.getText() == null || this.passwordTextField.getText().isEmpty()) {
+			this.invalidPassword.setVisible(true);
+			valid = false;
+		}
+		return valid;
+	}
+	
+	private boolean checkChoiceBox() {
+		boolean valid = true;
+		
+		if (this.zipcodeInput.getText() == null || this.zipcodeInput.getText().isEmpty()) {
+			this.invalidZipcode.setVisible(true);
+			valid = false;
+		}
+		if (this.ethnicityChoiceBox.getSelectionModel().getSelectedItem() == null) {
+			this.invaildEthnicity.setVisible(true);
+			valid = false;
+		}
+		if (this.countryChoiceBox.getSelectionModel().getSelectedItem() == null) {
+			this.invalidCountry.setVisible(true);
+			valid = false;
+		}
+		if (this.raceChoiceBox.getSelectionModel().getSelectedItem() == null) {
+			this.invalidRace.setVisible(true);
+			valid = false;
+		}
+		if (this.sexChoiceBox.getSelectionModel().getSelectedItem() == null) {
+			this.invalidSex.setVisible(true);
+			valid = false;
+		}
+		if (this.phoneInput.getText() == null || this.phoneInput.getText().isEmpty()) {
+			this.invalidPhoneNumberLabel.setVisible(true);
+			valid = false;
+		}
+		return valid;
+	}
+	
+	private void createMedicalPersonnel(ActionEvent event) {
+		HashPassword hash = new HashPassword();
+		String username = this.usernameTextField.getText();
+		String password = hash.generateHash(this.passwordTextField.getText());
+		String firstname = this.firstNameInput.getText();
+		String lastname = this.lastNameInput.getText();
+		String birthday = this.birthdayTextField.getText();
+		String phone = this.phoneInput.getText();
+		String email = this.emailInput.getText();
+		String address1 = this.address1Input.getText();
+		String address2 = this.address2Input.getText();
+		String city = this.cityInput.getText();
+		String state = this.stateInput.getText();
+		String ethnicity = this.ethnicityChoiceBox.getSelectionModel().getSelectedItem();
+		String country = this.countryChoiceBox.getSelectionModel().getSelectedItem();
+		String race = this.raceChoiceBox.getSelectionModel().getSelectedItem();
+		String sex = this.sexChoiceBox.getSelectionModel().getSelectedItem();
+		String zip = this.zipcodeInput.getText();
+
+		MedicalPersonnel medicalPersonnel = new MedicalPersonnel(firstname, lastname, sex, birthday, address1,
+				address2, city, state, country, race, ethnicity, phone, email, username, password, zip);
+
+		if (UserManager.userManager().addMedicalPersonnel(medicalPersonnel)) {
+			Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+			currentStage.fireEvent(new WindowEvent(currentStage, WindowEvent.WINDOW_CLOSE_REQUEST));
+			currentStage.close();
+		}
 	}
 
 }

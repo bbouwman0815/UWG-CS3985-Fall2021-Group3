@@ -120,7 +120,7 @@ public class MedicalConditionsCodeBehind {
 						.getSelectedItem();
 				if (selectedMedicalCondition != null) {
 					this.medicalConditionTableView.getItems().remove(selectedMedicalCondition);
-					UserManager.userManager.removeMedicalCondition(selectedMedicalCondition);
+					UserManager.userManager().removeMedicalCondition(selectedMedicalCondition);
 				}
 			}
 		});
@@ -128,7 +128,7 @@ public class MedicalConditionsCodeBehind {
 
 	void setMedicalConditions() throws ParseException {
 		List<MedicalCondition> medicalConditions = FXCollections.observableArrayList(
-				UserManager.userManager.getMedicalConditions(this.viewModel.getPatient().getUsername()));
+				UserManager.userManager().getMedicalConditions(this.viewModel.getPatient().getUsername()));
 		this.medicalConditionTableView.itemsProperty().set((ObservableList<MedicalCondition>) medicalConditions);
 	}
 
@@ -157,7 +157,7 @@ public class MedicalConditionsCodeBehind {
 
 		@FXML
 		void handleAddCondition(ActionEvent event) throws ParseException {
-			Patient user = (Patient) User.user;
+			Patient user = (Patient) User.user();
 			try {
 				String name = this.nameTextField.getText();
 				LocalDate diagnosisDate = this.diagnosisDatePicker.getValue();
@@ -166,7 +166,7 @@ public class MedicalConditionsCodeBehind {
 				String termination = terminationDate.toString();
 				String notes = this.notesTextArea.getText();
 				MedicalCondition medicalCondition = new MedicalCondition(user, name, diagnosis, termination, notes);
-				UserManager.userManager.addMedicalCondition(medicalCondition);
+				UserManager.userManager().addMedicalCondition(medicalCondition);
 				MedicalConditionsCodeBehind.this.setMedicalConditions();
 				this.returnToPreviousStage(event);
 			} catch (NullPointerException e) {

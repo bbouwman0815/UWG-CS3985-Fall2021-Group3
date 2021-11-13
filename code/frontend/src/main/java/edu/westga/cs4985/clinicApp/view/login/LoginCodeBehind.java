@@ -67,7 +67,7 @@ public class LoginCodeBehind {
 	void handleLogin(ActionEvent event) throws ParseException {
 		String userString = this.viewmodel.login();
 		String[] userStringList = userString.split(",");
-		User user = UserManager.userManager.login(userStringList[0], userStringList[1]);
+		User user = UserManager.userManager().login(userStringList[0], userStringList[1]);
 		if (user == null) {
 			Alert alert = WindowGenerator.openAlert("UserName or Password is incorrect!");
 			alert.showAndWait();
