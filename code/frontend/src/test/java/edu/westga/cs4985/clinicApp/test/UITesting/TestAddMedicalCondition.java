@@ -1,7 +1,5 @@
 package edu.westga.cs4985.clinicApp.test.UITesting;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
@@ -11,13 +9,7 @@ import edu.westga.cs4985.clinicApp.ClinicApp;
 import edu.westga.cs4985.clinicApp.client.Communicator;
 import edu.westga.cs4985.clinicApp.client.RequestType;
 import edu.westga.cs4985.clinicApp.model.UserManager;
-import javafx.fxml.FXML;
 import javafx.geometry.HorizontalDirection;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
@@ -27,7 +19,7 @@ class TestAddMedicalCondition extends ApplicationTest {
 	public void start(Stage stage) throws IOException {
 		ClinicApp app = new ClinicApp();
 		UserManager user = new UserManager(new ServerFake());
-		app.user = user;
+		app.setUser(user);
 		app.start(stage);
 	}
 

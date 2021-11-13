@@ -18,7 +18,7 @@ public class TestRegisterPatientUI extends ApplicationTest {
 	public void start(Stage stage) throws IOException {
 		ClinicApp app = new ClinicApp();
 	    UserManager user = new UserManager(new ServerFake());
-	    app.user = user;
+	    app.setUser(user);
 	    app.start(stage);
 	}
 	

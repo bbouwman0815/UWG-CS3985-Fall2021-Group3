@@ -6,7 +6,6 @@ import edu.westga.cs4985.clinicApp.model.HashPassword;
 import edu.westga.cs4985.clinicApp.model.MedicalPersonnel;
 import edu.westga.cs4985.clinicApp.model.UserManager;
 import edu.westga.cs4985.clinicApp.resources.InputValidators;
-import edu.westga.cs4985.clinicApp.utils.Country;
 import edu.westga.cs4985.clinicApp.utils.Ethnicity;
 import edu.westga.cs4985.clinicApp.utils.Gender;
 import edu.westga.cs4985.clinicApp.utils.Race;
@@ -123,16 +122,8 @@ public class NewMedicalPersonnelCodeBehind {
 	@FXML
 	private Label invalidPassword;
 
-	private Race race;
-	private Gender gender;
-	private Ethnicity ethnicity;
-	private Country country;
 
 	public NewMedicalPersonnelCodeBehind() {
-		this.race = new Race();
-		this.gender = new Gender();
-		this.ethnicity = new Ethnicity();
-		this.country = new Country();
 	}
 
 	@FXML
@@ -267,9 +258,9 @@ public class NewMedicalPersonnelCodeBehind {
 	}
 
 	private void setUpChoiceBoxes() {
-		this.raceChoiceBox.itemsProperty().set(FXCollections.observableArrayList(this.race.RACE));
-		this.sexChoiceBox.itemsProperty().set(FXCollections.observableArrayList(this.gender.SEX));
-		this.ethnicityChoiceBox.itemsProperty().set(FXCollections.observableArrayList(this.ethnicity.ETHNICITY));
+		this.raceChoiceBox.itemsProperty().set(FXCollections.observableArrayList(Race.RACE));
+		this.sexChoiceBox.itemsProperty().set(FXCollections.observableArrayList(Gender.SEX));
+		this.ethnicityChoiceBox.itemsProperty().set(FXCollections.observableArrayList(Ethnicity.ETHNICITY));
 		this.countryChoiceBox.itemsProperty().set(FXCollections.observableArrayList(Locale.getISOCountries()));
 	}
 

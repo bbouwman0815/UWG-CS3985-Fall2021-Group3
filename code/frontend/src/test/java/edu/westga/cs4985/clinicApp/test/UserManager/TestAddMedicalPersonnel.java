@@ -2,15 +2,12 @@ package edu.westga.cs4985.clinicApp.test.UserManager;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.List;
-
 import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.Test;
 
 import edu.westga.cs4985.clinicApp.client.Communicator;
 import edu.westga.cs4985.clinicApp.client.RequestType;
 import edu.westga.cs4985.clinicApp.model.MedicalPersonnel;
-import edu.westga.cs4985.clinicApp.model.Patient;
 import edu.westga.cs4985.clinicApp.model.UserManager;
 import edu.westga.cs4985.clinicApp.utils.Country;
 import edu.westga.cs4985.clinicApp.utils.Ethnicity;
@@ -39,23 +36,15 @@ class TestAddMedicalPersonnel {
 	}
 
 	public MedicalPersonnel medicalpersonneldummy() {
-		Gender gender = new Gender();
-		Country country = new Country();
-		Race race = new Race();
-		Ethnicity ethnicity = new Ethnicity();
-		MedicalPersonnel personnelDummy = new MedicalPersonnel("Greg", "Lane", gender.SEX[0], "2021-09-15",
-				"292 Maple Street", "", "Carrollton", "GA", country.COUNTRY[0], race.RACE[3], ethnicity.ETHNICITY[1],
+		MedicalPersonnel personnelDummy = new MedicalPersonnel("Greg", "Lane", Gender.SEX[0], "2021-09-15",
+				"292 Maple Street", "", "Carrollton", "GA", Country.COUNTRY[0], Race.RACE[3], Ethnicity.ETHNICITY[1],
 				"6785567432", "hhgreg@yahoo.com", "30117", "hhgreg", "123");
 		return personnelDummy;
 	}
 
 	public MedicalPersonnel medicalpersonneldummy2() {
-		Gender gender = new Gender();
-		Country country = new Country();
-		Race race = new Race();
-		Ethnicity ethnicity = new Ethnicity();
-		MedicalPersonnel personnelDummy = new MedicalPersonnel("Greg", "Laney", gender.SEX[0], "2021-09-15",
-				"292 Maple Street", "", "Carrollton", "GA", country.COUNTRY[0], race.RACE[3], ethnicity.ETHNICITY[1],
+		MedicalPersonnel personnelDummy = new MedicalPersonnel("Greg", "Laney", Gender.SEX[0], "2021-09-15",
+				"292 Maple Street", "", "Carrollton", "GA", Country.COUNTRY[0], Race.RACE[3], Ethnicity.ETHNICITY[1],
 				"6785567432", "hhgreg@yahoo.com", "30117", "hhgreg", "123");
 		return personnelDummy;
 	}

@@ -6,14 +6,11 @@ import edu.westga.cs4985.clinicApp.ClinicApp;
 import edu.westga.cs4985.clinicApp.client.Communicator;
 import edu.westga.cs4985.clinicApp.client.RequestType;
 import edu.westga.cs4985.clinicApp.model.UserManager;
-import javafx.application.Application;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
 import org.junit.jupiter.api.Test;
-import org.testfx.api.FxAssert;
 import org.testfx.framework.junit5.ApplicationTest;
-import org.testfx.matcher.control.TextInputControlMatchers;
 
 
 public class TestLoginUI extends ApplicationTest {
@@ -22,7 +19,7 @@ public class TestLoginUI extends ApplicationTest {
 	public void start(Stage stage) throws IOException {
 		ClinicApp app = new ClinicApp();
 	    UserManager user = new UserManager(new ServerFake());
-	    app.user = user;
+	    app.setUser(user);
 	    app.start(stage);
 	}
 	

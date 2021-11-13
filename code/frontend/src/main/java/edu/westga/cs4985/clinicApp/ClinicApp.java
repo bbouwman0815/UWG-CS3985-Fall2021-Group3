@@ -24,21 +24,12 @@ public class ClinicApp extends Application {
 	 */
 	public ClinicApp() {
 		super();
-		this.user = new UserManager();
+		this.setUser(new UserManager());
 	}
 	
-	/**
-	 * Get user
-	 * 
-	 * @return the user
-	 */
-	public UserManager user() {
-		return this.user;
-	}
-
 	@Override
 	public void start(Stage primaryStage) {
-		UserManager.setUserManager(this.user);
+		UserManager.setUserManager(this.getUser());
 		try {
 			Pane pane = this.loadGui();
 			Scene scene = new Scene(pane);
@@ -64,6 +55,24 @@ public class ClinicApp extends Application {
 	public static void main(String[] args) {
 
 		launch(args);
+	}
+
+	/**
+	 * Get user
+	 * 
+	 * @return the user
+	 */
+	public UserManager getUser() {
+		return this.user;
+	}
+
+	/**
+	 * Set user
+	 * 
+	 * @param user the user
+	 */
+	public void setUser(UserManager user) {
+		this.user = user;
 	}
 
 }

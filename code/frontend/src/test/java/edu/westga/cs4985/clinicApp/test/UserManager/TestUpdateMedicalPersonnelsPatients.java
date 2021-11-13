@@ -36,45 +36,29 @@ class TestUpdateMedicalPersonnelsPatients {
 	}
 	
 	public MedicalPersonnel medicalpersonneldummy() {
-		Gender gender = new Gender();
-		Country country = new Country();
-		Race race = new Race();
-		Ethnicity ethnicity = new Ethnicity();
-		MedicalPersonnel personnelDummy = new MedicalPersonnel("Greg", "Lane", gender.SEX[0], "2021-09-15",
-				"292 Maple Street", "", "Carrollton", "GA", country.COUNTRY[0], race.RACE[3], ethnicity.ETHNICITY[1],
+		MedicalPersonnel personnelDummy = new MedicalPersonnel("Greg", "Lane", Gender.SEX[0], "2021-09-15",
+				"292 Maple Street", "", "Carrollton", "GA", Country.COUNTRY[0], Race.RACE[3], Ethnicity.ETHNICITY[1],
 				"6785567432", "hhgreg@yahoo.com", "hhgreg", "123", "30117");
 		return personnelDummy;
 	}
 	
 	public MedicalPersonnel medicalpersonneldummy2() {
-		Gender gender = new Gender();
-		Country country = new Country();
-		Race race = new Race();
-		Ethnicity ethnicity = new Ethnicity();
-		MedicalPersonnel personnelDummy = new MedicalPersonnel("Greg", "Lane", gender.SEX[0], "2021-09-15",
-				"292 Maple Street", "", "Carrollton", "GA", country.COUNTRY[0], race.RACE[3], ethnicity.ETHNICITY[1],
+		MedicalPersonnel personnelDummy = new MedicalPersonnel("Greg", "Lane", Gender.SEX[0], "2021-09-15",
+				"292 Maple Street", "", "Carrollton", "GA", Country.COUNTRY[0], Race.RACE[3], Ethnicity.ETHNICITY[1],
 				"6785567432", "hhgreg@yahoo.com", "gggregh", "123", "30117");
 		return personnelDummy;
 	}
 	
 	public Patient patientDummy() {
-		Gender gender = new Gender();
-		Country country = new Country();
-		Race race = new Race();
-		Ethnicity ethnicity = new Ethnicity();
-		Patient patientDummy = new Patient("Greg", "Heath", gender.SEX[0], "2021-09-15", "292 Maple Street",
-				"", "Carrollton", "GA", country.COUNTRY[0], race.RACE[3], ethnicity.ETHNICITY[1],
+		Patient patientDummy = new Patient("Greg", "Heath", Gender.SEX[0], "2021-09-15", "292 Maple Street",
+				"", "Carrollton", "GA", Country.COUNTRY[0], Race.RACE[3], Ethnicity.ETHNICITY[1],
 				"678556743", "hhgreg@yahoo.com", "United Healthcare", "bbouwman0815", "123");
 		return patientDummy;
 	}
 	
 	public Patient patientDummy2() {
-		Gender gender = new Gender();
-		Country country = new Country();
-		Race race = new Race();
-		Ethnicity ethnicity = new Ethnicity();
-		Patient patientDummy = new Patient("Greg", "Heath", gender.SEX[0], "2021-09-15", "292 Maple Street",
-				"", "Carrollton", "GA", country.COUNTRY[0], race.RACE[3], ethnicity.ETHNICITY[1],
+		Patient patientDummy = new Patient("Greg", "Heath", Gender.SEX[0], "2021-09-15", "292 Maple Street",
+				"", "Carrollton", "GA", Country.COUNTRY[0], Race.RACE[3], Ethnicity.ETHNICITY[1],
 				"678556743", "hhgreg@yahoo.com", "United Healthcare", "jimmy1", "123");
 		return patientDummy;
 	}

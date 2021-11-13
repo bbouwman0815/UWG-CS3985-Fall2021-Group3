@@ -25,9 +25,7 @@ public class WindowGenerator {
 	private static final String PATIENT_PROFILE_TITLE = "Patient Profile";
 	private static final String ADMIN_PROFILE_TITLE = "Admin";
 	private static final String NEW_PATIENT_GUI = "NewPatientGui.fxml";
-	private static final String DASHBOARD_GUI = "../view/dashboard/DashboardGui.fxml";
 	private static final String LOGIN_GUI = "LoginGui.fxml";
-	private static final String PATIENT_GENERAL_INFO = "GeneralInfoGui.fxml";
 	private static final String MEDICAL_PERSONNEL_GUI = "MedicalPersonnelGui.fxml";
 	private static final String MEDICAL_PERSONNEL_PROFILE_TITLE = "Medical Personnel";
 	private static final String NEW_MEDICAL_PERSONNEL_GUI = "NewMedicalPersonnelGui.fxml";

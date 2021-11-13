@@ -89,7 +89,6 @@ public class Server extends Thread {
 	 * @throws IOException    the IO exception
 	 * @throws ParseException the parse exception
 	 */
-	@SuppressWarnings("unchecked")
 	public String cancleAppointment(String jsonString) throws IOException, ParseException {
 		JSONParser parser = new JSONParser();
 		FileReader reader = new FileReader("./jsonFiles/appointments.json");
@@ -196,7 +195,6 @@ public class Server extends Thread {
 	 * @throws IOException           the IO exception
 	 * @throws ParseException 
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public String userLogin(String jsonString) throws FileNotFoundException, IOException, ParseException {
 		JSONParser parser = new JSONParser();
 		FileReader reader = new FileReader("./jsonFiles/users.json");
@@ -319,7 +317,6 @@ public class Server extends Thread {
 	 * @throws IOException the IO exception
 	 * @throws ParseException 
 	 */
-	@SuppressWarnings("unchecked")
 	public String getAvailabilities(String jsonString) throws IOException, ParseException {
 		JSONParser parser = new JSONParser();
 		FileReader reader = new FileReader("./jsonFiles/availabilities.json");
@@ -393,7 +390,6 @@ public class Server extends Thread {
 	 * @throws IOException    Signals that an I/O exception has occurred.
 	 * @throws ParseException the parse exception
 	 */
-	@SuppressWarnings({ "unchecked" })
 	public String removeMedicalCondition(String jsonString) throws IOException, ParseException {
 		JSONParser parser = new JSONParser();
 		FileReader reader = new FileReader("./jsonFiles/medicalconditions.json");
@@ -500,7 +496,6 @@ public class Server extends Thread {
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 * @throws ParseException the parse exception
 	 */
-	@SuppressWarnings("unchecked")
 	private String getMedicalPersonnelsPatients(String jsonString) throws IOException, ParseException {
 		JSONParser parser = new JSONParser();
 		JSONArray patients = new JSONArray();

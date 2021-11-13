@@ -8,7 +8,6 @@ import edu.westga.cs4985.clinicApp.model.Patient;
 import edu.westga.cs4985.clinicApp.model.UserManager;
 import edu.westga.cs4985.clinicApp.resources.InputValidators;
 import edu.westga.cs4985.clinicApp.resources.WindowGenerator;
-import edu.westga.cs4985.clinicApp.utils.Country;
 import edu.westga.cs4985.clinicApp.utils.Ethnicity;
 import edu.westga.cs4985.clinicApp.utils.Gender;
 import edu.westga.cs4985.clinicApp.utils.Race;
@@ -147,11 +146,6 @@ public class PatientGeneralInfoCodeBehind {
 	@FXML
 	private Label invalidInsurance;
 
-	private Race race;
-	private Gender gender;
-	private Ethnicity ethnicity;
-	private Country country;
-
 	private PatientViewModel viewModel;
 
 	/**
@@ -162,10 +156,6 @@ public class PatientGeneralInfoCodeBehind {
 	 * @postcondition none
 	 */
 	public PatientGeneralInfoCodeBehind() {
-		this.race = new Race();
-		this.gender = new Gender();
-		this.ethnicity = new Ethnicity();
-		this.country = new Country();
 		this.viewModel = new PatientViewModel();
 	}
 
@@ -315,9 +305,9 @@ public class PatientGeneralInfoCodeBehind {
 	}
 
 	private void setUpChoiceBoxes() {
-		this.raceChoiceBox.itemsProperty().set(FXCollections.observableArrayList(this.race.RACE));
-		this.sexChoiceBox.itemsProperty().set(FXCollections.observableArrayList(this.gender.SEX));
-		this.ethnicityChoiceBox.itemsProperty().set(FXCollections.observableArrayList(this.ethnicity.ETHNICITY));
+		this.raceChoiceBox.itemsProperty().set(FXCollections.observableArrayList(Race.RACE));
+		this.sexChoiceBox.itemsProperty().set(FXCollections.observableArrayList(Gender.SEX));
+		this.ethnicityChoiceBox.itemsProperty().set(FXCollections.observableArrayList(Ethnicity.ETHNICITY));
 		this.countryChoiceBox.itemsProperty().set(FXCollections.observableArrayList(Locale.getISOCountries()));
 	}
 
@@ -496,10 +486,7 @@ public class PatientGeneralInfoCodeBehind {
 		@FXML
 		private ListView<String> caregiverList;
 
-		private PatientViewModel viewModel;
-
 		public AddCaregiverPopupCodeBehind(PatientViewModel viewModel) {
-			this.viewModel = viewModel;
 		}
 
 		@FXML
