@@ -9,7 +9,7 @@ import edu.westga.cs4985.clinicApp.resources.UI;
  * @version Fall 2021
  *
  */
-public class Person extends User{
+public class Person extends User {
 
 	private String firstName;
 
@@ -33,8 +33,6 @@ public class Person extends User{
 
 	private String ethnicity;
 
-	
-
 	/**
 	 * Instantiates a new person.
 	 *
@@ -49,6 +47,8 @@ public class Person extends User{
 	 * @param country     the country
 	 * @param race        the race
 	 * @param ethnicity   the ethnicity
+	 * @param username    the username
+	 * @param password    the password
 	 * 
 	 * @precondition firstName != null && !firstName.isEmpty() && lastName != null
 	 *               && !lastName.isEmpty() && gender != null && dateOfBirth != null
@@ -63,11 +63,12 @@ public class Person extends User{
 	 *                race == getRace() && ethnicity == getEthnicity
 	 */
 	public Person(String firstName, String lastName, String gender, String dateOfBirth, String address1,
-			String address2, String city, String state, String country, String race, String ethnicity ,String username, String password) {
+			String address2, String city, String state, String country, String race, String ethnicity, String username,
+			String password) {
 		super(username, password);
-		nameDOBCheck(firstName, lastName, dateOfBirth);
-		addressCheck(address1, address2, city, state);
-		demographicCheck(gender, country, race, ethnicity);
+		this.nameDOBCheck(firstName, lastName, dateOfBirth);
+		this.addressCheck(address1, address2, city, state);
+		this.demographicCheck(gender, country, race, ethnicity);
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.gender = gender;

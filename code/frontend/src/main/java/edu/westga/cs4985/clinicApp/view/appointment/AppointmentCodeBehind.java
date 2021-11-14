@@ -57,7 +57,7 @@ public class AppointmentCodeBehind {
     public void initialize() throws ParseException {
     	this.setBindings();
     	this.setListeners();
-    	List<Appointment> appointments = FXCollections.observableArrayList(UserManager.userManager.getAppointments(this.viewModel.getPatient().getUsername()));
+    	List<Appointment> appointments = FXCollections.observableArrayList(UserManager.userManager().getAppointments(this.viewModel.getPatient().getUsername()));
     	this.viewModel.filterAppointment(appointments);
     }
     
@@ -80,13 +80,11 @@ public class AppointmentCodeBehind {
     	        	
     	        	popup.show();
     	        	
-    			}
-    			catch (IOException e) {
+    			} catch (IOException e) {
 					e.printStackTrace();
 				}
     		}
     	});
-    	
     	this.pastAppointmentList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
     		if (newValue != null) {
     			try {
@@ -96,10 +94,7 @@ public class AppointmentCodeBehind {
     	        	});
     	        	
     	        	popup.show();
-    	        	
-    	        	
-    			}
-    			catch (IOException e) {
+    			} catch (IOException e) {
 					e.printStackTrace();
 				}
     		}
@@ -133,14 +128,14 @@ public class AppointmentCodeBehind {
         }
         
         @FXML
-        public void initialize(){
+        public void initialize() {
         	this.setBindings();
         	
         	this.medicalPersonList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
         		if (newValue != null) {
         			List<LocalDateTime> list;
 					try {
-						list = UserManager.userManager.getAvailabilities(newValue.getUsername());
+						list = UserManager.userManager().getAvailabilities(newValue.getUsername());
 						if (list.size() == 0) {
 							Alert alert = WindowGenerator.openAlert("The Medical Personnel not available now. Please choose another one!");
 			            	
@@ -174,37 +169,38 @@ public class AppointmentCodeBehind {
             	
     			alert.showAndWait();
         	} else {
-        		Alert bookAlert = WindowGenerator.openConfirm("Are you sure want to book this appointment?");
-            	bookAlert.setOnCloseRequest((action) -> {
-            		if (bookAlert.getResult().getButtonData().equals(ButtonData.YES)) {
-            			this.viewModel.notesProperty().set(this.noteTextBox.getText());
-            			Appointment appointment = this.viewModel.bookAppointment();
-            			UserManager.userManager.bookAppointment(appointment);
-            			
-            			try {
-							List<LocalDateTime> availabilityList = UserManager.userManager.getAvailabilities(this.viewModel.seletedMedicalPersonnel().getValue().getUsername());
-							availabilityList.remove(appointment.getDateTime());
-							UserManager.userManager.updateMedicalPersonnelAvaiabilities(this.viewModel.seletedMedicalPersonnel().get(), availabilityList);
-						} catch (ParseException e1) {
-							e1.printStackTrace();
-						}
-            			
-            			Stage popup;
-						try {
-							popup = WindowGenerator.openPopup(APPOINTMENT_VIEW_POPUP, new AppointmentViewPopupCodeBehind(this.viewModel), "Appointment View Window");
-							popup.show();
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
-						Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-	                    currentStage.fireEvent(new WindowEvent(currentStage, WindowEvent.WINDOW_CLOSE_REQUEST));
-	                    currentStage.close();
-
-            		}
-            	});
-        		bookAlert.show();
+        		this.bookAppointmentHelper(event);
         	}
         	
+        }
+        
+        private void bookAppointmentHelper(ActionEvent event) {
+        	Alert bookAlert = WindowGenerator.openConfirm("Are you sure want to book this appointment?");
+        	bookAlert.setOnCloseRequest((action) -> {
+        		if (bookAlert.getResult().getButtonData().equals(ButtonData.YES)) {
+        			this.viewModel.notesProperty().set(this.noteTextBox.getText());
+        			Appointment appointment = this.viewModel.bookAppointment();
+        			UserManager.userManager().bookAppointment(appointment);
+        			try {
+						List<LocalDateTime> availabilityList = UserManager.userManager().getAvailabilities(this.viewModel.seletedMedicalPersonnel().getValue().getUsername());
+						availabilityList.remove(appointment.getDateTime());
+						UserManager.userManager().updateMedicalPersonnelAvaiabilities(this.viewModel.seletedMedicalPersonnel().get(), availabilityList);
+					} catch (ParseException e1) {
+						e1.printStackTrace();
+					}
+        			Stage popup;
+					try {
+						popup = WindowGenerator.openPopup(APPOINTMENT_VIEW_POPUP, new AppointmentViewPopupCodeBehind(this.viewModel), "Appointment View Window");
+						popup.show();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    currentStage.fireEvent(new WindowEvent(currentStage, WindowEvent.WINDOW_CLOSE_REQUEST));
+                    currentStage.close();
+        		}
+        	});
+    		bookAlert.show();
         }
 
         @FXML
@@ -226,7 +222,7 @@ public class AppointmentCodeBehind {
         			alert.showAndWait();
         			return;
         		}
-        		List<MedicalPersonnel> list = UserManager.userManager.getAllMedicalPersonnels(zipcode);
+        		List<MedicalPersonnel> list = UserManager.userManager().getAllMedicalPersonnels(zipcode);
         		if (list.size() == 0) {
         			Alert alert = WindowGenerator.openAlert("There are no any Medical Personnel in this area. Please entry another zipcode!");
                 	
@@ -236,13 +232,13 @@ public class AppointmentCodeBehind {
         			this.medicalPersonList.itemsProperty().set(FXCollections.observableArrayList(list));
         		}
         		
-        	} catch(NumberFormatException e) {
+        	} catch (NumberFormatException e) {
         		Alert alert = WindowGenerator.openAlert("Please entery numbers for zipcode!");
         	
         		alert.showAndWait();
         		return;
         	}
-       }
+        }
 
     }
 
@@ -255,7 +251,7 @@ public class AppointmentCodeBehind {
         private Button editButton;
 
         @FXML
-        private Button OKButton;
+        private Button oKButton;
 
         @FXML
         private Button saveButton;
@@ -319,12 +315,12 @@ public class AppointmentCodeBehind {
 			alert.setOnCloseRequest((evt) -> {
 				if (alert.getResult().getButtonData().equals(ButtonData.YES)) {
 					Appointment appointment =  this.viewModel.cancelAppointment();
-					UserManager.userManager.cancelAppointment(appointment);
+					UserManager.userManager().cancelAppointment(appointment);
 					
 					try {
-						List<LocalDateTime> availabilityList = UserManager.userManager.getAvailabilities(appointment.getMedicalPersonnel().getUsername());
+						List<LocalDateTime> availabilityList = UserManager.userManager().getAvailabilities(appointment.getMedicalPersonnel().getUsername());
 						availabilityList.add(appointment.getDateTime());
-						UserManager.userManager.updateMedicalPersonnelAvaiabilities(appointment.getMedicalPersonnel(), availabilityList);
+						UserManager.userManager().updateMedicalPersonnelAvaiabilities(appointment.getMedicalPersonnel(), availabilityList);
 					} catch (ParseException e1) {
 						e1.printStackTrace();
 					}
@@ -358,6 +354,3 @@ public class AppointmentCodeBehind {
     }
 
 }
-
-
-

@@ -57,7 +57,7 @@ public class CaregiverViewModel {
 	 * @postcondition none
 	 */
 	public CaregiverViewModel() {
-		this.caregiver = (Caregiver) User.user;
+		this.caregiver = (Caregiver) User.user();
 		this.selectedFutureAppointmentProperty = new SimpleObjectProperty<Appointment>();
 		this.selectedPastAppointmentProperty = new SimpleObjectProperty<Appointment>();
 		this.futureAppointmentListProperty = new SimpleListProperty<Appointment>();
@@ -180,7 +180,7 @@ public class CaregiverViewModel {
 	public void loadPatients() {
 		List<Patient> patients;
 		try {
-			patients = UserManager.userManager.getPatientsForCaregiver(User.user.getUsername());
+			patients = UserManager.userManager().getPatientsForCaregiver(User.user().getUsername());
 			this.patients = patients;
 		} catch (ParseException e) {
 			e.printStackTrace();
@@ -193,7 +193,7 @@ public class CaregiverViewModel {
 	public void loadAllPatients() {
 		List<Patient> patients;
 		try {
-			patients = UserManager.userManager.getAllPatients();
+			patients = UserManager.userManager().getAllPatients();
 			this.allPatients = patients;
 		} catch (ParseException e) {
 			e.printStackTrace();
@@ -217,9 +217,9 @@ public class CaregiverViewModel {
 	 * @return true if current appointment is booked; otherwise false
 	 */
 	public boolean isBookedAppointment() {
-		for (Appointment appointment : this.futureppointmentList){
-			if (appointment.getMedicalPersonnel().equals(this.seletedMedicalPersonnel.get()) &&
-					appointment.getDateTime().equals(this.selectedAvailabilityProperty.get())) {
+		for (Appointment appointment : this.futureppointmentList) { 
+			if (appointment.getMedicalPersonnel().equals(this.seletedMedicalPersonnel.get()) 
+					&& appointment.getDateTime().equals(this.selectedAvailabilityProperty.get())) {
 				return true;
 			}
 		}
@@ -249,8 +249,7 @@ public class CaregiverViewModel {
 		for (Appointment theAppointment : appointments) {
 			if (!theAppointment.hasPassed()) {
 				this.futureppointmentList.add(theAppointment);
-			}
-			else {
+			} else {
 				this.pastAppointmentList.add(theAppointment);
 			}
 		}

@@ -21,18 +21,20 @@ public class Appointment {
 	/**
 	 * Instantiates a new appointment.
 	 * 
-	 * @precondition date != null && patient != null && medicalPersonnel != null
-	 * 				 && !location.isEmpty() && location != null && notes != null
-	 * @postcondition getDateTime() == dateTime && getPatient() == patient && getMedicalPersonnel() == medicalPersonnel
-	 *                && getLocation() == location && getNotes() == notes
+	 * @precondition date != null && patient != null && medicalPersonnel != null &&
+	 *               !location.isEmpty() && location != null && notes != null
+	 * @postcondition getDateTime() == dateTime && getPatient() == patient &&
+	 *                getMedicalPersonnel() == medicalPersonnel && getLocation() ==
+	 *                location && getNotes() == notes
 	 *
-	 * @param dateTime     			the date and time
-	 * @param patient     			the patient
-	 * @param medicalPersonnel    	the medicalPersonnel
-	 * @param location 				the location
-	 * @param notes    				the notes
+	 * @param dateTime         the date and time
+	 * @param patient          the patient
+	 * @param medicalPersonnel the medicalPersonnel
+	 * @param location         the location
+	 * @param notes            the notes
 	 */
-	public Appointment(LocalDateTime dateTime, Patient patient, MedicalPersonnel medicalPersonnel, String location, String notes) {
+	public Appointment(LocalDateTime dateTime, Patient patient, MedicalPersonnel medicalPersonnel, String location,
+			String notes) {
 		if (dateTime == null) {
 			throw new IllegalArgumentException(UI.ExceptionMessages.NULL_DATE);
 		}
@@ -97,7 +99,7 @@ public class Appointment {
 	public Patient getPatient() {
 		return this.patient;
 	}
-	
+
 	/**
 	 * Gets the medicalPersonnel.
 	 * 
@@ -187,14 +189,8 @@ public class Appointment {
 
 	@Override
 	public String toString() {
-		return "On " + this.dateTime.toLocalDate() + " at "  + this.dateTime.getHour() + " : " + this.dateTime.getMinute();
-	}
-
-	@Override
-	public int hashCode() {
-		String hashString = this.getDateTime().toString() + this.getPatient().getFirstName()
-				+ this.getPatient().getLastName();
-		return hashString.hashCode();
+		return "On " + this.dateTime.toLocalDate() + " at " + this.dateTime.getHour() + " : "
+				+ this.dateTime.getMinute();
 	}
 
 }

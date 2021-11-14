@@ -9,8 +9,6 @@ import edu.westga.cs4985.clinicApp.ClinicApp;
 import edu.westga.cs4985.clinicApp.client.Communicator;
 import edu.westga.cs4985.clinicApp.client.RequestType;
 import edu.westga.cs4985.clinicApp.model.UserManager;
-import javafx.geometry.HorizontalDirection;
-import javafx.geometry.VerticalDirection;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
@@ -20,7 +18,7 @@ public class TestMedicalPersonnel extends ApplicationTest {
 	public void start(Stage stage) throws IOException {
 		ClinicApp app = new ClinicApp();
 		UserManager user = new UserManager(new ServerFake());
-		app.user = user;
+		app.setUser(user);
 		app.start(stage);
 	}
 

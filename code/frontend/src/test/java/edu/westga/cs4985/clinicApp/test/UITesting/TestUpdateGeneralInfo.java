@@ -1,7 +1,5 @@
 package edu.westga.cs4985.clinicApp.test.UITesting;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
@@ -20,7 +18,7 @@ public class TestUpdateGeneralInfo extends ApplicationTest {
 	public void start(Stage stage) throws IOException {
 		ClinicApp app = new ClinicApp();
 		UserManager user = new UserManager(new ServerFake());
-		app.user = user;
+		app.setUser(user);
 		app.start(stage);
 	}
 

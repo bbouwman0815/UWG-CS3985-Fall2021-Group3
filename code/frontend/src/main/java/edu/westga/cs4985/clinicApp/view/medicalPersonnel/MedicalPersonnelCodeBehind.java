@@ -10,12 +10,9 @@ import org.json.simple.parser.ParseException;
 import edu.westga.cs4985.clinicApp.model.Caregiver;
 import edu.westga.cs4985.clinicApp.model.MedicalCondition;
 import edu.westga.cs4985.clinicApp.model.Patient;
-import edu.westga.cs4985.clinicApp.model.User;
 import edu.westga.cs4985.clinicApp.model.UserManager;
 import edu.westga.cs4985.clinicApp.resources.WindowGenerator;
-import edu.westga.cs4985.clinicApp.view.generalInfor.PatientGeneralInfoCodeBehind.AddCaregiverPopupCodeBehind;
 import edu.westga.cs4985.clinicApp.viewmodel.MedicalPersonnelViewModel;
-import edu.westga.cs4985.clinicApp.viewmodel.PatientViewModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -55,7 +52,7 @@ import javafx.stage.WindowEvent;
  * 
  */
 public class MedicalPersonnelCodeBehind {
-	
+
 	@FXML
 	private Button addCaregiverButton;
 
@@ -145,15 +142,15 @@ public class MedicalPersonnelCodeBehind {
 
 	@FXML
 	private Button addPatientButton;
+	
+	@FXML
+    private Button removePatientButton;
 
 	@FXML
 	private RadioButton showAllPatientsRadioButton;
 
 	@FXML
 	private Button logoutButton;
-	
-    @FXML
-    private Button removePatientButton;
 
 	private MedicalPersonnelViewModel viewmodel;
 
@@ -190,34 +187,64 @@ public class MedicalPersonnelCodeBehind {
 	}
 
 	public void setListeners() {
+		this.setPatientListViewTwiceClick();
 		this.patientListView.getSelectionModel().selectedItemProperty()
 				.addListener((observable, oldValue, newValue) -> {
 					if (newValue != null) {
 						try {
 							this.loadPatientData();
-							if (this.caregiverLabel.textProperty().get() == "") {
-					    		this.addCaregiverButton.setVisible(true);
-					    		this.removeCaregiverButton.setVisible(false);
-					    	} else {
-					    		this.removeCaregiverButton.setVisible(true);
-					    		this.addCaregiverButton.setVisible(false);
-					    	}
+							if (this.caregiverLabel.textProperty().get().isEmpty()) {
+								this.addCaregiverButton.setVisible(true);
+								this.removeCaregiverButton.setVisible(false);
+							} else {
+								this.removeCaregiverButton.setVisible(true);
+								this.addCaregiverButton.setVisible(false);
+							}
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
 					}
 				});
-
 		this.showAllPatientsRadioButton.selectedProperty().addListener((observable, oldType, newType) -> {
 			this.updateDisplay();
+		});
+	}
+	
+	private void setPatientListViewTwiceClick() {
+		this.patientListView.setOnMouseClicked((EventHandler<? super MouseEvent>) new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent click) {
+
+				if (click.getClickCount() == 2) {
+					Alert alert = WindowGenerator
+							.openConfirm("Are you sure want to remove the patient from your care?");
+					alert.setOnCloseRequest((evt) -> {
+
+						if (alert.getResult().getButtonData().equals(ButtonData.YES)) {
+							MedicalPersonnelCodeBehind.this.viewmodel.removePatientFromCare();
+							MedicalPersonnelCodeBehind.this.patientListView.getSelectionModel().clearSelection();
+							UserManager.userManager().updateMedicalPersonnelsPatients(
+									MedicalPersonnelCodeBehind.this.viewmodel.getMedicalePersonnel(),
+									MedicalPersonnelCodeBehind.this.viewmodel.getPatients());
+							MedicalPersonnelCodeBehind.this.updateDisplay();
+						}
+						if (alert.getResult().getButtonData().equals(ButtonData.NO)) {
+							MedicalPersonnelCodeBehind.this.patientListView.getSelectionModel().clearSelection();
+						}
+					});
+					alert.showAndWait();
+
+				}
+			}
 		});
 	}
 
 	private void updateDisplay() {
 		if (this.showAllPatientsRadioButton.isSelected()) {
+			this.viewmodel.loadAllPatients();
 			this.removePatientButton.setVisible(false);
 			this.addPatientButton.setVisible(true);
-			this.viewmodel.loadAllPatients();
 		} else {
 			this.viewmodel.loadPatients();
 			this.removePatientButton.setVisible(true);
@@ -229,13 +256,13 @@ public class MedicalPersonnelCodeBehind {
 	@FXML
 	void handleAddPatient(ActionEvent event) {
 		if (this.viewmodel.checkPatientUnderCare()) {
-			Alert a = new Alert(AlertType.WARNING);
-			a.setContentText("Patient is already under your care");
-			a.show();
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setContentText("Patient is already under your care");
+			alert.show();
 		} else {
 			this.viewmodel.addPatientToCare();
 			this.patientListView.getSelectionModel().clearSelection();
-			UserManager.userManager.updateMedicalPersonnelsPatients(this.viewmodel.getMedicalePersonnel(),
+			UserManager.userManager().updateMedicalPersonnelsPatients(this.viewmodel.getMedicalePersonnel(),
 					this.viewmodel.getPatients());
 			this.updateDisplay();
 		}
@@ -260,20 +287,39 @@ public class MedicalPersonnelCodeBehind {
 		this.sexChoiceBox.setValue(selectedPatient.getGender());
 		this.insuranceInput.setText(selectedPatient.getInsurance());
 		this.birthdayPicker.setValue(datetime);
-		
+
 		this.setMedicalConditions();
 	}
-	
+
 	void setMedicalConditions() {
 		List<MedicalCondition> medicalConditions;
 		try {
 			medicalConditions = FXCollections.observableArrayList(
-					UserManager.userManager.getMedicalConditions(this.viewmodel.selectedPatient().getUsername()));
+					UserManager.userManager().getMedicalConditions(this.viewmodel.selectedPatient().getUsername()));
 			this.medicalConditionTableView.itemsProperty().set((ObservableList<MedicalCondition>) medicalConditions);
 		} catch (ParseException e) {
-		
+
 			e.printStackTrace();
 		}
+	}
+	
+	@FXML
+	void handleRemovePatient(ActionEvent event) {
+		Alert alert = WindowGenerator
+				.openConfirm("Are you sure want to remove the patient from your care?");
+		alert.setOnCloseRequest((evt) -> {
+
+			if (alert.getResult().getButtonData().equals(ButtonData.YES)) {
+				this.viewmodel.removePatientFromCare();
+				this.patientListView.getSelectionModel().clearSelection();
+				UserManager.userManager().updateMedicalPersonnelsPatients(this.viewmodel.getMedicalePersonnel(), this.viewmodel.getPatients());
+				this.updateDisplay();
+			}
+			if (alert.getResult().getButtonData().equals(ButtonData.NO)) {
+				this.patientListView.getSelectionModel().clearSelection();
+			}
+		});
+		alert.showAndWait();
 	}
 
 	@FXML
@@ -285,94 +331,75 @@ public class MedicalPersonnelCodeBehind {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@FXML
-    void addCaregiver(ActionEvent event) throws IOException {
-    	FXMLLoader loader = new FXMLLoader();
-    	loader.setLocation(getClass().getResource("../generalInfor/AddCaregiverPopup.fxml"));
-    	loader.setController(new AddCaregiverPopupCodeBehind(this.viewmodel));
-    	Pane pane = (Pane) loader.load();
-    	Stage popup = new Stage();
-    	Scene scene = new Scene(pane);
-    	popup.setScene(scene);
-    	popup.setResizable(false);
-    	popup.setTitle("Add Caregiver Window");
-    	popup.initModality(Modality.APPLICATION_MODAL);
-    	popup.show();
-    }
-    
-    @FXML
-    void removerCaregiver(ActionEvent event) {
-    	this.viewmodel.selectedPatient().setCaregiver(null);
-    	this.caregiverLabel.textProperty().set("");
-    	this.addCaregiverButton.setVisible(true);
+	void addCaregiver(ActionEvent event) throws IOException {
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("../generalInfor/AddCaregiverPopup.fxml"));
+		loader.setController(new AddCaregiverPopupCodeBehind(this.viewmodel));
+		Pane pane = (Pane) loader.load();
+		Stage popup = new Stage();
+		Scene scene = new Scene(pane);
+		popup.setScene(scene);
+		popup.setResizable(false);
+		popup.setTitle("Add Caregiver Window");
+		popup.initModality(Modality.APPLICATION_MODAL);
+		popup.show();
+	}
+
+	@FXML
+	void removerCaregiver(ActionEvent event) {
+		this.viewmodel.selectedPatient().setCaregiver(null);
+		this.caregiverLabel.textProperty().set("");
+		this.addCaregiverButton.setVisible(true);
 		this.removeCaregiverButton.setVisible(false);
-    }
-    
-    @FXML
-    void handleRemovePatient(ActionEvent event) {
-    	Alert alert = WindowGenerator
-				.openConfirm("Are you sure want to remove the patient from your care?");
-		alert.setOnCloseRequest((evt) -> {
+	}
 
-			if (alert.getResult().getButtonData().equals(ButtonData.YES)) {
-				viewmodel.removePatientFromCare();
-				patientListView.getSelectionModel().clearSelection();
-				UserManager.userManager.updateMedicalPersonnelsPatients(viewmodel.getMedicalePersonnel(),
-						viewmodel.getPatients());
-				updateDisplay();
+	public class AddCaregiverPopupCodeBehind {
+
+		@FXML
+		private ListView<Caregiver> caregiverList;
+
+		private MedicalPersonnelViewModel viewModel;
+
+		public AddCaregiverPopupCodeBehind(MedicalPersonnelViewModel viewModel) {
+			this.viewModel = viewModel;
+		}
+
+		@FXML
+		void onAdd(ActionEvent event) {
+			if (this.caregiverList.getSelectionModel().getSelectedItem() == null) {
+				Alert alert = WindowGenerator.openAlert("Please select your caregiver!");
+
+				alert.showAndWait();
+			} else {
+				MedicalPersonnelCodeBehind.this.addCaregiverButton.setVisible(false);
+				MedicalPersonnelCodeBehind.this.removeCaregiverButton.setVisible(true);
+				MedicalPersonnelCodeBehind.this.caregiverLabel.textProperty()
+						.set(this.caregiverList.getSelectionModel().getSelectedItem().toString());
+				this.viewModel.selectedPatient().setCaregiver(this.caregiverList.getSelectionModel().getSelectedItem());
+				UserManager.userManager().updatePatientGeneralInfo(this.viewModel.selectedPatient());
+				this.returnToPreviousStage(event);
 			}
-			if (alert.getResult().getButtonData().equals(ButtonData.NO)) {
-				patientListView.getSelectionModel().clearSelection();
-			}
-		});
-		alert.showAndWait();
-    }
-    
-    public class AddCaregiverPopupCodeBehind {
 
-        @FXML
-        private ListView<Caregiver> caregiverList;
-        
-        private MedicalPersonnelViewModel viewModel;
-        
-        public AddCaregiverPopupCodeBehind(MedicalPersonnelViewModel viewModel) {
-        	this.viewModel = viewModel;
-        }
+		}
 
-        @FXML
-        void onAdd(ActionEvent event) {
-        	if(this.caregiverList.getSelectionModel().getSelectedItem() == null) {
-        		Alert alert = WindowGenerator.openAlert("Please select your caregiver!");
-            	
-    			alert.showAndWait();
-        	} else {
-            	addCaregiverButton.setVisible(false);
-            	removeCaregiverButton.setVisible(true);
-            	caregiverLabel.textProperty().set(this.caregiverList.getSelectionModel().getSelectedItem().toString());
-            	viewModel.selectedPatient().setCaregiver(this.caregiverList.getSelectionModel().getSelectedItem());
-            	UserManager.userManager.updatePatientGeneralInfo(viewModel.selectedPatient());
-            	this.returnToPreviousStage(event);
-        	}
-        	
-        }
-        
-        @FXML
-        public void initialize() throws ParseException {
-        	this.caregiverList.itemsProperty().set(FXCollections.observableArrayList(UserManager.userManager.getAllCaregivers()));
-        }
+		@FXML
+		public void initialize() throws ParseException {
+			this.caregiverList.itemsProperty().set(FXCollections.observableArrayList(UserManager.userManager().getAllCaregivers()));
+		}
 
-        @FXML
-        void onCancel(ActionEvent event) {
-        	this.returnToPreviousStage(event);
-        }
-        
-        private void returnToPreviousStage(ActionEvent event) {
-        	Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        	currentStage.fireEvent(new WindowEvent(currentStage, WindowEvent.WINDOW_CLOSE_REQUEST));
-        	currentStage.close();
-        }
+		@FXML
+		void onCancel(ActionEvent event) {
+			this.returnToPreviousStage(event);
+		}
 
-    }
+		private void returnToPreviousStage(ActionEvent event) {
+			Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+			currentStage.fireEvent(new WindowEvent(currentStage, WindowEvent.WINDOW_CLOSE_REQUEST));
+			currentStage.close();
+		}
+
+	}
 
 }

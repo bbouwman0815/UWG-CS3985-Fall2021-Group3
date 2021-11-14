@@ -65,7 +65,7 @@ public class MedicalCondition {
 	 * @return the name
 	 */
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
 	/**
@@ -83,7 +83,7 @@ public class MedicalCondition {
 	 * @return the diagnosis date
 	 */
 	public String getDiagnosisDate() {
-		return diagnosisDate;
+		return this.diagnosisDate;
 	}
 
 	/**
@@ -101,7 +101,7 @@ public class MedicalCondition {
 	 * @return the termination date
 	 */
 	public String getTerminationDate() {
-		return terminationDate;
+		return this.terminationDate;
 	}
 
 	/**
@@ -137,7 +137,7 @@ public class MedicalCondition {
 	 * @return the patient
 	 */
 	public Patient getPatient() {
-		return patient;
+		return this.patient;
 	}
 
 	/**

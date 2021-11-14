@@ -10,7 +10,6 @@ import edu.westga.cs4985.clinicApp.model.MedicalCondition;
 import edu.westga.cs4985.clinicApp.model.Patient;
 import edu.westga.cs4985.clinicApp.model.UserManager;
 import edu.westga.cs4985.clinicApp.utils.Country;
-import edu.westga.cs4985.clinicApp.utils.DataWriter;
 import edu.westga.cs4985.clinicApp.utils.Ethnicity;
 import edu.westga.cs4985.clinicApp.utils.Gender;
 import edu.westga.cs4985.clinicApp.utils.Race;
@@ -21,8 +20,6 @@ class TestAddMedicalCondition {
 
 		@Override
 		public String request(RequestType requestType, String data) {
-			UserManager manager = new UserManager();
-			DataWriter writer = new DataWriter();
 			String request = requestType + "," + data;
 
 			if (request.equals(
@@ -35,12 +32,8 @@ class TestAddMedicalCondition {
 	}
 	
 	public static Patient patientDummy() {
-		Gender gender = new Gender();
-		Country country = new Country();
-		Race race = new Race();
-		Ethnicity ethnicity = new Ethnicity();
-		Patient patientDummy = new Patient("Greg", "Heath", gender.sex[0], "2021-09-15", "292 Maple Street",
-				"", "Carrollton", "GA", country.country[0], race.race[3], ethnicity.ethnicity[1],
+		Patient patientDummy = new Patient("Greg", "Heath", Gender.SEX[0], "2021-09-15", "292 Maple Street",
+				"", "Carrollton", "GA", Country.COUNTRY[0], Race.RACE[3], Ethnicity.ETHNICITY[1],
 				"678556743", "hhgreg@yahoo.com", "United Healthcare", "hhgreg", "123");
 		return patientDummy;
 	}
@@ -57,12 +50,8 @@ class TestAddMedicalCondition {
 	}
 	
 	public static Patient patientDummy2() {
-		Gender gender = new Gender();
-		Country country = new Country();
-		Race race = new Race();
-		Ethnicity ethnicity = new Ethnicity();
-		Patient patientDummy = new Patient("Greg", "Heath", gender.sex[0], "2021-09-15", "292 Maple Street",
-				"", "Carrollton", "GA", country.country[0], race.race[3], ethnicity.ethnicity[1],
+		Patient patientDummy = new Patient("Greg", "Heath", Gender.SEX[0], "2021-09-15", "292 Maple Street",
+				"", "Carrollton", "GA", Country.COUNTRY[0], Race.RACE[3], Ethnicity.ETHNICITY[1],
 				"678556743", "hhgreg@yahoo.com", "United Healthcare", "hhgre", "123");
 		return patientDummy;
 	}
@@ -82,7 +71,7 @@ class TestAddMedicalCondition {
 	void testAddValidMedicalCondition() {
 		UserManager userManager = new UserManager(new ServerFake());
 		UserManager.setUserManager(userManager);
-		boolean added = UserManager.userManager.addMedicalCondition(medicalCondition());
+		boolean added = UserManager.userManager().addMedicalCondition(medicalCondition());
 		assertEquals(true, added);
 	}
 	

@@ -29,7 +29,7 @@ public class LoginCodeBehind {
 
 	@FXML
 	private Button loginButton;
-	
+
 	@FXML
 	private Button registerButton;
 
@@ -67,7 +67,7 @@ public class LoginCodeBehind {
 	void handleLogin(ActionEvent event) throws ParseException {
 		String userString = this.viewmodel.login();
 		String[] userStringList = userString.split(",");
-		User user = UserManager.userManager.login(userStringList[0], userStringList[1]);
+		User user = UserManager.userManager().login(userStringList[0], userStringList[1]);
 		if (user == null) {
 			Alert alert = WindowGenerator.openAlert("UserName or Password is incorrect!");
 			alert.showAndWait();
@@ -82,14 +82,13 @@ public class LoginCodeBehind {
 			}
 		}
 	}
-	
 
-    @FXML
-    void onRegister(ActionEvent event) throws IOException {
-    	RegisterCodeBehind codebehind = new RegisterCodeBehind();
+	@FXML
+	void onRegister(ActionEvent event) throws IOException {
+		RegisterCodeBehind codebehind = new RegisterCodeBehind();
 		FXMLLoader loader = new FXMLLoader();
 		loader.setController(codebehind);
 		loader.setLocation(codebehind.getClass().getResource("Registration.fxml"));
 		WindowGenerator.setupScene((Parent) loader.load(), "Registration Window");
-    }
+	}
 }

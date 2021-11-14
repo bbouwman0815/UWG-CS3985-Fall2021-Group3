@@ -32,12 +32,8 @@ class TestRemoveMedicalCondition {
 	}
 	
 	public static Patient patientDummy() {
-		Gender gender = new Gender();
-		Country country = new Country();
-		Race race = new Race();
-		Ethnicity ethnicity = new Ethnicity();
-		Patient patientDummy = new Patient("Greg", "Heath", gender.sex[0], "2021-09-15", "292 Maple Street",
-				"", "Carrollton", "GA", country.country[0], race.race[3], ethnicity.ethnicity[1],
+		Patient patientDummy = new Patient("Greg", "Heath", Gender.SEX[0], "2021-09-15", "292 Maple Street",
+				"", "Carrollton", "GA", Country.COUNTRY[0], Race.RACE[3], Ethnicity.ETHNICITY[1],
 				"678556743", "hhgreg@yahoo.com", "United Healthcare", "hhgreg", "123");
 		return patientDummy;
 	}
@@ -54,12 +50,8 @@ class TestRemoveMedicalCondition {
 	}
 	
 	public static Patient patientDummy2() {
-		Gender gender = new Gender();
-		Country country = new Country();
-		Race race = new Race();
-		Ethnicity ethnicity = new Ethnicity();
-		Patient patientDummy = new Patient("Greg", "Heath", gender.sex[0], "2021-09-15", "292 Maple Street",
-				"", "Carrollton", "GA", country.country[0], race.race[3], ethnicity.ethnicity[1],
+		Patient patientDummy = new Patient("Greg", "Heath", Gender.SEX[0], "2021-09-15", "292 Maple Street",
+				"", "Carrollton", "GA", Country.COUNTRY[0], Race.RACE[3], Ethnicity.ETHNICITY[1],
 				"678556743", "hhgreg@yahoo.com", "United Healthcare", "hhgre", "123");
 		return patientDummy;
 	}

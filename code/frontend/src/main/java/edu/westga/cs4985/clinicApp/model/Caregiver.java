@@ -31,6 +31,8 @@ public class Caregiver extends Person {
 	 * @param ethnicity   the ethnicity
 	 * @param phoneNumber the phone number
 	 * @param email       the email
+	 * @param username    the username
+	 * @param password    the password
 	 * 
 	 * @precondition insurance != null && !insurance.isEmpty() && phoneNumber !=
 	 *               null && !phoneNumber.isEmpty() && email != null &&
@@ -75,7 +77,7 @@ public class Caregiver extends Person {
 	 * @return the email
 	 */
 	public String getEmail() {
-		return email;
+		return this.email;
 	}
 
 	/**
@@ -98,7 +100,8 @@ public class Caregiver extends Person {
 	 * @return the full address
 	 */
 	public String getFullAddress() {
-		return this.getAddress1() + ", " + this.getCity() + ", " + this.getState() + ", " + this.getCountry();
+		String comma = ", ";
+		return this.getAddress1() + comma + this.getCity() + comma + this.getState() + comma + this.getCountry();
 	}
 
 	/**

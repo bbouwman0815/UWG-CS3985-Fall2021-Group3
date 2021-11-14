@@ -89,7 +89,6 @@ public class Server extends Thread {
 	 * @throws IOException    the IO exception
 	 * @throws ParseException the parse exception
 	 */
-	@SuppressWarnings("unchecked")
 	public String cancleAppointment(String jsonString) throws IOException, ParseException {
 		JSONParser parser = new JSONParser();
 		FileReader reader = new FileReader("./jsonFiles/appointments.json");
@@ -196,7 +195,6 @@ public class Server extends Thread {
 	 * @throws IOException           the IO exception
 	 * @throws ParseException 
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public String userLogin(String jsonString) throws FileNotFoundException, IOException, ParseException {
 		JSONParser parser = new JSONParser();
 		FileReader reader = new FileReader("./jsonFiles/users.json");
@@ -343,7 +341,6 @@ public class Server extends Thread {
 	 * @throws IOException the IO exception
 	 * @throws ParseException 
 	 */
-	@SuppressWarnings("unchecked")
 	public String getAvailabilities(String jsonString) throws IOException, ParseException {
 		JSONParser parser = new JSONParser();
 		FileReader reader = new FileReader("./jsonFiles/availabilities.json");
@@ -417,7 +414,6 @@ public class Server extends Thread {
 	 * @throws IOException    Signals that an I/O exception has occurred.
 	 * @throws ParseException the parse exception
 	 */
-	@SuppressWarnings({ "unchecked" })
 	public String removeMedicalCondition(String jsonString) throws IOException, ParseException {
 		JSONParser parser = new JSONParser();
 		FileReader reader = new FileReader("./jsonFiles/medicalconditions.json");
@@ -548,7 +544,6 @@ public class Server extends Thread {
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 * @throws ParseException the parse exception
 	 */
-	@SuppressWarnings("unchecked")
 	private String getMedicalPersonnelsPatients(String jsonString) throws IOException, ParseException {
 		JSONParser parser = new JSONParser();
 		JSONArray patients = new JSONArray();
@@ -573,7 +568,6 @@ public class Server extends Thread {
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 * @throws ParseException the parse exception
 	 */
-	@SuppressWarnings("unchecked")
 	private String getCaregiverPatients(String jsonString) throws IOException, ParseException {
 		JSONParser parser = new JSONParser();
 		JSONArray patients = new JSONArray();
@@ -683,6 +677,28 @@ public class Server extends Thread {
 		writer.close();
 		return "ADDED";
 	}
+	
+	/**
+	 * Adds the new caregiver
+	 *
+	 * @param jsonString the json string
+	 * @return the string
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws ParseException the parse exception
+	 */
+	@SuppressWarnings({ "unchecked" })
+	public String addCaregiverUser(String jsonString) throws IOException, ParseException {
+		JSONParser parser = new JSONParser();
+		FileReader reader = new FileReader("./jsonFiles/users.json");
+		JSONArray jsonObject = (JSONArray) parser.parse(reader);
+		FileWriter writer = new FileWriter("./jsonFiles/users.json");
+		JSONObject data = (JSONObject) parser.parse(jsonString);
+		jsonObject.add(data);
+		writer.write(jsonObject.toJSONString());
+		writer.flush();
+		writer.close();
+		return "ADDED";
+	}
 
 	/*
 	 * Run the server
@@ -691,7 +707,7 @@ public class Server extends Thread {
 	public void run() {
 		Context context = ZMQ.context(1);
 		Socket socket = context.socket(ZMQ.REP);
-		socket.bind("tcp://127.0.0.1:5576");
+		socket.bind("tcp://127.0.0.1:5579");
 
 		while (!Thread.currentThread().isInterrupted()) {
 
@@ -773,7 +789,15 @@ public class Server extends Thread {
 					e.printStackTrace();
 				}
 			}
-			
+			if (request.equals("ADD_CAREGIVER")) {
+				try {
+					result = this.addCaregiverUser(data);
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+			}
 			if (request.equals("ADD_MEDICAL_PERSONNEL")) {
 				try {
 					result = this.addMedicalPersonnelUser(data);

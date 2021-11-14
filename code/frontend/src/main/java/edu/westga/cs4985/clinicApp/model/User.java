@@ -8,7 +8,7 @@ import edu.westga.cs4985.clinicApp.utils.login.UToken;
  */
 public abstract class User {
 
-	public static User user = null;
+	private static User user = null;
 
 	private String username;
 
@@ -43,9 +43,18 @@ public abstract class User {
 		this.password = password;
 		this.setUserToken();
 	}
-	
+
 	private void setUserToken() {
 		this.userToken = new UToken(this.username, this.password);
+	}
+	
+	/**
+	 * Get user 
+	 * 
+	 * @return the user
+	 */
+	public static User user() {
+		return User.user;
 	}
 
 	/**
@@ -65,6 +74,11 @@ public abstract class User {
 		}
 		return false;
 	}
+	
+	@Override
+	public int hashCode() {
+		return this.userToken.hashCode();
+	}
 
 	public UToken getUserToken() {
 		return this.userToken;
@@ -78,7 +92,7 @@ public abstract class User {
 	public String getPassword() {
 		return this.password;
 	}
-	
+
 	/**
 	 * Sets the username.
 	 *
@@ -87,7 +101,7 @@ public abstract class User {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	
+
 	/**
 	 * Sets the password.
 	 *
