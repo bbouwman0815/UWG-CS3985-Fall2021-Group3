@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="707.0" prefWidth="734.0">
+         <children>
+            <Button fx:id="addCaregiver" layoutX="502.0" layoutY="658.0" mnemonicParsing="false" onAction="#addCaregiver" prefHeight="25.0" prefWidth="151.0" text="Add Caregiver" />
+            <AnchorPane layoutX="70.0" layoutY="168.0" prefHeight="490.0" prefWidth="594.0">
+               <children>
+                  <TextField fx:id="firstNameInput" layoutX="109.0" layoutY="1.0" prefHeight="36.0" prefWidth="161.0" />
+                  <Label layoutX="8.0" layoutY="-2.0" prefHeight="43.0" prefWidth="102.0" text="First Name:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="301.0" layoutY="2.0" prefHeight="36.0" prefWidth="91.0" text="Last Name:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="lastNameInput" layoutX="420.0" layoutY="1.0" prefHeight="36.0" prefWidth="161.0" />
+                  <Label layoutX="7.0" layoutY="334.0" prefHeight="36.0" prefWidth="50.0" text="City:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="310.0" layoutY="272.0" prefHeight="36.0" prefWidth="91.0" text="Address2:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="4.0" layoutY="272.0" prefHeight="36.0" prefWidth="83.0" text="Address1:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="11.0" layoutY="198.0" prefHeight="36.0" prefWidth="69.0" text="Phone:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="305.0" layoutY="198.0" prefHeight="36.0" prefWidth="69.0" text="Email:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="301.0" layoutY="334.0" prefHeight="36.0" prefWidth="50.0" text="State:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="11.0" layoutY="395.0" prefHeight="36.0" prefWidth="69.0" text="Country:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <ChoiceBox fx:id="sexChoiceBox" layoutX="109.0" layoutY="68.0" prefHeight="36.0" prefWidth="161.0" />
+                  <TextField fx:id="phoneInput" layoutX="109.0" layoutY="198.0" prefHeight="36.0" prefWidth="161.0" />
+                  <TextField fx:id="emailInput" layoutX="417.0" layoutY="198.0" prefHeight="36.0" prefWidth="161.0" />
+                  <TextField fx:id="address1Input" layoutX="109.0" layoutY="272.0" prefHeight="36.0" prefWidth="161.0" />
+                  <TextField fx:id="address2Input" layoutX="417.0" layoutY="272.0" prefHeight="36.0" prefWidth="161.0" />
+                  <TextField fx:id="cityInput" layoutX="109.0" layoutY="334.0" prefHeight="36.0" prefWidth="161.0" />
+                  <Label fx:id="caregiverLabel" layoutX="87.0" layoutY="431.0" prefHeight="27.0" prefWidth="117.0" />
+                  <Label layoutX="8.0" layoutY="68.0" prefHeight="36.0" prefWidth="102.0" text="Sex:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="300.0" layoutY="129.0" prefHeight="36.0" prefWidth="102.0" text="Birthday:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="7.0" layoutY="129.0" prefHeight="36.0" prefWidth="50.0" text="Race:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="305.0" layoutY="68.0" prefHeight="36.0" prefWidth="83.0" text="Ethnicity:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="stateInput" layoutX="420.0" layoutY="334.0" prefHeight="36.0" prefWidth="161.0" />
+                  <ChoiceBox fx:id="countryChoiceBox" layoutX="109.0" layoutY="395.0" prefHeight="36.0" prefWidth="161.0" />
+                  <ChoiceBox fx:id="raceChoiceBox" layoutX="109.0" layoutY="129.0" prefHeight="36.0" prefWidth="161.0" />
+                  <ChoiceBox fx:id="ethnicityChoiceBox" layoutX="420.0" layoutY="68.0" prefHeight="36.0" prefWidth="161.0" />
+                  <TextField fx:id="birthdayTextField" layoutX="420.0" layoutY="129.0" prefHeight="36.0" prefWidth="161.0" promptText="DD/MM/YYYY" />
+                  <Label fx:id="invalidEmailLabel" layoutX="420.0" layoutY="237.0" prefHeight="17.0" prefWidth="161.0" text="Invalid Email" textFill="#d70d0d" />
+                  <Label fx:id="invalidDateFormat" layoutX="420.0" layoutY="165.0" prefHeight="17.0" prefWidth="161.0" text="Use DD/MM/YYYY format" textFill="#d70d0d" />
+                 
+                  <Label fx:id="invalidFirstName" layoutX="111.0" layoutY="42.0" prefHeight="17.0" prefWidth="161.0" text="Invalid First Name" textFill="#da1212" />
+                  <Label fx:id="invalidState" layoutX="417.0" layoutY="370.0" prefHeight="17.0" prefWidth="161.0" text="Invalid State" textFill="#da1212" />
+                  <Label fx:id="invalidLastName" layoutX="420.0" layoutY="42.0" prefHeight="17.0" prefWidth="161.0" text="Invalid Last Name" textFill="#da1212" />
+                  <Label fx:id="invalidCity" layoutX="109.0" layoutY="370.0" prefHeight="17.0" prefWidth="161.0" text="Invalid City" textFill="#da1212" />
+                  <Label fx:id="invalidPhoneNumberLabel" layoutX="111.0" layoutY="237.0" prefHeight="17.0" prefWidth="161.0" text="Invalid Phone Number" textFill="#e41414" />
+                  <Label fx:id="invalidCountry" layoutX="109.0" layoutY="431.0" prefHeight="17.0" prefWidth="161.0" text="Please Choose One" textFill="#da1212" />
+                  <Label fx:id="invalidSex" layoutX="111.0" layoutY="104.0" prefHeight="17.0" prefWidth="161.0" text="Please Choose One" textFill="#da1212" />
+                  <Label fx:id="invalidRace" layoutX="109.0" layoutY="165.0" prefHeight="17.0" prefWidth="161.0" text="Please Choose One" textFill="#da1212" />
+                  <Label fx:id="invaildEthnicity" layoutX="417.0" layoutY="104.0" prefHeight="17.0" prefWidth="161.0" text="Please Choose One" textFill="#da1212" />
+               </children>
+            </AnchorPane>
+            <Label layoutX="81.0" layoutY="74.0" text="Username:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="383.0" layoutY="74.0" text="Password:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="usernameTextField" layoutX="176.0" layoutY="69.0" prefHeight="36.0" prefWidth="161.0" />
+            <TextField fx:id="passwordTextField" layoutX="492.0" layoutY="70.0" prefHeight="36.0" prefWidth="161.0" />
+            <Label fx:id="usernameExistsLabel" layoutX="176.0" layoutY="113.0" prefHeight="17.0" prefWidth="161.0" text="Username already exists" textFill="#da1212" />
+            <Label fx:id="invalidAddress1" layoutX="182.0" layoutY="482.0" prefHeight="17.0" prefWidth="161.0" text="Invalid Address1" textFill="#da1212" />
+            <Label fx:id="invalidPassword" layoutX="492.0" layoutY="113.0" prefHeight="17.0" prefWidth="161.0" text="Invalid Password" textFill="#da1212" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

@@ -214,6 +214,28 @@ public class DataWriter {
 		json.put("zipcode", medicalPersonnel.getZipCode());
 		return json.toJSONString();
 	}
+	
+	@SuppressWarnings("unchecked")
+	public static String writeCaregiverInfo(Caregiver caregiver) {
+		JSONObject json = new JSONObject();
+		json.put("type", "Caregiver");
+		json.put("userName", caregiver.getUsername());
+		json.put("password", caregiver.getPassword());
+		json.put("firstName", caregiver.getFirstName());
+		json.put("lastName", caregiver.getLastName());
+		json.put("gender", caregiver.getGender());
+		json.put("dateOfBirth", caregiver.getDateOfBirth());
+		json.put("address1", caregiver.getAddress1());
+		json.put("address2", caregiver.getAddress2());
+		json.put("city", caregiver.getCity());
+		json.put("state", caregiver.getState());
+		json.put("country", caregiver.getCountry());
+		json.put("race", caregiver.getRace());
+		json.put("ethnicty", caregiver.getEthnicity());
+		json.put("phoneNumber", caregiver.getPhoneNumber());
+		json.put("email", caregiver.getEmail());
+		return json.toJSONString();
+	}
 
 	/**
 	 * Write the appointment as json

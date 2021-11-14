@@ -213,9 +213,28 @@ public class UserManager {
 		return true;
 	}
 
+	/**
+	 * Add medicalPersonnel
+	 * @param medicalPersonnel the medicalPersonnel
+	 * @return true if added, false otherwisw
+	 */
 	public boolean addMedicalPersonnel(MedicalPersonnel medicalPersonnel) {
 		String requestData = DataWriter.writeMedicalPersonnelInfo(medicalPersonnel);
 		String reply = this.communicator.request(RequestType.ADD_MEDICAL_PERSONNEL, requestData);
+		if (reply.equals("ERROR")) {
+			return false;
+		}
+		return true;
+	}
+	
+	/**
+	 * Add caregiver
+	 * @param caregiver the caregiver
+	 * @return true if added, false otherwisw
+	 */
+	public boolean addCaregiver(Caregiver caregiver) {
+		String requestData = DataWriter.writeCaregiverInfo(caregiver);
+		String reply = this.communicator.request(RequestType.ADD_CAREGIVER, requestData);
 		if (reply.equals("ERROR")) {
 			return false;
 		}

@@ -52,9 +52,12 @@ public class RegisterCodeBehind {
 			currentStage.fireEvent(new WindowEvent(currentStage, WindowEvent.WINDOW_CLOSE_REQUEST));
 			currentStage.close();
 
-		} //else if (this.roleSelecter.getValue().equals("Caregiver")) {
-//			
-//		}
+		} else if (this.roleSelecter.getValue().equals("Caregiver")) {
+			WindowGenerator.setupAddNewCaregiver();
+			Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+			currentStage.fireEvent(new WindowEvent(currentStage, WindowEvent.WINDOW_CLOSE_REQUEST));
+			currentStage.close();
+		}
 
 	}
 

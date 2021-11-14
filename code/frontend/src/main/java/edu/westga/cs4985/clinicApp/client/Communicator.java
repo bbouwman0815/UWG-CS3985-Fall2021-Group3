@@ -30,7 +30,7 @@ public class Communicator {
 		this.context = new ZContext(1);
 		System.out.println("Connecting to server");
 		this.socket = this.context.createSocket(ZMQ.REQ);
-		this.socket.connect("tcp://127.0.0.1:5573");
+		this.socket.connect("tcp://127.0.0.1:5579");
 	}
 
 	/**

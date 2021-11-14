@@ -90,9 +90,6 @@ public class Patient extends Person {
 	 * @param caregiver the new caregiver
 	 */
 	public void setCaregiver(Caregiver caregiver) {
-		if (caregiver == null) {
-			throw new IllegalArgumentException(UI.ExceptionMessages.NULL_DATEOFBIRTH);
-		}
 		this.careGiver = caregiver;
 	}
 
