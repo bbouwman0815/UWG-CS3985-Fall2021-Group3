@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import org.json.simple.parser.ParseException;
+
+import edu.westga.cs4985.clinicApp.model.Caregiver;
 import edu.westga.cs4985.clinicApp.model.Patient;
 import edu.westga.cs4985.clinicApp.model.UserManager;
 import edu.westga.cs4985.clinicApp.resources.InputValidators;
@@ -328,7 +330,7 @@ public class PatientGeneralInfoCodeBehind {
 
 	@FXML
 	void removerCaregiver(ActionEvent event) {
-		this.viewModel.getPatient().setCaregiver("");
+		this.viewModel.getPatient().setCaregiver(null);
 		this.caregiverLabel.textProperty().set("");
 		this.addCaregiverButton.setVisible(true);
 		this.removeCaregiverButton.setVisible(false);
@@ -362,7 +364,7 @@ public class PatientGeneralInfoCodeBehind {
 			this.raceChoiceBox.setValue(patient.getRace());
 			this.sexChoiceBox.setValue(patient.getGender());
 			this.insuranceInput.setText(patient.getInsurance());
-			this.caregiverLabel.setText(patient.getCaregiver());
+			this.caregiverLabel.setText(patient.getCaregiver().toString());
 		} catch (IllegalArgumentException e) {
 
 		}
@@ -447,7 +449,6 @@ public class PatientGeneralInfoCodeBehind {
 		this.viewModel.getPatient().setRace(this.raceChoiceBox.getSelectionModel().getSelectedItem());
 		this.viewModel.getPatient().setGender(this.sexChoiceBox.getSelectionModel().getSelectedItem());
 		this.viewModel.getPatient().setInsurance(this.insuranceInput.getText());
-		this.viewModel.getPatient().setCaregiver(this.caregiverLabel.getText());
 
 		this.editbutton.setVisible(true);
 		this.saveButton.setVisible(false);
@@ -484,9 +485,12 @@ public class PatientGeneralInfoCodeBehind {
 	public class AddCaregiverPopupCodeBehind {
 
 		@FXML
-		private ListView<String> caregiverList;
+		private ListView<Caregiver> caregiverList;
+		
+		private PatientViewModel viewModel;
 
 		public AddCaregiverPopupCodeBehind(PatientViewModel viewModel) {
+			this.viewModel = viewModel;
 		}
 
 		@FXML
@@ -499,17 +503,16 @@ public class PatientGeneralInfoCodeBehind {
 				PatientGeneralInfoCodeBehind.this.addCaregiverButton.setVisible(false);
 				PatientGeneralInfoCodeBehind.this.removeCaregiverButton.setVisible(true);
 				PatientGeneralInfoCodeBehind.this.caregiverLabel.textProperty()
-						.set(this.caregiverList.getSelectionModel().getSelectedItem());
+						.set(this.caregiverList.getSelectionModel().getSelectedItem().toString());
+				this.viewModel.getPatient().setCaregiver(this.caregiverList.getSelectionModel().getSelectedItem());
 				this.returnToPreviousStage(event);
 			}
 
 		}
 
 		@FXML
-		public void initialize() {
-			this.caregiverList.getItems().add("Caregiver A");
-			this.caregiverList.getItems().add("Caregiver B");
-			this.caregiverList.getItems().add("Caregiver C");
+		public void initialize() throws ParseException {
+			this.caregiverList.itemsProperty().set(FXCollections.observableArrayList(UserManager.userManager().getAllCaregivers()));
 		}
 
 		@FXML

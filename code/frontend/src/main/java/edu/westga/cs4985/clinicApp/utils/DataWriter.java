@@ -188,7 +188,7 @@ public class DataWriter {
 		json.put("phoneNumber", patient.getPhoneNumber());
 		json.put("email", patient.getEmail());
 		json.put("insurance", patient.getInsurance());
-		json.put("caregiver", patient.getCaregiver() == null? "" : patient.getCaregiver().getUsername());
+		json.put("caregiver", patient.getCaregiver() == null ? "" : patient.getCaregiver().getUsername());
 		return json.toJSONString();
 	}
 

@@ -12,7 +12,6 @@ import edu.westga.cs4985.clinicApp.model.MedicalCondition;
 import edu.westga.cs4985.clinicApp.model.Patient;
 import edu.westga.cs4985.clinicApp.model.UserManager;
 import edu.westga.cs4985.clinicApp.resources.WindowGenerator;
-import edu.westga.cs4985.clinicApp.view.generalInfor.PatientGeneralInfoCodeBehind.AddCaregiverPopupCodeBehind;
 import edu.westga.cs4985.clinicApp.viewmodel.MedicalPersonnelViewModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -331,7 +330,7 @@ public class MedicalPersonnelCodeBehind {
 	public class AddCaregiverPopupCodeBehind {
 
 		@FXML
-		private ListView<String> caregiverList;
+		private ListView<Caregiver> caregiverList;
 
 		private MedicalPersonnelViewModel viewModel;
 
@@ -349,7 +348,7 @@ public class MedicalPersonnelCodeBehind {
 				MedicalPersonnelCodeBehind.this.addCaregiverButton.setVisible(false);
 				MedicalPersonnelCodeBehind.this.removeCaregiverButton.setVisible(true);
 				MedicalPersonnelCodeBehind.this.caregiverLabel.textProperty()
-						.set(this.caregiverList.getSelectionModel().getSelectedItem());
+						.set(this.caregiverList.getSelectionModel().getSelectedItem().toString());
 				this.viewModel.selectedPatient().setCaregiver(this.caregiverList.getSelectionModel().getSelectedItem());
 				UserManager.userManager().updatePatientGeneralInfo(this.viewModel.selectedPatient());
 				this.returnToPreviousStage(event);
@@ -358,10 +357,8 @@ public class MedicalPersonnelCodeBehind {
 		}
 
 		@FXML
-		public void initialize() {
-			this.caregiverList.getItems().add("Caregiver A");
-			this.caregiverList.getItems().add("Caregiver B");
-			this.caregiverList.getItems().add("Caregiver C");
+		public void initialize() throws ParseException {
+			this.caregiverList.itemsProperty().set(FXCollections.observableArrayList(UserManager.userManager().getAllCaregivers()));
 		}
 
 		@FXML

@@ -33,324 +33,119 @@ import javafx.stage.WindowEvent;
  *
  */
 public class AppointmentCodeBehind {
-
+	
 	@FXML
-	private Button bookAppointment;
+    private Button bookAppointment;
 
-	@FXML
-	private ListView<Appointment> futureAppointmentList;
+    @FXML
+    private ListView<Appointment> futureAppointmentList;
 
-	@FXML
-	private ListView<Appointment> pastAppointmentList;
+    @FXML
+    private ListView<Appointment> pastAppointmentList;
+    
+    private PatientViewModel viewModel;
+    
+    private static final String APPOINTMENT_VIEW_POPUP = "../appointment/AppointmentViewPopup.fxml";
+    
+    private static final String BOOK_APPOINTMENT_POPUP = "../appointment/BookAppointmentPopup.fxml";
+    
+    public AppointmentCodeBehind() {
+    	this.viewModel = new PatientViewModel();
+    }
+    
+    @FXML
+    public void initialize() throws ParseException {
+    	this.setBindings();
+    	this.setListeners();
+    	List<Appointment> appointments = FXCollections.observableArrayList(UserManager.userManager().getAppointments(this.viewModel.getPatient().getUsername()));
+    	this.viewModel.filterAppointment(appointments);
+    }
+    
+    public void setBindings() {
+    	this.futureAppointmentList.itemsProperty().bindBidirectional(this.viewModel.futureAppointmentListProperty());
+    	this.pastAppointmentList.itemsProperty().bindBidirectional(this.viewModel.pastAppointmentListProperty());
+    	this.viewModel.selectedFutureAppointmentProperty().bind(this.futureAppointmentList.getSelectionModel().selectedItemProperty());
+    	this.viewModel.selectedPastAppointmentProperty().bind(this.pastAppointmentList.getSelectionModel().selectedItemProperty());
+    	
+    }
+    
+    public void setListeners() {
+    	this.futureAppointmentList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+    		if (newValue != null) {
+    			try {
+    				Stage popup = WindowGenerator.openPopup(APPOINTMENT_VIEW_POPUP, new AppointmentViewPopupCodeBehind(this.viewModel), "Appointment View Window");
+    	        	popup.setOnCloseRequest((event) -> {
+    	        		this.futureAppointmentList.getSelectionModel().clearSelection();
+    	        	});
+    	        	
+    	        	popup.show();
+    	        	
+    			} catch (IOException e) {
+					e.printStackTrace();
+				}
+    		}
+    	});
+    	this.pastAppointmentList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+    		if (newValue != null) {
+    			try {
+    				Stage popup = WindowGenerator.openPopup(APPOINTMENT_VIEW_POPUP, new AppointmentViewPopupCodeBehind(this.viewModel), "Appointment View Window");
+    	        	popup.setOnCloseRequest((event) -> {
+    	        		this.pastAppointmentList.getSelectionModel().clearSelection();
+    	        	});
+    	        	
+    	        	popup.show();
+    			} catch (IOException e) {
+					e.printStackTrace();
+				}
+    		}
+    	});
+    }
 
-	private PatientViewModel viewModel;
+    @FXML
+    void bookAppointment(ActionEvent event) throws IOException {
+    	Stage popup = WindowGenerator.openPopup(BOOK_APPOINTMENT_POPUP, new BookAppointmentPopupCodeBehind(this.viewModel), "Booking Appointment Window");
+    	popup.show();
+    }
 
-	private static final String APPOINTMENT_VIEW_POPUP = "../appointment/AppointmentViewPopup.fxml";
+    public class BookAppointmentPopupCodeBehind {
+    	
+    	@FXML
+    	private TextField zipcodeInput;
 
-	private static final String BOOK_APPOINTMENT_POPUP = "../appointment/BookAppointmentPopup.fxml";
+        @FXML
+        private ListView<MedicalPersonnel> medicalPersonList;
 
-	public AppointmentCodeBehind() {
-		this.viewModel = new PatientViewModel();
-	}
+        @FXML
+        private ListView<LocalDateTime> availableTimeList;
 
-	@FXML
-	public void initialize() throws ParseException {
-		this.setBindings();
-		this.setListeners();
-		List<Appointment> appointments = FXCollections.observableArrayList(
-				UserManager.userManager().getAppointments(this.viewModel.getPatient().getUsername()));
-		this.viewModel.filterAppointment(appointments);
-	}
-
-	public void setBindings() {
-		this.futureAppointmentList.itemsProperty().bindBidirectional(this.viewModel.futureAppointmentListProperty());
-		this.pastAppointmentList.itemsProperty().bindBidirectional(this.viewModel.pastAppointmentListProperty());
-		this.viewModel.selectedFutureAppointmentProperty()
-				.bind(this.futureAppointmentList.getSelectionModel().selectedItemProperty());
-		this.viewModel.selectedPastAppointmentProperty()
-				.bind(this.pastAppointmentList.getSelectionModel().selectedItemProperty());
-
-	}
-
-	public void setListeners() {
-		this.futureAppointmentList.getSelectionModel().selectedItemProperty()
-				.addListener((observable, oldValue, newValue) -> {
-					if (newValue != null) {
-						this.showAppointmentPopUp();
-					}
-				});
-
-		this.pastAppointmentList.getSelectionModel().selectedItemProperty()
-				.addListener((observable, oldValue, newValue) -> {
-					if (newValue != null) {
-						this.showAppointmentPopUp();
-					}
-				});
-	}
-
-	private void showAppointmentPopUp() {
-		try {
-			Stage popup = WindowGenerator.openPopup(APPOINTMENT_VIEW_POPUP,
-					new AppointmentViewPopupCodeBehind(this.viewModel), "Appointment View Window");
-			popup.setOnCloseRequest((event) -> {
-				this.futureAppointmentList.getSelectionModel().clearSelection();
-			});
-
-			popup.show();
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	@FXML
-	void bookAppointment(ActionEvent event) throws IOException {
-		Stage popup = WindowGenerator.openPopup(BOOK_APPOINTMENT_POPUP,
-				new BookAppointmentPopupCodeBehind(this.viewModel), "Booking Appointment Window");
-		popup.show();
-	}
-
-	public class BookAppointmentPopupCodeBehind {
-
-		@FXML
-		private TextField zipcodeInput;
-
-		@FXML
-		private ListView<MedicalPersonnel> medicalPersonList;
-
-		@FXML
-		private ListView<LocalDateTime> availableTimeList;
-
-		@FXML
-		private TextArea noteTextBox;
-
-		private PatientViewModel viewModel;
-
-		public BookAppointmentPopupCodeBehind(PatientViewModel viewModel) {
-			this.viewModel = viewModel;
-		}
-
-		@FXML
-		public void initialize() {
-			this.setBindings();
-
-			this.medicalPersonList.getSelectionModel().selectedItemProperty()
-					.addListener((observable, oldValue, newValue) -> {
-						if (newValue != null) {
-							List<LocalDateTime> list;
-							try {
-								list = UserManager.userManager().getAvailabilities(newValue.getUsername());
-								if (list.size() == 0) {
-									Alert alert = WindowGenerator.openAlert(
-											"The Medical Personnel not available now. Please choose another one!");
-
-									alert.showAndWait();
-								} else {
-									this.availableTimeList.itemsProperty().set(FXCollections.observableArrayList(list));
-								}
-							} catch (ParseException e) {
-								e.printStackTrace();
-							}
-
-						}
-					});
-		}
-
-		public void setBindings() {
-			this.viewModel.seletedMedicalPersonnel()
-					.bind(this.medicalPersonList.getSelectionModel().selectedItemProperty());
-			this.viewModel.selectedAvailabilityProperty()
-					.bind(this.availableTimeList.getSelectionModel().selectedItemProperty());
-
-		}
-
-		@FXML
-		void bookTheAppointment(ActionEvent event) throws IOException {
-			if (this.viewModel.isBookedAppointment()) {
-				Alert alert = WindowGenerator.openAlert("The appointment already book! Please select another date!");
-
-				alert.showAndWait();
-			} else if (this.viewModel.seletedMedicalPersonnel().get() == null) {
-				Alert alert = WindowGenerator.openAlert("Please select your medical personnel!");
-
-				alert.showAndWait();
-			} else if (this.viewModel.selectedAvailabilityProperty().get() == null) {
-				Alert alert = WindowGenerator.openAlert("Please select your time!");
-
-				alert.showAndWait();
-			} else {
-				this.bookApointment(event);
-			}
-
-		}
-
-		private void bookApointment(ActionEvent event) {
-			Alert bookAlert = WindowGenerator.openConfirm("Are you sure want to book this appointment?");
-			bookAlert.setOnCloseRequest((action) -> {
-				if (bookAlert.getResult().getButtonData().equals(ButtonData.YES)) {
-					this.viewModel.notesProperty().set(this.noteTextBox.getText());
-					Appointment appointment = this.viewModel.bookAppointment();
-					UserManager.userManager().bookAppointment(appointment);
-
+        @FXML
+        private TextArea noteTextBox;
+        
+        private PatientViewModel viewModel;
+        
+        public BookAppointmentPopupCodeBehind(PatientViewModel viewModel) {
+        	this.viewModel = viewModel;
+        }
+        
+        @FXML
+        public void initialize() {
+        	this.setBindings();
+        	
+        	this.medicalPersonList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        		if (newValue != null) {
+        			List<LocalDateTime> list;
 					try {
-						List<LocalDateTime> availabilityList = UserManager.userManager()
-								.getAvailabilities(this.viewModel.seletedMedicalPersonnel().getValue().getUsername());
-						availabilityList.remove(appointment.getDateTime());
-						UserManager.userManager().updateMedicalPersonnelAvaiabilities(
-								this.viewModel.seletedMedicalPersonnel().get(), availabilityList);
-					} catch (ParseException e1) {
-						e1.printStackTrace();
-					}
-
-					Stage popup;
-					try {
-						popup = WindowGenerator.openPopup(APPOINTMENT_VIEW_POPUP,
-								new AppointmentViewPopupCodeBehind(this.viewModel), "Appointment View Window");
-						popup.show();
-					} catch (IOException e) {
+						list = UserManager.userManager().getAvailabilities(newValue.getUsername());
+						if (list.size() == 0) {
+							Alert alert = WindowGenerator.openAlert("The Medical Personnel not available now. Please choose another one!");
+			            	
+			    			alert.showAndWait();
+	            		} else {
+	            			this.availableTimeList.itemsProperty().set(FXCollections.observableArrayList(list));
+	            		}
+					} catch (ParseException e) {
 						e.printStackTrace();
 					}
-<<<<<<< HEAD
-					Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-					currentStage.fireEvent(new WindowEvent(currentStage, WindowEvent.WINDOW_CLOSE_REQUEST));
-					currentStage.close();
-
-				}
-			});
-			bookAlert.show();
-		}
-
-		@FXML
-		void cancel(ActionEvent event) {
-			Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-			currentStage.fireEvent(new WindowEvent(currentStage, WindowEvent.WINDOW_CLOSE_REQUEST));
-			currentStage.close();
-		}
-
-		@FXML
-		void getCityName(ActionEvent event) throws ParseException {
-
-			String zipcode = this.zipcodeInput.getText();
-			try {
-				int zip = Integer.parseInt(zipcode);
-				if (zip > 99999 || zip < 10000) {
-					Alert alert = WindowGenerator.openAlert("Please entery FIVE digits for zipcode!");
-
-					alert.showAndWait();
-					return;
-				}
-				List<MedicalPersonnel> list = UserManager.userManager().getAllMedicalPersonnels(zipcode);
-				if (list.size() == 0) {
-					Alert alert = WindowGenerator.openAlert(
-							"There are no any Medical Personnel in this area. Please entry another zipcode!");
-
-					alert.showAndWait();
-					return;
-				} else {
-					this.medicalPersonList.itemsProperty().set(FXCollections.observableArrayList(list));
-				}
-
-			} catch (NumberFormatException e) {
-				Alert alert = WindowGenerator.openAlert("Please entery numbers for zipcode!");
-
-				alert.showAndWait();
-				return;
-			}
-		}
-
-	}
-
-	public class AppointmentViewPopupCodeBehind {
-
-		@FXML
-		private TextArea appointmentNotes;
-
-		@FXML
-		private Button editButton;
-
-		@FXML
-		private Button oKButton;
-
-		@FXML
-		private Button saveButton;
-
-		@FXML
-		private Button cancelAppointmentButton;
-
-		@FXML
-		private Label medicalPersonnelLabel;
-
-		@FXML
-		private Label patientLabel;
-
-		@FXML
-		private Label timeLabel;
-
-		@FXML
-		private Label locationLabel;
-
-		private PatientViewModel viewModel;
-
-		public AppointmentViewPopupCodeBehind(PatientViewModel viewModel) {
-			this.viewModel = viewModel;
-		}
-
-		@FXML
-		public void initialize() {
-			this.editButton.setVisible(false);
-			this.saveButton.setVisible(false);
-			this.appointmentNotes.setEditable(false);
-			if (this.viewModel.selectedFutureAppointmentProperty().get() != null) {
-				this.selectFutureAppointment();
-			} else if (this.viewModel.selectedPastAppointmentProperty().get() != null) {
-				this.selectPastAppointment();
-			} else {
-				this.cancelAppointmentButton.setVisible(false);
-				this.medicalPersonnelLabel.textProperty()
-						.set("Medical Personnel: " + this.viewModel.seletedMedicalPersonnel().get());
-				this.patientLabel.textProperty().set("Patient: " + this.viewModel.getPatient().getFullName());
-				this.timeLabel.textProperty().set("Time: " + this.viewModel.selectedAvailabilityProperty().get());
-				this.locationLabel.textProperty()
-						.set("Location: " + this.viewModel.seletedMedicalPersonnel().get().getFullAddress());
-				this.appointmentNotes.textProperty().set(this.viewModel.notesProperty().get());
-
-			}
-
-		}
-		
-		private void selectFutureAppointment() {
-			this.medicalPersonnelLabel.textProperty().set("Medical Personnel: "
-					+ this.viewModel.selectedFutureAppointmentProperty().get().getMedicalPersonnel());
-			this.timeLabel.textProperty()
-					.set("Time: " + this.viewModel.selectedFutureAppointmentProperty().get().getDateTime());
-			this.appointmentNotes.textProperty()
-					.set(this.viewModel.selectedFutureAppointmentProperty().get().getNotes());
-			this.patientLabel.textProperty().set("Patient: "
-					+ this.viewModel.selectedFutureAppointmentProperty().get().getPatient().getFullName());
-			this.locationLabel.textProperty()
-					.set("Location: " + this.viewModel.selectedFutureAppointmentProperty().get().getLocation());
-			this.cancelAppointmentButton.setVisible(true);
-		}
-		
-		private void selectPastAppointment() {
-			this.cancelAppointmentButton.setVisible(false);
-			this.medicalPersonnelLabel.textProperty().set("Medical Personnel: "
-					+ this.viewModel.selectedPastAppointmentProperty().get().getMedicalPersonnel());
-			this.timeLabel.textProperty()
-					.set("Time: " + this.viewModel.selectedPastAppointmentProperty().get().getDateTime());
-			this.appointmentNotes.textProperty()
-					.set(this.viewModel.selectedPastAppointmentProperty().get().getNotes());
-			this.patientLabel.textProperty().set("Patient: "
-					+ this.viewModel.selectedPastAppointmentProperty().get().getPatient().getFullName());
-			this.locationLabel.textProperty()
-					.set("Location: " + this.viewModel.selectedPastAppointmentProperty().get().getLocation());
-		}
-
-		@FXML
-		void cancelAppointment(ActionEvent event) {
-			Alert alert = WindowGenerator.openConfirm("Are you sure you want to cancel this appointment?");
-
-=======
             		
         			
         		}
@@ -374,37 +169,38 @@ public class AppointmentCodeBehind {
             	
     			alert.showAndWait();
         	} else {
-        		Alert bookAlert = WindowGenerator.openConfirm("Are you sure want to book this appointment?");
-            	bookAlert.setOnCloseRequest((action) -> {
-            		if (bookAlert.getResult().getButtonData().equals(ButtonData.YES)) {
-            			this.viewModel.notesProperty().set(this.noteTextBox.getText());
-            			Appointment appointment = this.viewModel.bookAppointment();
-            			UserManager.userManager.bookAppointment(appointment);
-            			
-            			try {
-							List<LocalDateTime> availabilityList = UserManager.userManager.getAvailabilities(this.viewModel.seletedMedicalPersonnel().getValue().getUsername());
-							availabilityList.remove(appointment.getDateTime());
-							UserManager.userManager.updateMedicalPersonnelAvaiabilities(this.viewModel.seletedMedicalPersonnel().get(), availabilityList);
-						} catch (ParseException e1) {
-							e1.printStackTrace();
-						}
-            			
-            			Stage popup;
-						try {
-							popup = WindowGenerator.openPopup(APPOINTMENT_VIEW_POPUP, new AppointmentViewPopupCodeBehind(this.viewModel), "Appointment View Window");
-							popup.show();
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
-						Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-	                    currentStage.fireEvent(new WindowEvent(currentStage, WindowEvent.WINDOW_CLOSE_REQUEST));
-	                    currentStage.close();
-
-            		}
-            	});
-        		bookAlert.show();
+        		this.bookAppointmentHelper(event);
         	}
         	
+        }
+        
+        private void bookAppointmentHelper(ActionEvent event) {
+        	Alert bookAlert = WindowGenerator.openConfirm("Are you sure want to book this appointment?");
+        	bookAlert.setOnCloseRequest((action) -> {
+        		if (bookAlert.getResult().getButtonData().equals(ButtonData.YES)) {
+        			this.viewModel.notesProperty().set(this.noteTextBox.getText());
+        			Appointment appointment = this.viewModel.bookAppointment();
+        			UserManager.userManager().bookAppointment(appointment);
+        			try {
+						List<LocalDateTime> availabilityList = UserManager.userManager().getAvailabilities(this.viewModel.seletedMedicalPersonnel().getValue().getUsername());
+						availabilityList.remove(appointment.getDateTime());
+						UserManager.userManager().updateMedicalPersonnelAvaiabilities(this.viewModel.seletedMedicalPersonnel().get(), availabilityList);
+					} catch (ParseException e1) {
+						e1.printStackTrace();
+					}
+        			Stage popup;
+					try {
+						popup = WindowGenerator.openPopup(APPOINTMENT_VIEW_POPUP, new AppointmentViewPopupCodeBehind(this.viewModel), "Appointment View Window");
+						popup.show();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    currentStage.fireEvent(new WindowEvent(currentStage, WindowEvent.WINDOW_CLOSE_REQUEST));
+                    currentStage.close();
+        		}
+        	});
+    		bookAlert.show();
         }
 
         @FXML
@@ -426,7 +222,7 @@ public class AppointmentCodeBehind {
         			alert.showAndWait();
         			return;
         		}
-        		List<MedicalPersonnel> list = UserManager.userManager.getAllMedicalPersonnels(zipcode);
+        		List<MedicalPersonnel> list = UserManager.userManager().getAllMedicalPersonnels(zipcode);
         		if (list.size() == 0) {
         			Alert alert = WindowGenerator.openAlert("There are no any Medical Personnel in this area. Please entry another zipcode!");
                 	
@@ -436,13 +232,13 @@ public class AppointmentCodeBehind {
         			this.medicalPersonList.itemsProperty().set(FXCollections.observableArrayList(list));
         		}
         		
-        	} catch(NumberFormatException e) {
+        	} catch (NumberFormatException e) {
         		Alert alert = WindowGenerator.openAlert("Please entery numbers for zipcode!");
         	
         		alert.showAndWait();
         		return;
         	}
-       }
+        }
 
     }
 
@@ -455,7 +251,7 @@ public class AppointmentCodeBehind {
         private Button editButton;
 
         @FXML
-        private Button OKButton;
+        private Button oKButton;
 
         @FXML
         private Button saveButton;
@@ -516,22 +312,19 @@ public class AppointmentCodeBehind {
         void cancelAppointment(ActionEvent event) {
         	Alert alert = WindowGenerator.openConfirm("Are you sure you want to cancel this appointment?");
         	
->>>>>>> feature-create-caregiver-and-implement-UI
 			alert.setOnCloseRequest((evt) -> {
 				if (alert.getResult().getButtonData().equals(ButtonData.YES)) {
-					Appointment appointment = this.viewModel.cancelAppointment();
+					Appointment appointment =  this.viewModel.cancelAppointment();
 					UserManager.userManager().cancelAppointment(appointment);
-
+					
 					try {
-						List<LocalDateTime> availabilityList = UserManager.userManager()
-								.getAvailabilities(appointment.getMedicalPersonnel().getUsername());
+						List<LocalDateTime> availabilityList = UserManager.userManager().getAvailabilities(appointment.getMedicalPersonnel().getUsername());
 						availabilityList.add(appointment.getDateTime());
-						UserManager.userManager().updateMedicalPersonnelAvaiabilities(appointment.getMedicalPersonnel(),
-								availabilityList);
+						UserManager.userManager().updateMedicalPersonnelAvaiabilities(appointment.getMedicalPersonnel(), availabilityList);
 					} catch (ParseException e1) {
 						e1.printStackTrace();
 					}
-
+					
 					Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 					currentStage.fireEvent(new WindowEvent(currentStage, WindowEvent.WINDOW_CLOSE_REQUEST));
 					currentStage.close();
@@ -539,25 +332,25 @@ public class AppointmentCodeBehind {
 			});
 			alert.showAndWait();
 
-		}
+        }
 
-		@FXML
-		void onOKButton(ActionEvent event) {
-			Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-			currentStage.fireEvent(new WindowEvent(currentStage, WindowEvent.WINDOW_CLOSE_REQUEST));
-			currentStage.close();
+        @FXML
+        void onOKButton(ActionEvent event) {
+        	Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        	currentStage.fireEvent(new WindowEvent(currentStage, WindowEvent.WINDOW_CLOSE_REQUEST));
+        	currentStage.close();
 
-		}
+        }
+        
+        @FXML
+        void onEditNotes(ActionEvent event) {
+        	//No need for Patient
+        }
 
-		@FXML
-		void onEditNotes(ActionEvent event) {
-			// No need for Patient
-		}
-
-		@FXML
-		void saveNotes(ActionEvent event) {
-			// No need for Patient
-		}
-	}
+        @FXML
+        void saveNotes(ActionEvent event) {
+        	//No need for Patient
+        }
+    }
 
 }

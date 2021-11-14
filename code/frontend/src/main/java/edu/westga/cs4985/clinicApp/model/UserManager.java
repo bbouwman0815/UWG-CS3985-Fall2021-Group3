@@ -377,8 +377,8 @@ public class UserManager {
 	/**
 	 * Gets the patients for Caregiver.
 	 *
-	 * @param medicalPersonnel the medical personnel
-	 * @return the patients for medical personnel
+	 * @param caregiver the caregiver
+	 * @return the patients for caregiver
 	 * @throws ParseException the parse exception
 	 */
 	public List<Patient> getPatientsForCaregiver(String caregiver) throws ParseException {
@@ -410,7 +410,9 @@ public class UserManager {
 	/**
 	 * Removes the caregiver patient.
 	 *
-	 * @param username the username
+	 * @param caregiver the caregiver
+	 * @param patients the patients
+	 * 
 	 * @return true, if successful
 	 */
 	public boolean updateCaregiverPatients(Caregiver caregiver,  List<Patient> patients) {
@@ -519,7 +521,7 @@ public class UserManager {
 
 			Patient patient = new Patient(firstName, lastName, gender, dateOfBirth, address1, address2, city, state,
 					country, race, ethnicity, phoneNumber, email, insurance, userName, password);
-			patient.setCaregiver((Caregiver)this.getCaregiverByUserName((String) parseData.get("caregiver")));
+			patient.setCaregiver((Caregiver) this.getCaregiverByUserName((String) parseData.get("caregiver")));
 			patients.add(patient);
 
 		}
@@ -609,13 +611,13 @@ public class UserManager {
 	public User convertToUser(String reply) throws org.json.simple.parser.ParseException {
 		JSONObject json = null;
 		json = (JSONObject) (new JSONParser()).parse(reply);
-		return convertToUser(json);
+		return this.convertToUser(json);
 	}
 	
 	/**
 	 * Convert json string to user
 	 * 
-	 * @param reply the user json string
+	 * @param json the user json string
 	 * 
 	 * @return the user associated with the json string
 	 * @throws ParseException 
@@ -625,20 +627,20 @@ public class UserManager {
 		String type = ((String) json.get("type"));
 		if (type.equals("PATIENT")) {
 			Patient patient = new Patient((String) json.get("firstName"), (String) json.get("lastName"), (String) json.get("gender"), (String) json.get("dateOfBirth"), (String) json.get("address1"),
-					(String) json.get("address2"), (String) json.get("city"), (String) json.get("state"), (String) json.get("country"), (String) json.get("race"),(String) json.get("ethnicty"),
+					(String) json.get("address2"), (String) json.get("city"), (String) json.get("state"), (String) json.get("country"), (String) json.get("race"), (String) json.get("ethnicty"),
 					(String) json.get("phoneNumber"), (String) json.get("email"), (String) json.get("insurance"), (String) json.get("userName"), (String) json.get("password"));
-			patient.setCaregiver((Caregiver)this.getCaregiverByUserName((String) json.get("caregiver")));
+			patient.setCaregiver((Caregiver) this.getCaregiverByUserName((String) json.get("caregiver")));
 			user = patient;
 		}
 		if (type.equals("MedicalPersonnel")) {
 			MedicalPersonnel medicalPersonnel = new MedicalPersonnel((String) json.get("firstName"), (String) json.get("lastName"), (String) json.get("gender"), (String) json.get("dateOfBirth"), (String) json.get("address1"),
-					(String) json.get("address2"), (String) json.get("city"), (String) json.get("state"), (String) json.get("country"), (String) json.get("race"),(String) json.get("ethnicty"),
+					(String) json.get("address2"), (String) json.get("city"), (String) json.get("state"), (String) json.get("country"), (String) json.get("race"), (String) json.get("ethnicty"),
 					(String) json.get("phoneNumber"), (String) json.get("email"), (String) json.get("userName"), (String) json.get("password"), (String) json.get("zipcode"));
 			user = medicalPersonnel;
 		}
 		if (type.equals("Caregiver")) {
 			Caregiver caregiver = new Caregiver((String) json.get("firstName"), (String) json.get("lastName"), (String) json.get("gender"), (String) json.get("dateOfBirth"), (String) json.get("address1"),
-					(String) json.get("address2"), (String) json.get("city"), (String) json.get("state"), (String) json.get("country"), (String) json.get("race"),(String) json.get("ethnicty"),
+					(String) json.get("address2"), (String) json.get("city"), (String) json.get("state"), (String) json.get("country"), (String) json.get("race"), (String) json.get("ethnicty"),
 					(String) json.get("phoneNumber"), (String) json.get("email"), (String) json.get("userName"), (String) json.get("password"));
 			user = caregiver;
 		}

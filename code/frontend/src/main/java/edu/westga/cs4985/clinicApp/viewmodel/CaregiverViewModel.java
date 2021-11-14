@@ -217,9 +217,9 @@ public class CaregiverViewModel {
 	 * @return true if current appointment is booked; otherwise false
 	 */
 	public boolean isBookedAppointment() {
-		for (Appointment appointment : this.futureppointmentList){
-			if (appointment.getMedicalPersonnel().equals(this.seletedMedicalPersonnel.get()) &&
-					appointment.getDateTime().equals(this.selectedAvailabilityProperty.get())) {
+		for (Appointment appointment : this.futureppointmentList) { 
+			if (appointment.getMedicalPersonnel().equals(this.seletedMedicalPersonnel.get()) 
+					&& appointment.getDateTime().equals(this.selectedAvailabilityProperty.get())) {
 				return true;
 			}
 		}
@@ -249,8 +249,7 @@ public class CaregiverViewModel {
 		for (Appointment theAppointment : appointments) {
 			if (!theAppointment.hasPassed()) {
 				this.futureppointmentList.add(theAppointment);
-			}
-			else {
+			} else {
 				this.pastAppointmentList.add(theAppointment);
 			}
 		}

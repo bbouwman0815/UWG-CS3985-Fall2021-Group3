@@ -1,8 +1,6 @@
-package edu.westga.cs4985.clinicApp.main;
+package edu.westga.cs4985.clinicApp.server;
 
 import org.zeromq.ZMQ;
-
-import edu.westga.cs4985.clinicApp.server.Server;
 
 public class Main {
 

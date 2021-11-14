@@ -568,7 +568,6 @@ public class Server extends Thread {
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 * @throws ParseException the parse exception
 	 */
-	@SuppressWarnings("unchecked")
 	private String getCaregiverPatients(String jsonString) throws IOException, ParseException {
 		JSONParser parser = new JSONParser();
 		JSONArray patients = new JSONArray();
