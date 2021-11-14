@@ -14,7 +14,7 @@
             <Font name="Andale Mono" size="39.0" />
          </font>
       </Label>
-      <AnchorPane fx:id="anchorPaneViewer" layoutX="264.0" layoutY="104.0" prefHeight="534.0" prefWidth="718.0" />
+      <AnchorPane fx:id="anchorPaneViewer" layoutX="264.0" layoutY="104.0" prefHeight="534.0" prefWidth="718.0" visible="false" />
       <VBox prefHeight="690.0" prefWidth="220.0">
          <children>
             <Button fx:id="generalInfoNavButton" mnemonicParsing="false" onAction="#handleNavigateToGeneralInfo" prefHeight="230.0" prefWidth="220.0" text="General Information">
@@ -44,5 +44,30 @@
          </children>
       </VBox>
       <Button fx:id="logoutButton" layoutX="927.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleLogout" prefHeight="25.0" prefWidth="71.0" text="Logout" textFill="#b90b0b" />
+      <Label fx:id="welcomeText" layoutX="378.0" layoutY="146.0" prefHeight="97.0" prefWidth="586.0" textFill="#940c0c">
+         <font>
+            <Font name="Gujarati MT" size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="upcomingLabel" layoutX="371.0" layoutY="269.0" prefHeight="59.0" prefWidth="286.0" text="Upcoming Appointments:" textFill="#5623b5">
+         <font>
+            <Font name="Gujarati MT" size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="appointmentText" layoutX="371.0" layoutY="345.0" prefHeight="97.0" prefWidth="586.0" textFill="#940c0c">
+         <font>
+            <Font name="Gujarati MT" size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="todayLabel" layoutX="371.0" layoutY="453.0" prefHeight="59.0" prefWidth="586.0" text="Today:" textFill="#5623b5">
+         <font>
+            <Font name="Gujarati MT" size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="dayText" layoutX="371.0" layoutY="534.0" prefHeight="97.0" prefWidth="363.0" textFill="#940c0c">
+         <font>
+            <Font name="Gujarati MT" size="24.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

@@ -40,7 +40,6 @@ public class TestUserLogin {
 		assertEquals(json.toJSONString(), server.userLogin(json1.toJSONString()));
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Test
 	public void testPaseError() throws IOException, ParseException {
 		Server server = new Server();

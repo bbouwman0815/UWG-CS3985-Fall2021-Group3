@@ -6,10 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 import edu.westga.cs4985.clinicApp.model.MedicalPersonnel;
-import edu.westga.cs4985.clinicApp.model.Patient;
 import edu.westga.cs4985.clinicApp.model.User;
 import edu.westga.cs4985.clinicApp.viewmodel.MedicalPersonnelViewModel;
-import edu.westga.cs4985.clinicApp.viewmodel.PatientViewModel;
 
 public class TestConstructor {
 	
@@ -36,7 +34,9 @@ public class TestConstructor {
 				() -> assertEquals(0, viewModel.getPatients().size()),
 				() -> assertEquals(null, viewModel.selectedPatient()),
 				() -> assertEquals(null, viewModel.selectedPatientProperty().getValue()),
-				() -> assertEquals(0, viewModel.patientsListProperty().size()));
+				() -> assertEquals(0, viewModel.patientsListProperty().size()),
+				() -> assertEquals(0, viewModel.allPatientsListProperty().size()),
+				() -> assertEquals(0, viewModel.getAllPatients().size()));
 	}
 
 }

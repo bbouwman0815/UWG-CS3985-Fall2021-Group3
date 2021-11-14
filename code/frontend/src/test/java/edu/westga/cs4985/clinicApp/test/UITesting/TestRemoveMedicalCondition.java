@@ -9,7 +9,6 @@ import edu.westga.cs4985.clinicApp.ClinicApp;
 import edu.westga.cs4985.clinicApp.client.Communicator;
 import edu.westga.cs4985.clinicApp.client.RequestType;
 import edu.westga.cs4985.clinicApp.model.UserManager;
-import javafx.scene.control.ButtonType;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
@@ -19,7 +18,7 @@ class TestRemoveMedicalCondition extends ApplicationTest {
 	public void start(Stage stage) throws IOException {
 		ClinicApp app = new ClinicApp();
 		UserManager user = new UserManager(new ServerFake());
-		app.user = user;
+		app.setUser(user);
 		app.start(stage);
 	}
 
@@ -78,9 +77,10 @@ class TestRemoveMedicalCondition extends ApplicationTest {
 		this.clickOn("#loginButton");
 		this.clickOn("#medicalConditionsNavButton");
 
-		this.rightClickOn(1250, 475);
+		this.clickOn("#medicalConditionTableView");
+		this.type(KeyCode.UP);
 		this.clickOn("#deleteConditionButton");
-		this.clickOn(1030, 445);
+		this.type(KeyCode.ENTER);
 
 	}
 	
@@ -111,10 +111,10 @@ class TestRemoveMedicalCondition extends ApplicationTest {
 		this.clickOn("#loginButton");
 		this.clickOn("#medicalConditionsNavButton");
 
-		this.rightClickOn(1250, 475);
+		this.clickOn("#medicalConditionTableView");
+		this.type(KeyCode.UP);
 		this.clickOn("#deleteConditionButton");
-		this.clickOn(1060, 445);
-
+		this.type(KeyCode.ESCAPE);
 	}
 
 }

@@ -1,5 +1,6 @@
 package edu.westga.cs4985.clinicApp.test.UITesting;
 
+
 import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
@@ -18,7 +19,7 @@ public class TestPatientAppointment extends ApplicationTest {
 	public void start(Stage stage) throws IOException {
 		ClinicApp app = new ClinicApp();
 	    UserManager user = new UserManager(new ServerFake());
-	    app.user = user;
+	    app.setUser(user);
 	    app.start(stage);
 	}
 	
@@ -111,7 +112,7 @@ public class TestPatientAppointment extends ApplicationTest {
 		
 		this.clickOn("#bookAnAppointment");
 		this.type(KeyCode.ENTER);
-		this.clickOn("#OKButton");
+		this.clickOn("#oKButton");
 	}
 	
 	@Test
@@ -141,7 +142,7 @@ public class TestPatientAppointment extends ApplicationTest {
 		this.clickOn("#pastAppointmentList");
 		this.type(KeyCode.ENTER);
 		this.clickOn("#pastAppointmentList");
-		this.clickOn("#OKButton");
+		this.clickOn("#oKButton");
 		
 	}
 	

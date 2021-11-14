@@ -13,17 +13,17 @@ import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
 public class TestRegisterMedicalPersonnel extends ApplicationTest {
-	
+
 	@Override
 	public void start(Stage stage) throws IOException {
 		ClinicApp app = new ClinicApp();
-	    UserManager user = new UserManager(new ServerFake());
-	    app.user = user;
-	    app.start(stage);
+		UserManager user = new UserManager(new ServerFake());
+		UserManager.setUserManager(user);
+		app.setUser(user);
+		app.start(stage);
 	}
-	
-	private class ServerFake extends Communicator {
 
+	private class ServerFake extends Communicator {
 
 		@Override
 		public String request(RequestType requestType, String data) {
@@ -31,31 +31,37 @@ public class TestRegisterMedicalPersonnel extends ApplicationTest {
 
 			if (request.equals("GET_USER_BY_MEDICAL_PERSONNEL_USERNAME,{\"medicalPersonnel\":\"jimmy123\"}")) {
 				return "{\"insurance\":\"8888888888\",\"lastName\":\"Bob\",\"country\":\"USA\",\"gender\":\"male\",\"race\":\"American Indian or Alaska Native\",\"address2\":\"\",\"city\":\"Carrollton\",\"address1\":\"3433 Atlanta Peachway\",\"dateOfBirth\":\"1990-09-29\",\"type\":\"MedicalPersonnel\",\"userName\":\"jimmy123\",\"firstName\":\"Jimmy\",\"password\":\"5f4dcc3b5aa765d61d8327deb882cf99\",\"phoneNumber\":\"123456789\",\"ethnicty\":\"Not Hispanic or Latino\",\"caregiver\":\"Caregiver C\",\"state\":\"GA\",\"email\":\"jimmy12334@gmail.com\"}";
+			}
+			if (request.equals(
+					"ADD_MEDICAL_PERSONNEL,{\"lastName\":\"ling\",\"country\":\"AD\",\"gender\":\"Male\",\"race\":\"American Indian or Alaska Native\",\"address2\":\"none\",\"city\":\"atlanta\",\"address1\":\"atlanta new way\",\"dateOfBirth\":\"1992-09-09\",\"type\":\"MedicalPersonnel\",\"userName\":\"timi12\",\"zipcode\":\"30118\",\"firstName\":\"timi\",\"password\":\"5f4dcc3b5aa765d61d8327deb882cf99\",\"phoneNumber\":\"6780977575\",\"ethnicty\":\"Hispanic or Latino\",\"state\":\"ga\",\"email\":\"timigmail.com\"}")) {
+				return "ADDED";
 			} else {
 				return "ERROR";
 			}
 		}
-		
+
 	}
-	
+
 	@Test
 	public void testRegisterMedicalPersonnel() throws InterruptedException {
-		
+
 		this.clickOn("#registerButton");
 		this.clickOn("#roleSelecter");
 		this.type(KeyCode.PAGE_DOWN);
 		this.type(KeyCode.UP);
 		this.type(KeyCode.ENTER);
-		
+
 		this.clickOn("#goButton");
-		
+
 		this.clickOn("#addMedicalPersonnel");
-		
+
 		this.clickOn("#usernameTextField");
 		this.type(KeyCode.T);
 		this.type(KeyCode.I);
 		this.type(KeyCode.M);
 		this.type(KeyCode.I);
+		this.type(KeyCode.DIGIT1);
+		this.type(KeyCode.DIGIT2);
 		this.clickOn("#passwordTextField");
 		this.type(KeyCode.P);
 		this.type(KeyCode.A);
@@ -164,23 +170,23 @@ public class TestRegisterMedicalPersonnel extends ApplicationTest {
 		this.type(KeyCode.DIGIT8);
 		this.clickOn("#addMedicalPersonnel");
 	}
-	
+
 	@Test
 	public void testRegisterMedicalPersonnelExist() throws InterruptedException {
-		
+
 		this.clickOn("#registerButton");
 		this.clickOn("#cancelButton");
-		
+
 		this.clickOn("#registerButton");
 		this.clickOn("#roleSelecter");
 		this.type(KeyCode.PAGE_DOWN);
 		this.type(KeyCode.UP);
 		this.type(KeyCode.ENTER);
-		
+
 		this.clickOn("#goButton");
-		
+
 		this.clickOn("#addMedicalPersonnel");
-		
+
 		this.clickOn("#usernameTextField");
 		this.type(KeyCode.J);
 		this.type(KeyCode.I);
@@ -199,7 +205,7 @@ public class TestRegisterMedicalPersonnel extends ApplicationTest {
 		this.type(KeyCode.O);
 		this.type(KeyCode.R);
 		this.type(KeyCode.D);
-		
+
 		this.clickOn("#firstNameInput");
 		this.type(KeyCode.SPACE);
 		this.clickOn("#lastNameInput");
@@ -224,4 +230,3 @@ public class TestRegisterMedicalPersonnel extends ApplicationTest {
 	}
 
 }
-

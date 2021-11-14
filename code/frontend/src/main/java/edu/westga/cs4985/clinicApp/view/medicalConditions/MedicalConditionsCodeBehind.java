@@ -108,7 +108,7 @@ public class MedicalConditionsCodeBehind {
 
 	@FXML
 	void handleDeleteMedicalCondition(ActionEvent event) {
-		onRemovePlaceHolder();
+		this.onRemovePlaceHolder();
 	}
 
 	void onRemovePlaceHolder() {
@@ -120,16 +120,16 @@ public class MedicalConditionsCodeBehind {
 						.getSelectedItem();
 				if (selectedMedicalCondition != null) {
 					this.medicalConditionTableView.getItems().remove(selectedMedicalCondition);
-					UserManager.userManager.removeMedicalCondition(selectedMedicalCondition);
+					UserManager.userManager().removeMedicalCondition(selectedMedicalCondition);
 				}
 			}
 		});
 	}
-	
+
 	void setMedicalConditions() throws ParseException {
 		List<MedicalCondition> medicalConditions = FXCollections.observableArrayList(
-				UserManager.userManager.getMedicalConditions(this.viewModel.getPatient().getUsername()));
-		medicalConditionTableView.itemsProperty().set((ObservableList<MedicalCondition>) medicalConditions);
+				UserManager.userManager().getMedicalConditions(this.viewModel.getPatient().getUsername()));
+		this.medicalConditionTableView.itemsProperty().set((ObservableList<MedicalCondition>) medicalConditions);
 	}
 
 	public class AddMedicalConditionPopupCodeBehind {
@@ -157,7 +157,7 @@ public class MedicalConditionsCodeBehind {
 
 		@FXML
 		void handleAddCondition(ActionEvent event) throws ParseException {
-			Patient user = (Patient) User.user;
+			Patient user = (Patient) User.user();
 			try {
 				String name = this.nameTextField.getText();
 				LocalDate diagnosisDate = this.diagnosisDatePicker.getValue();
@@ -166,16 +166,15 @@ public class MedicalConditionsCodeBehind {
 				String termination = terminationDate.toString();
 				String notes = this.notesTextArea.getText();
 				MedicalCondition medicalCondition = new MedicalCondition(user, name, diagnosis, termination, notes);
-				UserManager.userManager.addMedicalCondition(medicalCondition);
-				setMedicalConditions();
+				UserManager.userManager().addMedicalCondition(medicalCondition);
+				MedicalConditionsCodeBehind.this.setMedicalConditions();
 				this.returnToPreviousStage(event);
-			} catch(NullPointerException e) {
+			} catch (NullPointerException e) {
 				Alert alert = WindowGenerator.openAlert("Please fill out all data!");
-            	
-    			alert.showAndWait();
+
+				alert.showAndWait();
 			}
-			
-			
+
 		}
 
 		@FXML
@@ -185,7 +184,7 @@ public class MedicalConditionsCodeBehind {
 
 		@FXML
 		void handleTerminationDate(ActionEvent event) {
-		
+
 		}
 
 		public AddMedicalConditionPopupCodeBehind() {

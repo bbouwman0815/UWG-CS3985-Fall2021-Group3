@@ -2,7 +2,6 @@ package edu.westga.cs4985.clinicApp.test.UserManager;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import org.json.simple.parser.ParseException;

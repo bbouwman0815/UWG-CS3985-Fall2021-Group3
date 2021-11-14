@@ -193,7 +193,7 @@
                   </Tab>
               </tabs>
             </TabPane>
-            <Button fx:id="addPatientButton" layoutX="293.0" layoutY="643.0" mnemonicParsing="false" onAction="#handleAddPatient" prefHeight="25.0" prefWidth="67.0" text="Add">
+            <Button fx:id="addPatientButton" layoutX="294.0" layoutY="643.0" mnemonicParsing="false" onAction="#handleAddPatient" prefHeight="25.0" prefWidth="67.0" text="Add">
                <effect>
                   <SepiaTone />
                </effect></Button>
@@ -207,6 +207,11 @@
                   <Font name="Chalkboard SE Light" size="18.0" />
                </font>
             </Label>
+            <Button fx:id="removePatientButton" layoutX="294.0" layoutY="643.0" mnemonicParsing="false" onAction="#handleRemovePatient" prefHeight="25.0" prefWidth="67.0" text="Remove">
+               <effect>
+                  <SepiaTone />
+               </effect>
+            </Button>
          </children></AnchorPane>
    </children>
 </AnchorPane>

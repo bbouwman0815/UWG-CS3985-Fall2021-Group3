@@ -5,6 +5,7 @@ import java.util.regex.Pattern;
 
 /**
  * The Class InputValidators.
+ * 
  * @author Brian Bouwman
  * @version Fall 20201
  */
@@ -14,13 +15,15 @@ public class InputValidators {
 	 * Validate phone number.
 	 *
 	 * @param phoneNumber the phone number
+	 * 
+	 * @return true if valid, false otherwise
 	 */
 	public static boolean validatePhoneNumber(String phoneNumber) {
 		Pattern pattern = Pattern.compile("^((\\(\\d{3}\\))|\\d{3})[- .]?\\d{3}[- .]?\\d{4}$");
 		Matcher matcher = pattern.matcher(phoneNumber);
 		return matcher.matches();
 	}
-	
+
 	/**
 	 * Validate email.
 	 *
@@ -32,8 +35,7 @@ public class InputValidators {
 		Matcher matcher = pattern.matcher(email);
 		return matcher.matches();
 	}
-	
-	
+
 	/**
 	 * Validate birthday.
 	 *
@@ -45,6 +47,5 @@ public class InputValidators {
 		Matcher matcher = pattern.matcher(birthday);
 		return matcher.matches();
 	}
-	
-	
+
 }

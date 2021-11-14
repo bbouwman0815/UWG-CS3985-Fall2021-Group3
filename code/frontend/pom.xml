@@ -87,6 +87,9 @@
 			<plugin><!-- testing services -->
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.22.2</version>
+				<configuration>
+					<trimStackTrace>false</trimStackTrace>
+				</configuration>
 			</plugin>
 			
 			<plugin><!-- javafx support -->
@@ -149,6 +152,7 @@
 									<includes>
 										<include>edu.westga.cs4985.clinicApp.model</include>
 										<include>edu.westga.cs4985.clinicApp.viewmodel</include>
+                                        <include>edu.westga.cs4985.clinicApp.view.caregiver</include>
                                         <include>edu.westga.cs4985.clinicApp.view.appointment</include>
                                         <include>edu.westga.cs4985.clinicApp.view.medicalPersonnel</include>
                                         <include>edu.westga.cs4985.clinicApp.view.login</include>
@@ -172,6 +176,28 @@
 						</configuration>
 					</execution>
 					
+				</executions>
+			</plugin>
+			
+			<plugin> <!-- checks code styling -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<version>3.1.2</version>
+				<configuration>
+					<configLocation>devops_checks.xml</configLocation>
+					<encoding>UTF-8</encoding>
+					<consoleOutput>true</consoleOutput>
+					<failsOnError>true</failsOnError>
+					<linkXRef>false</linkXRef>
+				</configuration>
+				<executions>
+						<execution>
+							<id>validate</id>
+							<phase>validate</phase>
+							<goals>
+								<goal>check</goal>
+							</goals>
+						</execution>
 				</executions>
 			</plugin>
 			

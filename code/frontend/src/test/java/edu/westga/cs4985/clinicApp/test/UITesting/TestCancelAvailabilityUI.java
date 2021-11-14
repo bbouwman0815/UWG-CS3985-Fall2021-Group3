@@ -19,7 +19,7 @@ public class TestCancelAvailabilityUI extends ApplicationTest {
 	public void start(Stage stage) throws IOException {
 		ClinicApp app = new ClinicApp();
 	    UserManager user = new UserManager(new ServerFake());
-	    app.user = user;
+	    app.setUser(user);
 	    app.start(stage);
 	}
 	
@@ -39,7 +39,6 @@ public class TestCancelAvailabilityUI extends ApplicationTest {
 		
 	}
 	
-	@SuppressWarnings("deprecation")
 	@Test
 	public void testAddAvailability() throws InterruptedException {
 		this.clickOn("#usernameTextField");

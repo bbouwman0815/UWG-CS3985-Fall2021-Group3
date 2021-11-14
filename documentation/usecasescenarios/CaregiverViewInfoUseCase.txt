@@ -1,0 +1,13 @@
+Use Case Scenario :: Caregiver Patient (self) info
+
+Primary flow
+1) Caregiver logs into portal
+2) Caregiver select patient from list view
+3) Caregiver uses taps to switch to general information
+4) Caregiver views general information
+
+Alternate flow
+3b) Caregiver views general information on dashboard
+
+Alternate flow
+3c) Caregiver uses taps to switch to medical history/record or appointments

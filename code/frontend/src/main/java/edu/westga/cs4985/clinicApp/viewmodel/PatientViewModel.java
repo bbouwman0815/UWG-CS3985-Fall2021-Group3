@@ -8,7 +8,6 @@ import edu.westga.cs4985.clinicApp.model.Appointment;
 import edu.westga.cs4985.clinicApp.model.MedicalPersonnel;
 import edu.westga.cs4985.clinicApp.model.Patient;
 import edu.westga.cs4985.clinicApp.model.User;
-import edu.westga.cs4985.clinicApp.model.UserManager;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleListProperty;
@@ -25,7 +24,7 @@ import javafx.collections.FXCollections;
  *
  */
 public class PatientViewModel {
-	
+
 	private ObjectProperty<MedicalPersonnel> seletedMedicalPersonnel;
 	private ObjectProperty<LocalDateTime> selectedAvailabilityProperty;
 	private ListProperty<LocalDateTime> availabilityListProperty;
@@ -37,7 +36,7 @@ public class PatientViewModel {
 	private StringProperty notesProperty;
 	private List<Appointment> pastAppointmentList;
 	private Patient patient;
-	
+
 	/**
 	 * Create view model for patient general information.
 	 * 
@@ -46,7 +45,7 @@ public class PatientViewModel {
 	 * @postcondition none
 	 */
 	public PatientViewModel() {
-		this.patient = (Patient) User.user;
+		this.patient = (Patient) User.user();
 		this.seletedMedicalPersonnel = new SimpleObjectProperty<MedicalPersonnel>();
 		this.selectedFutureAppointmentProperty = new SimpleObjectProperty<Appointment>();
 		this.selectedPastAppointmentProperty = new SimpleObjectProperty<Appointment>();
@@ -57,9 +56,9 @@ public class PatientViewModel {
 		this.notesProperty = new SimpleStringProperty("");
 		this.futureppointmentList = new ArrayList<Appointment>();
 		this.pastAppointmentList = new ArrayList<Appointment>();
-		
+
 	}
-	
+
 	/**
 	 * Get the patient user
 	 * 
@@ -68,20 +67,21 @@ public class PatientViewModel {
 	public Patient getPatient() {
 		return this.patient;
 	}
-	
-	
+
 	/**
 	 * Booking an appointment for user
 	 * 
 	 * @return the booked appointment
 	 */
 	public Appointment bookAppointment() {
-		Appointment appointment = new Appointment(this.selectedAvailabilityProperty.get(), this.patient, this.seletedMedicalPersonnel.get(), this.seletedMedicalPersonnel.get().getFullAddress(), this.notesProperty.get());
+		Appointment appointment = new Appointment(this.selectedAvailabilityProperty.get(), this.patient,
+				this.seletedMedicalPersonnel.get(), this.seletedMedicalPersonnel.get().getFullAddress(),
+				this.notesProperty.get());
 		this.futureppointmentList.add(appointment);
 		this.futureAppointmentListProperty.set(FXCollections.observableArrayList(this.futureppointmentList));
 		return appointment;
 	}
-	
+
 	/**
 	 * Filter appointment list to future and past sections
 	 * 
@@ -91,8 +91,7 @@ public class PatientViewModel {
 		for (Appointment theAppointment : appointments) {
 			if (!theAppointment.hasPassed()) {
 				this.futureppointmentList.add(theAppointment);
-			}
-			else {
+			} else {
 				this.pastAppointmentList.add(theAppointment);
 			}
 		}
@@ -100,22 +99,22 @@ public class PatientViewModel {
 		this.pastAppointmentListProperty.set(FXCollections.observableArrayList(this.pastAppointmentList));
 
 	}
-	
+
 	/**
 	 * Check current appointment if is booked
 	 * 
 	 * @return true if current appointment is booked; otherwise false
 	 */
 	public boolean isBookedAppointment() {
-		for (Appointment appointment : this.futureppointmentList){
-			if (appointment.getMedicalPersonnel().equals(this.seletedMedicalPersonnel.get()) &&
-					appointment.getDateTime().equals(this.selectedAvailabilityProperty.get())) {
+		for (Appointment appointment : this.futureppointmentList) {
+			if (appointment.getMedicalPersonnel().equals(this.seletedMedicalPersonnel.get())
+					&& appointment.getDateTime().equals(this.selectedAvailabilityProperty.get())) {
 				return true;
 			}
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Cancel an appointment for user
 	 * 
@@ -127,7 +126,7 @@ public class PatientViewModel {
 		this.futureAppointmentListProperty.set(FXCollections.observableArrayList(this.futureppointmentList));
 		return appointment;
 	}
-	
+
 	/**
 	 * Get the selected medical personnel
 	 * 
@@ -136,7 +135,7 @@ public class PatientViewModel {
 	public ObjectProperty<MedicalPersonnel> seletedMedicalPersonnel() {
 		return this.seletedMedicalPersonnel;
 	}
-	
+
 	/**
 	 * Get the selected availability property
 	 * 
@@ -145,7 +144,7 @@ public class PatientViewModel {
 	public ObjectProperty<LocalDateTime> selectedAvailabilityProperty() {
 		return this.selectedAvailabilityProperty;
 	}
-	
+
 	/**
 	 * Get the availability list property
 	 * 
@@ -154,7 +153,7 @@ public class PatientViewModel {
 	public ListProperty<LocalDateTime> availabilityListProperty() {
 		return this.availabilityListProperty;
 	}
-	
+
 	/**
 	 * Get the selected future appointment property
 	 * 
@@ -163,7 +162,7 @@ public class PatientViewModel {
 	public ObjectProperty<Appointment> selectedFutureAppointmentProperty() {
 		return this.selectedFutureAppointmentProperty;
 	}
-	
+
 	/**
 	 * Get the selected past appointment property
 	 * 
@@ -172,50 +171,50 @@ public class PatientViewModel {
 	public ObjectProperty<Appointment> selectedPastAppointmentProperty() {
 		return this.selectedPastAppointmentProperty;
 	}
-	
+
 	/**
 	 * Get the future appointment list property
-	 *  
+	 * 
 	 * @return the future appointment list property
 	 */
 	public ListProperty<Appointment> futureAppointmentListProperty() {
 		return this.futureAppointmentListProperty;
 	}
-	
+
 	/**
 	 * Get the past appointment list property
-	 *  
+	 * 
 	 * @return the past appointment list property
 	 */
 	public ListProperty<Appointment> pastAppointmentListProperty() {
 		return this.pastAppointmentListProperty;
 	}
-	
+
 	/**
 	 * Get the notes property
-	 *  
+	 * 
 	 * @return the notes property
 	 */
 	public StringProperty notesProperty() {
 		return this.notesProperty;
 	}
-	
+
 	/**
 	 * Get the future appointment list
-	 *  
+	 * 
 	 * @return the future appointment list
 	 */
 	public List<Appointment> futureppointmentList() {
 		return this.futureppointmentList;
 	}
-	
+
 	/**
 	 * Get the past appointment list
-	 *  
+	 * 
 	 * @return the past appointment list
 	 */
 	public List<Appointment> pastAppointmentList() {
 		return this.pastAppointmentList;
 	}
-	
+
 }

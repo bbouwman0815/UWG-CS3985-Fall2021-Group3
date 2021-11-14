@@ -1,6 +1,5 @@
 package edu.westga.cs4985.clinicApp.test.AppointmentViewModel;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDateTime;
@@ -26,23 +25,15 @@ import edu.westga.cs4985.clinicApp.viewmodel.PatientViewModel;
 public class TestIsBookedAppointment {
 	
 	public MedicalPersonnel medicalPersonnelDummy() {
-		Gender gender = new Gender();
-		Country country = new Country();
-		Race race = new Race();
-		Ethnicity ethnicity = new Ethnicity();
-		MedicalPersonnel patientDummy = new MedicalPersonnel("Xavier", "Jameson", gender.sex[0], "08-08-2008", "912 Maple Street",
-				"East Maple Building 2B", "Carrollton", "GA", country.country[0], race.race[1], ethnicity.ethnicity[1],
+		MedicalPersonnel patientDummy = new MedicalPersonnel("Xavier", "Jameson", Gender.SEX[0], "08-08-2008", "912 Maple Street",
+				"East Maple Building 2B", "Carrollton", "GA", Country.COUNTRY[0], Race.RACE[1], Ethnicity.ETHNICITY[1],
 				"770-111-222", "email@email.com", "New", "New", "30118");
 		return patientDummy;
 	}
 	
 	public MedicalPersonnel medicalPersonnelDummy2() {
-		Gender gender = new Gender();
-		Country country = new Country();
-		Race race = new Race();
-		Ethnicity ethnicity = new Ethnicity();
-		MedicalPersonnel patientDummy = new MedicalPersonnel("new", "new", gender.sex[0], "08-08-2008", "912 Maple Street",
-				"East Maple Building 2B", "Carrollton", "GA", country.country[0], race.race[1], ethnicity.ethnicity[1],
+		MedicalPersonnel patientDummy = new MedicalPersonnel("new", "new", Gender.SEX[0], "08-08-2008", "912 Maple Street",
+				"East Maple Building 2B", "Carrollton", "GA", Country.COUNTRY[0], Race.RACE[1], Ethnicity.ETHNICITY[1],
 				"770-111-222", "new@email.com", "New", "New", "30118");
 		return patientDummy;
 	}

@@ -18,7 +18,7 @@ public class TestCancelAppointmentByMedicalPersonnel  extends ApplicationTest {
 	public void start(Stage stage) throws IOException {
 		ClinicApp app = new ClinicApp();
 	    UserManager user = new UserManager(new ServerFake());
-	    app.user = user;
+	    app.setUser(user);
 	    app.start(stage);
 	}
 	
@@ -77,7 +77,7 @@ public class TestCancelAppointmentByMedicalPersonnel  extends ApplicationTest {
 		this.clickOn("#pastAppointmentList");
 		this.type(KeyCode.ENTER);
 		this.doubleClickOn("#pastAppointmentList");
-		this.clickOn("#OKButton");
+		this.clickOn("#oKButton");
 		this.type(KeyCode.ENTER);
 		
 		this.clickOn("#showfutureButton");
@@ -116,7 +116,7 @@ public class TestCancelAppointmentByMedicalPersonnel  extends ApplicationTest {
 		this.clickOn("#appointmentNotes");
 		this.type(KeyCode.P);
 		this.clickOn("#saveButton");
-		this.clickOn("#OKButton");
+		this.clickOn("#oKButton");
 		
 	}
 

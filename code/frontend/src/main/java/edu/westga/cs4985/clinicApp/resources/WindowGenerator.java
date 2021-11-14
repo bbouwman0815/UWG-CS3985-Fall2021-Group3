@@ -2,11 +2,14 @@ package edu.westga.cs4985.clinicApp.resources;
 
 import java.io.IOException;
 import edu.westga.cs4985.clinicApp.ClinicApp;
+import edu.westga.cs4985.clinicApp.model.Caregiver;
 import edu.westga.cs4985.clinicApp.model.MedicalPersonnel;
 import edu.westga.cs4985.clinicApp.model.Patient;
 import edu.westga.cs4985.clinicApp.model.User;
+import edu.westga.cs4985.clinicApp.view.caregiver.CaregiverCodeBehind;
 import edu.westga.cs4985.clinicApp.view.dashboard.DashboardCodeBehind;
 import edu.westga.cs4985.clinicApp.view.login.LoginCodeBehind;
+import edu.westga.cs4985.clinicApp.view.login.NewCaregiverCodeBehind;
 import edu.westga.cs4985.clinicApp.view.login.NewMedicalPersonnelCodeBehind;
 import edu.westga.cs4985.clinicApp.view.login.NewPatientCodeBehind;
 import edu.westga.cs4985.clinicApp.view.medicalPersonnel.MedicalPersonnelCodeBehind;
@@ -25,12 +28,11 @@ public class WindowGenerator {
 	private static final String PATIENT_PROFILE_TITLE = "Patient Profile";
 	private static final String ADMIN_PROFILE_TITLE = "Admin";
 	private static final String NEW_PATIENT_GUI = "NewPatientGui.fxml";
-	private static final String DASHBOARD_GUI = "../view/dashboard/DashboardGui.fxml";
 	private static final String LOGIN_GUI = "LoginGui.fxml";
-	private static final String PATIENT_GENERAL_INFO = "GeneralInfoGui.fxml";
 	private static final String MEDICAL_PERSONNEL_GUI = "MedicalPersonnelGui.fxml";
 	private static final String MEDICAL_PERSONNEL_PROFILE_TITLE = "Medical Personnel";
 	private static final String NEW_MEDICAL_PERSONNEL_GUI = "NewMedicalPersonnelGui.fxml";
+	private static final String NEW_CAREGIVER = "NewCaregiver.fxml";
 
 	/**
 	 * Sets up the Scene by using the window root and scene title
@@ -84,7 +86,7 @@ public class WindowGenerator {
 	public static void setUserView(Stage currentStage) throws IOException {
 		String fxml = null;
 		Object controller = null;
-		User user = User.user;
+		User user = User.user();
 		if (user instanceof Patient) {
 			fxml = ClinicApp.DASHBOARD_GUI;
 			controller = new DashboardCodeBehind();
@@ -92,6 +94,10 @@ public class WindowGenerator {
 		if (user instanceof MedicalPersonnel) {
 			fxml = "view/medicalpersonnel/MedicalPersonnelGui.fxml";
 			controller = new MedicalPersonnelCodeBehind();
+		}
+		if (user instanceof Caregiver) {
+			fxml = "view/caregiver/CaregiverGui.fxml";
+			controller = new CaregiverCodeBehind();
 		}
 		WindowGenerator.changeScene(currentStage, fxml, controller, PATIENT_PROFILE_TITLE);
 	}
@@ -101,6 +107,8 @@ public class WindowGenerator {
 	 *
 	 * @param fxml       the fxml location
 	 * @param controller the controller
+	 * @param title      the title
+	 * 
 	 * @return the stage
 	 * @throws IOException the IO exception
 	 */
@@ -166,6 +174,14 @@ public class WindowGenerator {
 		WindowGenerator.setupScene((Parent) loader.load(), ADMIN_PROFILE_TITLE);
 	}
 	
+	public static void setupAddNewCaregiver() throws IOException {
+		NewCaregiverCodeBehind codebehind = new NewCaregiverCodeBehind();
+		FXMLLoader loader = new FXMLLoader();
+		loader.setController(codebehind);
+		loader.setLocation(codebehind.getClass().getResource(NEW_CAREGIVER));
+		WindowGenerator.setupScene((Parent) loader.load(), ADMIN_PROFILE_TITLE);
+	}
+
 	public static void setUpLogin(Stage currentStage) throws IOException {
 		LoginCodeBehind codebehind = new LoginCodeBehind();
 		FXMLLoader loader = new FXMLLoader();
