@@ -1,0 +1,12 @@
+Use Case Scenario :: Caregiver Manage Appointments
+
+Primary Flow:
+1) Caregiver logs in
+2) Caregiver select a patient in patient list view
+3) Caregiver navigates from taps  to appointment 
+4) Caregiver views upcoming appointments
+
+Alternate Flow:
+4b) Caregiver selects create appointment
+4c) Caregiver cancel an upcoming appointment
+5) Caregiver selects available slot

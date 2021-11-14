@@ -1,0 +1,14 @@
+Use Case Scenario :: Caregiver Manage General Info
+
+Primary Flow:
+1) Caregiver logs in
+2) Caregiver select patient from patient list view
+3) Caregiver navigates from taps to general info
+4) Caregiver selects "edit" button
+5) Caregiver edits general info
+6) Caregiver confirms edit to general info
+7) Caregiver general information is updated
+
+Alternate Flow:
+6b) Caregiver declines edit to general info
+7b) Caregiver general information is not updated

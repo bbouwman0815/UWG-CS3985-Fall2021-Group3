@@ -1,0 +1,10 @@
+Use Case Scenario :: Caregiver add patient
+
+Primary flow
+1) Caregiver logs into portal
+2) Caregiver select click show all patient under list view
+3) Caregiver select patient
+4) Caregiver click Add button to add patient
+
+Alternate flow
+34) Caregiver return to under cared patient list
