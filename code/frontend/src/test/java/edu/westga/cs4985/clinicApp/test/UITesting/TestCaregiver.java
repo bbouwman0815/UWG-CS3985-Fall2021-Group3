@@ -225,7 +225,7 @@ class TestCaregiver extends ApplicationTest {
 		this.type(KeyCode.TAB);
 		this.type(KeyCode.ENTER);
 	}
-	
+
 	@Test
 	public void testAddPatientCaregiver() throws InterruptedException {
 		this.clickOn("#usernameTextField");

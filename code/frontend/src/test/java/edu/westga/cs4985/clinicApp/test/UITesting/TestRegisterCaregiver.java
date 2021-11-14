@@ -12,7 +12,7 @@ import edu.westga.cs4985.clinicApp.model.UserManager;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
-public class TestRegisterPatientUI extends ApplicationTest {
+class TestRegisterCaregiver extends ApplicationTest {
 
 	@Override
 	public void start(Stage stage) throws IOException {
@@ -29,11 +29,12 @@ public class TestRegisterPatientUI extends ApplicationTest {
 		public String request(RequestType requestType, String data) {
 			String request = requestType + "," + data;
 
-			if (request.equals("GET_USER_BY_USERNAME,{\"patient\":\"jimmy123\"}")) {
-				return "{\"insurance\":\"8888888888\",\"lastName\":\"Bob\",\"country\":\"USA\",\"gender\":\"male\",\"race\":\"American Indian or Alaska Native\",\"address2\":\"\",\"city\":\"Carrollton\",\"address1\":\"3433 Atlanta Peachway\",\"dateOfBirth\":\"1990-09-29\",\"type\":\"PATIENT\",\"userName\":\"jimmy123\",\"firstName\":\"Jimmy\",\"password\":\"5f4dcc3b5aa765d61d8327deb882cf99\",\"phoneNumber\":\"123456789\",\"ethnicty\":\"Not Hispanic or Latino\",\"caregiver\":\"Caregiver C\",\"state\":\"GA\",\"email\":\"jimmy12334@gmail.com\"}";
+			if (request.equals("GET_CAREGIVER_BY_USER_NAME,{\"Caregiver\":\"jimmy123\"}")) {
+				return "{\"insurance\":\"8888888888\",\"lastName\":\"Bob\",\"country\":\"USA\",\"gender\":\"male\",\"race\":\"American Indian or Alaska Native\",\"address2\":\"\",\"city\":\"Carrollton\",\"address1\":\"3433 Atlanta Peachway\",\"dateOfBirth\":\"1990-09-29\",\"type\":\"Caregiver\",\"userName\":\"jimmy123\",\"firstName\":\"Jimmy\",\"password\":\"5f4dcc3b5aa765d61d8327deb882cf99\",\"phoneNumber\":\"123456789\",\"ethnicty\":\"Not Hispanic or Latino\",\"caregiver\":\"Caregiver C\",\"state\":\"GA\",\"email\":\"jimmy12334@gmail.com\"}";
 			}
-			if (request.equals("ADD_PATIENT,{\"insurance\":\"none\",\"lastName\":\"ling\",\"country\":\"AD\",\"gender\":\"Male\",\"race\":\"American Indian or Alaska Native\",\"address2\":\"none\",\"city\":\"atlanta\",\"address1\":\"atlanta new way\",\"dateOfBirth\":\"1992-09-09\",\"type\":\"PATIENT\",\"userName\":\"timi12\",\"firstName\":\"timi\",\"password\":\"5f4dcc3b5aa765d61d8327deb882cf99\",\"phoneNumber\":\"6780977575\",\"ethnicty\":\"Hispanic or Latino\",\"caregiver\":\"\",\"state\":\"ga\",\"email\":\"timigmail.com\"}")) {
-				return "Added";
+			if (request.equals(
+					"ADD_CAREGIVER,{\"lastName\":\"ling\",\"country\":\"AD\",\"gender\":\"Male\",\"race\":\"American Indian or Alaska Native\",\"address2\":\"none\",\"city\":\"atlanta\",\"address1\":\"atlanta new way\",\"dateOfBirth\":\"1992-09-09\",\"type\":\"Caregiver\",\"userName\":\"timi12\",\"firstName\":\"timi\",\"password\":\"5f4dcc3b5aa765d61d8327deb882cf99\",\"phoneNumber\":\"6780977575\",\"ethnicty\":\"Hispanic or Latino\",\"state\":\"ga\",\"email\":\"timigmail.com\"}")) {
+				return "ADDED";
 			} else {
 				return "ERROR";
 			}
@@ -42,31 +43,15 @@ public class TestRegisterPatientUI extends ApplicationTest {
 	}
 
 	@Test
-	public void testRegisterPatientDidNotChooseRole() {
-		this.clickOn("#registerButton");
-		this.clickOn("#cancelButton");
-		this.clickOn("#registerButton");
-		this.clickOn("#roleSelecter");
-		this.type(KeyCode.ENTER);
-
-		this.clickOn("#goButton");
-		this.type(KeyCode.ENTER);
-	}
-
-	@Test
-	public void testRegisterPatient() throws InterruptedException {
-
-		this.clickOn("#registerButton");
-		this.clickOn("#cancelButton");
+	public void testRegisterCaregiver() throws InterruptedException {
 
 		this.clickOn("#registerButton");
 		this.clickOn("#roleSelecter");
-		this.type(KeyCode.PAGE_UP);
+		this.type(KeyCode.PAGE_DOWN);
+		this.type(KeyCode.PAGE_DOWN);
 		this.type(KeyCode.ENTER);
 
 		this.clickOn("#goButton");
-
-		this.clickOn("#addNewPatient");
 
 		this.clickOn("#usernameTextField");
 		this.type(KeyCode.T);
@@ -175,28 +160,23 @@ public class TestRegisterPatientUI extends ApplicationTest {
 		this.clickOn("#countryChoiceBox");
 		this.type(KeyCode.KP_DOWN);
 		this.type(KeyCode.ENTER);
-		this.clickOn("#insuranceInput");
-		this.type(KeyCode.N);
-		this.type(KeyCode.O);
-		this.type(KeyCode.N);
-		this.type(KeyCode.E);
-		this.clickOn("#addNewPatient");
+		this.clickOn("#addCaregiver");
 	}
 
 	@Test
-	public void testRegisterPatientExist() throws InterruptedException {
+	public void testRegisterCaregiverExists() throws InterruptedException {
 
 		this.clickOn("#registerButton");
 		this.clickOn("#cancelButton");
 
 		this.clickOn("#registerButton");
 		this.clickOn("#roleSelecter");
-		this.type(KeyCode.PAGE_UP);
+		this.type(KeyCode.PAGE_DOWN);
+		this.type(KeyCode.PAGE_DOWN);
 		this.type(KeyCode.ENTER);
 
 		this.clickOn("#goButton");
-
-		this.clickOn("#addNewPatient");
+		this.clickOn("#addCaregiver");
 
 		this.clickOn("#usernameTextField");
 		this.type(KeyCode.J);
@@ -235,9 +215,7 @@ public class TestRegisterPatientUI extends ApplicationTest {
 		this.type(KeyCode.SPACE);
 		this.clickOn("#stateInput");
 		this.type(KeyCode.SPACE);
-		this.clickOn("#insuranceInput");
-		this.type(KeyCode.SPACE);
-		this.clickOn("#addNewPatient");
+		this.clickOn("#addCaregiver");
 	}
 
 }

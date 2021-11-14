@@ -16,7 +16,6 @@ import edu.westga.cs4985.clinicApp.viewmodel.MedicalPersonnelViewModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -37,7 +36,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
@@ -187,7 +185,6 @@ public class MedicalPersonnelCodeBehind {
 	}
 
 	public void setListeners() {
-		this.setPatientListViewTwiceClick();
 		this.patientListView.getSelectionModel().selectedItemProperty()
 				.addListener((observable, oldValue, newValue) -> {
 					if (newValue != null) {
@@ -207,36 +204,6 @@ public class MedicalPersonnelCodeBehind {
 				});
 		this.showAllPatientsRadioButton.selectedProperty().addListener((observable, oldType, newType) -> {
 			this.updateDisplay();
-		});
-	}
-	
-	private void setPatientListViewTwiceClick() {
-		this.patientListView.setOnMouseClicked((EventHandler<? super MouseEvent>) new EventHandler<MouseEvent>() {
-
-			@Override
-			public void handle(MouseEvent click) {
-
-				if (click.getClickCount() == 2) {
-					Alert alert = WindowGenerator
-							.openConfirm("Are you sure want to remove the patient from your care?");
-					alert.setOnCloseRequest((evt) -> {
-
-						if (alert.getResult().getButtonData().equals(ButtonData.YES)) {
-							MedicalPersonnelCodeBehind.this.viewmodel.removePatientFromCare();
-							MedicalPersonnelCodeBehind.this.patientListView.getSelectionModel().clearSelection();
-							UserManager.userManager().updateMedicalPersonnelsPatients(
-									MedicalPersonnelCodeBehind.this.viewmodel.getMedicalePersonnel(),
-									MedicalPersonnelCodeBehind.this.viewmodel.getPatients());
-							MedicalPersonnelCodeBehind.this.updateDisplay();
-						}
-						if (alert.getResult().getButtonData().equals(ButtonData.NO)) {
-							MedicalPersonnelCodeBehind.this.patientListView.getSelectionModel().clearSelection();
-						}
-					});
-					alert.showAndWait();
-
-				}
-			}
 		});
 	}
 

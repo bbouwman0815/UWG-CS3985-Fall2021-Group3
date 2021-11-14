@@ -1,0 +1,17 @@
+Use Case Scenario :: Caregiver manage medications 
+
+Primary Flow:
+1) Caregiver logs in
+2) Caregiver select patient from list view
+3) Caregiver navigates from taps to the medications tab
+4) Caregiver can view medications
+
+Alternate Flow:
+4a) Caregiver selects add medication
+5) Caregiver fills out new medication dialog
+6) Dialog confirmation
+
+Alternate Flow:
+4b) Caregiver selects edit/delete medication
+5) Caregiver edits/deletes medication
+6) Dialog confirmation

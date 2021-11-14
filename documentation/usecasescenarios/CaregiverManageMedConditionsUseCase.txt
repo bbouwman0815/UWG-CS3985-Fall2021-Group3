@@ -1,0 +1,13 @@
+Use Case Scenario :: Caregiver manage medical conditions in history/record
+
+Primary Flow:
+1) Caregiver logs in
+2) Caregiver select patient from list view
+3) Caregiver uses taps to swap to medical conditions history/record
+4) Caregiver can view medical conditions
+
+Alternate Flow:
+4a) Caregiver can edit a medical condition
+
+Alternate Flow:
+5b) Caregiver can add a medical condition
