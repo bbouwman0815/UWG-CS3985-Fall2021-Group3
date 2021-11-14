@@ -1,6 +1,5 @@
 package edu.westga.cs4985.clinicApp.test.UITesting;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.IOException;
 

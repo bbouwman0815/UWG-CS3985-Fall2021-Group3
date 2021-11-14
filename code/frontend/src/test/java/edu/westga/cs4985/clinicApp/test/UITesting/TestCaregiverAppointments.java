@@ -115,7 +115,7 @@ public class TestCaregiverAppointments extends ApplicationTest {
 		
 		this.clickOn("#bookAnAppointment");
 		this.type(KeyCode.ENTER);
-		this.clickOn("#OKButton");
+		this.clickOn("#oKButton");
 	}
 	
 	@Test
@@ -148,7 +148,7 @@ public class TestCaregiverAppointments extends ApplicationTest {
 		this.clickOn("#pastAppointmentList");
 		this.type(KeyCode.ENTER);
 		this.clickOn("#pastAppointmentList");
-		this.clickOn("#OKButton");
+		this.clickOn("#oKButton");
 		
 	}
 	
