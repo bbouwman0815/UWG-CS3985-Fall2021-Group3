@@ -142,6 +142,9 @@ public class MedicalPersonnelCodeBehind {
 
 	@FXML
 	private Button addPatientButton;
+	
+	@FXML
+    private Button removePatientButton;
 
 	@FXML
 	private RadioButton showAllPatientsRadioButton;
@@ -165,6 +168,8 @@ public class MedicalPersonnelCodeBehind {
 		this.appointmentPane.getChildren().setAll(pane);
 		this.addCaregiverButton.setVisible(false);
 		this.removeCaregiverButton.setVisible(false);
+		this.removePatientButton.setVisible(true);
+		this.addPatientButton.setVisible(false);
 	}
 
 	private void setMedicalConditionsTable() {
@@ -238,8 +243,12 @@ public class MedicalPersonnelCodeBehind {
 	private void updateDisplay() {
 		if (this.showAllPatientsRadioButton.isSelected()) {
 			this.viewmodel.loadAllPatients();
+			this.removePatientButton.setVisible(false);
+			this.addPatientButton.setVisible(true);
 		} else {
 			this.viewmodel.loadPatients();
+			this.removePatientButton.setVisible(true);
+			this.addPatientButton.setVisible(false);
 		}
 
 	}
@@ -270,6 +279,7 @@ public class MedicalPersonnelCodeBehind {
 		this.address1Input.setText(selectedPatient.getAddress1());
 		this.address2Input.setText(selectedPatient.getAddress2());
 		this.cityInput.setText(selectedPatient.getCity());
+		this.caregiverLabel.setText(selectedPatient.getCaregiver() == null ? "" : selectedPatient.getCaregiver().toString());
 		this.stateInput.setText(selectedPatient.getState());
 		this.ethnicityChoiceBox.setValue(selectedPatient.getEthnicity());
 		this.countryChoiceBox.setValue(selectedPatient.getCountry());
@@ -277,7 +287,6 @@ public class MedicalPersonnelCodeBehind {
 		this.sexChoiceBox.setValue(selectedPatient.getGender());
 		this.insuranceInput.setText(selectedPatient.getInsurance());
 		this.birthdayPicker.setValue(datetime);
-		this.caregiverLabel.setText(selectedPatient.getCaregiver().toString());
 
 		this.setMedicalConditions();
 	}
@@ -292,6 +301,25 @@ public class MedicalPersonnelCodeBehind {
 
 			e.printStackTrace();
 		}
+	}
+	
+	@FXML
+	void handleRemovePatient(ActionEvent event) {
+		Alert alert = WindowGenerator
+				.openConfirm("Are you sure want to remove the patient from your care?");
+		alert.setOnCloseRequest((evt) -> {
+
+			if (alert.getResult().getButtonData().equals(ButtonData.YES)) {
+				this.viewmodel.removePatientFromCare();
+				this.patientListView.getSelectionModel().clearSelection();
+				UserManager.userManager().updateMedicalPersonnelsPatients(this.viewmodel.getMedicalePersonnel(), this.viewmodel.getPatients());
+				this.updateDisplay();
+			}
+			if (alert.getResult().getButtonData().equals(ButtonData.NO)) {
+				this.patientListView.getSelectionModel().clearSelection();
+			}
+		});
+		alert.showAndWait();
 	}
 
 	@FXML

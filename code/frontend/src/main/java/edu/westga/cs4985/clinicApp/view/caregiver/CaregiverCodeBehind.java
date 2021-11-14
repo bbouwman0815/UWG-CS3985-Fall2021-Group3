@@ -182,9 +182,6 @@ public class CaregiverCodeBehind {
 		this.removeCaregiverButton.setVisible(false);
 		this.removePatientButton.setVisible(true);
 		this.addPatientButton.setVisible(false);
-		
-
-    	
 	}
 
 	private void setMedicalConditionsTable() {
