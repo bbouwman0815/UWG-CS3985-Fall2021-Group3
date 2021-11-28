@@ -665,5 +665,14 @@ public class UserManager {
 		}
 		return user;
 	}
+	
+	public boolean shutDownServer() throws ParseException {
+		String request = "CLOSE_SERVER";
+		String reply = this.communicator.request(RequestType.CLOSE_SERVER, request);
+		if (reply.equals("ERROR")) {
+			return false;
+		}
+		return true;
+	}
 
 }
