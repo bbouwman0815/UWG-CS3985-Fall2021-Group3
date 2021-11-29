@@ -315,11 +315,17 @@ public class MedicalPersonnelCodeBehind {
 	}
 
 	@FXML
-	void removerCaregiver(ActionEvent event) {
-		this.viewmodel.selectedPatient().setCaregiver(null);
-		this.caregiverLabel.textProperty().set("");
-		this.addCaregiverButton.setVisible(true);
+	void removerCaregiver(ActionEvent event) throws ParseException {
+		Caregiver caregiver = this.viewmodel.selectedPatient().getCaregiver();
+    	this.viewmodel.selectedPatient().setCaregiver(null);
+    	this.caregiverLabel.textProperty().set("");
+    	this.addCaregiverButton.setVisible(true);
 		this.removeCaregiverButton.setVisible(false);
+		List<Patient> patients = UserManager.userManager().getPatientsForCaregiver(caregiver.getUsername());
+		patients.remove(this.viewmodel.selectedPatient());
+		UserManager.userManager().updateCaregiverPatients(caregiver, patients);
+		UserManager.userManager().updatePatientGeneralInfo(this.viewmodel.selectedPatient());
+		this.updateDisplay();
 	}
 
 	public class AddCaregiverPopupCodeBehind {
@@ -334,7 +340,7 @@ public class MedicalPersonnelCodeBehind {
 		}
 
 		@FXML
-		void onAdd(ActionEvent event) {
+		void onAdd(ActionEvent event) throws ParseException {
 			if (this.caregiverList.getSelectionModel().getSelectedItem() == null) {
 				Alert alert = WindowGenerator.openAlert("Please select your caregiver!");
 
@@ -344,11 +350,16 @@ public class MedicalPersonnelCodeBehind {
 				MedicalPersonnelCodeBehind.this.removeCaregiverButton.setVisible(true);
 				MedicalPersonnelCodeBehind.this.caregiverLabel.textProperty()
 						.set(this.caregiverList.getSelectionModel().getSelectedItem().toString());
+				Caregiver caregiver = this.caregiverList.getSelectionModel().getSelectedItem();
+        		List<Patient> patients = UserManager.userManager().getPatientsForCaregiver(caregiver.getUsername());
+        		patients.add(this.viewModel.selectedPatient());
+        		UserManager.userManager().updateCaregiverPatients(caregiver, patients);
 				this.viewModel.selectedPatient().setCaregiver(this.caregiverList.getSelectionModel().getSelectedItem());
 				UserManager.userManager().updatePatientGeneralInfo(this.viewModel.selectedPatient());
+				MedicalPersonnelCodeBehind.this.loadPatientData();
+				MedicalPersonnelCodeBehind.this.updateDisplay();
 				this.returnToPreviousStage(event);
 			}
-
 		}
 
 		@FXML
