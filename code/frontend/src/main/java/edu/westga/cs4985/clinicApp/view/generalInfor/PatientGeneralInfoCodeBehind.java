@@ -32,6 +32,8 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -329,11 +331,16 @@ public class PatientGeneralInfoCodeBehind {
 	}
 
 	@FXML
-	void removerCaregiver(ActionEvent event) {
-		this.viewModel.getPatient().setCaregiver(null);
-		this.caregiverLabel.textProperty().set("");
-		this.addCaregiverButton.setVisible(true);
+	void removerCaregiver(ActionEvent event) throws ParseException {
+		Caregiver caregiver = this.viewModel.getPatient().getCaregiver();
+    	this.viewModel.getPatient().setCaregiver(null);
+    	this.caregiverLabel.textProperty().set("");
+    	this.addCaregiverButton.setVisible(true);
 		this.removeCaregiverButton.setVisible(false);
+		List<Patient> patients = UserManager.userManager().getPatientsForCaregiver(caregiver.getUsername());
+		patients.remove(this.viewModel.getPatient());
+		UserManager.userManager().updateCaregiverPatients(caregiver, patients);
+		UserManager.userManager().updatePatientGeneralInfo(this.viewModel.getPatient());
 	}
 
 	@FXML
@@ -494,7 +501,7 @@ public class PatientGeneralInfoCodeBehind {
 		}
 
 		@FXML
-		void onAdd(ActionEvent event) {
+		void onAdd(ActionEvent event) throws ParseException {
 			if (this.caregiverList.getSelectionModel().getSelectedItem() == null) {
 				Alert alert = WindowGenerator.openAlert("Please select your caregiver!");
 
@@ -504,7 +511,12 @@ public class PatientGeneralInfoCodeBehind {
 				PatientGeneralInfoCodeBehind.this.removeCaregiverButton.setVisible(true);
 				PatientGeneralInfoCodeBehind.this.caregiverLabel.textProperty()
 						.set(this.caregiverList.getSelectionModel().getSelectedItem().toString());
+				Caregiver caregiver = this.caregiverList.getSelectionModel().getSelectedItem();
+        		List<Patient> patients = UserManager.userManager().getPatientsForCaregiver(caregiver.getUsername());
+        		patients.add(this.viewModel.getPatient());
+        		UserManager.userManager().updateCaregiverPatients(caregiver, patients);
 				this.viewModel.getPatient().setCaregiver(this.caregiverList.getSelectionModel().getSelectedItem());
+				UserManager.userManager().updatePatientGeneralInfo(this.viewModel.getPatient());
 				this.returnToPreviousStage(event);
 			}
 

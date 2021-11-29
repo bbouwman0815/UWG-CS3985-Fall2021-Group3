@@ -280,17 +280,27 @@ public class CaregiverCodeBehind {
 	}
 
 	@FXML
-	void handleAddPatient(ActionEvent event) {
+	void handleAddPatient(ActionEvent event) throws ParseException {
 		if (this.viewmodel.checkPatientUnderCare()) {
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.setContentText("Patient is already under your care");
 			alert.show();
 		} else {
-			this.viewmodel.addPatientToCare();
-			this.patientListView.getSelectionModel().clearSelection();
-			UserManager.userManager().updateCaregiverPatients(this.viewmodel.getCaregiver(),
-					this.viewmodel.getPatients());
-			this.updateDisplay();
+			Patient patient = this.viewmodel.addPatientToCare();
+			if (patient.getCaregiver() != null) {
+				Alert alert = WindowGenerator.openAlert("The selected patient already under "
+						+ patient.getCaregiver().getFirstName() + " " 
+						+ patient.getCaregiver().getLastName() + "'s care. Please try again later!");
+            	
+    			alert.showAndWait();
+			} else {
+				UserManager.userManager().updateCaregiverPatients(this.viewmodel.getCaregiver(),
+						this.viewmodel.getPatients());
+				patient.setCaregiver(this.viewmodel.getCaregiver());
+				UserManager.userManager().updatePatientGeneralInfo(patient);
+				this.loadPatientData();
+				this.updateDisplay();
+			}
 		}
 	}
 
@@ -327,6 +337,25 @@ public class CaregiverCodeBehind {
 			e.printStackTrace();
 		}
 	}
+	
+	void resetDisplay() {
+		this.firstNameInput.setText("");
+		this.lastNameInput.setText("");
+		this.phoneInput.setText("");
+		this.emailInput.setText("");
+		this.address1Input.setText("");
+		this.address2Input.setText("");
+		this.cityInput.setText("");
+		this.caregiverLabel.setText("");
+		this.stateInput.setText("");
+		this.ethnicityChoiceBox.setValue("");
+		this.countryChoiceBox.setValue("");
+		this.raceChoiceBox.setValue("");
+		this.sexChoiceBox.setValue("");
+		this.insuranceInput.setText("");
+		this.birthdayPicker.setValue(null);
+		this.addCaregiverButton.setVisible(false);
+	}
 
 	@FXML
 	void handleLogout(ActionEvent event) {
@@ -354,11 +383,21 @@ public class CaregiverCodeBehind {
     }
     
     @FXML
-    void removerCaregiver(ActionEvent event) {
+    void removerCaregiver(ActionEvent event) throws ParseException {
+    	Caregiver caregiver = this.viewmodel.selectedPatient().getCaregiver();
     	this.viewmodel.selectedPatient().setCaregiver(null);
     	this.caregiverLabel.textProperty().set("");
     	this.addCaregiverButton.setVisible(true);
 		this.removeCaregiverButton.setVisible(false);
+		if (this.viewmodel.getCaregiver().getUsername().equals(caregiver.getUsername())) {
+			this.viewmodel.removePatientFromCare();
+		}
+		List<Patient> patients = UserManager.userManager().getPatientsForCaregiver(caregiver.getUsername());
+		patients.remove(this.viewmodel.selectedPatient());
+		UserManager.userManager().updateCaregiverPatients(caregiver, patients);
+		UserManager.userManager().updatePatientGeneralInfo(this.viewmodel.selectedPatient());
+		this.updateDisplay();
+		this.resetDisplay();
     }
     
     @FXML
@@ -393,7 +432,7 @@ public class CaregiverCodeBehind {
         }
 
         @FXML
-        void onAdd(ActionEvent event) {
+        void onAdd(ActionEvent event) throws ParseException {
         	if (this.caregiverList.getSelectionModel().getSelectedItem() == null) {
         		Alert alert = WindowGenerator.openAlert("Please select your caregiver!");
             	
@@ -402,8 +441,17 @@ public class CaregiverCodeBehind {
         		CaregiverCodeBehind.this.addCaregiverButton.setVisible(false);
         		CaregiverCodeBehind.this.removeCaregiverButton.setVisible(true);
         		CaregiverCodeBehind.this.caregiverLabel.textProperty().set(this.caregiverList.getSelectionModel().getSelectedItem().toString());
+        		Caregiver caregiver = this.caregiverList.getSelectionModel().getSelectedItem();
+        		if (this.viewModel.getCaregiver().getUsername().equals(caregiver.getUsername())) {
+        			this.viewModel.addPatientToCare();
+        		}
+        		List<Patient> patients = UserManager.userManager().getPatientsForCaregiver(caregiver.getUsername());
+        		patients.add(this.viewModel.selectedPatient());
+        		UserManager.userManager().updateCaregiverPatients(caregiver, patients);
             	this.viewModel.selectedPatient().setCaregiver(this.caregiverList.getSelectionModel().getSelectedItem());
             	UserManager.userManager().updatePatientGeneralInfo(this.viewModel.selectedPatient());
+            	CaregiverCodeBehind.this.loadPatientData();
+            	CaregiverCodeBehind.this.updateDisplay();
             	this.returnToPreviousStage(event);
         	}
         	
