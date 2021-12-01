@@ -965,6 +965,11 @@ public class Server extends Thread {
 					e.printStackTrace();
 				}
 			}
+			
+			if (request.equals("CLOSE_SERVER")) {
+				socket.close();
+				result = "Closed";
+			}
 
 
 			socket.send(result);

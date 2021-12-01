@@ -96,10 +96,10 @@
             <ChoiceBox fx:id="raceChoiceBox" layoutX="109.0" layoutY="120.0" prefHeight="36.0" prefWidth="161.0" />
             <ChoiceBox fx:id="ethnicityChoiceBox" layoutX="417.0" layoutY="62.0" prefHeight="36.0" prefWidth="161.0" />
             <TextField fx:id="insuranceInput" layoutX="111.0" layoutY="440.0" prefHeight="36.0" prefWidth="161.0" />
-            <TextField fx:id="birthdayTextField" layoutX="420.0" layoutY="120.0" prefHeight="36.0" prefWidth="161.0" promptText="DD/MM/YYYY" />
+            <TextField fx:id="birthdayTextField" layoutX="420.0" layoutY="120.0" prefHeight="36.0" prefWidth="161.0" promptText="YYYY/DD/MM" />
             <Label fx:id="invalidPhoneNumberLabel" layoutX="110.0" layoutY="228.0" prefHeight="17.0" prefWidth="161.0" text="Invalid Phone Number" textFill="#e41414" />
             <Label fx:id="invalidEmailLabel" layoutX="420.0" layoutY="228.0" prefHeight="17.0" prefWidth="161.0" text="Invalid Email" textFill="#d70d0d" />
-            <Label fx:id="invalidDateFormat" layoutX="420.0" layoutY="156.0" prefHeight="17.0" prefWidth="161.0" text="Use DD/MM/YYYY format" textFill="#d70d0d" />
+            <Label fx:id="invalidDateFormat" layoutX="420.0" layoutY="156.0" prefHeight="17.0" prefWidth="161.0" text="Use YYYY/DD/MM format" textFill="#d70d0d" />
             <Label fx:id="invalidFirstName" layoutX="111.0" layoutY="41.0" prefHeight="17.0" prefWidth="161.0" text="Invalid First Name" textFill="#da1212" />
             <Label fx:id="invalidLastName" layoutX="420.0" layoutY="41.0" prefHeight="17.0" prefWidth="161.0" text="Invalid Last Name" textFill="#da1212" />
             <Label fx:id="invalidSex" layoutX="111.0" layoutY="98.0" prefHeight="17.0" prefWidth="161.0" text="Please Choose One" textFill="#da1212" />

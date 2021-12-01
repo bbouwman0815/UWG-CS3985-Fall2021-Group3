@@ -290,7 +290,6 @@ public class CaregiverViewModel {
 	public Patient addPatientToCare() {
 		Patient patient = this.selectedPatientProperty.get();
 		this.patients.add(this.selectedPatientProperty.getValue());
-		//this.patientsListProperty.set(FXCollections.observableArrayList(this.patients));
 		return patient;
 	}
 	

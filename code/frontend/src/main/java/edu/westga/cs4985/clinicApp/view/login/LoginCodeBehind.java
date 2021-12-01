@@ -65,8 +65,12 @@ public class LoginCodeBehind {
 
 	@FXML
 	void handleLogin(ActionEvent event) throws ParseException {
+		
 		String userString = this.viewmodel.login();
 		String[] userStringList = userString.split(",");
+		if (userStringList[0].equalsIgnoreCase("shutdown")) {
+			UserManager.userManager().shutDownServer();
+		}
 		User user = UserManager.userManager().login(userStringList[0], userStringList[1]);
 		if (user == null) {
 			Alert alert = WindowGenerator.openAlert("UserName or Password is incorrect!");
