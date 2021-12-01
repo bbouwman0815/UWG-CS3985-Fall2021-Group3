@@ -18,8 +18,8 @@ public class TestCaregiverByUserName {
 		json.put("type", "Caregiver");
 		json.put("userName", "testc");
 		json.put("password", "11111");
-		json.put("firstName", "test");
-		json.put("lastName", "test");
+		json.put("firstName", "Test");
+		json.put("lastName", "Caregiver");
 		json.put("gender", "male");
 		json.put("dateOfBirth", "1990-09-29");
 		json.put("address1", "3433 Atlanta Peachway");

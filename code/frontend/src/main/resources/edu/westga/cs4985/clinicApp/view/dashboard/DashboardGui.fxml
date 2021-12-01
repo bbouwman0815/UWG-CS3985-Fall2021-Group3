@@ -11,7 +11,7 @@
    <children>
       <Label fx:id="pageLabel" alignment="CENTER" layoutX="254.0" layoutY="56.0" prefHeight="48.0" prefWidth="718.0" text="Patient Dashboard" textAlignment="CENTER" textFill="#1f3b97">
          <font>
-            <Font name="Andale Mono" size="39.0" />
+            <Font name="Andale Mono" size="24.0" />
          </font>
       </Label>
       <AnchorPane fx:id="anchorPaneViewer" layoutX="264.0" layoutY="104.0" prefHeight="534.0" prefWidth="718.0" visible="false" />
