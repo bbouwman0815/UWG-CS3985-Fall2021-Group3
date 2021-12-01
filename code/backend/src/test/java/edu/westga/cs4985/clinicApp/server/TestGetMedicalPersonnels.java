@@ -20,8 +20,8 @@ public class TestGetMedicalPersonnels {
 		json.put("type", "MedicalPersonnel");
 		json.put("userName", "testm");
 		json.put("password", "123");
-		json.put("firstName", "test");
-		json.put("lastName", "test");
+		json.put("firstName", "Test");
+		json.put("lastName", "MedicalPersonnel");
 		json.put("gender", "Female");
 		json.put("dateOfBirth", "1990-09-29");
 		json.put("address1", "1601 Maple St");

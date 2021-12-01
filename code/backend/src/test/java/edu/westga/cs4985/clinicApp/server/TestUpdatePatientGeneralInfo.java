@@ -17,8 +17,8 @@ public class TestUpdatePatientGeneralInfo {
 		json.put("type", "PATIENT");
 		json.put("userName", "testp");
 		json.put("password", "11111");
-		json.put("firstName", "test");
-		json.put("lastName", "test");
+		json.put("firstName", "Patient");
+		json.put("lastName", "Test");
 		json.put("gender", "male");
 		json.put("dateOfBirth", "1990-09-29");
 		json.put("address1", "3433 Atlanta Peachway");

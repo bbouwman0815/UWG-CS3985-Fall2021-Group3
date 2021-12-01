@@ -103,7 +103,7 @@ public class DashboardCodeBehind {
 		this.anchorPaneViewer.setVisible(true);
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("../generalInfor/GeneralInfoGui.fxml"));
 		this.anchorPaneViewer.getChildren().setAll(pane);
-		this.pageLabel.textProperty().set("" + this.viewModel.getPatient().getFullName() + "'s General Inforamtion");
+		this.pageLabel.textProperty().set("" + this.viewModel.getPatient().getFullName() + "'s General Information");
 	}
 
 	@FXML
